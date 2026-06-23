@@ -1,0 +1,848 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>蛮牛系统 - 工作台</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="dashboard-page">
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="系统导航">
+        <div class="sidebar-head">
+          <a class="brand" href="#" aria-label="蛋牛系统">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="brand-name">蛮牛</span>
+          </a>
+          <button class="sidebar-toggle" type="button" aria-label="折叠侧边栏" aria-expanded="true">
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <nav class="side-nav">
+          <button class="side-item is-active" type="button" data-page="home" data-title="创作中心">
+            <span class="nav-icon pen" aria-hidden="true"></span>
+            创作中心
+          </button>
+          <button class="side-item" type="button" data-page="video" data-title="视频生成">
+            <span class="nav-icon video" aria-hidden="true"></span>
+            视频生成
+          </button>
+          <button class="side-item" type="button" data-title="无限画布">
+            <span class="nav-icon hash" aria-hidden="true"></span>
+            无限画布
+          </button>
+          <button class="side-item" type="button" data-title="我的资产">
+            <span class="nav-icon asset" aria-hidden="true"></span>
+            我的资产
+          </button>
+          <button class="side-item" type="button" data-title="AI 工具箱">
+            <span class="nav-icon grid" aria-hidden="true"></span>
+            AI 工具箱
+          </button>
+          <button class="side-item" type="button" data-title="模板中心">
+            <span class="nav-icon template" aria-hidden="true"></span>
+            模板中心
+          </button>
+          <button class="side-item" type="button" data-title="反馈帮助">
+            <span class="nav-icon help" aria-hidden="true"></span>
+            反馈帮助
+          </button>
+        </nav>
+
+        <nav class="side-nav lower">
+          <button class="side-item" type="button" data-page="account" data-title="账户设置">
+            <span class="menu-ico gear" aria-hidden="true"></span>
+            账户设置
+          </button>
+          <button class="side-item" type="button" data-page="rights" data-title="开通会员">
+            <span class="nav-icon trophy" aria-hidden="true"></span>
+            开通会员
+          </button>
+          <button class="side-item" type="button" data-title="消息中心">
+            <span class="nav-icon bell-small" aria-hidden="true"></span>
+            消息中心
+            <span class="badge-dot">3</span>
+          </button>
+          <button class="side-item" type="button" data-title="更多">
+            <span class="nav-icon more" aria-hidden="true"></span>
+            更多
+          </button>
+        </nav>
+        <section class="sidebar-invite" aria-label="邀请好友得积分">
+          <h2>邀请好友得积分</h2>
+          <p>最高可得 <strong>1,000</strong> 积分</p>
+          <span class="gift-figure" aria-hidden="true"></span>
+          <button type="button">立即邀请</button>
+        </section>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div class="topbar-crumb">首页 / 工作台</div>
+          <div class="account-strip" aria-label="用户信息">
+            <span class="plan-pill"><span class="diamond" aria-hidden="true"></span>专业版</span>
+            <span class="points">永久积分 <strong>3,710</strong></span>
+            <span class="points">临时积分 <strong>260</strong></span>
+            <button class="charge-btn" type="button">充值</button>
+            <button class="icon-btn" type="button" aria-label="通知">
+              <span class="bell-icon" aria-hidden="true"></span>
+            </button>
+            <button class="user-trigger" type="button" aria-expanded="false">
+              <img src="assets/dashboard/avatar.png" alt="用户头像" />
+              <span>用户昵称</span>
+              <span class="down-arrow" aria-hidden="true"></span>
+            </button>
+
+            <div class="user-menu" aria-label="用户菜单">
+              <button type="button" data-page="account"><span class="menu-ico gear"></span>账户设置</button>
+              <button type="button" data-page="orders"><span class="menu-ico order"></span>我的订单</button>
+              <button type="button" data-page="points"><span class="menu-ico coin"></span>积分明细</button>
+              <button type="button" data-page="rights"><span class="menu-ico crown"></span>我的权益</button>
+              <button type="button" data-page="invite"><span class="menu-ico invite"></span>邀请码</button>
+              <button class="danger" type="button"><span class="menu-ico logout"></span>退出登录</button>
+            </div>
+          </div>
+        </header>
+
+        <section class="page-view is-active" data-page-panel="home" aria-label="工作台首页">
+          <div class="main-grid">
+            <section class="primary-area">
+              <div class="welcome">
+                <h1>欢迎回来，用户 👋</h1>
+                <p>开始创作高质量的电商视觉内容吧</p>
+              </div>
+
+              <section class="prompt-composer" aria-label="图片生成输入区">
+                <div class="prompt-main">
+                  <button class="upload-tile" type="button" aria-label="上传参考图片">
+                    <span class="upload-icon" aria-hidden="true"></span>
+                    <img class="upload-preview" data-upload-preview alt="参考图预览" hidden />
+                  </button>
+                  <input class="reference-file-input" type="file" accept="image/*" data-reference-input hidden />
+                  <textarea
+                    aria-label="输入生成灵感"
+                    placeholder="输入你的即兴灵感，例如：生成一张「蛋牛」品牌的营销广告"
+                  ></textarea>
+                </div>
+                <div class="prompt-toolbar">
+                  <div class="prompt-select">
+                    <span class="select-icon image-mode" aria-hidden="true"></span>
+                    <select aria-label="选择生成类型" data-output-type>
+                      <option value="detail">详情图</option>
+                      <option value="main">主图</option>
+                    </select>
+                    <span class="select-arrow" aria-hidden="true"></span>
+                  </div>
+                  <div class="prompt-select resolution">
+                    <span class="select-icon cube" aria-hidden="true"></span>
+                    <select aria-label="选择清晰度" data-resolution>
+                      <option value="1k">1K</option>
+                      <option value="2k" selected>2K</option>
+                      <option value="4k">4K</option>
+                    </select>
+                    <span class="select-arrow" aria-hidden="true"></span>
+                  </div>
+                  <div class="prompt-select platform">
+                    <span class="select-icon layout" aria-hidden="true"></span>
+                    <select aria-label="选择平台" data-platform>
+                      <option value="amazon" selected>亚马逊</option>
+                      <option value="taobao">淘宝</option>
+                      <option value="pdd">拼多多</option>
+                      <option value="jd">京东</option>
+                    </select>
+                    <span class="platform-language" data-amazon-language>
+                      <span aria-hidden="true"></span>
+                      <select aria-label="选择亚马逊语言" data-language>
+                        <option value="zh" selected>中文</option>
+                        <option value="en">英文</option>
+                      </select>
+                    </span>
+                    <span class="select-arrow" aria-hidden="true"></span>
+                  </div>
+                  <button class="advanced-toggle" type="button" aria-expanded="false" data-advanced-toggle>高级选项</button>
+                  <span class="credit-cost"><span aria-hidden="true">✧</span>80/次</span>
+                  <button class="analyze-button" type="button" aria-label="分析参考图" title="分析参考图">分析</button>
+                  <button class="generate-button" type="button" data-start-detail>立即生图</button>
+                </div>
+                <div class="prompt-advanced" data-advanced-panel hidden>
+                  <label class="advanced-field">
+                    <span>是否包含文字</span>
+                    <select aria-label="是否包含文字" data-include-text>
+                      <option value="include" selected>包含</option>
+                      <option value="exclude">不包含</option>
+                    </select>
+                  </label>
+                  <label class="advanced-field">
+                    <span>生成数量</span>
+                    <input aria-label="生成数量" data-generate-count type="number" min="1" max="10" value="5" />
+                  </label>
+                </div>
+              </section>
+
+              <div class="section-heading">
+                <h2>最近创作</h2>
+                <a href="#">全部作品</a>
+              </div>
+              <div class="work-grid" aria-label="最近创作列表">
+                <article class="work-card">
+                  <img src="assets/dashboard/work-1.png" alt="主图生成作品" />
+                  <h3>主图生成</h3>
+                  <p>2024-05-26 14:30</p>
+                </article>
+                <article class="work-card">
+                  <img src="assets/dashboard/work-2.png" alt="详情页设计作品" />
+                  <h3>详情页设计</h3>
+                  <p>2024-05-26 11:20</p>
+                </article>
+                <article class="work-card">
+                  <img src="assets/dashboard/work-3.png" alt="SKU图生成作品" />
+                  <h3>SKU图生成</h3>
+                  <p>2024-05-26 10:15</p>
+                </article>
+                <article class="work-card">
+                  <img src="assets/dashboard/work-4.png" alt="主图生成作品" />
+                  <h3>主图生成</h3>
+                  <p>2024-05-25 18:40</p>
+                </article>
+                <article class="work-card">
+                  <img src="assets/dashboard/work-5.png" alt="视频创作作品" />
+                  <h3>视频创作</h3>
+                  <p>2024-05-25 16:20</p>
+                </article>
+                <article class="work-card">
+                  <img src="assets/dashboard/work-6.png" alt="详情页设计作品" />
+                  <h3>详情页设计</h3>
+                  <p>2024-05-25 11:05</p>
+                </article>
+              </div>
+            </section>
+
+          </div>
+        </section>
+
+        <section class="page-view detail-layout" data-page-panel="detail" aria-label="详情图 Agent">
+          <div class="agent-page">
+            <header class="agent-head">
+              <div>
+                <button class="detail-back" type="button" data-page="home">返回工作台</button>
+                <h1>详情图 Agent</h1>
+                <p>我会先理解你的输入、参考图和平台规则，再用对话方式补齐生成信息</p>
+              </div>
+              <div class="agent-status">
+                <span>任务准备中</span>
+                <strong><span aria-hidden="true">✧</span>80/次</strong>
+              </div>
+            </header>
+
+            <div class="agent-workbench">
+              <aside class="agent-summary" aria-label="任务摘要">
+                <section class="agent-card">
+                  <div class="agent-card-title">
+                    <h2>用户输入</h2>
+                    <span>Prompt</span>
+                  </div>
+                  <p class="agent-prompt" data-agent-prompt>输入你的即兴灵感，例如：生成一张「蛋牛」品牌的营销广告</p>
+                </section>
+
+                <section class="agent-card">
+                  <div class="agent-card-title">
+                    <h2>生成设置</h2>
+                    <span>Options</span>
+                  </div>
+                  <dl class="agent-setting-list">
+                    <div><dt>生成类型</dt><dd data-agent-type>详情图</dd></div>
+                    <div><dt>清晰度</dt><dd data-agent-resolution>2K</dd></div>
+                    <div><dt>平台</dt><dd data-agent-platform>亚马逊</dd></div>
+                    <div><dt>语言</dt><dd data-agent-language>中文</dd></div>
+                    <div><dt>包含文字</dt><dd data-agent-include>包含</dd></div>
+                    <div><dt>生成数量</dt><dd data-agent-count>5</dd></div>
+                  </dl>
+                </section>
+
+                <section class="agent-card">
+                  <div class="agent-card-title">
+                    <h2>参考图片</h2>
+                    <span data-agent-reference-status>未上传</span>
+                  </div>
+                  <div class="agent-reference" data-agent-reference>
+                    <img class="agent-reference-preview" data-agent-reference-preview alt="参考图片预览" hidden />
+                    <span class="agent-reference-icon" aria-hidden="true"></span>
+                    <strong data-agent-reference-name>暂无参考图</strong>
+                    <p data-agent-reference-note>从首页上传参考图后，会在这里展示并进入视觉分析流程</p>
+                    <button type="button" data-agent-reference-upload>上传参考图</button>
+                  </div>
+                </section>
+
+                <section class="agent-card">
+                  <div class="agent-card-title">
+                    <h2>执行流程</h2>
+                    <span>Plan</span>
+                  </div>
+                  <ol class="agent-steps">
+                    <li class="is-active">理解需求与平台规则</li>
+                    <li>分析参考图风格和构图</li>
+                    <li>确认卖点、文案和版式</li>
+                    <li>生成详情图并输出结果</li>
+                  </ol>
+                </section>
+              </aside>
+
+              <section class="agent-chat" aria-label="Agent 对话">
+                <div class="agent-chat-head">
+                  <div>
+                    <h2>与 Agent 对话</h2>
+                    <p>你可以继续补充产品信息，也可以直接让 Agent 开始分析</p>
+                  </div>
+                  <button type="button">重新整理需求</button>
+                </div>
+
+                <div class="chat-thread">
+                  <article class="chat-message user">
+                    <div class="chat-avatar">你</div>
+                    <div class="chat-bubble">
+                      <p data-agent-user-message>生成一张「蛋牛」品牌的营销广告</p>
+                      <div class="chat-meta">
+                        <span data-agent-chat-type>详情图</span>
+                        <span data-agent-chat-resolution>2K</span>
+                        <span data-agent-chat-platform>亚马逊 / 中文</span>
+                        <span data-agent-chat-count>5张</span>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="chat-message agent">
+                    <div class="chat-avatar">AI</div>
+                    <div class="chat-bubble">
+                      <p>我已收到你的生成任务。当前还没有参考图，如果你需要我复刻构图、色调或产品摆放方式，可以先上传参考图；如果没有，我可以根据平台规范直接规划详情图。</p>
+                      <div class="agent-question">
+                        <strong>开始前建议确认：</strong>
+                        <span>产品名称、核心卖点、目标用户、是否有必须出现的文案或品牌色。</span>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="chat-message agent compact">
+                    <div class="chat-avatar">AI</div>
+                    <div class="chat-bubble">
+                      <p>你希望我下一步怎么做？</p>
+                      <div class="quick-replies">
+                        <button type="button">先分析参考图</button>
+                        <button type="button">直接生成方案</button>
+                        <button type="button">补充产品卖点</button>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="chat-message agent result-message">
+                    <div class="chat-avatar">AI</div>
+                    <div class="chat-bubble result-bubble">
+                      <div class="generation-result-head">
+                        <div>
+                          <strong>已生成 5 张详情图</strong>
+                          <p>已按照当前平台、清晰度和文字设置完成生成，可预览后下载。</p>
+                        </div>
+                        <button type="button">下载全部</button>
+                      </div>
+                      <div class="generated-grid" aria-label="生成图片结果">
+                        <article class="generated-card">
+                          <img src="assets/dashboard/work-1.png" alt="生成结果 1" />
+                          <div><span>详情图 01</span><button type="button">下载</button></div>
+                        </article>
+                        <article class="generated-card">
+                          <img src="assets/dashboard/work-2.png" alt="生成结果 2" />
+                          <div><span>详情图 02</span><button type="button">下载</button></div>
+                        </article>
+                        <article class="generated-card">
+                          <img src="assets/dashboard/work-3.png" alt="生成结果 3" />
+                          <div><span>详情图 03</span><button type="button">下载</button></div>
+                        </article>
+                        <article class="generated-card">
+                          <img src="assets/dashboard/work-4.png" alt="生成结果 4" />
+                          <div><span>详情图 04</span><button type="button">下载</button></div>
+                        </article>
+                        <article class="generated-card">
+                          <img src="assets/dashboard/work-6.png" alt="生成结果 5" />
+                          <div><span>详情图 05</span><button type="button">下载</button></div>
+                        </article>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+
+                <div class="agent-composer">
+                  <textarea aria-label="继续和 Agent 对话" placeholder="继续补充产品卖点、品牌风格、目标平台要求..."></textarea>
+                  <div class="agent-composer-actions">
+                    <button class="agent-attach" type="button">参考图</button>
+                    <button class="agent-send" type="button">发送</button>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section class="page-view video-input-layout" data-page-panel="video" aria-label="视频生成输入页">
+          <div class="video-input-page">
+            <header class="video-input-head">
+              <div>
+                <h1>视频生成</h1>
+                <p>输入视频创意，上传参考素材，生成适合电商平台的短视频</p>
+              </div>
+              <span class="video-cost"><span aria-hidden="true">✧</span>160/次</span>
+            </header>
+
+            <section class="video-composer" aria-label="视频生成输入区">
+              <div class="video-prompt-main">
+                <button class="video-upload-tile" type="button" data-video-upload-trigger aria-label="上传视频参考素材">
+                  <span class="video-upload-icon" aria-hidden="true"></span>
+                  <img class="video-reference-preview" data-video-reference-preview alt="视频参考素材预览" hidden />
+                </button>
+                <input type="file" accept="image/*" data-video-reference-input hidden />
+                <textarea data-video-prompt aria-label="输入视频生成灵感" placeholder="描述你想生成的视频，例如：做一条 15 秒的运动鞋亚马逊推广视频，突出轻便、防滑和户外场景"></textarea>
+              </div>
+              <div class="video-toolbar">
+                <div class="prompt-select video-kind">
+                  <span class="select-icon video-mode" aria-hidden="true"></span>
+                  <select aria-label="选择视频类型" data-video-type>
+                    <option value="product" selected>产品展示</option>
+                    <option value="scene">场景种草</option>
+                    <option value="promo">促销广告</option>
+                    <option value="story">品牌故事</option>
+                  </select>
+                  <span class="select-arrow" aria-hidden="true"></span>
+                </div>
+                <div class="prompt-select video-ratio">
+                  <span class="select-icon layout" aria-hidden="true"></span>
+                  <select aria-label="选择视频比例" data-video-ratio>
+                    <option value="9:16" selected>9:16 竖版</option>
+                    <option value="1:1">1:1 方版</option>
+                    <option value="16:9">16:9 横版</option>
+                  </select>
+                  <span class="select-arrow" aria-hidden="true"></span>
+                </div>
+                <div class="prompt-select video-duration">
+                  <span class="select-icon clock" aria-hidden="true"></span>
+                  <select aria-label="选择视频时长" data-video-duration>
+                    <option value="10">10秒</option>
+                    <option value="15" selected>15秒</option>
+                    <option value="30">30秒</option>
+                  </select>
+                  <span class="select-arrow" aria-hidden="true"></span>
+                </div>
+                <div class="prompt-select video-platform">
+                  <span class="select-icon layout" aria-hidden="true"></span>
+                  <select aria-label="选择视频平台" data-video-platform>
+                    <option value="amazon" selected>亚马逊</option>
+                    <option value="taobao">淘宝</option>
+                    <option value="pdd">拼多多</option>
+                    <option value="jd">京东</option>
+                    <option value="douyin">抖音</option>
+                  </select>
+                  <span class="select-arrow" aria-hidden="true"></span>
+                </div>
+                <button class="advanced-toggle video-advanced-toggle" type="button" aria-expanded="false" data-video-advanced-toggle>高级选项</button>
+                <button class="generate-button video-start-button" type="button" data-start-video-agent>立即生成</button>
+              </div>
+              <div class="prompt-advanced video-advanced-panel" data-video-advanced-panel hidden>
+                <label class="advanced-field">
+                  <span>是否配字幕</span>
+                  <select aria-label="是否配字幕" data-video-subtitle>
+                    <option value="yes" selected>配字幕</option>
+                    <option value="no">不配字幕</option>
+                  </select>
+                </label>
+                <label class="advanced-field">
+                  <span>镜头数量</span>
+                  <input aria-label="镜头数量" data-video-scene-count type="number" min="1" max="8" value="4" />
+                </label>
+                <label class="advanced-field">
+                  <span>风格</span>
+                  <select aria-label="视频风格" data-video-style>
+                    <option value="clean" selected>清爽电商</option>
+                    <option value="premium">高级质感</option>
+                    <option value="energetic">动感促销</option>
+                  </select>
+                </label>
+              </div>
+            </section>
+
+            <section class="video-template-row" aria-label="视频生成模板">
+              <article><strong>产品卖点视频</strong><span>适合新品首发和平台主推</span></article>
+              <article><strong>场景种草视频</strong><span>展示使用场景和生活方式</span></article>
+              <article><strong>促销转化视频</strong><span>突出折扣、利益点和行动引导</span></article>
+            </section>
+          </div>
+        </section>
+
+        <section class="page-view detail-layout" data-page-panel="videoAgent" aria-label="视频生成 Agent">
+          <div class="agent-page video-agent-page">
+            <header class="agent-head">
+              <div>
+                <button class="detail-back" type="button" data-page="video">返回视频生成</button>
+                <h1>视频生成 Agent</h1>
+                <p>我会先拆解脚本、镜头、字幕和平台规则，再生成视频草案</p>
+              </div>
+              <div class="agent-status">
+                <span>视频任务准备中</span>
+                <strong><span aria-hidden="true">✧</span>160/次</strong>
+              </div>
+            </header>
+
+            <div class="agent-workbench">
+              <aside class="agent-summary" aria-label="视频任务摘要">
+                <section class="agent-card">
+                  <div class="agent-card-title"><h2>用户输入</h2><span>Prompt</span></div>
+                  <p class="agent-prompt" data-video-agent-prompt>做一条 15 秒的产品展示视频</p>
+                </section>
+                <section class="agent-card">
+                  <div class="agent-card-title"><h2>视频设置</h2><span>Options</span></div>
+                  <dl class="agent-setting-list">
+                    <div><dt>视频类型</dt><dd data-video-agent-type>产品展示</dd></div>
+                    <div><dt>画面比例</dt><dd data-video-agent-ratio>9:16 竖版</dd></div>
+                    <div><dt>时长</dt><dd data-video-agent-duration>15秒</dd></div>
+                    <div><dt>平台</dt><dd data-video-agent-platform>亚马逊</dd></div>
+                    <div><dt>字幕</dt><dd data-video-agent-subtitle>配字幕</dd></div>
+                    <div><dt>镜头数量</dt><dd data-video-agent-scenes>4</dd></div>
+                    <div><dt>风格</dt><dd data-video-agent-style>清爽电商</dd></div>
+                  </dl>
+                </section>
+                <section class="agent-card">
+                  <div class="agent-card-title"><h2>参考素材</h2><span data-video-agent-reference-status>未上传</span></div>
+                  <div class="agent-reference" data-video-agent-reference>
+                    <img class="agent-reference-preview" data-video-agent-reference-preview alt="视频参考素材预览" hidden />
+                    <span class="agent-reference-icon video-ref-icon" aria-hidden="true"></span>
+                    <strong data-video-agent-reference-name>暂无参考素材</strong>
+                    <p data-video-agent-reference-note>上传参考图片后，Agent 会分析主体、镜头节奏和色调。</p>
+                    <button type="button" data-video-agent-upload>上传素材</button>
+                  </div>
+                </section>
+                <section class="agent-card">
+                  <div class="agent-card-title"><h2>执行流程</h2><span>Plan</span></div>
+                  <ol class="agent-steps">
+                    <li class="is-active">理解视频目标和平台</li>
+                    <li>拆解分镜与字幕脚本</li>
+                    <li>生成预览视频</li>
+                    <li>输出成片并下载</li>
+                  </ol>
+                </section>
+              </aside>
+
+              <section class="agent-chat" aria-label="视频 Agent 对话">
+                <div class="agent-chat-head">
+                  <div>
+                    <h2>与视频 Agent 对话</h2>
+                    <p>你可以补充卖点、节奏、镜头偏好，或直接生成视频草案</p>
+                  </div>
+                  <button type="button">重新整理脚本</button>
+                </div>
+                <div class="chat-thread">
+                  <article class="chat-message user">
+                    <div class="chat-avatar">你</div>
+                    <div class="chat-bubble">
+                      <p data-video-agent-user-message>做一条 15 秒的产品展示视频</p>
+                      <div class="chat-meta">
+                        <span data-video-agent-chat-type>产品展示</span>
+                        <span data-video-agent-chat-ratio>9:16 竖版</span>
+                        <span data-video-agent-chat-duration>15秒</span>
+                        <span data-video-agent-chat-platform>亚马逊</span>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="chat-message agent">
+                    <div class="chat-avatar">AI</div>
+                    <div class="chat-bubble">
+                      <p>我已收到视频生成任务。接下来会先规划镜头节奏、字幕和转场，如果你上传参考素材，我会优先参考主体角度和画面氛围。</p>
+                      <div class="agent-question">
+                        <strong>建议补充：</strong>
+                        <span>产品核心卖点、品牌色、目标用户、必须出现的优惠信息。</span>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="chat-message agent compact">
+                    <div class="chat-avatar">AI</div>
+                    <div class="chat-bubble">
+                      <p>请选择下一步：</p>
+                      <div class="quick-replies">
+                        <button type="button">生成分镜脚本</button>
+                        <button type="button">分析参考素材</button>
+                        <button type="button">直接生成视频</button>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="chat-message agent result-message">
+                    <div class="chat-avatar">AI</div>
+                    <div class="chat-bubble result-bubble video-result-bubble">
+                      <div class="generation-result-head">
+                        <div>
+                          <strong>视频草案已生成</strong>
+                          <p>已生成 15 秒预览视频，可继续微调脚本或下载当前版本。</p>
+                        </div>
+                        <button type="button">下载视频</button>
+                      </div>
+                      <div class="video-result-preview">
+                        <div class="video-frame">
+                          <img src="assets/dashboard/work-5.png" alt="视频生成预览" />
+                          <span class="video-play" aria-hidden="true"></span>
+                          <em>00:15</em>
+                        </div>
+                        <div class="video-shot-list">
+                          <div><strong>镜头 01</strong><span>产品开场特写，突出品牌和质感</span></div>
+                          <div><strong>镜头 02</strong><span>场景展示，强调核心卖点</span></div>
+                          <div><strong>镜头 03</strong><span>字幕卖点强化，引导购买</span></div>
+                          <div><strong>镜头 04</strong><span>收尾 CTA 和平台适配画面</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+                <div class="agent-composer">
+                  <textarea aria-label="继续和视频 Agent 对话" placeholder="继续补充镜头节奏、字幕文案、品牌风格或修改意见..."></textarea>
+                  <div class="agent-composer-actions">
+                    <button class="agent-attach" type="button">参考素材</button>
+                    <button class="agent-send" type="button">发送</button>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section class="page-view settings-layout" data-page-panel="account" aria-label="账户安全">
+          <div class="settings-header">
+            <h1>账户安全</h1>
+            <p>账户设置 / 共5个Tab</p>
+          </div>
+          <div class="settings-card account-security-card">
+            <h2>基本信息</h2>
+            <div class="profile-box">
+              <img src="assets/dashboard/account-avatar.png" alt="用户头像" />
+              <dl>
+                <div><dt>昵称</dt><dd>用户昵称</dd></div>
+                <div><dt>用户ID</dt><dd>35873 <span class="copy-mini" aria-hidden="true"></span></dd></div>
+              </dl>
+              <button type="button">修改昵称</button>
+            </div>
+            <h2>账号密码设置</h2>
+            <div class="security-list">
+              <div><span>手机号</span><strong>+86 189****8685</strong><button type="button">修改手机号</button></div>
+              <div><span>登录密码</span><strong>已设置</strong><button type="button">修改密码</button></div>
+            </div>
+            <h2>第三方绑定</h2>
+            <div class="bind-row"><span class="wechat-icon small"></span><span>微信</span><strong>已绑定</strong><button type="button">解绑</button></div>
+          </div>
+        </section>
+
+        <section class="page-view settings-layout" data-page-panel="orders" aria-label="我的订单">
+          <div class="settings-header">
+            <h1>我的订单</h1>
+            <p>充值与支付记录</p>
+          </div>
+          <div class="table-card order-card">
+            <h2>我的订单</h2>
+            <table class="orders-table">
+              <colgroup>
+                <col class="order-id" />
+                <col class="order-time" />
+                <col class="order-money" />
+                <col class="order-pay" />
+                <col class="order-status" />
+              </colgroup>
+              <thead>
+                <tr><th>订单号</th><th>充值时间</th><th>充值金额</th><th>支付方式</th><th>状态</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>RC2059105662867566603</td><td>2026-05-26 10:53:41</td><td>￥198</td><td>微信支付</td><td class="ok">已完成</td></tr>
+                <tr><td>RC2059096867021291522</td><td>2026-05-26 10:26:41</td><td>￥198</td><td>微信支付</td><td class="fail">失败</td></tr>
+                <tr><td>RC2058919029455101953</td><td>2026-05-25 22:32:05</td><td>￥60</td><td>支付宝支付</td><td class="fail">失败</td></tr>
+                <tr><td>RC2058907745120601346</td><td>2026-05-24 18:20:33</td><td>￥298</td><td>支付宝支付</td><td class="ok">已完成</td></tr>
+                <tr><td>RC2058891134422500194</td><td>2026-05-24 16:05:12</td><td>￥98</td><td>微信支付</td><td class="ok">已完成</td></tr>
+              </tbody>
+            </table>
+            <div class="pager"><span>‹</span><strong>1</strong><span>2</span><span>3</span><span>...</span><span>10</span><span>›</span><em>前往</em><input value="1" /><em>页</em></div>
+          </div>
+        </section>
+
+        <section class="page-view settings-layout" data-page-panel="points" aria-label="积分明细">
+          <div class="settings-header">
+            <h1>积分明细</h1>
+            <p>任务消耗与充值变化</p>
+          </div>
+          <div class="table-card points-card">
+            <h2>积分明细</h2>
+            <table class="points-table">
+              <colgroup>
+                <col class="points-time" />
+                <col class="points-type" />
+                <col class="points-id" />
+                <col class="points-content" />
+                <col class="points-change" />
+                <col class="points-left" />
+                <col class="points-preview" />
+              </colgroup>
+              <thead>
+                <tr><th>时间</th><th>任务类型</th><th>任务ID</th><th>具体内容</th><th>积分变化</th><th>剩余积分</th><th>预览图</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>2026-05-26 10:57:33</td><td>AI生成</td><td>86434</td><td>专业生成-主图</td><td>-30</td><td>5,680</td><td><img class="mini-thumb" src="assets/dashboard/work-1.png" alt="" /></td></tr>
+                <tr><td>2026-05-26 10:54:36</td><td>充值</td><td>0</td><td>个人充值</td><td class="plus">+3960</td><td>5,710</td><td>-</td></tr>
+                <tr><td>2026-05-25 22:32:05</td><td>AI生成</td><td>86321</td><td>详情页生成</td><td>-60</td><td>1,760</td><td><img class="mini-thumb" src="assets/dashboard/work-2.png" alt="" /></td></tr>
+                <tr><td>2026-05-20 15:43</td><td>活动奖励</td><td>0</td><td>新用户注册赠送积分</td><td class="plus">+100</td><td>1,800</td><td>-</td></tr>
+                <tr><td>2026-05-18 04:12</td><td>AI生成</td><td>86211</td><td>SKU图生成</td><td>-20</td><td>1,700</td><td><img class="mini-thumb" src="assets/dashboard/work-3.png" alt="" /></td></tr>
+              </tbody>
+            </table>
+            <div class="pager"><span>‹</span><strong>1</strong><span>2</span><span>3</span><span>...</span><span>10</span><span>›</span><em>前往</em><input value="1" /><em>页</em></div>
+          </div>
+        </section>
+
+        <section class="page-view membership-layout" data-page-panel="rights" aria-label="会员与积分">
+          <div class="membership-card">
+            <header class="membership-hero">
+              <div>
+                <h1>会员与积分</h1>
+                <p>选择适合您的套餐，解锁更多创作能力</p>
+              </div>
+              <div class="current-plan">
+                <span class="crown-mini" aria-hidden="true"></span>
+                <span>当前套餐：</span>
+                <strong>专业版</strong>
+                <span>到期时间：2026-06-26 10:54:36</span>
+                <a href="#">余额明细</a>
+              </div>
+              <div class="membership-actions">
+                <button type="button"><span class="asset-box" aria-hidden="true"></span>扩充资产空间</button>
+                <button type="button">功能定价 <span aria-hidden="true">›</span></button>
+              </div>
+            </header>
+
+            <div class="membership-tabs" role="tablist" aria-label="套餐类型">
+              <button class="is-active" type="button">个人版</button>
+              <button type="button">企业版</button>
+              <button type="button">积分包</button>
+            </div>
+
+            <div class="membership-grid">
+              <section class="pricing-column">
+                <article class="price-card trial">
+                  <span class="paper-bird" aria-hidden="true"></span>
+                  <h2>体验版 <em>限时7.5折</em></h2>
+                  <p>适合个人创作者轻量编辑</p>
+                  <div class="price"><span>￥</span><strong>48</strong><span>/月</span><del>原价￥64/月</del></div>
+                  <ul>
+                    <li>获得 640 积分</li>
+                    <li>送 80 积分</li>
+                    <li>可去除水印</li>
+                    <li>可生成约 365 张图片</li>
+                  </ul>
+                  <button type="button">立即订购</button>
+                  <small>套餐到期后，限时积分将被封存；续费会员后可继续使用</small>
+                </article>
+                <article class="price-card flagship">
+                  <span class="paper-bird" aria-hidden="true"></span>
+                  <h2>旗舰版 <em>限时7.5折</em></h2>
+                  <p>适合个人创作者轻量编辑</p>
+                  <div class="price"><span>￥</span><strong>98</strong><span>/月</span><del>原价￥128/月</del></div>
+                  <ul>
+                    <li>获得 1280 积分</li>
+                    <li>送 480 积分</li>
+                    <li>可导出 <b>PSD</b> 格式</li>
+                    <li>优先排队</li>
+                    <li>可去除水印</li>
+                    <li>可生成约 985 张图片</li>
+                  </ul>
+                  <button type="button">立即订购</button>
+                  <small>套餐到期后，限时积分将被封存；续费会员后可继续使用</small>
+                </article>
+                <article class="price-card pro">
+                  <span class="paper-bird" aria-hidden="true"></span>
+                  <h2>专业版 <em>限时7.5折</em></h2>
+                  <p>适合小团队使用</p>
+                  <div class="price"><span>￥</span><strong>198</strong><span>/月</span><del>原价￥298/月</del></div>
+                  <ul>
+                    <li>获得 2980 积分</li>
+                    <li>送 980 积分</li>
+                    <li>可导出 <b>PSD</b> 格式</li>
+                    <li>优先排队</li>
+                    <li>可去除水印</li>
+                    <li>可生成约 1985 张图片</li>
+                  </ul>
+                  <button type="button">立即订购</button>
+                  <small>套餐到期后，限时积分将被封存；续费会员后可继续使用</small>
+                </article>
+              </section>
+
+              <aside class="membership-info">
+                <article>
+                  <div><h3>关于积分</h3><p>积分可用于消耗各项 AI 功能，积分为永久有效，放心使用</p></div>
+                  <span class="info-coin" aria-hidden="true"></span>
+                </article>
+                <article>
+                  <div><h3>会员特权</h3><p>开通会员享更多高级功能，更高效率，更好体验</p></div>
+                  <span class="info-crown" aria-hidden="true"></span>
+                </article>
+                <article>
+                  <div><h3>安全便捷</h3><p>多种支付方式，安全可靠，交易完成后立即生效</p></div>
+                  <span class="info-shield" aria-hidden="true"></span>
+                </article>
+              </aside>
+            </div>
+
+            <section class="benefits-section" aria-label="会员权益对比">
+              <h2>会员权益对比</h2>
+              <table class="benefits-table">
+                <thead>
+                  <tr>
+                    <th rowspan="2">权益对比</th>
+                    <th colspan="4">个人版</th>
+                    <th colspan="3">企业版</th>
+                  </tr>
+                  <tr>
+                    <th>免费版</th><th>体验版</th><th>旗舰版</th><th class="active-col">专业版</th>
+                    <th>企业基础版 Basic</th><th>企业专业版 Pro</th><th>企业旗舰版 Ultimate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><span class="benefit-icon headset"></span>专属客服</td><td class="no">×</td><td class="no">×</td><td class="yes">✓</td><td class="yes active-col">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+                  <tr><td><span class="benefit-icon shield"></span>可以商用</td><td class="no">×</td><td class="no">×</td><td class="yes">✓</td><td class="yes active-col">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+                  <tr><td><span class="benefit-icon psd"></span>导出 PSD 格式</td><td class="no">×</td><td class="no">×</td><td class="yes">✓</td><td class="yes active-col">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+                  <tr><td><span class="benefit-icon drop"></span>去除水印</td><td class="no">×</td><td class="no">×</td><td class="yes">✓</td><td class="yes active-col">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+                  <tr><td><span class="benefit-icon tag"></span>积分包折扣</td><td class="no">×</td><td class="no">×</td><td>9 折</td><td class="active-col">9 折</td><td>9 折</td><td>8 折</td><td>7 折</td></tr>
+                  <tr><td><span class="benefit-icon team"></span>团队协作</td><td class="no">×</td><td class="no">×</td><td class="no">×</td><td class="active-col">2 人</td><td>2 人</td><td>4 人</td><td>4 人</td></tr>
+                  <tr><td><span class="benefit-icon disk"></span>资产空间</td><td>5GB</td><td>30GB</td><td>40GB</td><td class="active-col">50GB</td><td>200GB</td><td>400GB</td><td>800GB</td></tr>
+                </tbody>
+              </table>
+              <p class="benefits-note">注：以上权益可能会根据产品迭代进行调整，请以实际开通页面为准。</p>
+            </section>
+          </div>
+        </section>
+
+        <section class="page-view settings-layout invite-page" data-page-panel="invite" aria-label="邀请码">
+          <div class="settings-header">
+            <h1>邀请码</h1>
+            <p>邀请、兑换与奖励记录</p>
+          </div>
+          <div class="invite-grid">
+            <article><span class="invite-illustration ticket"></span><div><h2>兑换码</h2><p>使用兑换码领取积分或参与活动</p><button type="button">使用兑换码</button></div></article>
+            <article><span class="invite-illustration gift"></span><div><h2>创建邀请码</h2><p>邀请好友注册，好友使用后您可获得积分奖励</p><button type="button">创建邀请码</button></div></article>
+            <article><span class="invite-illustration user"></span><div><h2>使用邀请码</h2><p>仅限每个创作者24小时内可填，每个账号仅限一次，立得100积分</p><button type="button">使用邀请码</button></div></article>
+          </div>
+          <div class="invite-code-card">
+            <h2>我的邀请码</h2>
+            <strong>MN123456</strong>
+            <button type="button">复制</button>
+            <span>邀请链接：https://qingyehui.com/register?code=MN123456</span>
+            <button type="button">复制</button>
+            <em>已邀请 <b>12人</b></em>
+            <em>获得积分 <b>1,200</b></em>
+          </div>
+        </section>
+        <button class="support-float" type="button" aria-label="联系客服">
+          <span aria-hidden="true"></span>
+          联系客服
+        </button>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

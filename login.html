@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>蛮牛系统 - 登录注册</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="login-card" aria-label="蛋牛系统登录注册">
+        <div class="brand-panel" aria-label="蛋牛系统 AI 视觉创作平台">
+          <img src="assets/brand-panel.png" alt="打造电商全流程 AI 视觉解决方案" />
+        </div>
+
+        <section class="auth-panel" aria-label="登录注册表单">
+          <button class="scan-entry" type="button" data-view="wechat" aria-label="微信扫码登录">
+            <span class="qr-mini" aria-hidden="true"></span>
+            <span>微信扫码登录</span>
+          </button>
+
+          <div class="view is-active" data-panel="phone">
+            <h1>登录 / 注册</h1>
+            <div class="tabs" role="tablist" aria-label="登录方式">
+              <button class="tab is-active" type="button" data-view="phone" role="tab" aria-selected="true">
+                手机号登录
+              </button>
+              <button class="tab" type="button" data-view="account" role="tab" aria-selected="false">
+                账号密码登录
+              </button>
+            </div>
+
+            <form class="form" action="#" aria-label="手机号登录表单">
+              <label class="field phone-field">
+                <span class="country-code">+86</span>
+                <span class="chevron" aria-hidden="true"></span>
+                <input type="tel" inputmode="tel" placeholder="请输入手机号" />
+              </label>
+              <label class="field code-field">
+                <input type="text" inputmode="numeric" placeholder="请输入验证码" />
+                <button type="button">发送验证码</button>
+              </label>
+              <label class="agreement">
+                <input type="checkbox" />
+                <span class="fake-radio" aria-hidden="true"></span>
+                <span>
+                  我已阅读并同意
+                  <a href="#">《服务条款》</a>
+                  和
+                  <a href="#">《隐私政策》</a>
+                </span>
+              </label>
+              <button class="primary-button" type="submit">登录 / 注册</button>
+            </form>
+
+            <div class="divider"><span>其他登录方式</span></div>
+            <button class="wechat-button" type="button" data-view="wechat">
+              <span class="wechat-icon" aria-hidden="true"></span>
+              使用微信扫码登录
+            </button>
+          </div>
+
+          <div class="view" data-panel="account">
+            <h1>登录 / 注册</h1>
+            <div class="tabs" role="tablist" aria-label="登录方式">
+              <button class="tab" type="button" data-view="phone" role="tab" aria-selected="false">
+                手机号登录
+              </button>
+              <button class="tab is-active" type="button" data-view="account" role="tab" aria-selected="true">
+                账号密码登录
+              </button>
+            </div>
+
+            <form class="form" action="#" aria-label="账号密码登录表单">
+              <label class="field">
+                <input type="text" placeholder="请输入账号/手机号" />
+              </label>
+              <label class="field">
+                <input type="password" placeholder="请输入密码" />
+              </label>
+              <div class="form-row">
+                <label class="agreement compact">
+                  <input type="checkbox" />
+                  <span class="fake-radio" aria-hidden="true"></span>
+                  <span>记住登录</span>
+                </label>
+                <a href="#">忘记密码？</a>
+              </div>
+              <button class="primary-button" type="submit">登录</button>
+            </form>
+
+            <div class="divider"><span>其他登录方式</span></div>
+            <button class="wechat-button" type="button" data-view="wechat">
+              <span class="wechat-icon" aria-hidden="true"></span>
+              使用微信扫码登录
+            </button>
+          </div>
+
+          <div class="view wechat-view" data-panel="wechat">
+            <button class="back-button" type="button" data-view="phone">返回登录</button>
+            <div class="qr-box" aria-label="微信二维码">
+              <div class="qr-code" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <span class="wechat-mark" aria-hidden="true"></span>
+            </div>
+            <h2>使用微信扫一扫登录“蛋牛系统”</h2>
+            <p>首次扫码将自动创建账号</p>
+            <button class="link-button" type="button" data-view="phone">切换为手机号登录</button>
+            <button class="ghost-action" type="button" data-view="pending">模拟已扫码</button>
+          </div>
+
+          <div class="view wechat-view" data-panel="pending">
+            <button class="back-button" type="button" data-view="phone">返回登录</button>
+            <div class="qr-box is-scanned" aria-label="扫码等待确认">
+              <div class="qr-code" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <span class="scan-badge" aria-hidden="true"></span>
+            </div>
+            <h2>已扫码，请在微信中确认登录</h2>
+            <p>请在微信中点击“确认”以完成登录</p>
+            <button class="link-button" type="button" data-view="phone">切换为手机号登录</button>
+            <button class="ghost-action" type="button" data-view="success">模拟确认登录</button>
+          </div>
+
+          <div class="view result-view" data-panel="success">
+            <button class="back-button" type="button" data-view="phone">返回登录</button>
+            <div class="success-icon" aria-hidden="true"></div>
+            <h2>登录成功</h2>
+            <p>正在进入系统...</p>
+            <span class="spinner" aria-hidden="true"></span>
+            <button class="ghost-action" type="button" data-view="bind">模拟首次绑定</button>
+          </div>
+
+          <div class="view bind-view" data-panel="bind">
+            <h1>绑定手机号</h1>
+            <p>为保障您的账号安全，请绑定手机号</p>
+            <form class="form" action="#" aria-label="绑定手机号表单">
+              <label class="field phone-field">
+                <span class="country-code">+86</span>
+                <span class="chevron" aria-hidden="true"></span>
+                <input type="tel" inputmode="tel" placeholder="请输入手机号" />
+              </label>
+              <label class="field code-field">
+                <input type="text" inputmode="numeric" placeholder="请输入验证码" />
+                <button type="button">发送验证码</button>
+              </label>
+              <button class="primary-button" type="submit">确认绑定</button>
+            </form>
+            <button class="link-button" type="button" data-view="success">暂不绑定，稍后再说</button>
+          </div>
+        </section>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
