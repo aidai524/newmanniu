@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>蛮牛系统 - 工作台</title>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="designkit-theme.css?v=20260714-hd-assets" />
+    <link rel="stylesheet" href="designkit-theme.css?v=20260714-analysis-review" />
   </head>
   <body class="dashboard-page">
     <div class="app-shell">
@@ -162,7 +162,129 @@
                 <p>描述你的商品与目标，我们会为你完成从灵感到成片的创作流程</p>
               </div>
 
-              <section class="prompt-composer" aria-label="图片生成输入区">
+              <section class="creation-mode-switcher" aria-label="选择创作模式">
+                <div class="creation-mode-tabs" role="tablist" aria-label="创作模式">
+                  <button class="is-active" type="button" role="tab" aria-selected="true" data-creation-mode="quick">
+                    <span class="mode-tab-icon mode-tab-quick" aria-hidden="true"></span>
+                    <span><strong>快速生成</strong><small>推荐 · 少量设置即可出图</small></span>
+                  </button>
+                  <button type="button" role="tab" aria-selected="false" data-creation-mode="agent">
+                    <span class="mode-tab-icon mode-tab-agent" aria-hidden="true"></span>
+                    <span><strong>Agent 创作</strong><small>对话规划与精细控制</small></span>
+                  </button>
+                </div>
+                <p data-mode-helper>上传商品图，选择用途和模板，快速获得可用结果。</p>
+              </section>
+
+              <div class="creation-mode-panel is-active" data-creation-mode-panel="quick">
+                <section class="quick-home-card" aria-label="快速生成设置">
+                  <div class="quick-home-upload-wrap">
+                    <div class="quick-home-upload" data-quick-home-upload>
+                      <button class="quick-upload-empty" type="button" aria-label="选择多张商品参考图" data-quick-home-add>
+                        <span class="quick-upload-visual" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3.5" y="4" width="17" height="16" rx="3" />
+                            <circle cx="9" cy="9" r="1.4" />
+                            <path d="m5.5 17 4.1-4.2 3.1 3 2.4-2.5 3.4 3.7" />
+                          </svg>
+                          <i>+</i>
+                        </span>
+                        <strong>上传商品图</strong>
+                        <small>支持多选，也可将多张图片拖入这里</small>
+                      </button>
+                      <div class="quick-upload-gallery" data-quick-home-gallery hidden>
+                        <div class="quick-upload-gallery-head">
+                          <div><strong><span data-quick-home-file-count>0</span> 张素材</strong><small>首张作为主素材</small></div>
+                          <button type="button" data-quick-home-add>继续添加</button>
+                        </div>
+                        <div class="quick-upload-thumbnails" data-quick-home-thumbnails></div>
+                      </div>
+                    </div>
+                    <input type="file" accept="image/*" data-quick-home-file multiple hidden />
+                    <span class="quick-home-upload-tip">最多 6 张 · 支持 JPG、PNG、WebP · 可拖拽添加</span>
+                  </div>
+
+                  <div class="quick-home-fields">
+                    <div class="quick-home-heading">
+                      <div>
+                        <span>QUICK START</span>
+                        <h2 data-quick-home-title>商品主图生成设置</h2>
+                      </div>
+                      <span class="quick-recommended-badge">智能推荐参数</span>
+                    </div>
+
+                    <div class="quick-home-control-grid">
+                      <label class="quick-home-field">
+                        <span>生成类型</span>
+                        <select aria-label="选择快速生成类型" data-quick-home-type-select>
+                          <option value="main">商品主图</option>
+                          <option value="detail">详情图</option>
+                        </select>
+                      </label>
+                      <label class="quick-home-field">
+                        <span>目标平台</span>
+                        <select aria-label="快速生成目标平台" data-quick-home-platform>
+                          <option value="amazon">亚马逊</option>
+                          <option value="taobao">淘宝</option>
+                          <option value="pdd">拼多多</option>
+                          <option value="jd">京东</option>
+                        </select>
+                      </label>
+                      <label class="quick-home-field">
+                        <span>生成模板</span>
+                        <select aria-label="快速生成模板" data-quick-home-template>
+                          <option value="auto">AI 智能推荐</option>
+                          <option value="clean">清透高转化</option>
+                          <option value="scene">场景卖点型</option>
+                          <option value="premium">轻奢质感型</option>
+                        </select>
+                      </label>
+                      <label class="quick-home-field" data-quick-home-main-field>
+                        <span>商品品类</span>
+                        <select aria-label="选择商品品类" data-quick-home-category>
+                          <option value="auto">AI 自动识别</option>
+                          <option value="fashion">服饰鞋包</option>
+                          <option value="beauty">美妆个护</option>
+                          <option value="home">家居生活</option>
+                          <option value="digital">数码家电</option>
+                        </select>
+                      </label>
+                      <label class="quick-home-field" data-quick-home-detail-field hidden>
+                        <span>页面重点</span>
+                        <select aria-label="选择详情页重点" data-quick-home-detail-focus>
+                          <option value="selling">卖点递进</option>
+                          <option value="scene">场景叙事</option>
+                          <option value="parameter">参数详解</option>
+                        </select>
+                      </label>
+                      <label class="quick-home-field">
+                        <span>生成数量</span>
+                        <span class="quick-home-number-control">
+                          <button type="button" aria-label="减少首页生成数量" data-home-count-step="-1">−</button>
+                          <input type="number" min="1" max="10" value="4" aria-label="首页生成数量" data-quick-home-count />
+                          <i data-quick-home-count-unit>张</i>
+                          <button type="button" aria-label="增加首页生成数量" data-home-count-step="1">+</button>
+                        </span>
+                      </label>
+                      <label class="quick-home-field quick-home-selling">
+                        <span><i data-quick-home-selling-label>主图核心卖点</i> <small>选填</small></span>
+                        <input type="text" data-quick-home-selling-point placeholder="例如：轻便、防滑，适合户外通勤" />
+                      </label>
+                    </div>
+
+                    <div class="quick-home-footer">
+                      <span data-quick-home-status role="status" aria-live="polite"><i aria-hidden="true"></i>上传商品图后，AI 会先完成素材分析</span>
+                      <button type="button" data-open-quick>
+                        分析商品素材
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5" /></svg>
+                      </button>
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+              <div class="creation-mode-panel" data-creation-mode-panel="agent" hidden>
+                <section class="prompt-composer" aria-label="Agent 图片生成输入区">
                 <div class="prompt-main">
                   <button class="upload-tile" type="button" aria-label="上传参考图片">
                     <span class="upload-icon" aria-hidden="true"></span>
@@ -212,7 +334,7 @@
                   <button class="advanced-toggle" type="button" aria-expanded="false" data-advanced-toggle>高级选项</button>
                   <span class="credit-cost"><span aria-hidden="true">✧</span>80/次</span>
                   <button class="analyze-button" type="button" aria-label="分析参考图" title="分析参考图">分析</button>
-                  <button class="generate-button" type="button" data-start-detail>立即生图</button>
+                  <button class="generate-button" type="button" data-start-detail>进入 Agent</button>
                 </div>
                 <div class="prompt-advanced" data-advanced-panel hidden>
                   <div class="advanced-field">
@@ -227,10 +349,11 @@
                     <input aria-label="生成数量" data-generate-count type="number" min="1" max="10" value="5" />
                   </div>
                 </div>
-              </section>
+                </section>
+              </div>
 
               <section class="creation-paths" aria-label="创作类型">
-                <button type="button" data-page="detail">
+                <button type="button" data-focus-quick>
                   <span class="path-icon commerce" aria-hidden="true">✦</span>
                   <span><strong>电商设计</strong><small>卖货素材一键做</small></span>
                 </button>
@@ -265,7 +388,7 @@
                   <a href="#">查看全部</a>
                 </div>
                 <div class="tool-suite-grid">
-                  <button class="tool-feature tool-feature-commerce" type="button" data-page="detail">
+                  <button class="tool-feature tool-feature-commerce" type="button" data-focus-quick>
                     <span class="tool-feature-index">01</span>
                     <strong>商品套图</strong>
                     <small>一键生成整套电商视觉</small>
@@ -383,17 +506,236 @@
           </div>
         </section>
 
+        <section class="page-view quick-create-layout" data-page-panel="quickCreate" aria-label="快速生成">
+          <div class="quick-create-page">
+            <header class="quick-create-head">
+              <div>
+                <button class="quick-back" type="button" data-page="home">返回创作中心</button>
+              </div>
+              <div class="quick-head-actions">
+                <span class="quick-saved"><i aria-hidden="true"></i>草稿已自动保存</span>
+                <button class="quick-agent-switch" type="button" data-quick-to-agent>
+                  <span class="agent-spark" aria-hidden="true">✦</span>
+                  切换到 Agent 创作
+                  <span aria-hidden="true">↗</span>
+                </button>
+              </div>
+            </header>
+
+            <div class="quick-workbench">
+              <aside class="quick-settings" aria-label="快速生成设置">
+                <div class="quick-settings-scroll">
+                  <section class="quick-setting-section quick-analysis-section">
+                    <div class="quick-section-heading">
+                      <span class="quick-step-index quick-step-complete">✓</span>
+                      <div><h2>素材分析结果</h2><p>生成类型与素材均已从上一步带入</p></div>
+                    </div>
+                    <div class="quick-analyzed-material">
+                      <img data-quick-analyzed-preview alt="已分析的商品素材" hidden />
+                      <span class="quick-analyzed-placeholder" aria-hidden="true">IMG</span>
+                      <div class="quick-analyzed-copy">
+                        <strong data-quick-analyzed-name>商品素材已通过检查</strong>
+                        <p>主体完整、清晰度良好，可以直接继续生成。</p>
+                        <div>
+                          <span data-quick-analysis-type>商品主图</span>
+                          <span data-quick-analysis-platform>亚马逊</span>
+                          <span data-quick-analysis-template>AI 智能推荐</span>
+                        </div>
+                      </div>
+                      <button type="button" data-return-edit>返回修改</button>
+                    </div>
+                  </section>
+
+                  <section class="quick-setting-section quick-confirm-section">
+                    <div class="quick-section-heading">
+                      <span class="quick-step-index">01</span>
+                      <div><h2>确认生成设置</h2><p>这里只保留本次生成最重要的两个选项</p></div>
+                    </div>
+                    <div class="quick-confirm-grid">
+                      <div class="quick-confirm-card quick-count-card">
+                        <span class="quick-confirm-icon" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="12" height="12" rx="2.5" /><path d="M8 20h9a3 3 0 0 0 3-3V8" /></svg>
+                        </span>
+                        <div class="quick-confirm-card-head"><strong data-quick-count-label>生成数量</strong><small>可生成 1–10 张</small></div>
+                        <span class="quick-number-control">
+                          <button type="button" aria-label="减少生成数量" data-count-step="-1">−</button>
+                          <input type="number" min="1" max="10" value="4" aria-label="生成数量" data-quick-count />
+                          <button type="button" aria-label="增加生成数量" data-count-step="1">+</button>
+                        </span>
+                      </div>
+
+                      <div class="quick-confirm-card quick-text-card">
+                        <span class="quick-confirm-icon is-apricot" aria-hidden="true">T</span>
+                        <div class="quick-confirm-card-head"><strong>画面文字</strong><small>生成后仍可继续调整</small></div>
+                        <div class="quick-text-options" role="group" aria-label="画面是否包含文字">
+                          <button class="is-active" type="button" aria-pressed="true" data-quick-text="include">包含文字</button>
+                          <button type="button" aria-pressed="false" data-quick-text="exclude">不含文字</button>
+                        </div>
+                        <select class="skip-custom-select" aria-label="画面是否包含文字" data-quick-include hidden>
+                          <option value="include">包含文字</option>
+                          <option value="exclude">无文字</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="quick-confirm-note">
+                      <span aria-hidden="true">✦</span>
+                      <p data-quick-confirm-note>AI 建议生成 4 张不同构图的主图，其中保留 2 张带卖点文案的版本。</p>
+                    </div>
+                  </section>
+
+                  <details class="quick-more-settings">
+                    <summary>
+                      <span><strong>查看分析参数</strong><small>平台、比例、清晰度与语言均已自动匹配</small></span>
+                      <i aria-hidden="true"></i>
+                    </summary>
+                    <div class="quick-fields-grid quick-more-grid">
+                      <label class="quick-field">
+                        <span>目标平台</span>
+                        <select aria-label="目标平台" data-quick-platform>
+                          <option value="amazon">亚马逊</option>
+                          <option value="taobao">淘宝</option>
+                          <option value="pdd">拼多多</option>
+                          <option value="jd">京东</option>
+                        </select>
+                      </label>
+                      <label class="quick-field">
+                        <span>生成模板</span>
+                        <select aria-label="生成模板" data-quick-template>
+                          <option value="auto">AI 智能推荐</option>
+                          <option value="clean">清透高转化</option>
+                          <option value="scene">场景卖点型</option>
+                          <option value="premium">轻奢质感型</option>
+                        </select>
+                      </label>
+                      <label class="quick-field">
+                        <span>清晰度</span>
+                        <select aria-label="快速生成清晰度" data-quick-resolution>
+                          <option value="1k">1K · 标准</option>
+                          <option value="2k" selected>2K · 推荐</option>
+                          <option value="4k">4K · 高清</option>
+                        </select>
+                      </label>
+                      <label class="quick-field">
+                        <span>画面比例</span>
+                        <select aria-label="快速生成画面比例" data-quick-ratio>
+                          <option value="1:1">1:1 · 主图</option>
+                          <option value="3:4">3:4 · 详情</option>
+                          <option value="4:5">4:5 · 社媒</option>
+                        </select>
+                      </label>
+                      <label class="quick-field">
+                        <span>文字语言</span>
+                        <select aria-label="快速生成文字语言" data-quick-language>
+                          <option value="zh">中文</option>
+                          <option value="en">英文</option>
+                        </select>
+                      </label>
+                      <label class="quick-field">
+                        <span>画布背景</span>
+                        <select aria-label="快速生成画布背景" data-quick-background>
+                          <option value="auto">自动推荐</option>
+                          <option value="light">浅色背景</option>
+                          <option value="scene">场景背景</option>
+                        </select>
+                      </label>
+                    </div>
+                  </details>
+                </div>
+
+                <div class="quick-generate-bar">
+                  <div><span>本次预计</span><strong><span aria-hidden="true">✧</span>80 积分</strong></div>
+                  <button type="button" data-quick-generate>
+                    <span data-quick-generate-label>生成 4 张主图</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5" /></svg>
+                  </button>
+                </div>
+              </aside>
+
+              <section class="quick-canvas" aria-label="生成预览与结果">
+                <header class="quick-canvas-head">
+                  <div>
+                    <span class="quick-canvas-kicker">LIVE WORKSPACE</span>
+                    <h2 data-quick-canvas-title>主图生成工作区</h2>
+                  </div>
+                  <ol class="quick-progress-steps" aria-label="生成进度">
+                    <li class="is-active" data-quick-step="1"><i></i><span>准备素材</span></li>
+                    <li data-quick-step="2"><i></i><span>智能分析</span></li>
+                    <li data-quick-step="3"><i></i><span>生成结果</span></li>
+                  </ol>
+                </header>
+
+                <div class="quick-canvas-body">
+                  <div class="quick-empty-state" data-quick-empty>
+                    <div class="quick-empty-visual">
+                      <span class="quick-visual-card quick-visual-back"></span>
+                      <span class="quick-visual-card quick-visual-middle"></span>
+                      <span class="quick-visual-card quick-visual-front">
+                        <img data-quick-analysis-preview alt="商品素材分析预览" hidden />
+                        <i class="quick-visual-product"></i>
+                        <i class="quick-visual-line"></i>
+                        <i class="quick-visual-line short"></i>
+                      </span>
+                      <span class="quick-visual-spark spark-one">✦</span>
+                      <span class="quick-visual-spark spark-two">✦</span>
+                    </div>
+                    <div class="quick-empty-copy">
+                      <span>素材分析完成</span>
+                      <h3>商品主体与背景质量良好</h3>
+                      <p data-quick-analysis-summary>已识别完整商品主体，背景干净，适合按照亚马逊主图规范继续生成。</p>
+                      <ul>
+                        <li><i>✓</i>主体边缘完整，无明显遮挡</li>
+                        <li><i>✓</i>清晰度满足 2K 生成要求</li>
+                        <li><i>✓</i><span data-quick-analysis-rule>已匹配亚马逊 · 1:1 规范</span></li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="quick-analyzing" data-quick-analyzing hidden aria-live="polite">
+                    <div class="quick-analysis-orbit" aria-hidden="true"><i></i><i></i><i></i><span>AI</span></div>
+                    <span data-quick-analyzing-label>正在理解你的商品素材</span>
+                    <h3 data-quick-analyzing-title>分析主体、背景与平台规范…</h3>
+                    <p data-quick-analyzing-note>通常只需要几秒钟，请不要关闭页面。</p>
+                    <div class="quick-analysis-bar"><i></i></div>
+                  </div>
+
+                  <div class="quick-results" data-quick-results hidden>
+                    <div class="quick-result-summary">
+                      <div>
+                        <span class="quick-result-check" aria-hidden="true">✓</span>
+                        <div><h3 data-quick-result-title>已完成 4 张商品主图</h3><p>已按照当前平台、模板与文字设置完成生成。</p></div>
+                      </div>
+                      <div class="quick-result-actions">
+                        <button type="button" data-quick-edit-agent>用 Agent 精细调整</button>
+                        <button class="is-primary" type="button">下载全部</button>
+                      </div>
+                    </div>
+                    <div class="quick-result-grid" data-quick-result-grid>
+                      <article class="quick-result-card"><img src="assets/dashboard/work-1-hd.jpg" alt="快速生成结果 1" /><div><span>方案 01</span><button type="button">下载</button></div></article>
+                      <article class="quick-result-card"><img src="assets/dashboard/work-2-hd.jpg" alt="快速生成结果 2" /><div><span>方案 02</span><button type="button">下载</button></div></article>
+                      <article class="quick-result-card"><img src="assets/dashboard/work-3-hd.jpg" alt="快速生成结果 3" /><div><span>方案 03</span><button type="button">下载</button></div></article>
+                      <article class="quick-result-card"><img src="assets/dashboard/work-6-hd.jpg" alt="快速生成结果 4" /><div><span>方案 04</span><button type="button">下载</button></div></article>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
         <section class="page-view detail-layout" data-page-panel="detail" aria-label="详情图 Agent">
           <div class="agent-page">
             <header class="agent-head">
               <div>
                 <button class="detail-back" type="button" data-page="home">返回工作台</button>
-                <h1>详情图 Agent</h1>
-                <p>我会先理解你的输入、参考图和平台规则，再用对话方式补齐生成信息</p>
+                <h1 data-agent-page-title>详情图 Agent</h1>
+                <p data-agent-page-description>我会先理解你的输入、参考图和平台规则，再用对话方式补齐生成信息</p>
               </div>
-              <div class="agent-status">
-                <span>任务准备中</span>
-                <strong><span aria-hidden="true">✧</span>80/次</strong>
+              <div class="agent-head-actions">
+                <button class="agent-quick-switch" type="button" data-agent-to-quick>切换到快速生成</button>
+                <div class="agent-status">
+                  <span>任务准备中</span>
+                  <strong><span aria-hidden="true">✧</span>80/次</strong>
+                </div>
               </div>
             </header>
 
@@ -436,10 +778,10 @@
                     <span class="agent-flow-progress">1 / 4</span>
                   </summary>
                   <ol class="agent-steps">
-                    <li class="is-active">理解需求与平台规则</li>
-                    <li>分析参考图风格和构图</li>
-                    <li>确认卖点、文案和版式</li>
-                    <li>生成详情图并输出结果</li>
+                    <li class="is-active" data-agent-flow-step>理解需求与平台规则</li>
+                    <li data-agent-flow-step>分析参考图风格和构图</li>
+                    <li data-agent-flow-step>确认卖点、文案和版式</li>
+                    <li data-agent-flow-step>生成详情图并输出结果</li>
                   </ol>
                 </details>
               </aside>
@@ -470,10 +812,10 @@
                   <article class="chat-message agent">
                     <div class="chat-avatar">AI</div>
                     <div class="chat-bubble">
-                      <p>我已收到你的生成任务。当前还没有参考图，如果你需要我复刻构图、色调或产品摆放方式，可以先上传参考图；如果没有，我可以根据平台规范直接规划详情图。</p>
+                      <p data-agent-intro>我已收到你的生成任务。当前还没有参考图，如果你需要我复刻构图、色调或产品摆放方式，可以先上传参考图；如果没有，我可以根据平台规范直接规划详情图。</p>
                       <div class="agent-question">
                         <strong>开始前建议确认：</strong>
-                        <span>产品名称、核心卖点、目标用户、是否有必须出现的文案或品牌色。</span>
+                        <span data-agent-checklist>产品名称、核心卖点、目标用户、是否有必须出现的文案或品牌色。</span>
                       </div>
                     </div>
                   </article>
@@ -495,31 +837,31 @@
                     <div class="chat-bubble result-bubble">
                       <div class="generation-result-head">
                         <div>
-                          <strong>已生成 5 张详情图</strong>
-                          <p>已按照当前平台、清晰度和文字设置完成生成，可预览后下载。</p>
+                          <strong data-agent-result-title>已生成 5 张详情图</strong>
+                          <p data-agent-result-note>已按照当前平台、清晰度和文字设置完成生成，可预览后下载。</p>
                         </div>
                         <button type="button">下载全部</button>
                       </div>
                       <div class="generated-grid" aria-label="生成图片结果">
                         <article class="generated-card">
                           <img src="assets/dashboard/work-1.png" alt="生成结果 1" />
-                          <div><span>详情图 01</span><button type="button">下载</button></div>
+                          <div><span data-agent-result-label>详情图 01</span><button type="button">下载</button></div>
                         </article>
                         <article class="generated-card">
                           <img src="assets/dashboard/work-2.png" alt="生成结果 2" />
-                          <div><span>详情图 02</span><button type="button">下载</button></div>
+                          <div><span data-agent-result-label>详情图 02</span><button type="button">下载</button></div>
                         </article>
                         <article class="generated-card">
                           <img src="assets/dashboard/work-3.png" alt="生成结果 3" />
-                          <div><span>详情图 03</span><button type="button">下载</button></div>
+                          <div><span data-agent-result-label>详情图 03</span><button type="button">下载</button></div>
                         </article>
                         <article class="generated-card">
                           <img src="assets/dashboard/work-4.png" alt="生成结果 4" />
-                          <div><span>详情图 04</span><button type="button">下载</button></div>
+                          <div><span data-agent-result-label>详情图 04</span><button type="button">下载</button></div>
                         </article>
                         <article class="generated-card">
                           <img src="assets/dashboard/work-6.png" alt="生成结果 5" />
-                          <div><span>详情图 05</span><button type="button">下载</button></div>
+                          <div><span data-agent-result-label>详情图 05</span><button type="button">下载</button></div>
                         </article>
                       </div>
                     </div>
