@@ -35,6 +35,7 @@ const homePrompt = document.querySelector(".prompt-main textarea");
 const startDetailButton = document.querySelector("[data-start-detail]");
 const uploadTile = document.querySelector(".upload-tile");
 const referenceInput = document.querySelector("[data-reference-input]");
+const agentReferenceInput = document.querySelector("[data-agent-reference-input]");
 const uploadPreview = document.querySelector("[data-upload-preview]");
 const agentPrompt = document.querySelector("[data-agent-prompt]");
 const agentType = document.querySelector("[data-agent-type]");
@@ -53,7 +54,6 @@ const agentReferencePreview = document.querySelector("[data-agent-reference-prev
 const agentReferenceName = document.querySelector("[data-agent-reference-name]");
 const agentReferenceNote = document.querySelector("[data-agent-reference-note]");
 const agentReferenceStatus = document.querySelector("[data-agent-reference-status]");
-const agentReferenceUpload = document.querySelector("[data-agent-reference-upload]");
 const videoPrompt = document.querySelector("[data-video-prompt]");
 const videoReferenceInput = document.querySelector("[data-video-reference-input]");
 const videoUploadTile = document.querySelector("[data-video-upload-trigger]");
@@ -98,6 +98,17 @@ const includeTextSelect = document.querySelector("[data-include-text]");
 const generateCountInput = document.querySelector("[data-generate-count]");
 const pagePanels = [...document.querySelectorAll("[data-page-panel]")];
 const pageButtons = [...document.querySelectorAll("[data-page]")];
+const accountActionTriggers = [...document.querySelectorAll("[data-account-action]")];
+const accountDialogs = [...document.querySelectorAll("[data-account-dialog]")];
+const accountAvatar = document.querySelector("[data-account-avatar]");
+const topbarAvatar = document.querySelector("[data-topbar-avatar]");
+const accountNickname = document.querySelector("[data-account-nickname]");
+const topbarNickname = document.querySelector("[data-topbar-nickname]");
+const accountPhone = document.querySelector("[data-account-phone]");
+const wechatStatus = document.querySelector("[data-wechat-status]");
+const accountToast = document.querySelector("[data-account-toast]");
+const avatarInput = document.querySelector("[data-avatar-input]");
+const avatarDialogPreview = document.querySelector("[data-avatar-dialog-preview]");
 const accountTabs = [...document.querySelectorAll(".account-tab")];
 const accountPages = new Set(["account", "orders", "points", "rights", "invite"]);
 const accountSettingsPages = new Set(["account", "orders", "points", "invite"]);
@@ -112,6 +123,143 @@ const pageLabels = {
   rights: "我的权益",
   invite: "邀请码",
 };
+
+const studioSelects = [...document.querySelectorAll('[data-page-panel="home"] select, [data-page-panel="video"] select')];
+let activeCustomSelect = null;
+
+function closeCustomSelect(control = activeCustomSelect, returnFocus = false) {
+  if (!control) return;
+  const trigger = control.querySelector(".custom-select-trigger");
+  const menu = control.querySelector(".custom-select-menu");
+  control.classList.remove("is-open");
+  trigger?.setAttribute("aria-expanded", "false");
+  if (menu) menu.hidden = true;
+  if (returnFocus) trigger?.focus();
+  if (activeCustomSelect === control) activeCustomSelect = null;
+}
+
+function openCustomSelect(control, focusSelected = false) {
+  if (activeCustomSelect && activeCustomSelect !== control) {
+    closeCustomSelect(activeCustomSelect);
+  }
+  const trigger = control.querySelector(".custom-select-trigger");
+  const menu = control.querySelector(".custom-select-menu");
+  if (!trigger || !menu) return;
+  menu.hidden = false;
+  control.classList.add("is-open");
+  trigger.setAttribute("aria-expanded", "true");
+  activeCustomSelect = control;
+  if (focusSelected) {
+    requestAnimationFrame(() => control.querySelector('.custom-select-option[aria-selected="true"]')?.focus());
+  }
+}
+
+function enhanceStudioSelect(select, index) {
+  if (select.dataset.customSelectReady === "true") return;
+  select.dataset.customSelectReady = "true";
+  select.classList.add("native-select-hidden");
+  select.hidden = true;
+  select.tabIndex = -1;
+  select.setAttribute("aria-hidden", "true");
+
+  const control = document.createElement("div");
+  control.className = "custom-select-control";
+
+  const trigger = document.createElement("button");
+  trigger.className = "custom-select-trigger";
+  trigger.type = "button";
+  trigger.setAttribute("aria-haspopup", "listbox");
+  trigger.setAttribute("aria-expanded", "false");
+  trigger.setAttribute("aria-label", select.getAttribute("aria-label") || "选择选项");
+
+  const value = document.createElement("span");
+  value.className = "custom-select-value";
+  const chevron = document.createElement("span");
+  chevron.className = "custom-select-chevron";
+  chevron.setAttribute("aria-hidden", "true");
+  trigger.append(value, chevron);
+
+  const menu = document.createElement("div");
+  menu.className = "custom-select-menu";
+  menu.id = `studio-select-menu-${index + 1}`;
+  menu.setAttribute("role", "listbox");
+  menu.setAttribute("aria-label", select.getAttribute("aria-label") || "选择选项");
+  menu.hidden = true;
+  trigger.setAttribute("aria-controls", menu.id);
+
+  const optionButtons = [...select.options].map((option) => {
+    const button = document.createElement("button");
+    button.className = "custom-select-option";
+    button.type = "button";
+    button.dataset.value = option.value;
+    button.setAttribute("role", "option");
+    const label = document.createElement("span");
+    label.textContent = option.textContent?.trim() || option.value;
+    button.append(label);
+    menu.append(button);
+    return button;
+  });
+
+  function syncCustomSelect() {
+    const selected = select.selectedOptions[0];
+    value.textContent = selected?.textContent?.trim() || "请选择";
+    optionButtons.forEach((button) => {
+      const isSelected = button.dataset.value === select.value;
+      button.classList.toggle("is-selected", isSelected);
+      button.setAttribute("aria-selected", String(isSelected));
+    });
+  }
+
+  optionButtons.forEach((button, optionIndex) => {
+    button.addEventListener("click", () => {
+      select.value = button.dataset.value || "";
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+      syncCustomSelect();
+      closeCustomSelect(control, true);
+    });
+    button.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeCustomSelect(control, true);
+        return;
+      }
+      if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      let nextIndex = optionIndex;
+      if (event.key === "ArrowDown") nextIndex = (optionIndex + 1) % optionButtons.length;
+      if (event.key === "ArrowUp") nextIndex = (optionIndex - 1 + optionButtons.length) % optionButtons.length;
+      if (event.key === "Home") nextIndex = 0;
+      if (event.key === "End") nextIndex = optionButtons.length - 1;
+      optionButtons[nextIndex]?.focus();
+    });
+  });
+
+  trigger.addEventListener("click", () => {
+    if (control.classList.contains("is-open")) closeCustomSelect(control);
+    else openCustomSelect(control);
+  });
+  trigger.addEventListener("keydown", (event) => {
+    if (["ArrowDown", "ArrowUp"].includes(event.key)) {
+      event.preventDefault();
+      openCustomSelect(control, true);
+    }
+    if (event.key === "Escape") closeCustomSelect(control);
+  });
+
+  select.addEventListener("change", syncCustomSelect);
+  select.insertAdjacentElement("afterend", control);
+  control.append(trigger, menu);
+  select.parentElement?.classList.add("has-custom-select");
+  syncCustomSelect();
+}
+
+studioSelects.forEach(enhanceStudioSelect);
+
+document.addEventListener("click", (event) => {
+  if (activeCustomSelect && !activeCustomSelect.contains(event.target)) {
+    closeCustomSelect(activeCustomSelect);
+  }
+});
 
 function setPage(pageName) {
   if (!pagePanels.length) return;
@@ -170,9 +318,11 @@ function applyReferenceImage(file) {
 }
 
 uploadTile?.addEventListener("click", () => referenceInput?.click());
-agentReferenceUpload?.addEventListener("click", () => referenceInput?.click());
 referenceInput?.addEventListener("change", () => {
   applyReferenceImage(referenceInput.files?.[0]);
+});
+agentReferenceInput?.addEventListener("change", () => {
+  applyReferenceImage(agentReferenceInput.files?.[0]);
 });
 
 function applyVideoReference(file) {
@@ -286,6 +436,184 @@ pageButtons.forEach((button) => {
   button.addEventListener("click", () => {
     if (button.dataset.page) setPage(button.dataset.page);
   });
+});
+
+let accountToastTimer;
+
+function showAccountToast(message) {
+  if (!accountToast) return;
+  window.clearTimeout(accountToastTimer);
+  accountToast.textContent = message;
+  accountToast.hidden = false;
+  accountToast.classList.add("is-visible");
+  accountToastTimer = window.setTimeout(() => {
+    accountToast.classList.remove("is-visible");
+    accountToast.hidden = true;
+  }, 2200);
+}
+
+function prepareAccountDialog(action) {
+  const dialog = accountDialogs.find((item) => item.dataset.accountDialog === action);
+  if (!dialog) return null;
+
+  if (action === "avatar") {
+    if (avatarDialogPreview && accountAvatar) avatarDialogPreview.src = accountAvatar.src;
+    if (avatarInput) avatarInput.value = "";
+  }
+
+  if (action === "nickname") {
+    const nicknameInput = dialog.querySelector("[data-nickname-input]");
+    if (nicknameInput && accountNickname) nicknameInput.value = accountNickname.textContent.trim();
+  }
+
+  if (action === "phone" || action === "password") {
+    dialog.querySelector("form")?.reset();
+  }
+
+  const passwordError = dialog.querySelector("[data-password-error]");
+  if (passwordError) passwordError.hidden = true;
+  return dialog;
+}
+
+accountActionTriggers.forEach((trigger) => {
+  trigger.addEventListener("click", () => {
+    const dialog = prepareAccountDialog(trigger.dataset.accountAction);
+    if (dialog && !dialog.open) dialog.showModal();
+  });
+});
+
+accountDialogs.forEach((dialog) => {
+  dialog.querySelectorAll("[data-dialog-close]").forEach((button) => {
+    button.addEventListener("click", () => dialog.close("cancel"));
+  });
+
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close("cancel");
+  });
+});
+
+avatarInput?.addEventListener("change", () => {
+  const file = avatarInput.files?.[0];
+  if (!file || !avatarDialogPreview) return;
+  const reader = new FileReader();
+  reader.addEventListener("load", () => {
+    if (typeof reader.result === "string") avatarDialogPreview.src = reader.result;
+  });
+  reader.readAsDataURL(file);
+});
+
+document.querySelector("[data-account-form=\"avatar\"]")?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const dialog = event.currentTarget.closest("dialog");
+  if (avatarDialogPreview && accountAvatar) accountAvatar.src = avatarDialogPreview.src;
+  if (avatarDialogPreview && topbarAvatar) topbarAvatar.src = avatarDialogPreview.src;
+  dialog?.close("saved");
+  showAccountToast("头像已更新");
+});
+
+document.querySelector("[data-account-form=\"nickname\"]")?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const nicknameInput = form.querySelector("[data-nickname-input]");
+  const nextNickname = nicknameInput?.value.trim();
+  if (!nextNickname) return;
+  if (accountNickname) accountNickname.textContent = nextNickname;
+  if (topbarNickname) topbarNickname.textContent = nextNickname;
+  form.closest("dialog")?.close("saved");
+  showAccountToast("昵称已更新");
+});
+
+document.querySelector("[data-account-form=\"phone\"]")?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const phoneInput = form.querySelector("[data-phone-input]");
+  const phoneDigits = phoneInput?.value.replace(/\D/g, "") || "";
+  if (phoneDigits.length !== 11) return;
+  if (accountPhone) accountPhone.textContent = `+86 ${phoneDigits.slice(0, 3)}****${phoneDigits.slice(-4)}`;
+  form.closest("dialog")?.close("saved");
+  showAccountToast("手机号已更新");
+});
+
+document.querySelector("[data-account-form=\"password\"]")?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const nextPassword = form.querySelector("[data-new-password]")?.value || "";
+  const confirmPassword = form.querySelector("[data-confirm-password]")?.value || "";
+  const error = form.querySelector("[data-password-error]");
+  if (nextPassword !== confirmPassword) {
+    if (error) error.hidden = false;
+    form.querySelector("[data-confirm-password]")?.focus();
+    return;
+  }
+  if (error) error.hidden = true;
+  form.closest("dialog")?.close("saved");
+  form.reset();
+  showAccountToast("登录密码已更新");
+});
+
+document.querySelector("[data-account-form=\"wechat-unbind\"]")?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const unbindButton = document.querySelector("[data-account-action=\"wechat-unbind\"]");
+  if (wechatStatus) wechatStatus.textContent = "未绑定";
+  if (unbindButton) {
+    unbindButton.textContent = "已解绑";
+    unbindButton.disabled = true;
+  }
+  form.closest("dialog")?.close("confirmed");
+  showAccountToast("微信账号已解除绑定");
+});
+
+document.querySelector("[data-send-code]")?.addEventListener("click", (event) => {
+  const button = event.currentTarget;
+  button.disabled = true;
+  button.textContent = "验证码已发送";
+  window.setTimeout(() => {
+    button.disabled = false;
+    button.textContent = "重新获取";
+  }, 2000);
+});
+
+async function copyInviteText(copyText) {
+  const helper = document.createElement("textarea");
+  helper.value = copyText;
+  helper.setAttribute("readonly", "");
+  helper.style.position = "fixed";
+  helper.style.opacity = "0";
+  document.body.appendChild(helper);
+  helper.select();
+  const didCopy = document.execCommand("copy");
+  helper.remove();
+  if (didCopy) return;
+
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(copyText);
+    return;
+  }
+
+  throw new Error("Copy failed");
+}
+
+document.addEventListener("click", async (event) => {
+  const button = event.target instanceof Element ? event.target.closest("[data-copy-text]") : null;
+  if (!button) return;
+
+  const label = button.querySelector("[data-copy-label]");
+  const copyText = button.dataset.copyText || "";
+  if (label) label.textContent = "复制中…";
+
+  try {
+    await copyInviteText(copyText);
+    if (label) label.textContent = "已复制";
+    button.classList.add("is-copied");
+  } catch {
+    if (label) label.textContent = "复制失败";
+  }
+
+  window.setTimeout(() => {
+    if (label) label.textContent = "复制";
+    button.classList.remove("is-copied");
+  }, 1600);
 });
 
 document.addEventListener("click", (event) => {

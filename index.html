@@ -5,67 +5,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>蛮牛系统 - 工作台</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="designkit-theme.css?v=20260714-sidebar-icons" />
   </head>
   <body class="dashboard-page">
     <div class="app-shell">
       <aside class="sidebar" aria-label="系统导航">
         <div class="sidebar-head">
-          <a class="brand" href="#" aria-label="蛋牛系统">
+          <a class="brand" href="#" aria-label="蛮牛系统">
             <span class="brand-mark" aria-hidden="true"></span>
             <span class="brand-name">蛮牛</span>
           </a>
-          <button class="sidebar-toggle" type="button" aria-label="折叠侧边栏" aria-expanded="true">
-            <span aria-hidden="true"></span>
-          </button>
         </div>
 
-        <nav class="side-nav">
+        <nav class="side-nav primary-nav" aria-label="系统功能">
           <button class="side-item is-active" type="button" data-page="home" data-title="创作中心">
-            <span class="nav-icon pen" aria-hidden="true"></span>
+            <span class="sidebar-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m5 19 3.2-.8L18.7 7.7a2.1 2.1 0 0 0 0-3l-.4-.4a2.1 2.1 0 0 0-3 0L4.8 14.8 4 18l1 1Z" />
+                <path d="m14.5 5.2 4.3 4.3M7 4v3M5.5 5.5h3" />
+              </svg>
+            </span>
             创作中心
           </button>
           <button class="side-item" type="button" data-page="video" data-title="视频生成">
-            <span class="nav-icon video" aria-hidden="true"></span>
+            <span class="sidebar-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3.5" y="5" width="17" height="14" rx="3.2" />
+                <path d="m10 9 5 3-5 3V9Z" fill="currentColor" stroke="none" />
+              </svg>
+            </span>
             视频生成
           </button>
           <button class="side-item" type="button" data-title="无限画布">
-            <span class="nav-icon hash" aria-hidden="true"></span>
+            <span class="sidebar-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7.2 8.5C5 8.5 3.5 10 3.5 12s1.5 3.5 3.7 3.5c3.2 0 6.4-7 9.6-7 2.2 0 3.7 1.5 3.7 3.5s-1.5 3.5-3.7 3.5c-3.2 0-6.4-7-9.6-7Z" />
+              </svg>
+            </span>
             无限画布
           </button>
           <button class="side-item" type="button" data-title="我的资产">
-            <span class="nav-icon asset" aria-hidden="true"></span>
+            <span class="sidebar-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3.5 7.5h6l1.7-2h9.3v12.7a1.8 1.8 0 0 1-1.8 1.8H5.3a1.8 1.8 0 0 1-1.8-1.8V7.5Z" />
+                <path d="m6.5 16 3-3 2.2 2 2.4-2.6 3.4 3.6" />
+              </svg>
+            </span>
             我的资产
           </button>
           <button class="side-item" type="button" data-title="AI 工具箱">
-            <span class="nav-icon grid" aria-hidden="true"></span>
+            <span class="sidebar-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="4" width="6" height="6" rx="1.8" />
+                <rect x="14" y="4" width="6" height="6" rx="1.8" />
+                <rect x="4" y="14" width="6" height="6" rx="1.8" />
+                <rect x="14" y="14" width="6" height="6" rx="1.8" />
+              </svg>
+            </span>
             AI 工具箱
           </button>
           <button class="side-item" type="button" data-title="模板中心">
-            <span class="nav-icon template" aria-hidden="true"></span>
+            <span class="sidebar-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5" y="3.5" width="14" height="17" rx="3" />
+                <path d="M8.5 8h7M8.5 12h7M8.5 16h4.5" />
+              </svg>
+            </span>
             模板中心
           </button>
           <button class="side-item" type="button" data-title="反馈帮助">
-            <span class="nav-icon help" aria-hidden="true"></span>
+            <span class="sidebar-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5.2 18.8 4 21l4-1.1c1.2.7 2.5 1.1 4 1.1 4.7 0 8.5-3.7 8.5-8.3S16.7 4.5 12 4.5s-8.5 3.7-8.5 8.2c0 2.4 1 4.5 2.7 6.1Z" />
+                <path d="M9.6 10a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2-2.4 3.5M12 17.2h.01" />
+              </svg>
+            </span>
             反馈帮助
           </button>
         </nav>
 
-        <nav class="side-nav lower">
+        <nav class="side-nav lower" aria-label="更多功能">
           <button class="side-item" type="button" data-page="account" data-title="账户设置">
-            <span class="menu-ico gear" aria-hidden="true"></span>
+            <span class="sidebar-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="3.2" />
+                <path d="M5.5 19.5c.6-4 3-6 6.5-6s5.9 2 6.5 6" />
+              </svg>
+            </span>
             账户设置
           </button>
           <button class="side-item" type="button" data-page="rights" data-title="开通会员">
-            <span class="nav-icon trophy" aria-hidden="true"></span>
+            <span class="sidebar-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m4 8 3.2 2.7L12 4.5l4.8 6.2L20 8l-1.5 9.5h-13L4 8Z" />
+                <path d="M6 20h12M6.2 14.5h11.6" />
+              </svg>
+            </span>
             开通会员
           </button>
           <button class="side-item" type="button" data-title="消息中心">
-            <span class="nav-icon bell-small" aria-hidden="true"></span>
+            <span class="sidebar-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15l1.5-2Z" />
+                <path d="M10 20.5h4" />
+              </svg>
+            </span>
             消息中心
             <span class="badge-dot">3</span>
           </button>
           <button class="side-item" type="button" data-title="更多">
-            <span class="nav-icon more" aria-hidden="true"></span>
+            <span class="sidebar-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="8.5" />
+                <circle cx="8.5" cy="12" r=".9" fill="currentColor" stroke="none" />
+                <circle cx="12" cy="12" r=".9" fill="currentColor" stroke="none" />
+                <circle cx="15.5" cy="12" r=".9" fill="currentColor" stroke="none" />
+              </svg>
+            </span>
             更多
           </button>
         </nav>
@@ -81,7 +137,7 @@
         <header class="topbar">
           <div class="topbar-crumb">首页 / 工作台</div>
           <div class="account-strip" aria-label="用户信息">
-            <span class="plan-pill"><span class="diamond" aria-hidden="true"></span>专业版</span>
+            <button class="plan-pill" type="button" data-page="rights"><span class="diamond" aria-hidden="true"></span>专业版</button>
             <span class="points">永久积分 <strong>3,710</strong></span>
             <span class="points">临时积分 <strong>260</strong></span>
             <button class="charge-btn" type="button">充值</button>
@@ -89,8 +145,8 @@
               <span class="bell-icon" aria-hidden="true"></span>
             </button>
             <button class="user-trigger" type="button" aria-expanded="false">
-              <img src="assets/dashboard/avatar.png" alt="用户头像" />
-              <span>用户昵称</span>
+              <img src="assets/dashboard/avatar.png" alt="用户头像" data-topbar-avatar />
+              <span data-topbar-nickname>用户昵称</span>
               <span class="down-arrow" aria-hidden="true"></span>
             </button>
 
@@ -109,8 +165,9 @@
           <div class="main-grid">
             <section class="primary-area">
               <div class="welcome">
-                <h1>欢迎回来，用户 👋</h1>
-                <p>开始创作高质量的电商视觉内容吧</p>
+                <span class="welcome-kicker">MAN NEW · AI CREATIVE STUDIO</span>
+                <h1>AI 团队，让电商创作更快、更准、更好看</h1>
+                <p>描述你的商品与目标，我们会为你完成从灵感到成片的创作流程</p>
               </div>
 
               <section class="prompt-composer" aria-label="图片生成输入区">
@@ -119,7 +176,7 @@
                     <span class="upload-icon" aria-hidden="true"></span>
                     <img class="upload-preview" data-upload-preview alt="参考图预览" hidden />
                   </button>
-                  <input class="reference-file-input" type="file" accept="image/*" data-reference-input hidden />
+                  <input class="reference-file-input" id="home-reference-input" type="file" accept="image/*" data-reference-input hidden />
                   <textarea
                     aria-label="输入生成灵感"
                     placeholder="输入你的即兴灵感，例如：生成一张「蛋牛」品牌的营销广告"
@@ -166,56 +223,169 @@
                   <button class="generate-button" type="button" data-start-detail>立即生图</button>
                 </div>
                 <div class="prompt-advanced" data-advanced-panel hidden>
-                  <label class="advanced-field">
+                  <div class="advanced-field">
                     <span>是否包含文字</span>
                     <select aria-label="是否包含文字" data-include-text>
                       <option value="include" selected>包含</option>
                       <option value="exclude">不包含</option>
                     </select>
-                  </label>
-                  <label class="advanced-field">
+                  </div>
+                  <div class="advanced-field">
                     <span>生成数量</span>
                     <input aria-label="生成数量" data-generate-count type="number" min="1" max="10" value="5" />
-                  </label>
+                  </div>
                 </div>
               </section>
 
-              <div class="section-heading">
-                <h2>最近创作</h2>
-                <a href="#">全部作品</a>
-              </div>
-              <div class="work-grid" aria-label="最近创作列表">
-                <article class="work-card">
-                  <img src="assets/dashboard/work-1.png" alt="主图生成作品" />
-                  <h3>主图生成</h3>
-                  <p>2024-05-26 14:30</p>
-                </article>
-                <article class="work-card">
-                  <img src="assets/dashboard/work-2.png" alt="详情页设计作品" />
-                  <h3>详情页设计</h3>
-                  <p>2024-05-26 11:20</p>
-                </article>
-                <article class="work-card">
-                  <img src="assets/dashboard/work-3.png" alt="SKU图生成作品" />
-                  <h3>SKU图生成</h3>
-                  <p>2024-05-26 10:15</p>
-                </article>
-                <article class="work-card">
-                  <img src="assets/dashboard/work-4.png" alt="主图生成作品" />
-                  <h3>主图生成</h3>
-                  <p>2024-05-25 18:40</p>
-                </article>
-                <article class="work-card">
-                  <img src="assets/dashboard/work-5.png" alt="视频创作作品" />
-                  <h3>视频创作</h3>
-                  <p>2024-05-25 16:20</p>
-                </article>
-                <article class="work-card">
-                  <img src="assets/dashboard/work-6.png" alt="详情页设计作品" />
-                  <h3>详情页设计</h3>
-                  <p>2024-05-25 11:05</p>
-                </article>
-              </div>
+              <section class="creation-paths" aria-label="创作类型">
+                <button type="button" data-page="detail">
+                  <span class="path-icon commerce" aria-hidden="true">✦</span>
+                  <span><strong>电商设计</strong><small>卖货素材一键做</small></span>
+                </button>
+                <button type="button">
+                  <span class="path-icon poster" aria-hidden="true">▱</span>
+                  <span><strong>海报设计</strong><small>营销海报快速出</small></span>
+                </button>
+                <button type="button" data-page="video">
+                  <span class="path-icon motion" aria-hidden="true">▶</span>
+                  <span><strong>视频创作</strong><small>商品短片免脚本</small></span>
+                </button>
+                <button type="button">
+                  <span class="path-icon social" aria-hidden="true">●</span>
+                  <span><strong>社媒营销</strong><small>图文内容全包</small></span>
+                </button>
+                <button type="button">
+                  <span class="path-icon brand-kit" aria-hidden="true">◇</span>
+                  <span><strong>品牌设计</strong><small>统一品牌视觉</small></span>
+                </button>
+                <button type="button">
+                  <span class="path-icon office" aria-hidden="true">↗</span>
+                  <span><strong>智能拓图</strong><small>多平台尺寸适配</small></span>
+                </button>
+              </section>
+
+              <section class="tool-suite" aria-label="推荐工具">
+                <div class="section-heading">
+                  <div>
+                    <span class="section-eyebrow">RECOMMENDED</span>
+                    <h2>推荐工具</h2>
+                  </div>
+                  <a href="#">查看全部</a>
+                </div>
+                <div class="tool-suite-grid">
+                  <button class="tool-feature tool-feature-commerce" type="button" data-page="detail">
+                    <span class="tool-feature-index">01</span>
+                    <strong>商品套图</strong>
+                    <small>一键生成整套电商视觉</small>
+                    <span class="tool-feature-arrow" aria-hidden="true">↗</span>
+                  </button>
+                  <button class="tool-feature tool-feature-video" type="button" data-page="video">
+                    <span class="tool-feature-index">02</span>
+                    <strong>爆款视频</strong>
+                    <small>智能拆解镜头与节奏</small>
+                    <span class="tool-feature-arrow" aria-hidden="true">↗</span>
+                  </button>
+                  <div class="tool-mini-grid">
+                    <button type="button">
+                      <span class="tool-mini-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                          <rect x="3.5" y="4" width="14" height="16" rx="3" />
+                          <path d="m6.5 16 3.1-3.4 2.2 2.2 2.2-2.5 3.5 3.8M19 3v5M16.5 5.5h5" />
+                        </svg>
+                      </span>
+                      <span class="tool-mini-copy"><strong>图片编辑</strong><small>裁剪、调色与精修</small></span>
+                    </button>
+                    <button type="button">
+                      <span class="tool-mini-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                          <rect x="3.5" y="3.5" width="17" height="17" rx="4" />
+                          <path d="M12 8v8M8 12h8" />
+                        </svg>
+                      </span>
+                      <span class="tool-mini-copy"><strong>创建设计</strong><small>从空白画布开始</small></span>
+                    </button>
+                    <button type="button">
+                      <span class="tool-mini-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M4 17.5V6.8A2.8 2.8 0 0 1 6.8 4h10.4A2.8 2.8 0 0 1 20 6.8v10.4a2.8 2.8 0 0 1-2.8 2.8H6.5" />
+                          <path d="m7 15 3-3 2.4 2.4 2.1-2.1L18 16M4 20l3-3M16.5 4.5l.7-1.7.8 1.7 1.7.8-1.7.7-.8 1.8-.7-1.8-1.8-.7Z" />
+                        </svg>
+                      </span>
+                      <span class="tool-mini-copy"><strong>变清晰</strong><small>智能补足画面细节</small></span>
+                    </button>
+                    <button type="button">
+                      <span class="tool-mini-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="m4.5 15.5 8.8-8.8a2.4 2.4 0 0 1 3.4 0l.6.6a2.4 2.4 0 0 1 0 3.4l-8.8 8.8H4.5v-4Z" />
+                          <path d="m11.5 8.5 4 4M12 19.5h7.5" />
+                        </svg>
+                      </span>
+                      <span class="tool-mini-copy"><strong>AI 消除</strong><small>无痕移除多余元素</small></span>
+                    </button>
+                    <button type="button">
+                      <span class="tool-mini-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M12 3.5a5 5 0 0 1 5 5c0 1.7-.8 3.2-2.1 4.1 2.8 1 4.6 3.3 4.6 6.1" />
+                          <path d="M12 3.5a5 5 0 0 0-5 5c0 1.7.8 3.2 2.1 4.1-2.8 1-4.6 3.3-4.6 6.1M3 4v3M1.5 5.5h3M20 15v3M18.5 16.5h3" />
+                        </svg>
+                      </span>
+                      <span class="tool-mini-copy"><strong>智能抠图</strong><small>精准识别主体边缘</small></span>
+                    </button>
+                    <button type="button">
+                      <span class="tool-mini-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <circle cx="5" cy="12" r="1.7" />
+                          <circle cx="12" cy="12" r="1.7" />
+                          <circle cx="19" cy="12" r="1.7" />
+                        </svg>
+                      </span>
+                      <span class="tool-mini-copy"><strong>更多工具</strong><small>探索完整创作能力</small></span>
+                    </button>
+                  </div>
+                </div>
+              </section>
+
+              <section class="recent-projects" aria-label="最近创作">
+                <div class="section-heading">
+                  <div>
+                    <span class="section-eyebrow">RECENT WORK</span>
+                    <h2>最近创作</h2>
+                  </div>
+                  <a href="#">全部作品</a>
+                </div>
+                <div class="work-grid" aria-label="最近创作列表">
+                  <article class="work-card">
+                    <img src="assets/dashboard/work-1.png" alt="主图生成作品" />
+                    <h3>主图生成</h3>
+                    <p>2024-05-26 14:30</p>
+                  </article>
+                  <article class="work-card">
+                    <img src="assets/dashboard/work-2.png" alt="详情页设计作品" />
+                    <h3>详情页设计</h3>
+                    <p>2024-05-26 11:20</p>
+                  </article>
+                  <article class="work-card">
+                    <img src="assets/dashboard/work-3.png" alt="SKU图生成作品" />
+                    <h3>SKU图生成</h3>
+                    <p>2024-05-26 10:15</p>
+                  </article>
+                  <article class="work-card">
+                    <img src="assets/dashboard/work-4.png" alt="主图生成作品" />
+                    <h3>主图生成</h3>
+                    <p>2024-05-25 18:40</p>
+                  </article>
+                  <article class="work-card">
+                    <img src="assets/dashboard/work-5.png" alt="视频创作作品" />
+                    <h3>视频创作</h3>
+                    <p>2024-05-25 16:20</p>
+                  </article>
+                  <article class="work-card">
+                    <img src="assets/dashboard/work-6.png" alt="详情页设计作品" />
+                    <h3>详情页设计</h3>
+                    <p>2024-05-25 11:05</p>
+                  </article>
+                </div>
+              </section>
             </section>
 
           </div>
@@ -236,20 +406,13 @@
             </header>
 
             <div class="agent-workbench">
-              <aside class="agent-summary" aria-label="任务摘要">
-                <section class="agent-card">
+              <aside class="agent-summary" aria-label="任务摘要（只读）">
+                <section class="agent-card agent-overview-card">
                   <div class="agent-card-title">
-                    <h2>用户输入</h2>
-                    <span>Prompt</span>
+                    <h2>任务概览</h2>
+                    <span>只读摘要</span>
                   </div>
                   <p class="agent-prompt" data-agent-prompt>输入你的即兴灵感，例如：生成一张「蛋牛」品牌的营销广告</p>
-                </section>
-
-                <section class="agent-card">
-                  <div class="agent-card-title">
-                    <h2>生成设置</h2>
-                    <span>Options</span>
-                  </div>
                   <dl class="agent-setting-list">
                     <div><dt>生成类型</dt><dd data-agent-type>详情图</dd></div>
                     <div><dt>清晰度</dt><dd data-agent-resolution>2K</dd></div>
@@ -260,32 +423,33 @@
                   </dl>
                 </section>
 
-                <section class="agent-card">
+                <section class="agent-card agent-reference-card">
                   <div class="agent-card-title">
                     <h2>参考图片</h2>
                     <span data-agent-reference-status>未上传</span>
                   </div>
                   <div class="agent-reference" data-agent-reference>
-                    <img class="agent-reference-preview" data-agent-reference-preview alt="参考图片预览" hidden />
+                    <img class="agent-reference-preview" data-agent-reference-preview alt="参考图片预览" width="220" height="104" hidden />
                     <span class="agent-reference-icon" aria-hidden="true"></span>
-                    <strong data-agent-reference-name>暂无参考图</strong>
-                    <p data-agent-reference-note>从首页上传参考图后，会在这里展示并进入视觉分析流程</p>
-                    <button type="button" data-agent-reference-upload>上传参考图</button>
+                    <div class="agent-reference-copy">
+                      <strong data-agent-reference-name>暂无参考图</strong>
+                      <p data-agent-reference-note>在对话输入区点击“添加参考图”补充素材</p>
+                    </div>
                   </div>
                 </section>
 
-                <section class="agent-card">
-                  <div class="agent-card-title">
-                    <h2>执行流程</h2>
-                    <span>Plan</span>
-                  </div>
+                <details class="agent-card agent-flow-card">
+                  <summary>
+                    <span class="agent-flow-label"><strong>执行流程</strong><small>查看 Agent 当前步骤</small></span>
+                    <span class="agent-flow-progress">1 / 4</span>
+                  </summary>
                   <ol class="agent-steps">
                     <li class="is-active">理解需求与平台规则</li>
                     <li>分析参考图风格和构图</li>
                     <li>确认卖点、文案和版式</li>
                     <li>生成详情图并输出结果</li>
                   </ol>
-                </section>
+                </details>
               </aside>
 
               <section class="agent-chat" aria-label="Agent 对话">
@@ -371,9 +535,12 @@
                 </div>
 
                 <div class="agent-composer">
-                  <textarea aria-label="继续和 Agent 对话" placeholder="继续补充产品卖点、品牌风格、目标平台要求..."></textarea>
+                  <textarea aria-label="继续和 Agent 对话" placeholder="继续补充产品卖点、品牌风格、目标平台要求…"></textarea>
                   <div class="agent-composer-actions">
-                    <button class="agent-attach" type="button">参考图</button>
+                    <label class="agent-attach" data-agent-attach>
+                      <span>添加参考图</span>
+                      <input class="agent-file-input" type="file" accept="image/*" aria-label="添加参考图" data-agent-reference-input />
+                    </label>
                     <button class="agent-send" type="button">发送</button>
                   </div>
                 </div>
@@ -389,13 +556,26 @@
                 <h1>视频生成</h1>
                 <p>输入视频创意，上传参考素材，生成适合电商平台的短视频</p>
               </div>
-              <span class="video-cost"><span aria-hidden="true">✧</span>160/次</span>
+              <span class="video-cost">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z" />
+                  <path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z" />
+                </svg>
+                <span><small>生成消耗</small><strong>160/次</strong></span>
+              </span>
             </header>
 
             <section class="video-composer" aria-label="视频生成输入区">
               <div class="video-prompt-main">
                 <button class="video-upload-tile" type="button" data-video-upload-trigger aria-label="上传视频参考素材">
-                  <span class="video-upload-icon" aria-hidden="true"></span>
+                  <span class="video-upload-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3.5" y="5" width="17" height="14" rx="3.5" />
+                      <path d="m10 9 5 3-5 3V9Z" fill="currentColor" stroke="none" />
+                      <path d="M17.5 3.5v3M16 5h3" />
+                    </svg>
+                  </span>
+                  <span class="video-upload-copy"><strong>参考素材</strong><small>图片或视频</small></span>
                   <img class="video-reference-preview" data-video-reference-preview alt="视频参考素材预览" hidden />
                 </button>
                 <input type="file" accept="image/*" data-video-reference-input hidden />
@@ -403,7 +583,12 @@
               </div>
               <div class="video-toolbar">
                 <div class="prompt-select video-kind">
-                  <span class="select-icon video-mode" aria-hidden="true"></span>
+                  <span class="video-control-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3.5" y="5" width="17" height="14" rx="3" />
+                      <path d="m10 9 5 3-5 3V9Z" fill="currentColor" stroke="none" />
+                    </svg>
+                  </span>
                   <select aria-label="选择视频类型" data-video-type>
                     <option value="product" selected>产品展示</option>
                     <option value="scene">场景种草</option>
@@ -413,7 +598,12 @@
                   <span class="select-arrow" aria-hidden="true"></span>
                 </div>
                 <div class="prompt-select video-ratio">
-                  <span class="select-icon layout" aria-hidden="true"></span>
+                  <span class="video-control-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M8 4H5a1 1 0 0 0-1 1v3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3" />
+                      <rect x="8" y="6" width="8" height="12" rx="2" />
+                    </svg>
+                  </span>
                   <select aria-label="选择视频比例" data-video-ratio>
                     <option value="9:16" selected>9:16 竖版</option>
                     <option value="1:1">1:1 方版</option>
@@ -422,7 +612,12 @@
                   <span class="select-arrow" aria-hidden="true"></span>
                 </div>
                 <div class="prompt-select video-duration">
-                  <span class="select-icon clock" aria-hidden="true"></span>
+                  <span class="video-control-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="8.5" />
+                      <path d="M12 7.5V12l3.2 2" />
+                    </svg>
+                  </span>
                   <select aria-label="选择视频时长" data-video-duration>
                     <option value="10">10秒</option>
                     <option value="15" selected>15秒</option>
@@ -431,7 +626,12 @@
                   <span class="select-arrow" aria-hidden="true"></span>
                 </div>
                 <div class="prompt-select video-platform">
-                  <span class="select-icon layout" aria-hidden="true"></span>
+                  <span class="video-control-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M4 9.5h16M6 9.5V20h12V9.5M3.5 9.5 5.2 4h13.6l1.7 5.5" />
+                      <path d="M9 20v-5h6v5M7 4v3M12 4v3M17 4v3" />
+                    </svg>
+                  </span>
                   <select aria-label="选择视频平台" data-video-platform>
                     <option value="amazon" selected>亚马逊</option>
                     <option value="taobao">淘宝</option>
@@ -441,29 +641,40 @@
                   </select>
                   <span class="select-arrow" aria-hidden="true"></span>
                 </div>
-                <button class="advanced-toggle video-advanced-toggle" type="button" aria-expanded="false" data-video-advanced-toggle>高级选项</button>
-                <button class="generate-button video-start-button" type="button" data-start-video-agent>立即生成</button>
+                <button class="advanced-toggle video-advanced-toggle" type="button" aria-expanded="false" data-video-advanced-toggle>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+                    <path d="M4 7h10M18 7h2M4 17h2M10 17h10" />
+                    <circle cx="16" cy="7" r="2" /><circle cx="8" cy="17" r="2" />
+                  </svg>
+                  <span>高级选项</span>
+                </button>
+                <button class="generate-button video-start-button" type="button" data-start-video-agent>
+                  <span>立即生成</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h13M13 7l5 5-5 5" />
+                  </svg>
+                </button>
               </div>
               <div class="prompt-advanced video-advanced-panel" data-video-advanced-panel hidden>
-                <label class="advanced-field">
+                <div class="advanced-field">
                   <span>是否配字幕</span>
                   <select aria-label="是否配字幕" data-video-subtitle>
                     <option value="yes" selected>配字幕</option>
                     <option value="no">不配字幕</option>
                   </select>
-                </label>
-                <label class="advanced-field">
+                </div>
+                <div class="advanced-field">
                   <span>镜头数量</span>
                   <input aria-label="镜头数量" data-video-scene-count type="number" min="1" max="8" value="4" />
-                </label>
-                <label class="advanced-field">
+                </div>
+                <div class="advanced-field">
                   <span>风格</span>
                   <select aria-label="视频风格" data-video-style>
                     <option value="clean" selected>清爽电商</option>
                     <option value="premium">高级质感</option>
                     <option value="energetic">动感促销</option>
                   </select>
-                </label>
+                </div>
               </div>
             </section>
 
@@ -616,22 +827,117 @@
           <div class="settings-card account-security-card">
             <h2>基本信息</h2>
             <div class="profile-box">
-              <img src="assets/dashboard/account-avatar.png" alt="用户头像" />
+              <button class="profile-avatar-button" type="button" data-account-action="avatar" aria-label="更换用户头像">
+                <img src="assets/dashboard/account-avatar.png" alt="用户头像" width="52" height="52" data-account-avatar />
+                <span class="avatar-edit-badge" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m12.8 4.2 3 3M3.5 16.5l3.8-.8 8.5-8.5a1.4 1.4 0 0 0 0-2l-1-1a1.4 1.4 0 0 0-2 0l-8.5 8.5-.8 3.8Z" /></svg>
+                </span>
+              </button>
               <dl>
-                <div><dt>昵称</dt><dd>用户昵称</dd></div>
+                <div><dt>昵称</dt><dd data-account-nickname>用户昵称</dd></div>
                 <div><dt>用户ID</dt><dd>35873 <span class="copy-mini" aria-hidden="true"></span></dd></div>
               </dl>
-              <button type="button">修改昵称</button>
+              <button type="button" data-account-action="nickname">修改昵称</button>
             </div>
             <h2>账号密码设置</h2>
             <div class="security-list">
-              <div><span>手机号</span><strong>+86 189****8685</strong><button type="button">修改手机号</button></div>
-              <div><span>登录密码</span><strong>已设置</strong><button type="button">修改密码</button></div>
+              <div><span>手机号</span><strong data-account-phone>+86 189****8685</strong><button type="button" data-account-action="phone">修改手机号</button></div>
+              <div><span>登录密码</span><strong>已设置</strong><button type="button" data-account-action="password">修改密码</button></div>
             </div>
             <h2>第三方绑定</h2>
-            <div class="bind-row"><span class="wechat-icon small"></span><span>微信</span><strong>已绑定</strong><button type="button">解绑</button></div>
+            <div class="bind-row">
+              <span class="wechat-brand-icon" aria-hidden="true">
+                <svg viewBox="0 0 40 36" focusable="false">
+                  <path fill="#07c160" d="M22.3 3.2C11.2 3.2 2.2 10 2.2 18.4c0 4.6 2.7 8.7 7 11.5l-1.5 4.6 5.4-2.6c2.8 1.1 5.9 1.7 9.2 1.7 11.1 0 20.1-6.8 20.1-15.2S33.4 3.2 22.3 3.2Z" />
+                  <circle cx="15" cy="15.5" r="1.6" fill="#fff" /><circle cx="29" cy="15.5" r="1.6" fill="#fff" />
+                  <path fill="#12ad55" stroke="#fff" stroke-width="1.2" d="M25.7 14.3c-7.5 0-13.6 4.7-13.6 10.5s6.1 10.5 13.6 10.5c2.2 0 4.2-.4 6-1.2l3.9 1.8-1-3.4c2.9-1.9 4.7-4.6 4.7-7.7 0-5.8-6.1-10.5-13.6-10.5Z" />
+                  <circle cx="21" cy="23.8" r="1.25" fill="#fff" /><circle cx="30.8" cy="23.8" r="1.25" fill="#fff" />
+                </svg>
+              </span>
+              <span>微信</span><strong data-wechat-status>已绑定</strong><button type="button" data-account-action="wechat-unbind">解绑</button>
+            </div>
           </div>
         </section>
+
+        <dialog class="account-action-dialog" data-account-dialog="avatar" aria-labelledby="avatar-dialog-title">
+          <div class="account-dialog-shell">
+            <header class="account-dialog-head">
+              <span class="account-dialog-icon mint" aria-hidden="true">◉</span>
+              <div><h2 id="avatar-dialog-title">更换头像</h2><p>上传清晰的正方形图片，展示效果更佳</p></div>
+              <button class="account-dialog-close" type="button" data-dialog-close aria-label="关闭更换头像弹框"></button>
+            </header>
+            <form class="account-dialog-form" data-account-form="avatar">
+              <div class="avatar-dialog-preview"><img src="assets/dashboard/account-avatar.png" alt="新头像预览" width="88" height="88" data-avatar-dialog-preview /></div>
+              <label class="avatar-upload-control">
+                <span>选择本地图片</span>
+                <input type="file" accept="image/png,image/jpeg,image/webp" aria-label="选择新的头像图片" data-avatar-input />
+              </label>
+              <p class="account-field-note">支持 JPG、PNG、WebP，建议尺寸不低于 400 × 400 像素。</p>
+              <div class="account-dialog-actions"><button class="secondary" type="button" data-dialog-close>取消</button><button class="primary" type="submit">保存头像</button></div>
+            </form>
+          </div>
+        </dialog>
+
+        <dialog class="account-action-dialog" data-account-dialog="nickname" aria-labelledby="nickname-dialog-title">
+          <div class="account-dialog-shell">
+            <header class="account-dialog-head">
+              <span class="account-dialog-icon lime" aria-hidden="true">Aa</span>
+              <div><h2 id="nickname-dialog-title">修改昵称</h2><p>昵称会显示在工作台和创作记录中</p></div>
+              <button class="account-dialog-close" type="button" data-dialog-close aria-label="关闭修改昵称弹框"></button>
+            </header>
+            <form class="account-dialog-form" data-account-form="nickname">
+              <label class="account-field"><span>新昵称</span><input name="nickname" type="text" value="用户昵称" maxlength="20" autocomplete="off" required data-nickname-input /></label>
+              <p class="account-field-note">最多 20 个字符，请勿包含联系方式或敏感内容。</p>
+              <div class="account-dialog-actions"><button class="secondary" type="button" data-dialog-close>取消</button><button class="primary" type="submit">保存昵称</button></div>
+            </form>
+          </div>
+        </dialog>
+
+        <dialog class="account-action-dialog" data-account-dialog="phone" aria-labelledby="phone-dialog-title">
+          <div class="account-dialog-shell">
+            <header class="account-dialog-head">
+              <span class="account-dialog-icon apricot" aria-hidden="true">☎</span>
+              <div><h2 id="phone-dialog-title">修改手机号</h2><p>新手机号验证成功后将用于登录和安全通知</p></div>
+              <button class="account-dialog-close" type="button" data-dialog-close aria-label="关闭修改手机号弹框"></button>
+            </header>
+            <form class="account-dialog-form" data-account-form="phone">
+              <label class="account-field"><span>新手机号</span><div class="phone-field"><b>+86</b><input name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="请输入新的手机号…" pattern="1[3-9][0-9]{9}" required data-phone-input /></div></label>
+              <label class="account-field"><span>短信验证码</span><div class="verification-field"><input name="code" type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="请输入 6 位验证码…" maxlength="6" pattern="[0-9]{6}" required /><button type="button" data-send-code>获取验证码</button></div></label>
+              <div class="account-dialog-actions"><button class="secondary" type="button" data-dialog-close>取消</button><button class="primary" type="submit">确认修改</button></div>
+            </form>
+          </div>
+        </dialog>
+
+        <dialog class="account-action-dialog" data-account-dialog="password" aria-labelledby="password-dialog-title">
+          <div class="account-dialog-shell">
+            <header class="account-dialog-head">
+              <span class="account-dialog-icon mint" aria-hidden="true">✦</span>
+              <div><h2 id="password-dialog-title">修改登录密码</h2><p>建议使用字母、数字和符号的组合</p></div>
+              <button class="account-dialog-close" type="button" data-dialog-close aria-label="关闭修改密码弹框"></button>
+            </header>
+            <form class="account-dialog-form" data-account-form="password">
+              <label class="account-field"><span>当前密码</span><input name="current-password" type="password" autocomplete="current-password" placeholder="请输入当前密码…" required /></label>
+              <label class="account-field"><span>新密码</span><input name="new-password" type="password" autocomplete="new-password" placeholder="至少输入 8 位新密码…" minlength="8" required data-new-password /></label>
+              <label class="account-field"><span>确认新密码</span><input name="confirm-password" type="password" autocomplete="new-password" placeholder="请再次输入新密码…" minlength="8" required data-confirm-password /></label>
+              <p class="account-form-error" role="alert" data-password-error hidden>两次输入的新密码不一致，请重新确认。</p>
+              <div class="account-dialog-actions"><button class="secondary" type="button" data-dialog-close>取消</button><button class="primary" type="submit">更新密码</button></div>
+            </form>
+          </div>
+        </dialog>
+
+        <dialog class="account-action-dialog danger-dialog" data-account-dialog="wechat-unbind" aria-labelledby="wechat-dialog-title" aria-describedby="wechat-dialog-description">
+          <div class="account-dialog-shell">
+            <header class="account-dialog-head">
+              <span class="account-dialog-icon apricot" aria-hidden="true">!</span>
+              <div><h2 id="wechat-dialog-title">解除微信绑定</h2><p>解绑后将无法继续使用微信快捷登录</p></div>
+              <button class="account-dialog-close" type="button" data-dialog-close aria-label="关闭微信解绑弹框"></button>
+            </header>
+            <form class="account-dialog-form" data-account-form="wechat-unbind">
+              <div class="account-warning" id="wechat-dialog-description"><strong>确认解绑当前微信账号？</strong><span>解绑不会删除创作记录，但下次使用微信登录前需要重新完成绑定。</span></div>
+              <div class="account-dialog-actions"><button class="secondary" type="button" data-dialog-close>暂不解绑</button><button class="danger" type="submit">确认解绑</button></div>
+            </form>
+          </div>
+        </dialog>
 
         <section class="page-view settings-layout" data-page-panel="orders" aria-label="我的订单">
           <div class="settings-header">
@@ -745,7 +1051,6 @@
                   <ul>
                     <li>获得 1280 积分</li>
                     <li>送 480 积分</li>
-                    <li>可导出 <b>PSD</b> 格式</li>
                     <li>优先排队</li>
                     <li>可去除水印</li>
                     <li>可生成约 985 张图片</li>
@@ -761,7 +1066,6 @@
                   <ul>
                     <li>获得 2980 积分</li>
                     <li>送 980 积分</li>
-                    <li>可导出 <b>PSD</b> 格式</li>
                     <li>优先排队</li>
                     <li>可去除水印</li>
                     <li>可生成约 1985 张图片</li>
@@ -822,18 +1126,57 @@
             <p>邀请、兑换与奖励记录</p>
           </div>
           <div class="invite-grid">
-            <article><span class="invite-illustration ticket"></span><div><h2>兑换码</h2><p>使用兑换码领取积分或参与活动</p><button type="button">使用兑换码</button></div></article>
-            <article><span class="invite-illustration gift"></span><div><h2>创建邀请码</h2><p>邀请好友注册，好友使用后您可获得积分奖励</p><button type="button">创建邀请码</button></div></article>
-            <article><span class="invite-illustration user"></span><div><h2>使用邀请码</h2><p>仅限每个创作者24小时内可填，每个账号仅限一次，立得100积分</p><button type="button">使用邀请码</button></div></article>
+            <article class="invite-action-card ticket-card">
+              <span class="invite-illustration ticket" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2.5 2.5 0 0 0 0 5v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2.5 2.5 0 0 0 0-5Z" />
+                  <path d="M13 6v2M13 11v2M13 16v3" />
+                </svg>
+              </span>
+              <div><h2>兑换码</h2><p>使用兑换码领取积分或参与活动</p><button type="button"><span>使用兑换码</span><span class="invite-action-arrow" aria-hidden="true">↗</span></button></div>
+            </article>
+            <article class="invite-action-card gift-card">
+              <span class="invite-illustration gift" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="8" width="18" height="4" rx="1" />
+                  <path d="M12 8v13M5 12v9h14v-9M7.5 8a2.5 2.5 0 1 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 1 1 0 5" />
+                </svg>
+              </span>
+              <div><h2>创建邀请码</h2><p>邀请好友注册，好友使用后您可获得积分奖励</p><button type="button"><span>创建邀请码</span><span class="invite-action-arrow" aria-hidden="true">↗</span></button></div>
+            </article>
+            <article class="invite-action-card user-card">
+              <span class="invite-illustration user" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M3 21v-2a6 6 0 0 1 6-6 6.1 6.1 0 0 1 2.2.4M19 14v6M16 17h6" />
+                </svg>
+              </span>
+              <div><h2>使用邀请码</h2><p>仅限每个创作者24小时内可填，每个账号仅限一次，立得100积分</p><button type="button"><span>使用邀请码</span><span class="invite-action-arrow" aria-hidden="true">↗</span></button></div>
+            </article>
           </div>
           <div class="invite-code-card">
-            <h2>我的邀请码</h2>
-            <strong>MN123456</strong>
-            <button type="button">复制</button>
-            <span>邀请链接：https://qingyehui.com/register?code=MN123456</span>
-            <button type="button">复制</button>
-            <em>已邀请 <b>12人</b></em>
-            <em>获得积分 <b>1,200</b></em>
+            <div class="invite-code-primary">
+              <h2>我的邀请码</h2>
+              <div class="invite-code-value">
+                <strong>MN123456</strong>
+                <button class="invite-copy" type="button" data-copy-text="MN123456" aria-label="复制邀请码">
+                  <span class="invite-copy-icon" aria-hidden="true"></span><span data-copy-label aria-live="polite">复制</span>
+                </button>
+              </div>
+            </div>
+            <div class="invite-link-block">
+              <span class="invite-link-label">专属邀请链接</span>
+              <div class="invite-link-value">
+                <span title="https://qingyehui.com/register?code=MN123456">https://qingyehui.com/register?code=MN123456</span>
+                <button class="invite-copy" type="button" data-copy-text="https://qingyehui.com/register?code=MN123456" aria-label="复制邀请链接">
+                  <span class="invite-copy-icon" aria-hidden="true"></span><span data-copy-label aria-live="polite">复制</span>
+                </button>
+              </div>
+            </div>
+            <div class="invite-stats" aria-label="邀请奖励数据">
+              <em><span>已邀请</span><b>12</b><small>人</small></em>
+              <em><span>获得积分</span><b>1,200</b><small>积分</small></em>
+            </div>
           </div>
         </section>
         <button class="support-float" type="button" aria-label="联系客服">
@@ -843,6 +1186,6 @@
       </main>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=20260714-video-polish"></script>
   </body>
 </html>

@@ -4869,7 +4869,7 @@ tbody tr {
 .paper-bird {
   position: absolute;
   top: -7px;
-  right: 20px;
+  right: -14px;
   width: 66px;
   height: 66px;
   opacity: 0.9;
