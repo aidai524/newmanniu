@@ -3,24 +3,60 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>蛮牛系统 - 登录注册</title>
+    <meta name="theme-color" content="#f5f6f9" />
+    <title>蛮牛 - 登录</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body class="login-page">
     <main class="page-shell">
-      <section class="login-card" aria-label="蛋牛系统登录注册">
-        <div class="brand-panel" aria-label="蛋牛系统 AI 视觉创作平台">
-          <img src="assets/brand-panel.png" alt="打造电商全流程 AI 视觉解决方案" />
+      <section class="login-card" aria-label="蛮牛系统登录注册">
+        <div class="brand-panel">
+          <header class="login-brand" aria-label="蛮牛 AI 电商视觉创作平台">
+            <span class="login-brand-mark" aria-hidden="true"></span>
+            <span class="login-brand-copy">
+              <strong>蛮牛</strong>
+              <small>AI CREATIVE STUDIO</small>
+            </span>
+          </header>
+
+          <div class="brand-intro">
+            <span>电商视觉创作工作台</span>
+            <h2>从商品素材到可用作品</h2>
+            <p>主图、详情图与短视频，在一个清晰的创作流程里完成。</p>
+          </div>
+
+          <div class="brand-showcase" aria-label="蛮牛创作案例">
+            <figure class="showcase-main">
+              <img src="assets/dashboard/work-1-hd.jpg" width="1600" height="1000" alt="护肤商品主图创作案例" fetchpriority="high" />
+            </figure>
+            <figure>
+              <img src="assets/dashboard/work-3-hd.jpg" width="1600" height="1000" alt="相机商品场景图创作案例" loading="lazy" />
+            </figure>
+            <figure>
+              <img src="assets/dashboard/work-5-hd.jpg" width="1600" height="1000" alt="生活方式商品图创作案例" loading="lazy" />
+            </figure>
+          </div>
+
+          <div class="brand-foot">
+            <span>商品主图</span>
+            <span>详情页设计</span>
+            <span>短视频创作</span>
+          </div>
         </div>
 
         <section class="auth-panel" aria-label="登录注册表单">
-          <button class="scan-entry" type="button" data-view="wechat" aria-label="微信扫码登录">
+          <button class="scan-entry" type="button" data-view="wechat" aria-label="使用微信扫码登录">
             <span class="qr-mini" aria-hidden="true"></span>
-            <span>微信扫码登录</span>
+            <span>扫码登录</span>
           </button>
 
           <div class="view is-active" data-panel="phone">
-            <h1>登录 / 注册</h1>
+            <div class="auth-heading">
+              <span>欢迎回来</span>
+              <h1>登录蛮牛</h1>
+              <p>继续你的 AI 电商视觉创作</p>
+            </div>
+
             <div class="tabs" role="tablist" aria-label="登录方式">
               <button class="tab is-active" type="button" data-view="phone" role="tab" aria-selected="true">
                 手机号登录
@@ -31,17 +67,23 @@
             </div>
 
             <form class="form" action="#" aria-label="手机号登录表单">
-              <label class="field phone-field">
-                <span class="country-code">+86</span>
-                <span class="chevron" aria-hidden="true"></span>
-                <input type="tel" inputmode="tel" placeholder="请输入手机号" />
-              </label>
-              <label class="field code-field">
-                <input type="text" inputmode="numeric" placeholder="请输入验证码" />
-                <button type="button">发送验证码</button>
-              </label>
+              <div class="form-field">
+                <label class="field-label" for="login-phone">手机号</label>
+                <span class="field phone-field">
+                  <span class="country-code">+86</span>
+                  <span class="chevron" aria-hidden="true"></span>
+                  <input id="login-phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="请输入手机号" pattern="1[3-9][0-9]{9}" required />
+                </span>
+              </div>
+              <div class="form-field">
+                <label class="field-label" for="login-code">短信验证码</label>
+                <span class="field code-field">
+                  <input id="login-code" type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="请输入 6 位验证码" maxlength="6" pattern="[0-9]{6}" required />
+                  <button type="button" data-login-send-code>获取验证码</button>
+                </span>
+              </div>
               <label class="agreement">
-                <input type="checkbox" />
+                <input type="checkbox" required />
                 <span class="fake-radio" aria-hidden="true"></span>
                 <span>
                   我已阅读并同意
@@ -61,7 +103,12 @@
           </div>
 
           <div class="view" data-panel="account">
-            <h1>登录 / 注册</h1>
+            <div class="auth-heading">
+              <span>欢迎回来</span>
+              <h1>登录蛮牛</h1>
+              <p>使用你的账号和密码继续创作</p>
+            </div>
+
             <div class="tabs" role="tablist" aria-label="登录方式">
               <button class="tab" type="button" data-view="phone" role="tab" aria-selected="false">
                 手机号登录
@@ -72,12 +119,18 @@
             </div>
 
             <form class="form" action="#" aria-label="账号密码登录表单">
-              <label class="field">
-                <input type="text" placeholder="请输入账号/手机号" />
-              </label>
-              <label class="field">
-                <input type="password" placeholder="请输入密码" />
-              </label>
+              <div class="form-field">
+                <label class="field-label" for="account-name">账号</label>
+                <span class="field">
+                  <input id="account-name" type="text" autocomplete="username" placeholder="请输入账号或手机号" required />
+                </span>
+              </div>
+              <div class="form-field">
+                <label class="field-label" for="account-password">密码</label>
+                <span class="field">
+                  <input id="account-password" type="password" autocomplete="current-password" placeholder="请输入密码" minlength="6" required />
+                </span>
+              </div>
               <div class="form-row">
                 <label class="agreement compact">
                   <input type="checkbox" />
@@ -98,6 +151,11 @@
 
           <div class="view wechat-view" data-panel="wechat">
             <button class="back-button" type="button" data-view="phone">返回登录</button>
+            <div class="state-heading">
+              <span>微信登录</span>
+              <h2>使用微信扫码登录蛮牛</h2>
+              <p>首次扫码将自动创建账号</p>
+            </div>
             <div class="qr-box" aria-label="微信二维码">
               <div class="qr-code" aria-hidden="true">
                 <span></span><span></span><span></span><span></span><span></span>
@@ -108,14 +166,17 @@
               </div>
               <span class="wechat-mark" aria-hidden="true"></span>
             </div>
-            <h2>使用微信扫一扫登录“蛋牛系统”</h2>
-            <p>首次扫码将自动创建账号</p>
             <button class="link-button" type="button" data-view="phone">切换为手机号登录</button>
             <button class="ghost-action" type="button" data-view="pending">模拟已扫码</button>
           </div>
 
           <div class="view wechat-view" data-panel="pending">
             <button class="back-button" type="button" data-view="phone">返回登录</button>
+            <div class="state-heading">
+              <span>等待确认</span>
+              <h2>已扫码，请在微信中确认</h2>
+              <p>确认后即可进入蛮牛工作台</p>
+            </div>
             <div class="qr-box is-scanned" aria-label="扫码等待确认">
               <div class="qr-code" aria-hidden="true">
                 <span></span><span></span><span></span><span></span><span></span>
@@ -126,8 +187,6 @@
               </div>
               <span class="scan-badge" aria-hidden="true"></span>
             </div>
-            <h2>已扫码，请在微信中确认登录</h2>
-            <p>请在微信中点击“确认”以完成登录</p>
             <button class="link-button" type="button" data-view="phone">切换为手机号登录</button>
             <button class="ghost-action" type="button" data-view="success">模拟确认登录</button>
           </div>
@@ -135,32 +194,45 @@
           <div class="view result-view" data-panel="success">
             <button class="back-button" type="button" data-view="phone">返回登录</button>
             <div class="success-icon" aria-hidden="true"></div>
-            <h2>登录成功</h2>
-            <p>正在进入系统...</p>
+            <div class="state-heading">
+              <span>登录成功</span>
+              <h2>欢迎回到蛮牛</h2>
+              <p>正在为你准备创作工作台</p>
+            </div>
             <span class="spinner" aria-hidden="true"></span>
+            <a class="workspace-entry" href="index.html">进入工作台</a>
             <button class="ghost-action" type="button" data-view="bind">模拟首次绑定</button>
           </div>
 
           <div class="view bind-view" data-panel="bind">
-            <h1>绑定手机号</h1>
-            <p>为保障您的账号安全，请绑定手机号</p>
+            <button class="back-button" type="button" data-view="success">稍后绑定</button>
+            <div class="auth-heading">
+              <span>账号安全</span>
+              <h1>绑定手机号</h1>
+              <p>用于登录验证和找回账号</p>
+            </div>
             <form class="form" action="#" aria-label="绑定手机号表单">
-              <label class="field phone-field">
-                <span class="country-code">+86</span>
-                <span class="chevron" aria-hidden="true"></span>
-                <input type="tel" inputmode="tel" placeholder="请输入手机号" />
-              </label>
-              <label class="field code-field">
-                <input type="text" inputmode="numeric" placeholder="请输入验证码" />
-                <button type="button">发送验证码</button>
-              </label>
+              <div class="form-field">
+                <label class="field-label" for="bind-phone">手机号</label>
+                <span class="field phone-field">
+                  <span class="country-code">+86</span>
+                  <span class="chevron" aria-hidden="true"></span>
+                  <input id="bind-phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="请输入手机号" pattern="1[3-9][0-9]{9}" required />
+                </span>
+              </div>
+              <div class="form-field">
+                <label class="field-label" for="bind-code">短信验证码</label>
+                <span class="field code-field">
+                  <input id="bind-code" type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="请输入 6 位验证码" maxlength="6" pattern="[0-9]{6}" required />
+                  <button type="button" data-login-send-code>获取验证码</button>
+                </span>
+              </div>
               <button class="primary-button" type="submit">确认绑定</button>
             </form>
-            <button class="link-button" type="button" data-view="success">暂不绑定，稍后再说</button>
           </div>
         </section>
       </section>
     </main>
-    <script src="script.js"></script>
+    <script src="script.js?v=20260714-login-refresh"></script>
   </body>
 </html>

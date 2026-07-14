@@ -19,6 +19,32 @@ viewButtons.forEach((button) => {
   button.addEventListener("click", () => setView(button.dataset.view));
 });
 
+document.querySelectorAll("[data-login-send-code]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const form = button.closest("form");
+    const phoneInput = form?.querySelector('input[type="tel"]');
+    if (phoneInput && !phoneInput.checkValidity()) {
+      phoneInput.reportValidity();
+      phoneInput.focus();
+      return;
+    }
+
+    let remaining = 60;
+    button.disabled = true;
+    button.textContent = `重新获取 ${remaining}s`;
+    const timer = window.setInterval(() => {
+      remaining -= 1;
+      if (remaining <= 0) {
+        window.clearInterval(timer);
+        button.disabled = false;
+        button.textContent = "重新获取";
+        return;
+      }
+      button.textContent = `重新获取 ${remaining}s`;
+    }, 1000);
+  });
+});
+
 document.querySelectorAll("form").forEach((form) => {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
