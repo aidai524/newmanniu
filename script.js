@@ -117,6 +117,11 @@ const pageLabels = {
   video: "视频生成",
   videoAgent: "视频生成 Agent",
   detail: "详情图 Agent",
+  assets: "我的资产",
+  templates: "模板中心",
+  toolbox: "AI 工具箱",
+  help: "反馈帮助",
+  messages: "消息中心",
   account: "账户安全",
   orders: "我的订单",
   points: "积分明细",
@@ -622,3 +627,264 @@ document.addEventListener("click", (event) => {
     userTrigger?.setAttribute("aria-expanded", "false");
   }
 });
+
+const workspaceToast = document.querySelector("[data-workspace-toast]");
+let workspaceToastTimer;
+
+function showWorkspaceToast(message) {
+  if (!workspaceToast) return;
+  window.clearTimeout(workspaceToastTimer);
+  workspaceToast.textContent = message;
+  workspaceToast.hidden = false;
+  requestAnimationFrame(() => workspaceToast.classList.add("is-visible"));
+  workspaceToastTimer = window.setTimeout(() => {
+    workspaceToast.classList.remove("is-visible");
+    window.setTimeout(() => {
+      workspaceToast.hidden = true;
+    }, 180);
+  }, 2200);
+}
+
+function setupCardFilter({ groupName, cardSelector, categoryKey, searchSelector, emptySelector, matchCategory }) {
+  const group = document.querySelector(`[data-filter-group="${groupName}"]`);
+  const cards = [...document.querySelectorAll(cardSelector)];
+  const search = document.querySelector(searchSelector);
+  const empty = document.querySelector(emptySelector);
+  if (!group || !cards.length) return;
+
+  let activeFilter = "all";
+
+  function refresh() {
+    const query = search?.value.trim().toLocaleLowerCase("zh-CN") || "";
+    let visibleCount = 0;
+    cards.forEach((card) => {
+      const category = card.dataset[categoryKey] || "";
+      const searchText = card.dataset.searchText?.toLocaleLowerCase("zh-CN") || "";
+      const categoryMatches = activeFilter === "all" || (matchCategory ? matchCategory(card, activeFilter) : category.split(" ").includes(activeFilter));
+      const searchMatches = !query || searchText.includes(query);
+      const shouldShow = categoryMatches && searchMatches;
+      card.hidden = !shouldShow;
+      if (shouldShow) visibleCount += 1;
+    });
+    if (empty) empty.hidden = visibleCount > 0;
+  }
+
+  group.querySelectorAll("[data-filter]").forEach((button) => {
+    button.addEventListener("click", () => {
+      activeFilter = button.dataset.filter || "all";
+      group.querySelectorAll("[data-filter]").forEach((item) => item.classList.toggle("is-active", item === button));
+      refresh();
+    });
+  });
+
+  search?.addEventListener("input", refresh);
+  refresh();
+}
+
+setupCardFilter({
+  groupName: "assets",
+  cardSelector: "[data-asset-grid] .asset-card",
+  categoryKey: "assetType",
+  searchSelector: "[data-asset-search]",
+  emptySelector: "[data-asset-empty]",
+});
+
+setupCardFilter({
+  groupName: "templates",
+  cardSelector: "[data-template-grid] .template-card",
+  categoryKey: "templateCategory",
+  searchSelector: "[data-template-search]",
+  emptySelector: "[data-template-empty]",
+});
+
+setupCardFilter({
+  groupName: "tools",
+  cardSelector: "[data-tool-grid] .toolbox-card",
+  categoryKey: "toolCategory",
+  searchSelector: "[data-tool-search]",
+  emptySelector: "[data-tool-empty]",
+});
+
+const templateDialog = document.querySelector("[data-template-dialog]");
+const templateReferenceInput = document.querySelector("[data-template-reference]");
+const templateUploadTrigger = document.querySelector("[data-template-upload-trigger]");
+const templateUploadPreview = document.querySelector("[data-template-upload-preview]");
+const templateUploadLabel = document.querySelector("[data-template-upload-label]");
+let selectedTemplateMode = "商品主图";
+
+function openTemplateDialog(trigger) {
+  if (!templateDialog || !trigger) return;
+  const templateName = trigger.dataset.templateName || "清透夏日护肤主图";
+  selectedTemplateMode = trigger.dataset.templateMode || "商品主图";
+  const platform = trigger.dataset.templatePlatform || "亚马逊 · 1:1 · 2K";
+  const nameTarget = templateDialog.querySelector("[data-template-dialog-name]");
+  const modeTarget = templateDialog.querySelector("[data-template-dialog-mode]");
+  const platformTarget = templateDialog.querySelector("[data-template-dialog-platform]");
+  if (nameTarget) nameTarget.textContent = templateName;
+  if (modeTarget) modeTarget.textContent = selectedTemplateMode;
+  if (platformTarget) platformTarget.textContent = platform;
+  if (templateReferenceInput) templateReferenceInput.value = "";
+  if (templateUploadPreview) {
+    templateUploadPreview.hidden = true;
+    templateUploadPreview.removeAttribute("src");
+  }
+  templateUploadTrigger?.classList.remove("has-image");
+  if (templateUploadLabel) templateUploadLabel.textContent = "上传你的商品参考图";
+  if (!templateDialog.open) templateDialog.showModal();
+}
+
+document.querySelectorAll("[data-template-use]").forEach((button) => {
+  button.addEventListener("click", () => openTemplateDialog(button));
+});
+
+document.querySelector("[data-template-featured]")?.addEventListener("click", () => {
+  openTemplateDialog(document.querySelector("[data-template-use]"));
+});
+
+document.querySelector("[data-template-close]")?.addEventListener("click", () => templateDialog?.close("cancel"));
+templateDialog?.addEventListener("click", (event) => {
+  if (event.target === templateDialog) templateDialog.close("cancel");
+});
+
+templateUploadTrigger?.addEventListener("click", () => templateReferenceInput?.click());
+templateReferenceInput?.addEventListener("change", () => {
+  const file = templateReferenceInput.files?.[0];
+  if (!file || !templateUploadPreview) return;
+  templateUploadPreview.src = URL.createObjectURL(file);
+  templateUploadPreview.hidden = false;
+  templateUploadTrigger?.classList.add("has-image");
+  if (templateUploadLabel) templateUploadLabel.textContent = file.name;
+});
+
+document.querySelector("[data-template-form]")?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const file = templateReferenceInput?.files?.[0];
+  if (!file) {
+    showWorkspaceToast("请先上传商品参考图");
+    templateUploadTrigger?.focus();
+    return;
+  }
+  if (selectedTemplateMode === "短视频") {
+    applyVideoReference(file);
+    setPage("video");
+  } else {
+    applyReferenceImage(file);
+    setPage("home");
+  }
+  templateDialog?.close("confirmed");
+  showWorkspaceToast("模板参数已应用，可直接开始生成");
+});
+
+const helpArticles = [...document.querySelectorAll("[data-help-category]")];
+const helpNavButtons = [...document.querySelectorAll("[data-help-filter]")];
+const helpSearch = document.querySelector("[data-help-search]");
+const helpEmpty = document.querySelector("[data-help-empty]");
+let activeHelpFilter = "all";
+
+function refreshHelpArticles() {
+  const query = helpSearch?.value.trim().toLocaleLowerCase("zh-CN") || "";
+  let visibleCount = 0;
+  helpArticles.forEach((article) => {
+    const filterMatches = activeHelpFilter === "all" || article.dataset.helpCategory === activeHelpFilter;
+    const searchMatches = !query || (article.dataset.searchText || "").toLocaleLowerCase("zh-CN").includes(query);
+    article.hidden = !(filterMatches && searchMatches);
+    if (!article.hidden) visibleCount += 1;
+  });
+  if (helpEmpty) helpEmpty.hidden = visibleCount > 0;
+}
+
+helpNavButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    activeHelpFilter = button.dataset.helpFilter || "all";
+    helpNavButtons.forEach((item) => item.classList.toggle("is-active", item === button));
+    refreshHelpArticles();
+  });
+});
+helpSearch?.addEventListener("input", refreshHelpArticles);
+
+document.querySelectorAll("[data-help-toggle]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const answer = button.closest(".help-article")?.querySelector(".help-answer");
+    if (!answer) return;
+    const shouldOpen = answer.hidden;
+    answer.hidden = !shouldOpen;
+    button.setAttribute("aria-expanded", String(shouldOpen));
+    const indicator = button.querySelector(":scope > b");
+    if (indicator) indicator.textContent = shouldOpen ? "−" : "+";
+  });
+});
+
+document.querySelector("[data-contact-support]")?.addEventListener("click", () => {
+  showWorkspaceToast("客服入口已唤起，我们会尽快回应");
+});
+document.querySelector(".support-float")?.addEventListener("click", () => {
+  showWorkspaceToast("客服入口已唤起，我们会尽快回应");
+});
+
+const messageItems = [...document.querySelectorAll("[data-message-kind]")];
+const messageFilterGroup = document.querySelector('[data-filter-group="messages"]');
+const messageBadge = document.querySelector("[data-message-badge]");
+const messageUnreadCount = document.querySelector("[data-message-unread-count]");
+const messageFilterCount = document.querySelector("[data-message-filter-count]");
+const messageEmpty = document.querySelector("[data-message-empty]");
+let activeMessageFilter = "all";
+
+function unreadMessageCount() {
+  return messageItems.filter((item) => item.classList.contains("is-unread")).length;
+}
+
+function syncMessageCounts() {
+  const count = unreadMessageCount();
+  if (messageBadge) {
+    messageBadge.textContent = String(count);
+    messageBadge.hidden = count === 0;
+  }
+  if (messageUnreadCount) messageUnreadCount.textContent = count ? `${count} 条未读` : "全部已读";
+  if (messageFilterCount) messageFilterCount.textContent = String(count);
+}
+
+function refreshMessages() {
+  let visibleCount = 0;
+  messageItems.forEach((item) => {
+    const shouldShow = activeMessageFilter === "all"
+      || (activeMessageFilter === "unread" && item.classList.contains("is-unread"))
+      || item.dataset.messageKind === activeMessageFilter;
+    item.hidden = !shouldShow;
+    if (shouldShow) visibleCount += 1;
+  });
+  if (messageEmpty) messageEmpty.hidden = visibleCount > 0;
+}
+
+messageFilterGroup?.querySelectorAll("[data-filter]").forEach((button) => {
+  button.addEventListener("click", () => {
+    activeMessageFilter = button.dataset.filter || "all";
+    messageFilterGroup.querySelectorAll("[data-filter]").forEach((item) => item.classList.toggle("is-active", item === button));
+    refreshMessages();
+  });
+});
+
+messageItems.forEach((item) => {
+  const markRead = () => {
+    if (!item.classList.contains("is-unread")) return;
+    item.classList.remove("is-unread");
+    item.querySelector(".message-unread-dot")?.remove();
+    syncMessageCounts();
+    if (activeMessageFilter === "unread") refreshMessages();
+  };
+  item.addEventListener("click", markRead);
+  item.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") markRead();
+  });
+});
+
+document.querySelector("[data-mark-all-read]")?.addEventListener("click", () => {
+  messageItems.forEach((item) => {
+    item.classList.remove("is-unread");
+    item.querySelector(".message-unread-dot")?.remove();
+  });
+  syncMessageCounts();
+  refreshMessages();
+  showWorkspaceToast("所有消息已标为已读");
+});
+
+syncMessageCounts();

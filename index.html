@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>蛮牛系统 - 工作台</title>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="designkit-theme.css?v=20260714-sidebar-icons" />
+    <link rel="stylesheet" href="designkit-theme.css?v=20260714-hd-assets" />
   </head>
   <body class="dashboard-page">
     <div class="app-shell">
@@ -36,15 +36,7 @@
             </span>
             视频生成
           </button>
-          <button class="side-item" type="button" data-title="无限画布">
-            <span class="sidebar-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M7.2 8.5C5 8.5 3.5 10 3.5 12s1.5 3.5 3.7 3.5c3.2 0 6.4-7 9.6-7 2.2 0 3.7 1.5 3.7 3.5s-1.5 3.5-3.7 3.5c-3.2 0-6.4-7-9.6-7Z" />
-              </svg>
-            </span>
-            无限画布
-          </button>
-          <button class="side-item" type="button" data-title="我的资产">
+          <button class="side-item" type="button" data-page="assets" data-title="我的资产">
             <span class="sidebar-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M3.5 7.5h6l1.7-2h9.3v12.7a1.8 1.8 0 0 1-1.8 1.8H5.3a1.8 1.8 0 0 1-1.8-1.8V7.5Z" />
@@ -53,7 +45,7 @@
             </span>
             我的资产
           </button>
-          <button class="side-item" type="button" data-title="AI 工具箱">
+          <button class="side-item" type="button" data-page="toolbox" data-title="AI 工具箱">
             <span class="sidebar-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="4" y="4" width="6" height="6" rx="1.8" />
@@ -64,7 +56,7 @@
             </span>
             AI 工具箱
           </button>
-          <button class="side-item" type="button" data-title="模板中心">
+          <button class="side-item" type="button" data-page="templates" data-title="模板中心">
             <span class="sidebar-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="5" y="3.5" width="14" height="17" rx="3" />
@@ -73,7 +65,7 @@
             </span>
             模板中心
           </button>
-          <button class="side-item" type="button" data-title="反馈帮助">
+          <button class="side-item" type="button" data-page="help" data-title="反馈帮助">
             <span class="sidebar-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M5.2 18.8 4 21l4-1.1c1.2.7 2.5 1.1 4 1.1 4.7 0 8.5-3.7 8.5-8.3S16.7 4.5 12 4.5s-8.5 3.7-8.5 8.2c0 2.4 1 4.5 2.7 6.1Z" />
@@ -103,7 +95,7 @@
             </span>
             开通会员
           </button>
-          <button class="side-item" type="button" data-title="消息中心">
+          <button class="side-item" type="button" data-page="messages" data-title="消息中心">
             <span class="sidebar-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15l1.5-2Z" />
@@ -111,7 +103,7 @@
               </svg>
             </span>
             消息中心
-            <span class="badge-dot">3</span>
+            <span class="badge-dot" data-message-badge>3</span>
           </button>
           <button class="side-item" type="button" data-title="更多">
             <span class="sidebar-icon" aria-hidden="true">
@@ -355,32 +347,32 @@
                 </div>
                 <div class="work-grid" aria-label="最近创作列表">
                   <article class="work-card">
-                    <img src="assets/dashboard/work-1.png" alt="主图生成作品" />
+                    <img src="assets/dashboard/work-1-hd.jpg" alt="主图生成作品" loading="lazy" />
                     <h3>主图生成</h3>
                     <p>2024-05-26 14:30</p>
                   </article>
                   <article class="work-card">
-                    <img src="assets/dashboard/work-2.png" alt="详情页设计作品" />
+                    <img src="assets/dashboard/work-2-hd.jpg" alt="详情页设计作品" loading="lazy" />
                     <h3>详情页设计</h3>
                     <p>2024-05-26 11:20</p>
                   </article>
                   <article class="work-card">
-                    <img src="assets/dashboard/work-3.png" alt="SKU图生成作品" />
+                    <img src="assets/dashboard/work-3-hd.jpg" alt="SKU图生成作品" loading="lazy" />
                     <h3>SKU图生成</h3>
                     <p>2024-05-26 10:15</p>
                   </article>
                   <article class="work-card">
-                    <img src="assets/dashboard/work-4.png" alt="主图生成作品" />
+                    <img src="assets/dashboard/work-4-hd.jpg" alt="主图生成作品" loading="lazy" />
                     <h3>主图生成</h3>
                     <p>2024-05-25 18:40</p>
                   </article>
                   <article class="work-card">
-                    <img src="assets/dashboard/work-5.png" alt="视频创作作品" />
+                    <img src="assets/dashboard/work-5-hd.jpg" alt="视频创作作品" loading="lazy" />
                     <h3>视频创作</h3>
                     <p>2024-05-25 16:20</p>
                   </article>
                   <article class="work-card">
-                    <img src="assets/dashboard/work-6.png" alt="详情页设计作品" />
+                    <img src="assets/dashboard/work-6-hd.jpg" alt="详情页设计作品" loading="lazy" />
                     <h3>详情页设计</h3>
                     <p>2024-05-25 11:05</p>
                   </article>
@@ -819,6 +811,367 @@
           </div>
         </section>
 
+        <section class="page-view workspace-library-page" data-page-panel="assets" aria-label="我的资产">
+          <div class="library-shell">
+            <header class="library-page-head">
+              <div>
+                <span class="library-eyebrow">CREATIVE LIBRARY</span>
+                <h1>我的资产</h1>
+                <p>所有生成结果都会自动保存，随时回来查找、复用或下载。</p>
+              </div>
+              <button class="library-home-button" type="button" data-page="home" aria-label="返回创作中心">
+                <span class="library-home-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m4 11 8-7 8 7"/><path d="M6.5 9.5V20h11V9.5M10 20v-6h4v6"/></svg>
+                </span>
+                <span>返回创作中心</span>
+              </button>
+            </header>
+
+            <section class="asset-overview" aria-label="资产概览">
+              <article>
+                <span class="overview-icon mint" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6.5h6l1.5-2H20v15H4z"/><path d="m7 16 3-3 2.3 2.2 2.2-2.4L18 16"/></svg>
+                </span>
+                <div><span>全部资产</span><strong>24</strong><small>近 30 天新增 12 项</small></div>
+              </article>
+              <article>
+                <span class="overview-icon lime" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="14" rx="3"/><circle cx="9" cy="10" r="1.5"/><path d="m6.5 17 4-4 2.8 2.5 2.2-2 2.5 2.5"/></svg>
+                </span>
+                <div><span>图片</span><strong>18</strong><small>主图、详情图与海报</small></div>
+              </article>
+              <article>
+                <span class="overview-icon peach" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></svg>
+                </span>
+                <div><span>视频</span><strong>6</strong><small>短视频与动态素材</small></div>
+              </article>
+              <article class="storage-card">
+                <div class="storage-head"><span>空间使用</span><strong>3.8 / 50 GB</strong></div>
+                <span class="storage-track"><i style="width: 7.6%"></i></span>
+                <small>专业版 · 剩余空间充足</small>
+              </article>
+            </section>
+
+            <div class="library-toolbar">
+              <div class="library-filters" role="group" aria-label="资产类型筛选" data-filter-group="assets">
+                <button class="is-active" type="button" data-filter="all">全部 <span>24</span></button>
+                <button type="button" data-filter="image">图片 <span>18</span></button>
+                <button type="button" data-filter="video">视频 <span>6</span></button>
+              </div>
+              <label class="library-search">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+                <input type="search" placeholder="搜索资产名称" data-asset-search />
+              </label>
+              <button class="library-sort" type="button">最近生成 <span aria-hidden="true">⌄</span></button>
+            </div>
+
+            <section class="asset-grid" aria-label="资产列表" data-asset-grid>
+              <article class="asset-card" data-asset-type="image" data-search-text="夏日精华液 商品主图">
+                <div class="asset-preview"><img src="assets/dashboard/work-1-hd.jpg" alt="夏日精华液商品主图" loading="lazy" /><span>图片</span></div>
+                <div class="asset-card-body"><div><strong>夏日精华液主图</strong><span>商品主图 · 2K</span></div><small>今天 14:32</small></div>
+                <div class="asset-card-actions"><button type="button" data-page="detail">继续编辑</button><a href="assets/dashboard/work-1-hd.jpg" download="夏日精华液主图.jpg">下载</a></div>
+              </article>
+              <article class="asset-card" data-asset-type="video" data-search-text="新品鞋履 种草短视频">
+                <div class="asset-preview"><img src="assets/dashboard/work-3-hd.jpg" alt="新品鞋履种草短视频封面" loading="lazy" /><span>视频 · 00:15</span><i class="asset-play" aria-hidden="true"></i></div>
+                <div class="asset-card-body"><div><strong>新品鞋履种草视频</strong><span>短视频 · 9:16</span></div><small>今天 11:08</small></div>
+                <div class="asset-card-actions"><button type="button" data-page="videoAgent">继续编辑</button><a href="assets/dashboard/work-3-hd.jpg" download="新品鞋履视频封面.jpg">下载封面</a></div>
+              </article>
+              <article class="asset-card" data-asset-type="image" data-search-text="单椅 家居 场景详情图">
+                <div class="asset-preview"><img src="assets/dashboard/work-2-hd.jpg" alt="单椅家居场景详情图" loading="lazy" /><span>图片</span></div>
+                <div class="asset-card-body"><div><strong>单椅家居场景图</strong><span>详情图 · 2K</span></div><small>昨天 18:45</small></div>
+                <div class="asset-card-actions"><button type="button" data-page="detail">继续编辑</button><a href="assets/dashboard/work-2-hd.jpg" download="单椅家居场景图.jpg">下载</a></div>
+              </article>
+              <article class="asset-card" data-asset-type="image" data-search-text="复古相机 社媒海报">
+                <div class="asset-preview"><img src="assets/dashboard/work-4-hd.jpg" alt="复古相机社媒海报" loading="lazy" /><span>图片</span></div>
+                <div class="asset-card-body"><div><strong>复古相机社媒海报</strong><span>社媒图 · 1K</span></div><small>7 月 12 日</small></div>
+                <div class="asset-card-actions"><button type="button" data-page="detail">继续编辑</button><a href="assets/dashboard/work-4-hd.jpg" download="复古相机社媒海报.jpg">下载</a></div>
+              </article>
+              <article class="asset-card" data-asset-type="video" data-search-text="通勤手袋 卖点视频">
+                <div class="asset-preview"><img src="assets/dashboard/work-5-hd.jpg" alt="通勤手袋卖点视频封面" loading="lazy" /><span>视频 · 00:20</span><i class="asset-play" aria-hidden="true"></i></div>
+                <div class="asset-card-body"><div><strong>通勤手袋卖点视频</strong><span>产品展示 · 16:9</span></div><small>7 月 11 日</small></div>
+                <div class="asset-card-actions"><button type="button" data-page="videoAgent">继续编辑</button><a href="assets/dashboard/work-5-hd.jpg" download="通勤手袋视频封面.jpg">下载封面</a></div>
+              </article>
+              <article class="asset-card" data-asset-type="image" data-search-text="轻食早餐 促销图">
+                <div class="asset-preview"><img src="assets/dashboard/work-6-hd.jpg" alt="轻食早餐促销图" loading="lazy" /><span>图片</span></div>
+                <div class="asset-card-body"><div><strong>轻食早餐促销图</strong><span>营销图 · 2K</span></div><small>7 月 10 日</small></div>
+                <div class="asset-card-actions"><button type="button" data-page="detail">继续编辑</button><a href="assets/dashboard/work-6-hd.jpg" download="轻食早餐促销图.jpg">下载</a></div>
+              </article>
+            </section>
+            <p class="library-empty" data-asset-empty hidden>没有找到匹配的资产，换个关键词试试。</p>
+          </div>
+        </section>
+
+        <section class="page-view workspace-library-page" data-page-panel="templates" aria-label="模板中心">
+          <div class="library-shell">
+            <header class="library-page-head template-page-head">
+              <div>
+                <span class="library-eyebrow">PROVEN WORKFLOWS</span>
+                <h1>模板中心</h1>
+                <p>复用成熟的构图、文案和平台经验，只需上传你的商品参考图。</p>
+              </div>
+              <label class="template-hero-search">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+                <input type="search" placeholder="搜索模板、品类或用途" data-template-search />
+                <kbd>⌘ K</kbd>
+              </label>
+            </header>
+
+            <section class="template-spotlight">
+              <div>
+                <span>ONE CLICK, SAME STYLE</span>
+                <h2>把验证过的创作经验，直接用在你的商品上</h2>
+                <p>画面比例、平台规范、镜头结构和文案位置都已配置好。</p>
+                <button type="button" data-template-featured>使用精选模板 <span aria-hidden="true">↗</span></button>
+              </div>
+              <div class="template-spotlight-art" aria-hidden="true">
+                <img src="assets/dashboard/work-1-hd.jpg" alt="" />
+                <img src="assets/dashboard/work-5-hd.jpg" alt="" />
+                <span>参数已配置</span>
+              </div>
+            </section>
+
+            <div class="library-toolbar template-toolbar">
+              <div class="library-filters" role="group" aria-label="模板分类" data-filter-group="templates">
+                <button class="is-active" type="button" data-filter="all">全部</button>
+                <button type="button" data-filter="main">商品主图</button>
+                <button type="button" data-filter="detail">详情图</button>
+                <button type="button" data-filter="video">短视频</button>
+                <button type="button" data-filter="social">社媒营销</button>
+              </div>
+              <button class="library-sort" type="button">综合推荐 <span aria-hidden="true">⌄</span></button>
+            </div>
+
+            <section class="template-grid" aria-label="模板列表" data-template-grid>
+              <article class="template-card template-card-wide" data-template-category="main" data-search-text="清透护肤 夏日 精华液 商品主图">
+                <div class="template-preview"><img src="assets/dashboard/work-1-hd.jpg" alt="清透护肤商品主图模板" loading="lazy" /><span>编辑精选</span></div>
+                <div class="template-card-copy"><div><small>商品主图 · 护肤</small><h2>清透夏日护肤主图</h2><p>亚马逊 / 1:1 / 2K · 生成 4 张</p></div><button type="button" data-template-use data-template-name="清透夏日护肤主图" data-template-mode="商品主图" data-template-platform="亚马逊 · 1:1 · 2K">立即使用</button></div>
+              </article>
+              <article class="template-card" data-template-category="detail" data-search-text="家居 单椅 空间 详情图">
+                <div class="template-preview"><img src="assets/dashboard/work-2-hd.jpg" alt="家居空间详情图模板" loading="lazy" /><span>高转化</span></div>
+                <div class="template-card-copy"><div><small>详情图 · 家居</small><h2>极简空间卖点详情</h2><p>淘宝 / 3:4 / 2K · 生成 5 张</p></div><button type="button" data-template-use data-template-name="极简空间卖点详情" data-template-mode="详情图" data-template-platform="淘宝 · 3:4 · 2K">立即使用</button></div>
+              </article>
+              <article class="template-card" data-template-category="video" data-search-text="鞋履 新品 种草 短视频">
+                <div class="template-preview"><img src="assets/dashboard/work-3-hd.jpg" alt="鞋履种草短视频模板" loading="lazy" /><span>视频</span><i class="asset-play" aria-hidden="true"></i></div>
+                <div class="template-card-copy"><div><small>短视频 · 鞋服</small><h2>新品鞋履 15 秒种草</h2><p>抖音 / 9:16 / 4 镜头</p></div><button type="button" data-template-use data-template-name="新品鞋履 15 秒种草" data-template-mode="短视频" data-template-platform="抖音 · 9:16 · 15秒">立即使用</button></div>
+              </article>
+              <article class="template-card" data-template-category="social" data-search-text="相机 复古 社交媒体 海报">
+                <div class="template-preview"><img src="assets/dashboard/work-4-hd.jpg" alt="复古相机社交媒体模板" loading="lazy" /><span>社媒</span></div>
+                <div class="template-card-copy"><div><small>社媒营销 · 数码</small><h2>复古质感新品发布</h2><p>小红书 / 3:4 / 1K · 生成 3 张</p></div><button type="button" data-template-use data-template-name="复古质感新品发布" data-template-mode="社媒营销" data-template-platform="小红书 · 3:4 · 1K">立即使用</button></div>
+              </article>
+              <article class="template-card" data-template-category="video" data-search-text="手袋 通勤 产品展示 短视频">
+                <div class="template-preview"><img src="assets/dashboard/work-5-hd.jpg" alt="通勤手袋短视频模板" loading="lazy" /><span>视频</span><i class="asset-play" aria-hidden="true"></i></div>
+                <div class="template-card-copy"><div><small>短视频 · 箱包</small><h2>通勤手袋质感展示</h2><p>视频号 / 16:9 / 20秒</p></div><button type="button" data-template-use data-template-name="通勤手袋质感展示" data-template-mode="短视频" data-template-platform="视频号 · 16:9 · 20秒">立即使用</button></div>
+              </article>
+              <article class="template-card" data-template-category="main" data-search-text="食品 轻食 早餐 促销 主图">
+                <div class="template-preview"><img src="assets/dashboard/work-6-hd.jpg" alt="轻食早餐促销主图模板" loading="lazy" /><span>新品</span></div>
+                <div class="template-card-copy"><div><small>商品主图 · 食品</small><h2>轻食早餐促销主图</h2><p>京东 / 1:1 / 2K · 生成 4 张</p></div><button type="button" data-template-use data-template-name="轻食早餐促销主图" data-template-mode="商品主图" data-template-platform="京东 · 1:1 · 2K">立即使用</button></div>
+              </article>
+            </section>
+            <p class="library-empty" data-template-empty hidden>没有找到匹配模板，试试“主图”“视频”或具体品类。</p>
+
+            <dialog class="template-use-dialog" data-template-dialog>
+              <form method="dialog" class="template-dialog-card" data-template-form>
+                <header><div><span>USE TEMPLATE</span><h2 data-template-dialog-name>清透夏日护肤主图</h2><p>配置已锁定，你只需要提供自己的商品参考图。</p></div><button type="button" data-template-close aria-label="关闭模板设置">×</button></header>
+                <div class="template-ready-settings">
+                  <span><small>生成类型</small><strong data-template-dialog-mode>商品主图</strong></span>
+                  <span><small>平台与规格</small><strong data-template-dialog-platform>亚马逊 · 1:1 · 2K</strong></span>
+                  <span><small>创作策略</small><strong>自动复用模板经验</strong></span>
+                </div>
+                <button class="template-upload-zone" type="button" data-template-upload-trigger>
+                  <img data-template-upload-preview alt="商品参考图预览" hidden />
+                  <span class="template-upload-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16v13H4z"/><circle cx="9" cy="10" r="1.5"/><path d="m6.5 17 4-4 2.5 2 2-2 2.5 2.5"/></svg></span>
+                  <strong data-template-upload-label>上传你的商品参考图</strong>
+                  <small>支持 JPG、PNG，建议主体清晰且无遮挡</small>
+                </button>
+                <input type="file" accept="image/*" data-template-reference hidden />
+                <footer><span><i aria-hidden="true">✓</i> 其余参数已为你配置完成</span><button type="submit">开始生成 <b aria-hidden="true">↗</b></button></footer>
+              </form>
+            </dialog>
+          </div>
+        </section>
+
+        <section class="page-view workspace-library-page" data-page-panel="toolbox" aria-label="AI 工具箱">
+          <div class="library-shell">
+            <header class="library-page-head">
+              <div>
+                <span class="library-eyebrow">UTILITY COLLECTION</span>
+                <h1>AI 工具箱</h1>
+                <p>精选适合电商创作的第三方工具，补齐拆图、抠图、合成与导出环节。</p>
+              </div>
+              <label class="library-search toolbox-search">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+                <input type="search" placeholder="搜索工具或能力" data-tool-search />
+              </label>
+            </header>
+
+            <section class="toolbox-feature">
+              <div class="toolbox-feature-copy"><span>RECOMMENDED FLOW</span><h2>商品图上架前处理流水线</h2><p>抠背景 → 合成场景 → 高清修复 → 压缩导出，按常用顺序组织，减少来回查找。</p></div>
+              <ol><li><b>01</b><span>抠背景</span></li><li><b>02</b><span>场景合成</span></li><li><b>03</b><span>高清修复</span></li><li><b>04</b><span>压缩导出</span></li></ol>
+            </section>
+
+            <div class="library-toolbar">
+              <div class="library-filters" role="group" aria-label="工具类型筛选" data-filter-group="tools">
+                <button class="is-active" type="button" data-filter="all">全部工具</button>
+                <button type="button" data-filter="image">图片处理</button>
+                <button type="button" data-filter="commerce">电商效率</button>
+                <button type="button" data-filter="video">视频辅助</button>
+                <button type="button" data-filter="file">文件工具</button>
+              </div>
+              <span class="toolbox-note">外部服务将打开新窗口</span>
+            </div>
+
+            <section class="toolbox-grid" data-tool-grid>
+              <a class="toolbox-card" href="https://www.remove.bg/zh" target="_blank" rel="noopener noreferrer" data-tool-category="image commerce" data-search-text="智能抠图 移除背景 remove bg">
+                <span class="tool-provider">remove.bg</span><i class="tool-icon mint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 18.5 9.5 14l3 2.5 3.2-3.5 3.3 3.5"/><circle cx="9" cy="9" r="2"/><rect x="3.5" y="4" width="17" height="16" rx="3"/></svg></i><div><h2>智能抠图</h2><p>快速移除商品背景，导出透明 PNG</p></div><b aria-hidden="true">↗</b>
+              </a>
+              <a class="toolbox-card" href="https://clipdrop.co/cleanup" target="_blank" rel="noopener noreferrer" data-tool-category="image commerce" data-search-text="清理画面 移除物体 水印 clipdrop cleanup">
+                <span class="tool-provider">Clipdrop</span><i class="tool-icon lime" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 19 5.5-5.5M8 8l8 8M6 5l13 13M15 4l5 5-9 9-5-5z"/></svg></i><div><h2>画面清理</h2><p>移除杂物、文字与干扰元素</p></div><b aria-hidden="true">↗</b>
+              </a>
+              <a class="toolbox-card" href="https://www.photoroom.com/tools/background-remover" target="_blank" rel="noopener noreferrer" data-tool-category="commerce image" data-search-text="商品图 合成 背景 场景 photoroom">
+                <span class="tool-provider">PhotoRoom</span><i class="tool-icon peach" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M8 16V8h8v8zM8 12h8"/></svg></i><div><h2>商品场景合成</h2><p>为商品快速替换背景和陈列场景</p></div><b aria-hidden="true">↗</b>
+              </a>
+              <a class="toolbox-card" href="https://cleanup.pictures/" target="_blank" rel="noopener noreferrer" data-tool-category="image" data-search-text="瑕疵修复 清理 图片 cleanup pictures">
+                <span class="tool-provider">Cleanup.pictures</span><i class="tool-icon blue" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4"/></svg></i><div><h2>瑕疵修复</h2><p>擦除局部瑕疵，保持背景自然连续</p></div><b aria-hidden="true">↗</b>
+              </a>
+              <a class="toolbox-card" href="https://squoosh.app/" target="_blank" rel="noopener noreferrer" data-tool-category="file image" data-search-text="图片压缩 格式转换 squoosh">
+                <span class="tool-provider">Squoosh</span><i class="tool-icon violet" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 7h10v10H7z"/><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></i><div><h2>图片压缩导出</h2><p>控制画质与体积，适配平台上传限制</p></div><b aria-hidden="true">↗</b>
+              </a>
+              <a class="toolbox-card" href="https://tinypng.com/" target="_blank" rel="noopener noreferrer" data-tool-category="file commerce" data-search-text="批量压缩 png jpg webp tinypng">
+                <span class="tool-provider">TinyPNG</span><i class="tool-icon yellow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 7h14M7 4h10v16H7zM10 11h4M10 15h4"/></svg></i><div><h2>批量图片压缩</h2><p>批量减小 PNG、JPG 与 WebP 体积</p></div><b aria-hidden="true">↗</b>
+              </a>
+              <a class="toolbox-card" href="https://ezgif.com/split" target="_blank" rel="noopener noreferrer" data-tool-category="video image" data-search-text="视频拆帧 GIF 拆图 ezgif split">
+                <span class="tool-provider">Ezgif</span><i class="tool-icon coral" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="3"/><path d="M9 5v14M15 5v14M4 10h5M15 14h5"/></svg></i><div><h2>视频拆帧</h2><p>提取关键画面，制作封面或商品素材</p></div><b aria-hidden="true">↗</b>
+              </a>
+              <a class="toolbox-card" href="https://www.veed.io/tools/video-resizer" target="_blank" rel="noopener noreferrer" data-tool-category="video commerce" data-search-text="视频尺寸 裁剪 平台适配 veed">
+                <span class="tool-provider">VEED</span><i class="tool-icon sky" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4H4v4M16 4h4v4M20 16v4h-4M4 16v4h4"/><path d="M8 12h8M12 8v8"/></svg></i><div><h2>视频尺寸适配</h2><p>一键转换竖版、横版与方形比例</p></div><b aria-hidden="true">↗</b>
+              </a>
+              <a class="toolbox-card" href="https://cloudconvert.com/" target="_blank" rel="noopener noreferrer" data-tool-category="file video" data-search-text="文件格式 转换 图片 视频 cloudconvert">
+                <span class="tool-provider">CloudConvert</span><i class="tool-icon gray" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17a4 4 0 0 1-.5-8A6 6 0 0 1 18 10a3.5 3.5 0 0 1-.5 7H7Z"/><path d="m9 14 3 3 3-3M12 10v7"/></svg></i><div><h2>格式批量转换</h2><p>转换常见图片、视频和文档格式</p></div><b aria-hidden="true">↗</b>
+              </a>
+            </section>
+            <p class="library-empty" data-tool-empty hidden>没有找到匹配工具，换个关键词试试。</p>
+          </div>
+        </section>
+
+        <section class="page-view workspace-library-page help-page" data-page-panel="help" aria-label="反馈帮助">
+          <div class="library-shell">
+            <header class="library-page-head">
+              <div>
+                <span class="library-eyebrow">GUIDES & SUPPORT</span>
+                <h1>反馈帮助</h1>
+                <p>从第一次登录到安全设置，快速找到清晰、可执行的操作说明。</p>
+              </div>
+              <label class="library-search help-search">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+                <input type="search" placeholder="搜索问题，例如“修改密码”" data-help-search />
+              </label>
+            </header>
+
+            <section class="help-start-card">
+              <div><span>NEW USER GUIDE</span><h2>第一次来？用三步完成首个作品</h2><p>选择创作类型，上传清晰商品图，确认平台和规格后即可生成。</p></div>
+              <ol><li><b>01</b><span>选择图片或视频</span></li><li><b>02</b><span>上传商品参考图</span></li><li><b>03</b><span>生成并下载结果</span></li></ol>
+              <button type="button" data-page="home">开始第一次创作 <span aria-hidden="true">↗</span></button>
+            </section>
+
+            <div class="help-layout">
+              <nav class="help-nav" aria-label="帮助主题" data-help-nav>
+                <button class="is-active" type="button" data-help-filter="all"><span>全部指南</span><b>8</b></button>
+                <button type="button" data-help-filter="create"><span>图片与视频生成</span><b>2</b></button>
+                <button type="button" data-help-filter="account"><span>注册与账户</span><b>2</b></button>
+                <button type="button" data-help-filter="rights"><span>版本与权限</span><b>1</b></button>
+                <button type="button" data-help-filter="security"><span>安全与客服</span><b>3</b></button>
+              </nav>
+              <section class="help-content" aria-label="帮助文章" data-help-content>
+                <div class="help-content-head"><div><span>常见问题</span><h2>操作指南</h2></div><small>点击问题展开步骤</small></div>
+                <article class="help-article" data-help-category="create" data-search-text="怎么生成图片 商品图 详情图">
+                  <button type="button" data-help-toggle aria-expanded="true"><span><i>01</i><strong>怎么生成商品图片？</strong></span><b>−</b></button>
+                  <div class="help-answer"><p>进入「创作中心」，描述商品和目标，上传清晰的商品参考图，选择主图或详情图、清晰度及平台，然后点击「立即生图」。在 Agent 页面确认卖点后即可生成并下载。</p></div>
+                </article>
+                <article class="help-article" data-help-category="create" data-search-text="怎么生成视频 短视频">
+                  <button type="button" data-help-toggle aria-expanded="false"><span><i>02</i><strong>怎么生成商品视频？</strong></span><b>+</b></button>
+                  <div class="help-answer" hidden><p>进入「视频生成」，输入视频创意并上传商品素材，选择视频类型、画面比例、时长和平台。高级选项可调整字幕、镜头数量与风格，确认后进入 Agent 生成分镜和视频。</p></div>
+                </article>
+                <article class="help-article" data-help-category="account" data-search-text="注册 登录 手机号 验证码">
+                  <button type="button" data-help-toggle aria-expanded="false"><span><i>03</i><strong>如何注册和登录？</strong></span><b>+</b></button>
+                  <div class="help-answer" hidden><p>使用常用手机号获取验证码即可完成注册与登录。首次登录会自动创建个人账号；请保持手机号可用，它也是找回账号和安全验证的重要凭证。</p></div>
+                </article>
+                <article class="help-article" data-help-category="account" data-search-text="修改昵称 手机号 账户设置">
+                  <button type="button" data-help-toggle aria-expanded="false"><span><i>04</i><strong>如何修改昵称或手机号？</strong></span><b>+</b></button>
+                  <div class="help-answer" hidden><p>进入「账户设置 → 账户安全」，点击对应操作。修改手机号需要完成短信验证，修改成功后请使用新手机号登录。</p></div>
+                </article>
+                <article class="help-article" data-help-category="rights" data-search-text="个人账号 企业账号 权限 区别">
+                  <button type="button" data-help-toggle aria-expanded="false"><span><i>05</i><strong>个人账号和企业账号有什么区别？</strong></span><b>+</b></button>
+                  <div class="help-answer" hidden><p>个人账号适合独立创作者，主要提供个人资产空间和基础商用能力；企业账号增加团队席位、更大资产空间、成员协作及更高并发。具体额度以「开通会员」页面为准。</p></div>
+                </article>
+                <article class="help-article" data-help-category="security" data-search-text="修改密码 登录密码 安全">
+                  <button type="button" data-help-toggle aria-expanded="false"><span><i>06</i><strong>如何修改登录密码？</strong></span><b>+</b></button>
+                  <div class="help-answer" hidden><p>进入「账户设置 → 账户安全」，在登录密码一栏点击「修改密码」。完成当前密码验证后设置新密码，建议使用至少 8 位且包含字母与数字的组合。</p></div>
+                </article>
+                <article class="help-article" data-help-category="security" data-search-text="资产 丢失 下载 保存">
+                  <button type="button" data-help-toggle aria-expanded="false"><span><i>07</i><strong>生成结果在哪里找？</strong></span><b>+</b></button>
+                  <div class="help-answer" hidden><p>所有成功生成的图片和视频会自动进入「我的资产」。你可以按类型筛选、搜索名称，并在任意时间下载或继续编辑。</p></div>
+                </article>
+                <article class="help-article" data-help-category="security" data-search-text="联系客服 反馈 人工 客服">
+                  <button type="button" data-help-toggle aria-expanded="false"><span><i>08</i><strong>如何联系客服？</strong></span><b>+</b></button>
+                  <div class="help-answer" hidden><p>点击页面右下角「联系客服」即可发起咨询。为提高处理效率，请同时提供用户 ID、问题发生时间和相关页面截图。</p><button type="button" data-contact-support>联系在线客服</button></div>
+                </article>
+                <p class="library-empty" data-help-empty hidden>没有找到相关问题，换个关键词或联系在线客服。</p>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section class="page-view workspace-library-page messages-page" data-page-panel="messages" aria-label="消息中心">
+          <div class="library-shell">
+            <header class="library-page-head">
+              <div>
+                <span class="library-eyebrow">NOTIFICATIONS</span>
+                <h1>消息中心 <em data-message-unread-count>3 条未读</em></h1>
+                <p>集中查看生成任务、账户安全、会员与系统更新通知。</p>
+              </div>
+              <button class="library-secondary-button" type="button" data-mark-all-read>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 4 4L19 5"/><path d="m10 16 2 2 8-9"/></svg>
+                全部标为已读
+              </button>
+            </header>
+
+            <div class="library-toolbar message-toolbar">
+              <div class="library-filters" role="group" aria-label="消息筛选" data-filter-group="messages">
+                <button class="is-active" type="button" data-filter="all">全部</button>
+                <button type="button" data-filter="unread">未读 <span data-message-filter-count>3</span></button>
+                <button type="button" data-filter="task">任务通知</button>
+                <button type="button" data-filter="account">账户与权益</button>
+                <button type="button" data-filter="system">系统动态</button>
+              </div>
+            </div>
+
+            <section class="message-list" aria-label="通知列表" data-message-list>
+              <article class="message-item is-unread" data-message-kind="task" tabindex="0">
+                <i class="message-type-icon mint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/><circle cx="12" cy="12" r="9"/></svg></i>
+                <div class="message-copy"><div><span>任务通知</span><time>2 分钟前</time></div><h2>你的「夏日精华液主图」已生成完成</h2><p>共生成 4 张图片，已自动保存至「我的资产」，现在可以预览或下载。</p><button type="button" data-page="assets">查看结果 <span aria-hidden="true">↗</span></button></div><span class="message-unread-dot" aria-label="未读"></span>
+              </article>
+              <article class="message-item is-unread" data-message-kind="account" tabindex="0">
+                <i class="message-type-icon peach" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 2.8 8 7 10 4.2-2 7-5.5 7-10V6z"/><path d="M9.5 12 11 13.5l3.5-4"/></svg></i>
+                <div class="message-copy"><div><span>账户安全</span><time>今天 09:26</time></div><h2>检测到一次新的登录</h2><p>设备：Chrome · macOS，地点：上海。如非本人操作，请立即修改密码。</p><button type="button" data-page="account">检查账户 <span aria-hidden="true">↗</span></button></div><span class="message-unread-dot" aria-label="未读"></span>
+              </article>
+              <article class="message-item is-unread" data-message-kind="account" tabindex="0">
+                <i class="message-type-icon lime" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m4 8 3 3 5-7 5 7 3-3-2 10H6z"/><path d="M7 21h10"/></svg></i>
+                <div class="message-copy"><div><span>会员权益</span><time>昨天 18:40</time></div><h2>专业版将在 12 天后到期</h2><p>续费后可继续使用当前积分、50GB 资产空间与无水印导出能力。</p><button type="button" data-page="rights">查看会员 <span aria-hidden="true">↗</span></button></div><span class="message-unread-dot" aria-label="未读"></span>
+              </article>
+              <article class="message-item" data-message-kind="system" tabindex="0">
+                <i class="message-type-icon blue" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="4"/></svg></i>
+                <div class="message-copy"><div><span>系统动态</span><time>7 月 12 日</time></div><h2>模板中心新增 12 套电商模板</h2><p>覆盖护肤、鞋服、家居与食品品类，只需上传商品图即可生成同款。</p><button type="button" data-page="templates">浏览模板 <span aria-hidden="true">↗</span></button></div>
+              </article>
+              <article class="message-item" data-message-kind="task" tabindex="0">
+                <i class="message-type-icon violet" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></svg></i>
+                <div class="message-copy"><div><span>任务通知</span><time>7 月 11 日</time></div><h2>「通勤手袋卖点视频」已保存</h2><p>视频草案与封面已进入我的资产，可继续调整脚本或下载封面。</p><button type="button" data-page="assets">查看资产 <span aria-hidden="true">↗</span></button></div>
+              </article>
+            </section>
+            <p class="library-empty" data-message-empty hidden>当前筛选下没有消息。</p>
+          </div>
+        </section>
+
         <section class="page-view settings-layout" data-page-panel="account" aria-label="账户安全">
           <div class="settings-header">
             <h1>账户安全</h1>
@@ -1183,9 +1536,10 @@
           <span aria-hidden="true"></span>
           联系客服
         </button>
+        <div class="workspace-toast" data-workspace-toast role="status" aria-live="polite" hidden></div>
       </main>
     </div>
 
-    <script src="script.js?v=20260714-video-polish"></script>
+    <script src="script.js?v=20260714-workspace-pages"></script>
   </body>
 </html>
