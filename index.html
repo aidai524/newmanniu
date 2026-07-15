@@ -711,7 +711,7 @@
                 </div>
               </aside>
 
-              <section class="quick-canvas" aria-label="生成预览与结果">
+              <section class="quick-canvas" data-quick-workspace data-quick-workspace-state="review" aria-label="生成预览与结果">
                 <header class="quick-canvas-head">
                   <div>
                     <span class="quick-canvas-kicker">LIVE WORKSPACE</span>
@@ -751,11 +751,22 @@
                   </div>
 
                   <div class="quick-analyzing" data-quick-analyzing hidden aria-live="polite">
-                    <div class="quick-analysis-orbit" aria-hidden="true"><i></i><i></i><i></i><span>AI</span></div>
+                    <div class="quick-analysis-orbit" data-quick-analysis-orbit aria-hidden="true"><i></i><i></i><i></i><span>AI</span></div>
                     <span data-quick-analyzing-label>正在理解你的商品素材</span>
                     <h3 data-quick-analyzing-title>分析主体、背景与平台规范…</h3>
                     <p data-quick-analyzing-note>通常只需要几秒钟，请不要关闭页面。</p>
                     <div class="quick-analysis-bar"><i></i></div>
+                    <div class="quick-render-status" data-quick-render-status hidden>
+                      <div class="quick-render-progress-head"><span>整体进度</span><strong data-quick-render-percent>0%</strong></div>
+                      <span class="quick-render-progress-track"><i data-quick-render-progress></i></span>
+                      <ol class="quick-render-phases" aria-label="图片生成阶段">
+                        <li class="is-active" data-quick-render-phase><i></i><span>锁定商品主体</span></li>
+                        <li data-quick-render-phase><i></i><span>生成构图与背景</span></li>
+                        <li data-quick-render-phase><i></i><span>排版文案与质检</span></li>
+                      </ol>
+                      <div class="quick-render-preview" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+                      <button type="button" data-quick-cancel>取消本次生成</button>
+                    </div>
                   </div>
 
                   <div class="quick-results" data-quick-results hidden>
@@ -765,6 +776,7 @@
                         <div><h3 data-quick-result-title>已完成 4 张商品主图</h3><p>已按照当前平台、模板与文字设置完成生成。</p></div>
                       </div>
                       <div class="quick-result-actions">
+                        <button type="button" data-quick-regenerate>再生成一组</button>
                         <button type="button" data-quick-edit-agent>用 Agent 精细调整</button>
                         <button class="is-primary" type="button">下载全部</button>
                       </div>
@@ -835,7 +847,7 @@
                 <details class="agent-card agent-flow-card">
                   <summary>
                     <span class="agent-flow-label"><strong>执行流程</strong><small>查看 Agent 当前步骤</small></span>
-                    <span class="agent-flow-progress">1 / 4</span>
+                    <span class="agent-flow-progress" data-agent-flow-progress>1 / 4</span>
                   </summary>
                   <ol class="agent-steps">
                     <li class="is-active" data-agent-flow-step>理解需求与平台规则</li>
@@ -885,14 +897,28 @@
                     <div class="chat-bubble">
                       <p>你希望我下一步怎么做？</p>
                       <div class="quick-replies">
-                        <button type="button">先分析参考图</button>
-                        <button type="button">直接生成方案</button>
-                        <button type="button">补充产品卖点</button>
+                        <button type="button" data-agent-analyze>先分析参考图</button>
+                        <button type="button" data-agent-run>直接生成方案</button>
+                        <button type="button" data-agent-supplement>补充产品卖点</button>
                       </div>
                     </div>
                   </article>
 
-                  <article class="chat-message agent result-message">
+                  <article class="chat-message agent agent-task-message" data-agent-task-progress hidden>
+                    <div class="chat-avatar">AI</div>
+                    <div class="chat-bubble agent-task-bubble">
+                      <div class="agent-task-head"><strong data-agent-task-title>正在建立视觉方案</strong><span data-agent-task-percent>0%</span></div>
+                      <span class="agent-task-track"><i data-agent-task-bar></i></span>
+                      <ol class="agent-task-stages">
+                        <li class="is-active" data-agent-task-stage>理解素材</li>
+                        <li data-agent-task-stage>规划方向</li>
+                        <li data-agent-task-stage>生成画面</li>
+                        <li data-agent-task-stage>质量检查</li>
+                      </ol>
+                    </div>
+                  </article>
+
+                  <article class="chat-message agent result-message" data-agent-result-message hidden>
                     <div class="chat-avatar">AI</div>
                     <div class="chat-bubble result-bubble">
                       <div class="generation-result-head">
@@ -904,24 +930,24 @@
                       </div>
                       <div class="generated-grid" aria-label="生成图片结果">
                         <article class="generated-card">
-                          <img src="assets/dashboard/work-1.png" alt="生成结果 1" />
-                          <div><span data-agent-result-label>详情图 01</span><button type="button">下载</button></div>
+                          <img src="assets/dashboard/work-1-hd.jpg" alt="生成结果 1" />
+                          <div><span data-agent-result-label>详情图 01</span><span><button type="button" data-agent-redo>重做</button><button type="button">下载</button></span></div>
                         </article>
                         <article class="generated-card">
-                          <img src="assets/dashboard/work-2.png" alt="生成结果 2" />
-                          <div><span data-agent-result-label>详情图 02</span><button type="button">下载</button></div>
+                          <img src="assets/dashboard/work-2-hd.jpg" alt="生成结果 2" />
+                          <div><span data-agent-result-label>详情图 02</span><span><button type="button" data-agent-redo>重做</button><button type="button">下载</button></span></div>
                         </article>
                         <article class="generated-card">
-                          <img src="assets/dashboard/work-3.png" alt="生成结果 3" />
-                          <div><span data-agent-result-label>详情图 03</span><button type="button">下载</button></div>
+                          <img src="assets/dashboard/work-3-hd.jpg" alt="生成结果 3" />
+                          <div><span data-agent-result-label>详情图 03</span><span><button type="button" data-agent-redo>重做</button><button type="button">下载</button></span></div>
                         </article>
                         <article class="generated-card">
-                          <img src="assets/dashboard/work-4.png" alt="生成结果 4" />
-                          <div><span data-agent-result-label>详情图 04</span><button type="button">下载</button></div>
+                          <img src="assets/dashboard/work-4-hd.jpg" alt="生成结果 4" />
+                          <div><span data-agent-result-label>详情图 04</span><span><button type="button" data-agent-redo>重做</button><button type="button">下载</button></span></div>
                         </article>
                         <article class="generated-card">
-                          <img src="assets/dashboard/work-6.png" alt="生成结果 5" />
-                          <div><span data-agent-result-label>详情图 05</span><button type="button">下载</button></div>
+                          <img src="assets/dashboard/work-6-hd.jpg" alt="生成结果 5" />
+                          <div><span data-agent-result-label>详情图 05</span><span><button type="button" data-agent-redo>重做</button><button type="button">下载</button></span></div>
                         </article>
                       </div>
                     </div>
@@ -950,13 +976,19 @@
                 <h1>视频生成</h1>
                 <p>输入视频创意，上传参考素材，生成适合电商平台的短视频</p>
               </div>
-              <span class="video-cost">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z" />
-                  <path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z" />
-                </svg>
-                <span><small>生成消耗</small><strong>160/次</strong></span>
-              </span>
+              <div class="video-head-actions">
+                <div class="video-mode-switch" aria-label="视频创作模式">
+                  <button class="is-active" type="button"><strong>快速生成</strong><small>分镜确认后直接出片</small></button>
+                  <button type="button" data-start-video-agent><strong>Agent 创作</strong><small>逐镜头对话调整</small></button>
+                </div>
+                <span class="video-cost">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z" />
+                    <path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z" />
+                  </svg>
+                  <span><small>生成消耗</small><strong>160/次</strong></span>
+                </span>
+              </div>
             </header>
 
             <section class="video-composer" aria-label="视频生成输入区">
@@ -972,7 +1004,7 @@
                   <span class="video-upload-copy"><strong>参考素材</strong><small>图片或视频</small></span>
                   <img class="video-reference-preview" data-video-reference-preview alt="视频参考素材预览" hidden />
                 </button>
-                <input type="file" accept="image/*" data-video-reference-input hidden />
+                <input type="file" accept="image/*,video/*" data-video-reference-input hidden />
                 <textarea data-video-prompt aria-label="输入视频生成灵感" placeholder="描述你想生成的视频，例如：做一条 15 秒的运动鞋亚马逊推广视频，突出轻便、防滑和户外场景"></textarea>
               </div>
               <div class="video-toolbar">
@@ -1042,8 +1074,8 @@
                   </svg>
                   <span>高级选项</span>
                 </button>
-                <button class="generate-button video-start-button" type="button" data-start-video-agent>
-                  <span>立即生成</span>
+                <button class="generate-button video-start-button" type="button" data-start-video-quick>
+                  <span>分析素材</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M5 12h13M13 7l5 5-5 5" />
                   </svg>
@@ -1069,6 +1101,10 @@
                     <option value="energetic">动感促销</option>
                   </select>
                 </div>
+                <div class="advanced-field">
+                  <span>生成条数</span>
+                  <input aria-label="生成视频条数" data-video-variant-count type="number" min="1" max="3" value="1" />
+                </div>
               </div>
             </section>
 
@@ -1077,6 +1113,83 @@
               <article><strong>场景种草视频</strong><span>展示使用场景和生活方式</span></article>
               <article><strong>促销转化视频</strong><span>突出折扣、利益点和行动引导</span></article>
             </section>
+          </div>
+        </section>
+
+        <section class="page-view video-create-layout" data-page-panel="videoCreate" aria-label="视频快速生成工作区">
+          <div class="video-create-page">
+            <header class="video-create-head">
+              <button class="quick-back" type="button" data-page="video">返回视频设置</button>
+              <div>
+                <span class="quick-saved"><i aria-hidden="true"></i>分镜草稿已保存</span>
+                <button class="quick-agent-switch" type="button" data-video-create-agent><span class="agent-spark">✦</span>切换到视频 Agent <span>↗</span></button>
+              </div>
+            </header>
+
+            <div class="video-create-workbench">
+              <aside class="video-review-panel">
+                <div class="video-review-scroll">
+                  <section class="video-review-section">
+                    <div class="video-review-heading"><span>✓</span><div><h2>素材分析结果</h2><p>目标、平台和素材已经从上一步带入</p></div></div>
+                    <div class="video-analysis-card">
+                      <span class="video-analysis-thumb"><img data-video-review-preview src="assets/dashboard/work-3-hd.jpg" alt="视频素材预览" /></span>
+                      <div><strong data-video-review-type>产品展示视频</strong><p data-video-review-prompt>突出商品核心卖点与使用场景</p><span><i data-video-review-platform>亚马逊</i><i data-video-review-duration>15 秒</i><i data-video-review-ratio>9:16</i></span></div>
+                      <button type="button" data-page="video">修改</button>
+                    </div>
+                  </section>
+
+                  <section class="video-review-section video-storyboard-section">
+                    <div class="video-review-heading"><span>01</span><div><h2>确认分镜方案</h2><p>可以逐镜头重做，也可以进入 Agent 精细调整</p></div></div>
+                    <div class="video-storyboard-list" data-video-storyboard-list></div>
+                  </section>
+
+                  <section class="video-review-section">
+                    <div class="video-review-heading"><span>02</span><div><h2>确认声音与文字</h2><p>影响字幕安全区、节奏与最终合成</p></div></div>
+                    <div class="video-audio-grid">
+                      <div><strong>字幕</strong><div class="video-choice-group" data-video-caption-group><button class="is-active" type="button" data-value="yes">自动字幕</button><button type="button" data-value="no">无字幕</button></div></div>
+                      <div><strong>声音</strong><div class="video-choice-group" data-video-audio-group><button class="is-active" type="button" data-value="music">背景音乐</button><button type="button" data-value="voice">配音讲解</button></div></div>
+                    </div>
+                  </section>
+
+                  <details class="video-review-more">
+                    <summary><span><strong>查看生成参数</strong><small>比例、时长、平台和风格</small></span><i></i></summary>
+                    <dl>
+                      <div><dt>画面比例</dt><dd data-video-review-ratio-detail>9:16 竖版</dd></div>
+                      <div><dt>视频时长</dt><dd data-video-review-duration-detail>15 秒</dd></div>
+                      <div><dt>视频风格</dt><dd data-video-review-style>清爽电商</dd></div>
+                      <div><dt>生成条数</dt><dd data-video-review-variants>1 条</dd></div>
+                    </dl>
+                  </details>
+                </div>
+                <div class="video-generate-bar"><div><span>本次预计</span><strong>✧ 160 积分</strong></div><button type="button" data-video-generate>确认分镜并生成</button></div>
+              </aside>
+
+              <section class="video-stage-panel">
+                <header class="video-stage-head">
+                  <div><span>VIDEO WORKSPACE</span><h2>视频生成工作区</h2></div>
+                  <ol class="video-progress-steps"><li class="is-active" data-video-step>素材分析</li><li data-video-step>分镜确认</li><li data-video-step>视频渲染</li><li data-video-step>完成</li></ol>
+                </header>
+                <div class="video-stage-body">
+                  <div class="video-review-state" data-video-review-state>
+                    <div class="video-review-visual"><span class="video-review-frame"><img src="assets/dashboard/work-5-hd.jpg" alt="视频分镜预览" /><i>01</i></span><span class="video-review-frame"><img src="assets/dashboard/work-1-hd.jpg" alt="视频分镜预览" /><i>02</i></span><span class="video-review-frame"><img src="assets/dashboard/work-3-hd.jpg" alt="视频分镜预览" /><i>03</i></span></div>
+                    <div><span>分镜规划完成</span><h3 data-video-review-title>4 个镜头已匹配 15 秒节奏</h3><p>首屏建立品牌记忆，中段展示卖点与场景，末屏完成行动引导。</p><ul><li>✓ 商品主体在所有镜头中保持一致</li><li>✓ 字幕已避开平台按钮区域</li><li>✓ 镜头节奏符合电商短视频习惯</li></ul></div>
+                  </div>
+
+                  <div class="video-render-state" data-video-render-state hidden>
+                    <div class="video-render-frame"><img src="assets/dashboard/work-5-hd.jpg" alt="视频渲染预览" /><span data-video-render-frame-label>正在生成镜头 01</span><i></i></div>
+                    <div class="video-render-copy"><span data-video-render-kicker>VIDEO RENDERING</span><h3 data-video-render-title>正在生成视频画面</h3><p data-video-render-note>正在保持商品主体一致，并合成字幕与转场。</p><div class="video-render-progress"><span><i data-video-render-bar></i></span><strong data-video-render-percent>0%</strong></div><ol><li class="is-active" data-video-render-phase>生成分镜画面</li><li data-video-render-phase>合成字幕与声音</li><li data-video-render-phase>渲染成片</li></ol><button type="button" data-video-cancel>取消生成</button></div>
+                  </div>
+
+                  <div class="video-final-state" data-video-final-state hidden>
+                    <div class="video-player-card">
+                      <div class="video-player-poster"><img src="assets/dashboard/work-5-hd.jpg" alt="视频成片预览" /><button type="button" data-video-play aria-label="播放视频"><span></span></button><em data-video-player-time>00:15</em><div class="video-playing-indicator" data-video-playing hidden>预览播放中</div></div>
+                      <div class="video-player-meta"><div><span>生成完成</span><h3 data-video-final-title>产品展示视频 · 15 秒</h3><p>9:16 · 自动字幕 · 清爽电商</p></div><div><button type="button" data-video-regenerate>重新生成</button><button type="button" data-video-create-agent>Agent 修改镜头</button><button class="is-primary" type="button">下载视频</button></div></div>
+                    </div>
+                    <div class="video-timeline"><div class="video-timeline-ruler"><span>00:00</span><span>00:05</span><span>00:10</span><span>00:15</span></div><div class="video-timeline-track" data-video-timeline></div></div>
+                  </div>
+                </div>
+              </section>
+            </div>
           </div>
         </section>
 
@@ -1089,7 +1202,7 @@
                 <p>我会先拆解脚本、镜头、字幕和平台规则，再生成视频草案</p>
               </div>
               <div class="agent-status">
-                <span>视频任务准备中</span>
+                <span data-video-agent-status>视频任务准备中</span>
                 <strong><span aria-hidden="true">✧</span>160/次</strong>
               </div>
             </header>
@@ -1125,10 +1238,10 @@
                 <section class="agent-card">
                   <div class="agent-card-title"><h2>执行流程</h2><span>Plan</span></div>
                   <ol class="agent-steps">
-                    <li class="is-active">理解视频目标和平台</li>
-                    <li>拆解分镜与字幕脚本</li>
-                    <li>生成预览视频</li>
-                    <li>输出成片并下载</li>
+                    <li class="is-active" data-video-agent-step>理解视频目标和平台</li>
+                    <li data-video-agent-step>拆解分镜与字幕脚本</li>
+                    <li data-video-agent-step>生成预览视频</li>
+                    <li data-video-agent-step>输出成片并下载</li>
                   </ol>
                 </section>
               </aside>
@@ -1169,13 +1282,21 @@
                     <div class="chat-bubble">
                       <p>请选择下一步：</p>
                       <div class="quick-replies">
-                        <button type="button">生成分镜脚本</button>
-                        <button type="button">分析参考素材</button>
-                        <button type="button">直接生成视频</button>
+                        <button type="button" data-video-agent-plan>生成分镜脚本</button>
+                        <button type="button" data-video-agent-analyze>分析参考素材</button>
+                        <button type="button" data-video-agent-run>直接生成视频</button>
                       </div>
                     </div>
                   </article>
-                  <article class="chat-message agent result-message">
+                  <article class="chat-message agent agent-task-message" data-video-agent-progress hidden>
+                    <div class="chat-avatar">AI</div>
+                    <div class="chat-bubble agent-task-bubble video-agent-task-bubble">
+                      <div class="agent-task-head"><strong data-video-agent-progress-title>正在生成视频草案</strong><span data-video-agent-progress-percent>0%</span></div>
+                      <span class="agent-task-track"><i data-video-agent-progress-bar></i></span>
+                      <ol class="agent-task-stages"><li class="is-active" data-video-agent-progress-stage>拆解脚本</li><li data-video-agent-progress-stage>生成镜头</li><li data-video-agent-progress-stage>合成声音</li><li data-video-agent-progress-stage>渲染成片</li></ol>
+                    </div>
+                  </article>
+                  <article class="chat-message agent result-message" data-video-agent-result hidden>
                     <div class="chat-avatar">AI</div>
                     <div class="chat-bubble result-bubble video-result-bubble">
                       <div class="generation-result-head">
@@ -1187,15 +1308,15 @@
                       </div>
                       <div class="video-result-preview">
                         <div class="video-frame">
-                          <img src="assets/dashboard/work-5.png" alt="视频生成预览" />
+                          <img src="assets/dashboard/work-5-hd.jpg" alt="视频生成预览" />
                           <span class="video-play" aria-hidden="true"></span>
                           <em>00:15</em>
                         </div>
                         <div class="video-shot-list">
-                          <div><strong>镜头 01</strong><span>产品开场特写，突出品牌和质感</span></div>
-                          <div><strong>镜头 02</strong><span>场景展示，强调核心卖点</span></div>
-                          <div><strong>镜头 03</strong><span>字幕卖点强化，引导购买</span></div>
-                          <div><strong>镜头 04</strong><span>收尾 CTA 和平台适配画面</span></div>
+                          <div><strong>镜头 01</strong><span>产品开场特写，突出品牌和质感</span><button type="button" data-video-shot-redo>重做</button></div>
+                          <div><strong>镜头 02</strong><span>场景展示，强调核心卖点</span><button type="button" data-video-shot-redo>重做</button></div>
+                          <div><strong>镜头 03</strong><span>字幕卖点强化，引导购买</span><button type="button" data-video-shot-redo>重做</button></div>
+                          <div><strong>镜头 04</strong><span>收尾 CTA 和平台适配画面</span><button type="button" data-video-shot-redo>重做</button></div>
                         </div>
                       </div>
                     </div>
@@ -2074,11 +2195,31 @@
         </section>
 
         <section class="page-view settings-layout" data-page-panel="account" aria-label="账户安全">
-          <div class="settings-header">
-            <h1>账户安全</h1>
-            <p>账户设置 / 共5个Tab</p>
+          <div class="settings-header account-settings-header">
+            <div>
+              <span>ACCOUNT &amp; TEAM</span>
+              <h1>账户与安全</h1>
+              <p>管理登录方式、企业身份与成员访问权限</p>
+            </div>
+            <span class="account-type-chip"><i aria-hidden="true"></i>企业账号</span>
           </div>
           <div class="settings-card account-security-card">
+            <section class="enterprise-identity-banner" aria-label="企业管理员身份">
+              <span class="enterprise-identity-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 20V7.5L12 4v16M12 9h8v11M7.5 10.5h1M7.5 14h1M7.5 17.5h1M15.5 12.5h1M15.5 16h1" />
+                </svg>
+              </span>
+              <div class="enterprise-identity-copy">
+                <span>当前企业</span>
+                <div class="enterprise-name-line">
+                  <strong data-enterprise-name>蛮牛创意科技</strong>
+                  <button type="button" data-account-action="enterprise-name">修改企业名称</button>
+                </div>
+                <p>企业 ID：MN-2026-35873 · 企业专业版 · <em data-enterprise-name-status>本月可修改</em></p>
+              </div>
+              <div class="enterprise-admin-badge"><span>管理员账号</span><strong data-enterprise-admin-name>用户昵称</strong><small>拥有企业与成员管理权限</small></div>
+            </section>
             <h2>基本信息</h2>
             <div class="profile-box">
               <button class="profile-avatar-button" type="button" data-account-action="avatar" aria-label="更换用户头像">
@@ -2111,7 +2252,115 @@
               <span>微信</span><strong data-wechat-status>已绑定</strong><button type="button" data-account-action="wechat-unbind">解绑</button>
             </div>
           </div>
+
+          <section class="enterprise-team-card" data-enterprise-panel aria-label="企业子账号管理">
+            <header class="enterprise-team-head">
+              <div>
+                <span>TEAM ACCESS</span>
+                <h2>企业成员</h2>
+                <p>成员使用添加时的手机号，通过短信验证即可登录企业工作台。</p>
+              </div>
+              <button type="button" data-account-action="member-add">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12" /></svg>
+                添加子账号
+              </button>
+            </header>
+
+            <div class="enterprise-seat-summary">
+              <div><span>成员席位</span><strong><b data-enterprise-seat-used>3</b> / 10</strong></div>
+              <span class="enterprise-seat-track"><i data-enterprise-seat-track style="width:30%"></i></span>
+              <p>管理员占用 1 个席位，当前还可添加 <strong data-enterprise-seat-remaining>7</strong> 个企业子账号。</p>
+            </div>
+
+            <div class="enterprise-member-list" data-enterprise-members>
+              <div class="enterprise-member-row is-admin" data-member-role="admin" data-member-phone="18900008685">
+                <span class="enterprise-member-avatar admin">管</span>
+                <div class="enterprise-member-name"><strong data-enterprise-admin-row-name>用户昵称</strong><span data-enterprise-admin-phone>189****8685</span></div>
+                <span class="enterprise-member-role">企业管理员</span>
+                <span class="enterprise-member-status is-active"><i></i>正常使用</span>
+                <span class="enterprise-member-login">当前账号</span>
+                <div class="enterprise-member-actions"><button type="button" disabled>不可移除</button></div>
+              </div>
+              <div class="enterprise-member-row" data-member-role="member" data-member-phone="13800002716">
+                <span class="enterprise-member-avatar mint">林</span>
+                <div class="enterprise-member-name"><strong>林晓</strong><span>138****2716</span></div>
+                <span class="enterprise-member-role">企业成员</span>
+                <span class="enterprise-member-status is-active" data-member-status><i></i>正常使用</span>
+                <span class="enterprise-member-login">今天 09:42 登录</span>
+                <div class="enterprise-member-actions"><button type="button" data-member-command="toggle">停用</button><button class="danger" type="button" data-member-command="remove">移除</button></div>
+              </div>
+              <div class="enterprise-member-row is-pending" data-member-role="member" data-member-phone="18600005038">
+                <span class="enterprise-member-avatar lime">陈</span>
+                <div class="enterprise-member-name"><strong>陈屿</strong><span>186****5038</span></div>
+                <span class="enterprise-member-role">企业成员</span>
+                <span class="enterprise-member-status is-pending" data-member-status><i></i>待首次登录</span>
+                <span class="enterprise-member-login">邀请于 7 月 14 日</span>
+                <div class="enterprise-member-actions"><button type="button" data-member-command="invite">重新邀请</button><button class="danger" type="button" data-member-command="remove">移除</button></div>
+              </div>
+            </div>
+
+            <footer class="enterprise-login-note">
+              <span aria-hidden="true">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2.5" width="10" height="15" rx="2"/><path d="M8 5h4M9 14.5h2"/></svg>
+              </span>
+              <div><strong>子账号如何登录？</strong><p>成员在登录页输入已添加的手机号，获取短信验证码后即可进入当前企业；首次登录无需单独注册。</p></div>
+            </footer>
+          </section>
         </section>
+
+        <dialog class="account-action-dialog enterprise-name-dialog" data-account-dialog="enterprise-name" aria-labelledby="enterprise-name-dialog-title">
+          <div class="account-dialog-shell">
+            <header class="account-dialog-head">
+              <span class="account-dialog-icon mint enterprise-name-dialog-icon" aria-hidden="true">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 17V6.8L10 4v13M10 8h6.5v9M6.2 9.2h.1M6.2 12.2h.1M6.2 15.2h.1M13.2 11h.1M13.2 14h.1"/></svg>
+              </span>
+              <div><h2 id="enterprise-name-dialog-title">修改企业名称</h2><p>该名称会展示在企业工作台与成员账号中</p></div>
+              <button class="account-dialog-close" type="button" data-dialog-close aria-label="关闭修改企业名称弹框"></button>
+            </header>
+            <form class="account-dialog-form" data-account-form="enterprise-name">
+              <div class="enterprise-current-name"><span>当前企业名称</span><strong data-enterprise-current-name>蛮牛创意科技</strong></div>
+              <label class="account-field"><span>新的企业名称 <small>2–30 个字符</small></span><input name="enterprise-name" type="text" minlength="2" maxlength="30" autocomplete="organization" placeholder="请输入企业名称" required data-enterprise-name-input /></label>
+              <div class="enterprise-name-rule" data-enterprise-name-rule>
+                <span aria-hidden="true">30</span>
+                <div><strong>每 30 天仅可修改一次</strong><p data-enterprise-name-rule-copy>修改成功后，企业名称将在所有成员账号中同步更新。</p></div>
+              </div>
+              <p class="account-form-error" role="alert" data-enterprise-name-error hidden></p>
+              <div class="account-dialog-actions"><button class="secondary" type="button" data-dialog-close>取消</button><button class="primary" type="submit" data-enterprise-name-submit>确认修改</button></div>
+            </form>
+          </div>
+        </dialog>
+
+        <dialog class="account-action-dialog enterprise-member-dialog" data-account-dialog="member-add" aria-labelledby="member-add-dialog-title">
+          <div class="account-dialog-shell">
+            <header class="account-dialog-head">
+              <span class="account-dialog-icon mint" aria-hidden="true">+</span>
+              <div><h2 id="member-add-dialog-title">添加企业子账号</h2><p>使用成员手机号创建企业登录身份</p></div>
+              <button class="account-dialog-close" type="button" data-dialog-close aria-label="关闭添加企业子账号弹框"></button>
+            </header>
+            <form class="account-dialog-form" data-account-form="member-add">
+              <label class="account-field"><span>成员姓名 <small>选填</small></span><input name="member-name" type="text" maxlength="20" autocomplete="off" placeholder="例如：张晓雨" data-member-name-input /></label>
+              <label class="account-field"><span>登录手机号</span><div class="phone-field"><b>+86</b><input name="member-phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="请输入成员手机号…" pattern="1[3-9][0-9]{9}" required data-member-phone-input /></div></label>
+              <div class="enterprise-member-permission"><span>默认权限</span><strong>企业成员</strong><p>可使用企业积分进行创作，并查看自己的生成资产；不能管理企业与其他成员。</p></div>
+              <p class="account-form-error" role="alert" data-member-add-error hidden></p>
+              <div class="enterprise-login-hint"><i aria-hidden="true">✓</i><span>添加成功后，该成员可直接使用此手机号和短信验证码登录。</span></div>
+              <div class="account-dialog-actions"><button class="secondary" type="button" data-dialog-close>取消</button><button class="primary" type="submit">确认添加</button></div>
+            </form>
+          </div>
+        </dialog>
+
+        <dialog class="account-action-dialog danger-dialog enterprise-member-action-dialog" data-account-dialog="member-action" aria-labelledby="member-action-dialog-title">
+          <div class="account-dialog-shell">
+            <header class="account-dialog-head">
+              <span class="account-dialog-icon apricot" aria-hidden="true">!</span>
+              <div><h2 id="member-action-dialog-title" data-member-action-title>停用企业子账号</h2><p data-member-action-subtitle>此操作会改变该成员的企业访问权限</p></div>
+              <button class="account-dialog-close" type="button" data-dialog-close aria-label="关闭企业成员操作弹框"></button>
+            </header>
+            <form class="account-dialog-form" data-account-form="member-action">
+              <div class="account-warning"><strong data-member-action-name>确认停用该成员？</strong><span data-member-action-description>停用后，该手机号将无法继续登录当前企业，但不会删除成员已生成的资产。</span></div>
+              <div class="account-dialog-actions"><button class="secondary" type="button" data-dialog-close>取消</button><button class="danger" type="submit" data-member-action-confirm>确认停用</button></div>
+            </form>
+          </div>
+        </dialog>
 
         <dialog class="account-action-dialog" data-account-dialog="avatar" aria-labelledby="avatar-dialog-title">
           <div class="account-dialog-shell">

@@ -98,6 +98,7 @@ const quickCanvasTitle = document.querySelector("[data-quick-canvas-title]");
 const quickCountLabel = document.querySelector("[data-quick-count-label]");
 const quickGenerateButton = document.querySelector("[data-quick-generate]");
 const quickGenerateLabel = document.querySelector("[data-quick-generate-label]");
+const quickWorkspace = document.querySelector("[data-quick-workspace]");
 const quickEmptyState = document.querySelector("[data-quick-empty]");
 const quickAnalyzing = document.querySelector("[data-quick-analyzing]");
 const quickResults = document.querySelector("[data-quick-results]");
@@ -116,6 +117,13 @@ const quickAnalysisRule = document.querySelector("[data-quick-analysis-rule]");
 const quickAnalyzingLabel = document.querySelector("[data-quick-analyzing-label]");
 const quickAnalyzingTitle = document.querySelector("[data-quick-analyzing-title]");
 const quickAnalyzingNote = document.querySelector("[data-quick-analyzing-note]");
+const quickAnalysisOrbit = document.querySelector("[data-quick-analysis-orbit]");
+const quickRenderStatus = document.querySelector("[data-quick-render-status]");
+const quickRenderPercent = document.querySelector("[data-quick-render-percent]");
+const quickRenderProgress = document.querySelector("[data-quick-render-progress]");
+const quickRenderPhases = [...document.querySelectorAll("[data-quick-render-phase]")];
+const quickCancelButton = document.querySelector("[data-quick-cancel]");
+const quickRegenerateButton = document.querySelector("[data-quick-regenerate]");
 const returnEditButton = document.querySelector("[data-return-edit]");
 const focusQuickButtons = [...document.querySelectorAll("[data-focus-quick]")];
 const quickProgressSteps = [...document.querySelectorAll("[data-quick-step]")];
@@ -140,6 +148,16 @@ const agentReferencePreview = document.querySelector("[data-agent-reference-prev
 const agentReferenceName = document.querySelector("[data-agent-reference-name]");
 const agentReferenceNote = document.querySelector("[data-agent-reference-note]");
 const agentReferenceStatus = document.querySelector("[data-agent-reference-status]");
+const imageAgentAnalyzeButton = document.querySelector("[data-agent-analyze]");
+const imageAgentRunButton = document.querySelector("[data-agent-run]");
+const imageAgentSupplementButton = document.querySelector("[data-agent-supplement]");
+const imageAgentTaskProgress = document.querySelector("[data-agent-task-progress]");
+const imageAgentTaskTitle = document.querySelector("[data-agent-task-title]");
+const imageAgentTaskPercent = document.querySelector("[data-agent-task-percent]");
+const imageAgentTaskBar = document.querySelector("[data-agent-task-bar]");
+const imageAgentTaskStages = [...document.querySelectorAll("[data-agent-task-stage]")];
+const imageAgentResultMessage = document.querySelector("[data-agent-result-message]");
+const imageAgentFlowProgress = document.querySelector("[data-agent-flow-progress]");
 const videoPrompt = document.querySelector("[data-video-prompt]");
 const videoReferenceInput = document.querySelector("[data-video-reference-input]");
 const videoUploadTile = document.querySelector("[data-video-upload-trigger]");
@@ -153,7 +171,41 @@ const videoAdvancedPanel = document.querySelector("[data-video-advanced-panel]")
 const videoSubtitleSelect = document.querySelector("[data-video-subtitle]");
 const videoSceneCountInput = document.querySelector("[data-video-scene-count]");
 const videoStyleSelect = document.querySelector("[data-video-style]");
+const videoVariantCountInput = document.querySelector("[data-video-variant-count]");
+const startVideoQuickButton = document.querySelector("[data-start-video-quick]");
 const startVideoAgentButton = document.querySelector("[data-start-video-agent]");
+const videoCreateAgentButtons = [...document.querySelectorAll("[data-video-create-agent]")];
+const videoStoryboardList = document.querySelector("[data-video-storyboard-list]");
+const videoReviewPreview = document.querySelector("[data-video-review-preview]");
+const videoReviewType = document.querySelector("[data-video-review-type]");
+const videoReviewPrompt = document.querySelector("[data-video-review-prompt]");
+const videoReviewPlatform = document.querySelector("[data-video-review-platform]");
+const videoReviewDuration = document.querySelector("[data-video-review-duration]");
+const videoReviewRatio = document.querySelector("[data-video-review-ratio]");
+const videoReviewRatioDetail = document.querySelector("[data-video-review-ratio-detail]");
+const videoReviewDurationDetail = document.querySelector("[data-video-review-duration-detail]");
+const videoReviewStyle = document.querySelector("[data-video-review-style]");
+const videoReviewVariants = document.querySelector("[data-video-review-variants]");
+const videoReviewTitle = document.querySelector("[data-video-review-title]");
+const videoCaptionButtons = [...document.querySelectorAll("[data-video-caption-group] button")];
+const videoAudioButtons = [...document.querySelectorAll("[data-video-audio-group] button")];
+const videoGenerateButton = document.querySelector("[data-video-generate]");
+const videoReviewState = document.querySelector("[data-video-review-state]");
+const videoRenderState = document.querySelector("[data-video-render-state]");
+const videoFinalState = document.querySelector("[data-video-final-state]");
+const videoProgressSteps = [...document.querySelectorAll("[data-video-step]")];
+const videoRenderFrameLabel = document.querySelector("[data-video-render-frame-label]");
+const videoRenderTitle = document.querySelector("[data-video-render-title]");
+const videoRenderNote = document.querySelector("[data-video-render-note]");
+const videoRenderBar = document.querySelector("[data-video-render-bar]");
+const videoRenderPercent = document.querySelector("[data-video-render-percent]");
+const videoRenderPhases = [...document.querySelectorAll("[data-video-render-phase]")];
+const videoCancelButton = document.querySelector("[data-video-cancel]");
+const videoRegenerateButton = document.querySelector("[data-video-regenerate]");
+const videoPlayButton = document.querySelector("[data-video-play]");
+const videoPlayingIndicator = document.querySelector("[data-video-playing]");
+const videoTimeline = document.querySelector("[data-video-timeline]");
+const videoFinalTitle = document.querySelector("[data-video-final-title]");
 const videoAgentPrompt = document.querySelector("[data-video-agent-prompt]");
 const videoAgentType = document.querySelector("[data-video-agent-type]");
 const videoAgentRatio = document.querySelector("[data-video-agent-ratio]");
@@ -173,6 +225,17 @@ const videoAgentReferenceName = document.querySelector("[data-video-agent-refere
 const videoAgentReferenceNote = document.querySelector("[data-video-agent-reference-note]");
 const videoAgentReferenceStatus = document.querySelector("[data-video-agent-reference-status]");
 const videoAgentUpload = document.querySelector("[data-video-agent-upload]");
+const videoAgentStatus = document.querySelector("[data-video-agent-status]");
+const videoAgentSteps = [...document.querySelectorAll("[data-video-agent-step]")];
+const videoAgentPlanButton = document.querySelector("[data-video-agent-plan]");
+const videoAgentAnalyzeButton = document.querySelector("[data-video-agent-analyze]");
+const videoAgentRunButton = document.querySelector("[data-video-agent-run]");
+const videoAgentProgress = document.querySelector("[data-video-agent-progress]");
+const videoAgentProgressTitle = document.querySelector("[data-video-agent-progress-title]");
+const videoAgentProgressPercent = document.querySelector("[data-video-agent-progress-percent]");
+const videoAgentProgressBar = document.querySelector("[data-video-agent-progress-bar]");
+const videoAgentProgressStages = [...document.querySelectorAll("[data-video-agent-progress-stage]")];
+const videoAgentResult = document.querySelector("[data-video-agent-result]");
 const outputTypeSelect = document.querySelector("[data-output-type]");
 const resolutionSelect = document.querySelector("[data-resolution]");
 const platformSelect = document.querySelector("[data-platform]");
@@ -193,6 +256,29 @@ const topbarNickname = document.querySelector("[data-topbar-nickname]");
 const accountPhone = document.querySelector("[data-account-phone]");
 const wechatStatus = document.querySelector("[data-wechat-status]");
 const accountToast = document.querySelector("[data-account-toast]");
+const enterpriseAdminName = document.querySelector("[data-enterprise-admin-name]");
+const enterpriseAdminRowName = document.querySelector("[data-enterprise-admin-row-name]");
+const enterpriseAdminPhone = document.querySelector("[data-enterprise-admin-phone]");
+const enterpriseName = document.querySelector("[data-enterprise-name]");
+const enterpriseNameAction = document.querySelector('[data-account-action="enterprise-name"]');
+const enterpriseNameStatus = document.querySelector("[data-enterprise-name-status]");
+const enterpriseCurrentName = document.querySelector("[data-enterprise-current-name]");
+const enterpriseNameInput = document.querySelector("[data-enterprise-name-input]");
+const enterpriseNameRule = document.querySelector("[data-enterprise-name-rule]");
+const enterpriseNameRuleCopy = document.querySelector("[data-enterprise-name-rule-copy]");
+const enterpriseNameError = document.querySelector("[data-enterprise-name-error]");
+const enterpriseNameSubmit = document.querySelector("[data-enterprise-name-submit]");
+const enterpriseMemberList = document.querySelector("[data-enterprise-members]");
+const enterpriseSeatUsed = document.querySelector("[data-enterprise-seat-used]");
+const enterpriseSeatRemaining = document.querySelector("[data-enterprise-seat-remaining]");
+const enterpriseSeatTrack = document.querySelector("[data-enterprise-seat-track]");
+const memberAddError = document.querySelector("[data-member-add-error]");
+const memberActionDialog = document.querySelector('[data-account-dialog="member-action"]');
+const memberActionTitle = document.querySelector("[data-member-action-title]");
+const memberActionSubtitle = document.querySelector("[data-member-action-subtitle]");
+const memberActionName = document.querySelector("[data-member-action-name]");
+const memberActionDescription = document.querySelector("[data-member-action-description]");
+const memberActionConfirm = document.querySelector("[data-member-action-confirm]");
 const avatarInput = document.querySelector("[data-avatar-input]");
 const avatarDialogPreview = document.querySelector("[data-avatar-dialog-preview]");
 const accountTabs = [...document.querySelectorAll(".account-tab")];
@@ -201,6 +287,7 @@ const accountSettingsPages = new Set(["account", "orders", "points", "invite"]);
 const pageLabels = {
   home: "工作台",
   video: "视频生成",
+  videoCreate: "视频快速生成",
   videoAgent: "视频生成 Agent",
   detail: "详情图 Agent",
   quickCreate: "快速生成",
@@ -377,7 +464,7 @@ function setPage(pageName) {
       const targetPage = button.dataset.page;
       const isAccountSettingsPage = targetPage === "account" && accountSettingsPages.has(pageName);
       const isCreationFlow = targetPage === "home" && ["detail", "quickCreate"].includes(pageName);
-      const isVideoFlow = targetPage === "video" && pageName === "videoAgent";
+      const isVideoFlow = targetPage === "video" && ["videoCreate", "videoAgent"].includes(pageName);
       const isToolFlow = targetPage === "toolbox" && ["backgroundRemove", "backgroundReplace", "imageCleanup", "imageEnhance", "imageCompress", "imageResize", "videoFrames"].includes(pageName);
       button.classList.toggle("is-active", targetPage === pageName || isAccountSettingsPage || isCreationFlow || isVideoFlow || isToolFlow);
     }
@@ -496,9 +583,8 @@ function setQuickType(type, { keepCount = false, resetResult = true } = {}) {
   syncQuickAnalysisSummary();
   updateQuickGenerateLabel();
 
-  if (resetResult && quickResults && !quickResults.hidden) {
-    quickResults.hidden = true;
-    if (quickEmptyState) quickEmptyState.hidden = false;
+  if (resetResult) {
+    setQuickWorkspaceState("review");
     setQuickStage(1);
   }
 }
@@ -556,9 +642,9 @@ function syncHomeQuickToWorkbench() {
 function beginQuickAnalysis() {
   syncHomeQuickToWorkbench();
   setPage("quickCreate");
-  if (quickEmptyState) quickEmptyState.hidden = true;
-  if (quickResults) quickResults.hidden = true;
-  if (quickAnalyzing) quickAnalyzing.hidden = false;
+  setQuickWorkspaceState("processing");
+  if (quickAnalysisOrbit) quickAnalysisOrbit.hidden = false;
+  if (quickRenderStatus) quickRenderStatus.hidden = true;
   const requestedCount = Math.max(1, Math.min(10, Number.parseInt(quickCount?.value || "4", 10) || 4));
   if (quickAnalyzingLabel) quickAnalyzingLabel.textContent = `正在分析 ${sharedReferenceFiles.length} 张商品素材`;
   if (quickAnalyzingTitle) {
@@ -571,8 +657,7 @@ function beginQuickAnalysis() {
   if (quickGenerateLabel) quickGenerateLabel.textContent = "素材分析中…";
   setQuickStage(2);
   window.setTimeout(() => {
-    if (quickAnalyzing) quickAnalyzing.hidden = true;
-    if (quickEmptyState) quickEmptyState.hidden = false;
+    setQuickWorkspaceState("review");
     if (quickGenerateButton) quickGenerateButton.disabled = false;
     syncQuickAnalysisSummary();
     updateQuickGenerateLabel();
@@ -614,6 +699,17 @@ function setQuickStage(activeStage) {
   });
 }
 
+function setQuickWorkspaceState(state) {
+  const nextState = ["review", "processing", "results"].includes(state) ? state : "review";
+  if (quickEmptyState) quickEmptyState.hidden = nextState !== "review";
+  if (quickAnalyzing) quickAnalyzing.hidden = nextState !== "processing";
+  if (quickResults) quickResults.hidden = nextState !== "results";
+  if (quickWorkspace) {
+    quickWorkspace.dataset.quickWorkspaceState = nextState;
+    quickWorkspace.setAttribute("aria-busy", String(nextState === "processing"));
+  }
+}
+
 function renderQuickResults() {
   if (!quickResultGrid) return;
   const requestedCount = Math.max(1, Math.min(10, Number.parseInt(quickCount?.value || "4", 10) || 4));
@@ -628,20 +724,54 @@ function renderQuickResults() {
   quickResultGrid.replaceChildren();
   for (let index = 0; index < requestedCount; index += 1) {
     const card = document.createElement("article");
-    card.className = "quick-result-card";
+    card.className = activeQuickType === "detail"
+      ? "quick-result-card quick-detail-result-card"
+      : "quick-result-card quick-main-result-card";
     const image = document.createElement("img");
     image.src = imageSources[index % imageSources.length];
     image.alt = `${activeQuickType === "detail" ? "详情图" : "主图"}快速生成结果 ${index + 1}`;
-    const footer = document.createElement("div");
-    const label = document.createElement("span");
-    label.textContent = activeQuickType === "detail"
-      ? `详情屏 ${String(index + 1).padStart(2, "0")}`
-      : `方案 ${String(index + 1).padStart(2, "0")}`;
+
+    const redo = document.createElement("button");
+    redo.type = "button";
+    redo.textContent = "重做";
+    redo.addEventListener("click", () => showWorkspaceToast(`已提交${activeQuickType === "detail" ? "当前详情屏" : "当前方案"}重新生成`));
     const download = document.createElement("button");
     download.type = "button";
     download.textContent = "下载";
-    footer.append(label, download);
-    card.append(image, footer);
+
+    if (activeQuickType === "detail") {
+      const order = document.createElement("span");
+      order.className = "quick-detail-order";
+      order.textContent = String(index + 1).padStart(2, "0");
+      const copy = document.createElement("div");
+      copy.className = "quick-detail-copy";
+      const label = document.createElement("strong");
+      const detailTitles = ["首屏视觉与核心主张", "核心卖点与功能说明", "使用场景与用户体验", "细节材质与参数展示", "信任背书与购买引导"];
+      label.textContent = detailTitles[index % detailTitles.length];
+      const note = document.createElement("small");
+      note.textContent = `详情屏 ${String(index + 1).padStart(2, "0")} · 已匹配平台安全区`;
+      const actions = document.createElement("div");
+      actions.className = "quick-detail-actions";
+      const move = document.createElement("button");
+      move.type = "button";
+      move.textContent = "调整顺序";
+      move.addEventListener("click", () => showWorkspaceToast("已进入详情屏排序状态"));
+      actions.append(move, redo, download);
+      copy.append(label, note, actions);
+      card.append(order, image, copy);
+    } else {
+      const badge = document.createElement("span");
+      badge.className = "quick-result-badge";
+      badge.textContent = index === 0 ? "推荐方案" : `构图 ${String(index + 1).padStart(2, "0")}`;
+      const footer = document.createElement("div");
+      const label = document.createElement("span");
+      label.textContent = `主图方案 ${String(index + 1).padStart(2, "0")}`;
+      const actions = document.createElement("div");
+      actions.className = "quick-main-result-actions";
+      actions.append(redo, download);
+      footer.append(label, actions);
+      card.append(badge, image, footer);
+    }
     quickResultGrid.append(card);
   }
   if (quickResultTitle) {
@@ -651,7 +781,34 @@ function renderQuickResults() {
   }
 }
 
-quickGenerateButton?.addEventListener("click", () => {
+let quickRenderInterval;
+let quickRenderTimeout;
+
+function setQuickRenderProgress(progress) {
+  const safeProgress = Math.max(0, Math.min(100, progress));
+  if (quickRenderPercent) quickRenderPercent.textContent = `${safeProgress}%`;
+  if (quickRenderProgress) quickRenderProgress.style.width = `${safeProgress}%`;
+  const activePhase = safeProgress < 34 ? 0 : safeProgress < 72 ? 1 : 2;
+  quickRenderPhases.forEach((phase, index) => {
+    phase.classList.toggle("is-active", index === activePhase);
+    phase.classList.toggle("is-complete", index < activePhase || safeProgress === 100);
+  });
+}
+
+function stopQuickGeneration({ restoreReview = false } = {}) {
+  window.clearInterval(quickRenderInterval);
+  window.clearTimeout(quickRenderTimeout);
+  quickRenderInterval = undefined;
+  quickRenderTimeout = undefined;
+  if (restoreReview) {
+    setQuickWorkspaceState("review");
+    if (quickGenerateButton) quickGenerateButton.disabled = false;
+    updateQuickGenerateLabel();
+    setQuickStage(3);
+  }
+}
+
+function startQuickGeneration() {
   if (!sharedReferenceUrl) {
     setPage("home");
     setCreationMode("quick");
@@ -662,9 +819,10 @@ quickGenerateButton?.addEventListener("click", () => {
     window.setTimeout(() => quickHomeUpload?.focus(), 0);
     return;
   }
-  if (quickEmptyState) quickEmptyState.hidden = true;
-  if (quickResults) quickResults.hidden = true;
-  if (quickAnalyzing) quickAnalyzing.hidden = false;
+  stopQuickGeneration();
+  setQuickWorkspaceState("processing");
+  if (quickAnalysisOrbit) quickAnalysisOrbit.hidden = true;
+  if (quickRenderStatus) quickRenderStatus.hidden = false;
   quickGenerateButton.disabled = true;
   if (quickAnalyzingLabel) quickAnalyzingLabel.textContent = "正在生成你的电商视觉";
   if (quickAnalyzingTitle) {
@@ -674,16 +832,31 @@ quickGenerateButton?.addEventListener("click", () => {
   }
   if (quickAnalyzingNote) quickAnalyzingNote.textContent = "已采用刚刚确认的数量与画面文字设置。";
   if (quickGenerateLabel) quickGenerateLabel.textContent = "正在生成…";
+  setQuickRenderProgress(4);
   setQuickStage(3);
 
-  window.setTimeout(() => {
+  let progress = 4;
+  quickRenderInterval = window.setInterval(() => {
+    progress = Math.min(94, progress + (progress < 36 ? 7 : progress < 72 ? 5 : 3));
+    setQuickRenderProgress(progress);
+  }, 120);
+
+  quickRenderTimeout = window.setTimeout(() => {
+    stopQuickGeneration();
+    setQuickRenderProgress(100);
     renderQuickResults();
-    if (quickAnalyzing) quickAnalyzing.hidden = true;
-    if (quickResults) quickResults.hidden = false;
+    setQuickWorkspaceState("results");
     quickGenerateButton.disabled = false;
     updateQuickGenerateLabel();
     setQuickStage(4);
-  }, 1200);
+  }, 2200);
+}
+
+quickGenerateButton?.addEventListener("click", startQuickGeneration);
+quickRegenerateButton?.addEventListener("click", startQuickGeneration);
+quickCancelButton?.addEventListener("click", () => {
+  stopQuickGeneration({ restoreReview: true });
+  showWorkspaceToast("已取消本次生成，设置仍为你保留");
 });
 
 document.querySelectorAll("[data-count-step]").forEach((button) => {
@@ -866,17 +1039,37 @@ function enableReferenceDropzone(dropzone) {
 enableReferenceDropzone(quickHomeUpload);
 enableReferenceDropzone(agentHomeUpload);
 
+let activeVideoReferenceFile = null;
+let activeVideoReferenceUrl = "";
+
 function applyVideoReference(file) {
   if (!file) return;
+  if (activeVideoReferenceUrl) URL.revokeObjectURL(activeVideoReferenceUrl);
+  activeVideoReferenceFile = file;
   const mediaUrl = URL.createObjectURL(file);
-  if (videoReferencePreview) {
+  activeVideoReferenceUrl = mediaUrl;
+  const isVideoFile = file.type.startsWith("video/");
+  if (videoReferencePreview && !isVideoFile) {
     videoReferencePreview.src = mediaUrl;
     videoReferencePreview.hidden = false;
+  } else if (videoReferencePreview) {
+    videoReferencePreview.hidden = true;
   }
   videoUploadTile?.classList.add("has-media");
-  if (videoAgentReferencePreview) {
+  videoUploadTile?.classList.toggle("has-video", isVideoFile);
+  const uploadCopy = videoUploadTile?.querySelector(".video-upload-copy");
+  if (uploadCopy) {
+    const title = uploadCopy.querySelector("strong");
+    const note = uploadCopy.querySelector("small");
+    if (title) title.textContent = file.name;
+    if (note) note.textContent = isVideoFile ? "视频素材已上传" : "图片素材已上传";
+  }
+  if (videoReviewPreview && !isVideoFile) videoReviewPreview.src = mediaUrl;
+  if (videoAgentReferencePreview && !isVideoFile) {
     videoAgentReferencePreview.src = mediaUrl;
     videoAgentReferencePreview.hidden = false;
+  } else if (videoAgentReferencePreview) {
+    videoAgentReferencePreview.hidden = true;
   }
   videoAgentReference?.classList.add("has-image");
   if (videoAgentReferenceName) videoAgentReferenceName.textContent = file.name;
@@ -967,10 +1160,77 @@ function openImageAgentTask({
   document.querySelectorAll("[data-agent-result-label]").forEach((label, index) => {
     label.textContent = `${isMain ? "主图方案" : "详情图"} ${String(index + 1).padStart(2, "0")}`;
   });
+  document.querySelectorAll(".generated-grid .generated-card").forEach((card, index) => {
+    card.hidden = index >= Number.parseInt(generateCount, 10);
+  });
+  resetImageAgentTask();
 
   setPage("detail");
   if (topbarCrumb) topbarCrumb.textContent = `首页 / ${isMain ? "主图 Agent" : "详情图 Agent"}`;
 }
+
+let imageAgentProgressInterval;
+let imageAgentProgressTimeout;
+
+function setImageAgentTaskProgress(progress) {
+  const safeProgress = Math.max(0, Math.min(100, progress));
+  if (imageAgentTaskPercent) imageAgentTaskPercent.textContent = `${safeProgress}%`;
+  if (imageAgentTaskBar) imageAgentTaskBar.style.width = `${safeProgress}%`;
+  const activeStage = safeProgress < 24 ? 0 : safeProgress < 48 ? 1 : safeProgress < 82 ? 2 : 3;
+  imageAgentTaskStages.forEach((stage, index) => {
+    stage.classList.toggle("is-active", index === activeStage);
+    stage.classList.toggle("is-complete", index < activeStage || safeProgress === 100);
+  });
+  document.querySelectorAll("[data-agent-flow-step]").forEach((stage, index) => {
+    stage.classList.toggle("is-active", index === activeStage);
+    stage.classList.toggle("is-complete", index < activeStage || safeProgress === 100);
+  });
+  if (imageAgentFlowProgress) imageAgentFlowProgress.textContent = `${Math.min(4, activeStage + 1)} / 4`;
+}
+
+function resetImageAgentTask() {
+  window.clearInterval(imageAgentProgressInterval);
+  window.clearTimeout(imageAgentProgressTimeout);
+  if (imageAgentTaskProgress) imageAgentTaskProgress.hidden = true;
+  if (imageAgentResultMessage) imageAgentResultMessage.hidden = true;
+  setImageAgentTaskProgress(0);
+}
+
+function runImageAgentTask() {
+  resetImageAgentTask();
+  if (imageAgentTaskProgress) imageAgentTaskProgress.hidden = false;
+  if (imageAgentTaskTitle) {
+    imageAgentTaskTitle.textContent = agentType?.textContent?.includes("主图")
+      ? "正在生成多套主图方向"
+      : "正在逐屏生成详情页";
+  }
+  imageAgentTaskProgress?.scrollIntoView({ behavior: "smooth", block: "center" });
+  let progress = 3;
+  setImageAgentTaskProgress(progress);
+  imageAgentProgressInterval = window.setInterval(() => {
+    progress = Math.min(95, progress + (progress < 50 ? 6 : 3));
+    setImageAgentTaskProgress(progress);
+  }, 140);
+  imageAgentProgressTimeout = window.setTimeout(() => {
+    window.clearInterval(imageAgentProgressInterval);
+    setImageAgentTaskProgress(100);
+    if (imageAgentTaskProgress) imageAgentTaskProgress.hidden = true;
+    if (imageAgentResultMessage) imageAgentResultMessage.hidden = false;
+    imageAgentResultMessage?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, 2600);
+}
+
+imageAgentRunButton?.addEventListener("click", runImageAgentTask);
+imageAgentAnalyzeButton?.addEventListener("click", () => {
+  setImageAgentTaskProgress(28);
+  showWorkspaceToast(sharedReferenceFiles.length ? `已完成 ${sharedReferenceFiles.length} 张参考图分析` : "未上传参考图，已按平台规则完成分析");
+});
+imageAgentSupplementButton?.addEventListener("click", () => {
+  document.querySelector('[data-page-panel="detail"] .agent-composer textarea')?.focus();
+});
+document.querySelectorAll("[data-agent-redo]").forEach((button) => {
+  button.addEventListener("click", () => showWorkspaceToast("已提交当前画面局部重做"));
+});
 
 startDetailButton?.addEventListener("click", () => {
   const promptValue = homePrompt?.value.trim() || "输入你的即兴灵感，例如：生成一张「蛋牛」品牌的营销广告";
@@ -1019,6 +1279,16 @@ function openAgentFromQuick() {
 quickToAgentButtons.forEach((button) => button.addEventListener("click", openAgentFromQuick));
 
 agentToQuickButton?.addEventListener("click", () => {
+  if (!sharedReferenceUrl) {
+    setCreationMode("quick");
+    setPage("home");
+    if (quickHomeStatus) {
+      quickHomeStatus.classList.add("is-error");
+      quickHomeStatus.innerHTML = '<i aria-hidden="true">!</i>快速生成需要先上传至少 1 张商品图';
+    }
+    window.setTimeout(() => quickHomeUpload?.focus(), 0);
+    return;
+  }
   const typeValue = outputTypeSelect?.value || (agentType?.textContent?.includes("主图") ? "main" : "detail");
   setQuickType(typeValue, { keepCount: true, resetResult: false });
   setSelectValue(quickPlatform, platformSelect?.value || "amazon");
@@ -1032,40 +1302,331 @@ agentToQuickButton?.addEventListener("click", () => {
     item.classList.toggle("is-active", isActive);
     item.setAttribute("aria-pressed", String(isActive));
   });
-  if (quickAnalyzing) quickAnalyzing.hidden = true;
-  if (quickResults) quickResults.hidden = true;
-  if (quickEmptyState) quickEmptyState.hidden = false;
+  setQuickWorkspaceState("review");
   syncQuickAnalysisSummary();
   updateQuickGenerateLabel();
   setQuickStage(3);
   setPage("quickCreate");
 });
 
-startVideoAgentButton?.addEventListener("click", () => {
-  const promptValue = videoPrompt?.value.trim() || "做一条 15 秒的产品展示视频";
-  const typeText = videoTypeSelect?.selectedOptions[0]?.textContent?.trim() || "产品展示";
-  const ratioText = videoRatioSelect?.selectedOptions[0]?.textContent?.trim() || "9:16 竖版";
-  const durationText = videoDurationSelect?.selectedOptions[0]?.textContent?.trim() || "15秒";
-  const platformText = videoPlatformSelect?.selectedOptions[0]?.textContent?.trim() || "亚马逊";
-  const subtitleText = videoSubtitleSelect?.selectedOptions[0]?.textContent?.trim() || "配字幕";
-  const sceneCount = videoSceneCountInput?.value || "4";
-  const styleText = videoStyleSelect?.selectedOptions[0]?.textContent?.trim() || "清爽电商";
+const videoSceneBlueprints = [
+  ["商品开场特写", "用主体与品牌信息建立第一眼记忆"],
+  ["核心卖点演示", "用动作或细节证明最重要的产品优势"],
+  ["真实使用场景", "让用户快速理解商品如何融入生活"],
+  ["材质细节强化", "补充质感、工艺与差异化细节"],
+  ["体验与信任", "通过使用反馈与稳定画面增强可信度"],
+  ["利益点提示", "用精简字幕呈现优惠或购买理由"],
+  ["行动引导", "收束卖点并给出明确的下一步动作"],
+  ["品牌安全尾帧", "保留平台安全区并完成品牌收尾"],
+];
 
-  if (videoAgentPrompt) videoAgentPrompt.textContent = promptValue;
-  if (videoAgentType) videoAgentType.textContent = typeText;
-  if (videoAgentRatio) videoAgentRatio.textContent = ratioText;
-  if (videoAgentDuration) videoAgentDuration.textContent = durationText;
-  if (videoAgentPlatform) videoAgentPlatform.textContent = platformText;
-  if (videoAgentSubtitle) videoAgentSubtitle.textContent = subtitleText;
-  if (videoAgentScenes) videoAgentScenes.textContent = sceneCount;
-  if (videoAgentStyle) videoAgentStyle.textContent = styleText;
-  if (videoAgentUserMessage) videoAgentUserMessage.textContent = promptValue;
-  if (videoAgentChatType) videoAgentChatType.textContent = typeText;
-  if (videoAgentChatRatio) videoAgentChatRatio.textContent = ratioText;
-  if (videoAgentChatDuration) videoAgentChatDuration.textContent = durationText;
-  if (videoAgentChatPlatform) videoAgentChatPlatform.textContent = platformText;
+const videoSceneImages = [
+  "assets/dashboard/work-3-hd.jpg",
+  "assets/dashboard/work-5-hd.jpg",
+  "assets/dashboard/work-1-hd.jpg",
+  "assets/dashboard/work-6-hd.jpg",
+  "assets/dashboard/work-4-hd.jpg",
+];
 
+let activeVideoTaskData = null;
+let videoTaskInterval = 0;
+let videoTaskTimeout = 0;
+let videoAgentInterval = 0;
+let videoAgentTimeout = 0;
+let videoPlaybackTimeout = 0;
+
+function collectVideoTaskData() {
+  const sceneCount = Math.min(8, Math.max(1, Number.parseInt(videoSceneCountInput?.value || "4", 10) || 4));
+  const variantCount = Math.min(3, Math.max(1, Number.parseInt(videoVariantCountInput?.value || "1", 10) || 1));
+  if (videoSceneCountInput) videoSceneCountInput.value = String(sceneCount);
+  if (videoVariantCountInput) videoVariantCountInput.value = String(variantCount);
+  return {
+    promptValue: videoPrompt?.value.trim() || "做一条 15 秒的产品展示视频，突出商品核心卖点与真实使用场景",
+    typeText: videoTypeSelect?.selectedOptions[0]?.textContent?.trim() || "产品展示",
+    ratioText: videoRatioSelect?.selectedOptions[0]?.textContent?.trim() || "9:16 竖版",
+    durationText: videoDurationSelect?.selectedOptions[0]?.textContent?.trim() || "15秒",
+    durationSeconds: Number.parseInt(videoDurationSelect?.value || "15", 10) || 15,
+    platformText: videoPlatformSelect?.selectedOptions[0]?.textContent?.trim() || "亚马逊",
+    subtitleText: videoSubtitleSelect?.selectedOptions[0]?.textContent?.trim() || "配字幕",
+    subtitleValue: videoSubtitleSelect?.value || "yes",
+    sceneCount,
+    styleText: videoStyleSelect?.selectedOptions[0]?.textContent?.trim() || "清爽电商",
+    variantCount,
+  };
+}
+
+function renderVideoStoryboard(data) {
+  if (!videoStoryboardList || !videoTimeline) return;
+  const secondsPerScene = data.durationSeconds / data.sceneCount;
+  const storyboard = Array.from({ length: data.sceneCount }, (_, index) => {
+    const [title, note] = videoSceneBlueprints[index] || videoSceneBlueprints[videoSceneBlueprints.length - 1];
+    const sceneNumber = String(index + 1).padStart(2, "0");
+    return `<article class="video-story-card">
+      <span class="video-story-thumb"><img src="${videoSceneImages[index % videoSceneImages.length]}" alt="镜头 ${sceneNumber} 预览" /><i>${sceneNumber}</i></span>
+      <div><span>约 ${secondsPerScene.toFixed(1)} 秒</span><strong>${title}</strong><p>${note}</p></div>
+      <button type="button" data-video-story-redo="${index}">重做</button>
+    </article>`;
+  }).join("");
+  videoStoryboardList.innerHTML = storyboard;
+  videoTimeline.innerHTML = Array.from({ length: data.sceneCount }, (_, index) => {
+    const [title] = videoSceneBlueprints[index] || videoSceneBlueprints[videoSceneBlueprints.length - 1];
+    return `<span style="flex:${(data.durationSeconds / data.sceneCount).toFixed(2)}"><i>${String(index + 1).padStart(2, "0")}</i>${title}</span>`;
+  }).join("");
+  videoStoryboardList.querySelectorAll("[data-video-story-redo]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const card = button.closest(".video-story-card");
+      card?.classList.add("is-refreshing");
+      button.textContent = "规划中";
+      window.setTimeout(() => {
+        card?.classList.remove("is-refreshing");
+        button.textContent = "重做";
+        showWorkspaceToast(`镜头 ${Number(button.dataset.videoStoryRedo) + 1} 已重新规划`);
+      }, 720);
+    });
+  });
+}
+
+function syncVideoReview(data) {
+  activeVideoTaskData = data;
+  if (videoReviewType) videoReviewType.textContent = `${data.typeText}视频`;
+  if (videoReviewPrompt) videoReviewPrompt.textContent = data.promptValue;
+  if (videoReviewPlatform) videoReviewPlatform.textContent = data.platformText;
+  if (videoReviewDuration) videoReviewDuration.textContent = data.durationText.replace("秒", " 秒");
+  if (videoReviewRatio) videoReviewRatio.textContent = data.ratioText.split(" ")[0];
+  if (videoReviewRatioDetail) videoReviewRatioDetail.textContent = data.ratioText;
+  if (videoReviewDurationDetail) videoReviewDurationDetail.textContent = data.durationText.replace("秒", " 秒");
+  if (videoReviewStyle) videoReviewStyle.textContent = data.styleText;
+  if (videoReviewVariants) videoReviewVariants.textContent = `${data.variantCount} 条`;
+  if (videoReviewTitle) videoReviewTitle.textContent = `${data.sceneCount} 个镜头已匹配 ${data.durationSeconds} 秒节奏`;
+  if (videoFinalTitle) videoFinalTitle.textContent = `${data.typeText}视频 · ${data.durationSeconds} 秒`;
+  videoCaptionButtons.forEach((button) => button.classList.toggle("is-active", button.dataset.value === data.subtitleValue));
+  renderVideoStoryboard(data);
+}
+
+function setVideoStage(activeIndex) {
+  videoProgressSteps.forEach((step, index) => {
+    step.classList.toggle("is-active", index === activeIndex);
+    step.classList.toggle("is-complete", index < activeIndex);
+  });
+}
+
+function showVideoWorkspaceState(state) {
+  if (videoReviewState) videoReviewState.hidden = state !== "review";
+  if (videoRenderState) videoRenderState.hidden = state !== "render";
+  if (videoFinalState) videoFinalState.hidden = state !== "final";
+}
+
+function setVideoRenderProgress(progress) {
+  const normalized = Math.min(100, Math.max(0, progress));
+  if (videoRenderBar) videoRenderBar.style.width = `${normalized}%`;
+  if (videoRenderPercent) videoRenderPercent.textContent = `${Math.round(normalized)}%`;
+  const phaseIndex = normalized < 38 ? 0 : normalized < 76 ? 1 : 2;
+  videoRenderPhases.forEach((phase, index) => {
+    phase.classList.toggle("is-active", index === phaseIndex);
+    phase.classList.toggle("is-complete", index < phaseIndex);
+  });
+  if (videoRenderFrameLabel) videoRenderFrameLabel.textContent = `正在处理镜头 ${String(Math.min(activeVideoTaskData?.sceneCount || 4, Math.max(1, Math.ceil(normalized / (100 / (activeVideoTaskData?.sceneCount || 4)))))).padStart(2, "0")}`;
+}
+
+function stopVideoTask({ restoreReview = false } = {}) {
+  window.clearInterval(videoTaskInterval);
+  window.clearTimeout(videoTaskTimeout);
+  videoTaskInterval = 0;
+  videoTaskTimeout = 0;
+  if (restoreReview) {
+    showVideoWorkspaceState("review");
+    setVideoStage(1);
+  }
+}
+
+function runVideoProgress({ mode = "render", duration = 2800, onComplete }) {
+  stopVideoTask();
+  showVideoWorkspaceState("render");
+  setVideoRenderProgress(2);
+  if (mode === "analysis") {
+    if (videoRenderTitle) videoRenderTitle.textContent = "正在分析素材与创意";
+    if (videoRenderNote) videoRenderNote.textContent = "正在识别商品主体、读取平台规则并规划分镜节奏。";
+    if (videoRenderPhases[0]) videoRenderPhases[0].textContent = "识别商品主体";
+    if (videoRenderPhases[1]) videoRenderPhases[1].textContent = "匹配平台规则";
+    if (videoRenderPhases[2]) videoRenderPhases[2].textContent = "规划分镜节奏";
+    setVideoStage(0);
+  } else {
+    if (videoRenderTitle) videoRenderTitle.textContent = "正在生成视频画面";
+    if (videoRenderNote) videoRenderNote.textContent = "正在保持商品主体一致，并合成字幕、声音与转场。";
+    ["生成分镜画面", "合成字幕与声音", "渲染最终成片"].forEach((label, index) => {
+      if (videoRenderPhases[index]) videoRenderPhases[index].textContent = label;
+    });
+    setVideoStage(2);
+  }
+  let progress = 2;
+  videoTaskInterval = window.setInterval(() => {
+    progress = Math.min(94, progress + (progress < 45 ? 5 : 2.4));
+    setVideoRenderProgress(progress);
+  }, 120);
+  videoTaskTimeout = window.setTimeout(() => {
+    stopVideoTask();
+    setVideoRenderProgress(100);
+    onComplete?.();
+  }, duration);
+}
+
+function analyzeVideoTask() {
+  const data = collectVideoTaskData();
+  syncVideoReview(data);
+  setPage("videoCreate");
+  runVideoProgress({
+    mode: "analysis",
+    duration: 1650,
+    onComplete: () => {
+      showVideoWorkspaceState("review");
+      setVideoStage(1);
+      showWorkspaceToast("素材分析完成，请确认分镜与声音设置");
+    },
+  });
+}
+
+function generateVideoTask() {
+  if (!activeVideoTaskData) syncVideoReview(collectVideoTaskData());
+  runVideoProgress({
+    mode: "render",
+    duration: 3200,
+    onComplete: () => {
+      showVideoWorkspaceState("final");
+      setVideoStage(3);
+      showWorkspaceToast("视频已生成，并自动保存到我的资产");
+    },
+  });
+}
+
+function syncVideoAgentTask(data = activeVideoTaskData || collectVideoTaskData()) {
+  activeVideoTaskData = data;
+  if (videoAgentPrompt) videoAgentPrompt.textContent = data.promptValue;
+  if (videoAgentType) videoAgentType.textContent = data.typeText;
+  if (videoAgentRatio) videoAgentRatio.textContent = data.ratioText;
+  if (videoAgentDuration) videoAgentDuration.textContent = data.durationText;
+  if (videoAgentPlatform) videoAgentPlatform.textContent = data.platformText;
+  if (videoAgentSubtitle) videoAgentSubtitle.textContent = data.subtitleText;
+  if (videoAgentScenes) videoAgentScenes.textContent = String(data.sceneCount);
+  if (videoAgentStyle) videoAgentStyle.textContent = data.styleText;
+  if (videoAgentUserMessage) videoAgentUserMessage.textContent = data.promptValue;
+  if (videoAgentChatType) videoAgentChatType.textContent = data.typeText;
+  if (videoAgentChatRatio) videoAgentChatRatio.textContent = data.ratioText;
+  if (videoAgentChatDuration) videoAgentChatDuration.textContent = data.durationText;
+  if (videoAgentChatPlatform) videoAgentChatPlatform.textContent = data.platformText;
+  if (videoAgentStatus) videoAgentStatus.textContent = "视频任务准备中";
+  if (videoAgentProgress) videoAgentProgress.hidden = true;
+  if (videoAgentResult) videoAgentResult.hidden = true;
+  videoAgentSteps.forEach((step, index) => {
+    step.classList.toggle("is-active", index === 0);
+    step.classList.remove("is-complete");
+  });
+}
+
+function openVideoAgentTask() {
+  const data = activeVideoTaskData || collectVideoTaskData();
+  syncVideoAgentTask(data);
   setPage("videoAgent");
+}
+
+function setVideoAgentProgress(progress) {
+  const normalized = Math.min(100, Math.max(0, progress));
+  if (videoAgentProgressBar) videoAgentProgressBar.style.width = `${normalized}%`;
+  if (videoAgentProgressPercent) videoAgentProgressPercent.textContent = `${Math.round(normalized)}%`;
+  const stageIndex = normalized < 25 ? 0 : normalized < 55 ? 1 : normalized < 80 ? 2 : 3;
+  videoAgentProgressStages.forEach((stage, index) => {
+    stage.classList.toggle("is-active", index === stageIndex);
+    stage.classList.toggle("is-complete", index < stageIndex);
+  });
+  videoAgentSteps.forEach((step, index) => {
+    step.classList.toggle("is-active", index === Math.min(2, stageIndex));
+    step.classList.toggle("is-complete", index < Math.min(2, stageIndex));
+  });
+}
+
+function runVideoAgentTask() {
+  window.clearInterval(videoAgentInterval);
+  window.clearTimeout(videoAgentTimeout);
+  if (videoAgentProgress) videoAgentProgress.hidden = false;
+  if (videoAgentResult) videoAgentResult.hidden = true;
+  if (videoAgentStatus) videoAgentStatus.textContent = "Agent 正在生成视频";
+  if (videoAgentProgressTitle) videoAgentProgressTitle.textContent = "正在生成可调整的视频草案";
+  let progress = 3;
+  setVideoAgentProgress(progress);
+  videoAgentProgress?.scrollIntoView({ behavior: "smooth", block: "center" });
+  videoAgentInterval = window.setInterval(() => {
+    progress = Math.min(95, progress + (progress < 58 ? 4.5 : 2.1));
+    setVideoAgentProgress(progress);
+  }, 130);
+  videoAgentTimeout = window.setTimeout(() => {
+    window.clearInterval(videoAgentInterval);
+    setVideoAgentProgress(100);
+    if (videoAgentProgress) videoAgentProgress.hidden = true;
+    if (videoAgentResult) videoAgentResult.hidden = false;
+    if (videoAgentStatus) videoAgentStatus.textContent = "视频草案已完成";
+    videoAgentSteps.forEach((step) => {
+      step.classList.remove("is-active");
+      step.classList.add("is-complete");
+    });
+    videoAgentResult?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, 3600);
+}
+
+startVideoQuickButton?.addEventListener("click", analyzeVideoTask);
+videoGenerateButton?.addEventListener("click", generateVideoTask);
+videoRegenerateButton?.addEventListener("click", generateVideoTask);
+videoCancelButton?.addEventListener("click", () => {
+  stopVideoTask({ restoreReview: true });
+  showWorkspaceToast("已取消本次生成，分镜设置仍为你保留");
+});
+startVideoAgentButton?.addEventListener("click", openVideoAgentTask);
+videoCreateAgentButtons.forEach((button) => button.addEventListener("click", openVideoAgentTask));
+
+videoCaptionButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    videoCaptionButtons.forEach((item) => item.classList.toggle("is-active", item === button));
+    if (videoSubtitleSelect) videoSubtitleSelect.value = button.dataset.value || "yes";
+    if (activeVideoTaskData) {
+      activeVideoTaskData.subtitleValue = videoSubtitleSelect?.value || "yes";
+      activeVideoTaskData.subtitleText = videoSubtitleSelect?.selectedOptions[0]?.textContent?.trim() || "配字幕";
+    }
+  });
+});
+videoAudioButtons.forEach((button) => {
+  button.addEventListener("click", () => videoAudioButtons.forEach((item) => item.classList.toggle("is-active", item === button)));
+});
+
+videoAgentPlanButton?.addEventListener("click", () => {
+  setVideoAgentProgress(34);
+  if (videoAgentStatus) videoAgentStatus.textContent = "分镜脚本已规划";
+  showWorkspaceToast("已生成分镜脚本，可继续补充后直接生成");
+});
+videoAgentAnalyzeButton?.addEventListener("click", () => {
+  setVideoAgentProgress(22);
+  showWorkspaceToast(activeVideoReferenceFile ? "参考素材分析完成" : "未上传素材，已根据创意和平台完成分析");
+});
+videoAgentRunButton?.addEventListener("click", runVideoAgentTask);
+document.querySelectorAll("[data-video-shot-redo]").forEach((button) => {
+  button.addEventListener("click", () => {
+    button.textContent = "重做中";
+    button.disabled = true;
+    window.setTimeout(() => {
+      button.textContent = "重做";
+      button.disabled = false;
+      showWorkspaceToast("当前镜头已重新生成");
+    }, 900);
+  });
+});
+
+videoPlayButton?.addEventListener("click", () => {
+  window.clearTimeout(videoPlaybackTimeout);
+  const isPlaying = videoPlayButton.classList.toggle("is-playing");
+  if (videoPlayingIndicator) videoPlayingIndicator.hidden = !isPlaying;
+  if (isPlaying) {
+    videoPlaybackTimeout = window.setTimeout(() => {
+      videoPlayButton.classList.remove("is-playing");
+      if (videoPlayingIndicator) videoPlayingIndicator.hidden = true;
+    }, 3200);
+  }
 });
 
 userTrigger?.addEventListener("click", (event) => {
@@ -1101,6 +1662,65 @@ function showAccountToast(message) {
   }, 2200);
 }
 
+const enterpriseNameStorageKey = "manniu.enterprise-name";
+const enterpriseNameCooldown = 30 * 24 * 60 * 60 * 1000;
+let enterpriseNameFallbackState = {
+  name: enterpriseName?.textContent?.trim() || "蛮牛创意科技",
+  lastChangedAt: 0,
+};
+
+function readEnterpriseNameState() {
+  try {
+    const storedState = JSON.parse(window.localStorage.getItem(enterpriseNameStorageKey) || "null");
+    if (storedState && typeof storedState.name === "string") {
+      return {
+        name: storedState.name.trim() || enterpriseNameFallbackState.name,
+        lastChangedAt: Number(storedState.lastChangedAt) || 0,
+      };
+    }
+  } catch (error) {
+    // Use the in-memory state when storage is unavailable or malformed.
+  }
+  return enterpriseNameFallbackState;
+}
+
+function writeEnterpriseNameState(state) {
+  enterpriseNameFallbackState = state;
+  try {
+    window.localStorage.setItem(enterpriseNameStorageKey, JSON.stringify(state));
+  } catch (error) {
+    // The current session still enforces the cooldown when storage is unavailable.
+  }
+}
+
+function formatEnterpriseNameDate(timestamp) {
+  return new Intl.DateTimeFormat("zh-CN", { year: "numeric", month: "numeric", day: "numeric" }).format(new Date(timestamp));
+}
+
+function getEnterpriseNameAvailability(now = Date.now()) {
+  const state = readEnterpriseNameState();
+  const nextAvailableAt = state.lastChangedAt ? state.lastChangedAt + enterpriseNameCooldown : 0;
+  return {
+    ...state,
+    nextAvailableAt,
+    canEdit: !nextAvailableAt || now >= nextAvailableAt,
+  };
+}
+
+function syncEnterpriseNameState() {
+  const availability = getEnterpriseNameAvailability();
+  if (enterpriseName) enterpriseName.textContent = availability.name;
+  if (enterpriseCurrentName) enterpriseCurrentName.textContent = availability.name;
+  if (enterpriseNameStatus) {
+    enterpriseNameStatus.textContent = availability.canEdit
+      ? "本月可修改"
+      : `下次可修改：${formatEnterpriseNameDate(availability.nextAvailableAt)}`;
+    enterpriseNameStatus.classList.toggle("is-locked", !availability.canEdit);
+  }
+  if (enterpriseNameAction) enterpriseNameAction.textContent = availability.canEdit ? "修改企业名称" : "查看修改限制";
+  return availability;
+}
+
 function prepareAccountDialog(action) {
   const dialog = accountDialogs.find((item) => item.dataset.accountDialog === action);
   if (!dialog) return null;
@@ -1117,6 +1737,33 @@ function prepareAccountDialog(action) {
 
   if (action === "phone" || action === "password") {
     dialog.querySelector("form")?.reset();
+  }
+
+  if (action === "member-add") {
+    dialog.querySelector("form")?.reset();
+    if (memberAddError) {
+      memberAddError.hidden = true;
+      memberAddError.textContent = "";
+    }
+  }
+
+  if (action === "enterprise-name") {
+    const availability = syncEnterpriseNameState();
+    if (enterpriseNameInput) {
+      enterpriseNameInput.value = availability.name;
+      enterpriseNameInput.disabled = !availability.canEdit;
+    }
+    if (enterpriseNameSubmit) enterpriseNameSubmit.disabled = !availability.canEdit;
+    if (enterpriseNameRule) enterpriseNameRule.classList.toggle("is-locked", !availability.canEdit);
+    if (enterpriseNameRuleCopy) {
+      enterpriseNameRuleCopy.textContent = availability.canEdit
+        ? "修改成功后，企业名称将在所有成员账号中同步更新。"
+        : `本月已修改，下次可于 ${formatEnterpriseNameDate(availability.nextAvailableAt)} 再次设置。`;
+    }
+    if (enterpriseNameError) {
+      enterpriseNameError.hidden = true;
+      enterpriseNameError.textContent = "";
+    }
   }
 
   const passwordError = dialog.querySelector("[data-password-error]");
@@ -1168,6 +1815,8 @@ document.querySelector("[data-account-form=\"nickname\"]")?.addEventListener("su
   if (!nextNickname) return;
   if (accountNickname) accountNickname.textContent = nextNickname;
   if (topbarNickname) topbarNickname.textContent = nextNickname;
+  if (enterpriseAdminName) enterpriseAdminName.textContent = nextNickname;
+  if (enterpriseAdminRowName) enterpriseAdminRowName.textContent = nextNickname;
   form.closest("dialog")?.close("saved");
   showAccountToast("昵称已更新");
 });
@@ -1179,6 +1828,9 @@ document.querySelector("[data-account-form=\"phone\"]")?.addEventListener("submi
   const phoneDigits = phoneInput?.value.replace(/\D/g, "") || "";
   if (phoneDigits.length !== 11) return;
   if (accountPhone) accountPhone.textContent = `+86 ${phoneDigits.slice(0, 3)}****${phoneDigits.slice(-4)}`;
+  if (enterpriseAdminPhone) enterpriseAdminPhone.textContent = `${phoneDigits.slice(0, 3)}****${phoneDigits.slice(-4)}`;
+  const administratorRow = enterpriseMemberList?.querySelector('[data-member-role="admin"]');
+  if (administratorRow) administratorRow.dataset.memberPhone = phoneDigits;
   form.closest("dialog")?.close("saved");
   showAccountToast("手机号已更新");
 });
@@ -1212,6 +1864,220 @@ document.querySelector("[data-account-form=\"wechat-unbind\"]")?.addEventListene
   form.closest("dialog")?.close("confirmed");
   showAccountToast("微信账号已解除绑定");
 });
+
+document.querySelector('[data-account-form="enterprise-name"]')?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const availability = getEnterpriseNameAvailability();
+  const nextName = enterpriseNameInput?.value.trim() || "";
+  const nameLength = [...nextName].length;
+
+  if (!availability.canEdit) {
+    if (enterpriseNameError) {
+      enterpriseNameError.textContent = `企业名称每 30 天只能修改一次，下次可修改日期为 ${formatEnterpriseNameDate(availability.nextAvailableAt)}。`;
+      enterpriseNameError.hidden = false;
+    }
+    return;
+  }
+
+  if (nameLength < 2 || nameLength > 30) {
+    if (enterpriseNameError) {
+      enterpriseNameError.textContent = "企业名称需为 2–30 个字符。";
+      enterpriseNameError.hidden = false;
+    }
+    enterpriseNameInput?.focus();
+    return;
+  }
+
+  if (nextName === availability.name) {
+    if (enterpriseNameError) {
+      enterpriseNameError.textContent = "新企业名称与当前名称相同，请重新输入。";
+      enterpriseNameError.hidden = false;
+    }
+    enterpriseNameInput?.focus();
+    return;
+  }
+
+  writeEnterpriseNameState({ name: nextName, lastChangedAt: Date.now() });
+  syncEnterpriseNameState();
+  form.closest("dialog")?.close("saved");
+  showAccountToast("企业名称已更新，30 天后可再次修改");
+});
+
+syncEnterpriseNameState();
+
+const enterpriseSeatLimit = 10;
+let pendingMemberAction = null;
+
+function maskEnterprisePhone(phoneDigits) {
+  return `${phoneDigits.slice(0, 3)}****${phoneDigits.slice(-4)}`;
+}
+
+function updateEnterpriseSeatSummary() {
+  const usedSeats = enterpriseMemberList?.querySelectorAll(".enterprise-member-row").length || 0;
+  const remainingSeats = Math.max(0, enterpriseSeatLimit - usedSeats);
+  if (enterpriseSeatUsed) enterpriseSeatUsed.textContent = String(usedSeats);
+  if (enterpriseSeatRemaining) enterpriseSeatRemaining.textContent = String(remainingSeats);
+  if (enterpriseSeatTrack) enterpriseSeatTrack.style.width = `${Math.min(100, (usedSeats / enterpriseSeatLimit) * 100)}%`;
+}
+
+function createEnterpriseMemberRow({ name, phoneDigits }) {
+  const row = document.createElement("div");
+  row.className = "enterprise-member-row is-pending";
+  row.dataset.memberRole = "member";
+  row.dataset.memberPhone = phoneDigits;
+  row.innerHTML = `
+    <span class="enterprise-member-avatar mint"></span>
+    <div class="enterprise-member-name"><strong></strong><span></span></div>
+    <span class="enterprise-member-role">企业成员</span>
+    <span class="enterprise-member-status is-pending" data-member-status><i></i>待首次登录</span>
+    <span class="enterprise-member-login">刚刚添加</span>
+    <div class="enterprise-member-actions"><button type="button" data-member-command="invite">重新邀请</button><button class="danger" type="button" data-member-command="remove">移除</button></div>`;
+  const displayName = name || `成员 ${phoneDigits.slice(-4)}`;
+  const avatar = row.querySelector(".enterprise-member-avatar");
+  const nameElement = row.querySelector(".enterprise-member-name strong");
+  const phoneElement = row.querySelector(".enterprise-member-name span");
+  if (avatar) avatar.textContent = displayName.slice(0, 1);
+  if (nameElement) nameElement.textContent = displayName;
+  if (phoneElement) phoneElement.textContent = maskEnterprisePhone(phoneDigits);
+  return row;
+}
+
+document.querySelector('[data-account-form="member-add"]')?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const phoneInput = form.querySelector("[data-member-phone-input]");
+  const nameInput = form.querySelector("[data-member-name-input]");
+  const phoneDigits = phoneInput?.value.replace(/\D/g, "") || "";
+  const name = nameInput?.value.trim() || "";
+  const usedSeats = enterpriseMemberList?.querySelectorAll(".enterprise-member-row").length || 0;
+
+  if (phoneDigits.length !== 11) {
+    if (memberAddError) {
+      memberAddError.textContent = "请输入正确的 11 位手机号。";
+      memberAddError.hidden = false;
+    }
+    phoneInput?.focus();
+    return;
+  }
+
+  if (enterpriseMemberList?.querySelector(`[data-member-phone="${phoneDigits}"]`)) {
+    if (memberAddError) {
+      memberAddError.textContent = "该手机号已经属于当前企业，无需重复添加。";
+      memberAddError.hidden = false;
+    }
+    phoneInput?.focus();
+    return;
+  }
+
+  if (usedSeats >= enterpriseSeatLimit) {
+    if (memberAddError) {
+      memberAddError.textContent = "企业成员席位已用完，请先移除成员或升级企业套餐。";
+      memberAddError.hidden = false;
+    }
+    return;
+  }
+
+  enterpriseMemberList?.append(createEnterpriseMemberRow({ name, phoneDigits }));
+  updateEnterpriseSeatSummary();
+  form.closest("dialog")?.close("saved");
+  form.reset();
+  showAccountToast(`已添加 ${maskEnterprisePhone(phoneDigits)}，成员可使用该手机号登录`);
+});
+
+function prepareMemberAction(row, command) {
+  if (!memberActionDialog) return;
+  const memberName = row.querySelector(".enterprise-member-name strong")?.textContent?.trim() || "该成员";
+  const memberPhone = row.querySelector(".enterprise-member-name span")?.textContent?.trim() || "";
+  const isDisabled = row.classList.contains("is-disabled");
+  pendingMemberAction = { row, command };
+
+  if (command === "remove") {
+    if (memberActionTitle) memberActionTitle.textContent = "移除企业子账号";
+    if (memberActionSubtitle) memberActionSubtitle.textContent = "该手机号将失去当前企业的访问权限";
+    if (memberActionName) memberActionName.textContent = `确认移除 ${memberName}？`;
+    if (memberActionDescription) memberActionDescription.textContent = `移除后，${memberPhone} 将不能再登录当前企业；成员已生成的企业资产会继续保留。`;
+    if (memberActionConfirm) {
+      memberActionConfirm.textContent = "确认移除";
+      memberActionConfirm.classList.remove("primary");
+      memberActionConfirm.classList.add("danger");
+    }
+  } else {
+    const actionLabel = isDisabled ? "启用" : "停用";
+    if (memberActionTitle) memberActionTitle.textContent = `${actionLabel}企业子账号`;
+    if (memberActionSubtitle) memberActionSubtitle.textContent = "此操作会改变该成员的企业访问权限";
+    if (memberActionName) memberActionName.textContent = `确认${actionLabel} ${memberName}？`;
+    if (memberActionDescription) {
+      memberActionDescription.textContent = isDisabled
+        ? `启用后，${memberPhone} 可以重新通过手机号和短信验证码登录当前企业。`
+        : `停用后，${memberPhone} 将暂时无法登录当前企业，但不会删除成员已生成的资产。`;
+    }
+    if (memberActionConfirm) {
+      memberActionConfirm.textContent = `确认${actionLabel}`;
+      memberActionConfirm.classList.toggle("danger", !isDisabled);
+      memberActionConfirm.classList.toggle("primary", isDisabled);
+    }
+  }
+
+  if (!memberActionDialog.open) memberActionDialog.showModal();
+}
+
+enterpriseMemberList?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-member-command]");
+  if (!button) return;
+  const row = button.closest(".enterprise-member-row");
+  if (!row) return;
+  const command = button.dataset.memberCommand;
+
+  if (command === "invite") {
+    const phone = row.querySelector(".enterprise-member-name span")?.textContent?.trim() || "该手机号";
+    const loginNote = row.querySelector(".enterprise-member-login");
+    if (loginNote) loginNote.textContent = "邀请刚刚发送";
+    showAccountToast(`登录邀请已重新发送至 ${phone}`);
+    return;
+  }
+
+  prepareMemberAction(row, command);
+});
+
+document.querySelector('[data-account-form="member-action"]')?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const { row, command } = pendingMemberAction || {};
+  if (!row || !command) {
+    event.currentTarget.closest("dialog")?.close("cancel");
+    return;
+  }
+  const memberName = row.querySelector(".enterprise-member-name strong")?.textContent?.trim() || "成员";
+
+  if (command === "remove") {
+    row.remove();
+    updateEnterpriseSeatSummary();
+    showAccountToast(`${memberName} 已从企业中移除`);
+  } else {
+    const shouldEnable = row.classList.contains("is-disabled");
+    const status = row.querySelector("[data-member-status]");
+    const commandButton = row.querySelector('[data-member-command="toggle"]');
+    const loginNote = row.querySelector(".enterprise-member-login");
+    row.classList.toggle("is-disabled", !shouldEnable);
+    if (status) {
+      status.classList.remove("is-active", "is-pending", "is-disabled");
+      status.classList.add(shouldEnable ? "is-active" : "is-disabled");
+      status.innerHTML = `<i></i>${shouldEnable ? "正常使用" : "已停用"}`;
+    }
+    if (commandButton) commandButton.textContent = shouldEnable ? "停用" : "启用";
+    if (loginNote) loginNote.textContent = shouldEnable ? "访问权限已恢复" : "已暂停企业访问";
+    showAccountToast(`${memberName} 已${shouldEnable ? "启用" : "停用"}`);
+  }
+
+  pendingMemberAction = null;
+  event.currentTarget.closest("dialog")?.close("confirmed");
+});
+
+memberActionDialog?.addEventListener("close", () => {
+  pendingMemberAction = null;
+});
+
+updateEnterpriseSeatSummary();
 
 document.querySelector("[data-send-code]")?.addEventListener("click", (event) => {
   const button = event.currentTarget;
