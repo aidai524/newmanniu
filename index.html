@@ -1166,28 +1166,88 @@
 
               <section class="video-stage-panel">
                 <header class="video-stage-head">
-                  <div><span>VIDEO WORKSPACE</span><h2>视频生成工作区</h2></div>
-                  <ol class="video-progress-steps"><li class="is-active" data-video-step>素材分析</li><li data-video-step>分镜确认</li><li data-video-step>视频渲染</li><li data-video-step>完成</li></ol>
+                  <div><span>LIVE WORKSPACE</span><h2>视频生成工作区</h2></div>
+                  <div class="video-stage-head-status">
+                    <span class="video-background-status"><i aria-hidden="true"></i>任务已自动保存</span>
+                    <ol class="video-progress-steps"><li class="is-active" data-video-step>素材检查</li><li data-video-step>分镜确认</li><li data-video-step>视频生成</li><li data-video-step>完成</li></ol>
+                  </div>
                 </header>
                 <div class="video-stage-body">
-                  <div class="video-review-state" data-video-review-state>
-                    <div class="video-review-visual"><span class="video-review-frame"><img src="assets/dashboard/work-5-hd.jpg" alt="视频分镜预览" /><i>01</i></span><span class="video-review-frame"><img src="assets/dashboard/work-1-hd.jpg" alt="视频分镜预览" /><i>02</i></span><span class="video-review-frame"><img src="assets/dashboard/work-3-hd.jpg" alt="视频分镜预览" /><i>03</i></span></div>
-                    <div><span>分镜规划完成</span><h3 data-video-review-title>4 个镜头已匹配 15 秒节奏</h3><p>首屏建立品牌记忆，中段展示卖点与场景，末屏完成行动引导。</p><ul><li>✓ 商品主体在所有镜头中保持一致</li><li>✓ 字幕已避开平台按钮区域</li><li>✓ 镜头节奏符合电商短视频习惯</li></ul></div>
-                  </div>
-
-                  <div class="video-render-state" data-video-render-state hidden>
-                    <div class="video-render-frame"><img src="assets/dashboard/work-5-hd.jpg" alt="视频渲染预览" /><span data-video-render-frame-label>正在生成镜头 01</span><i></i></div>
-                    <div class="video-render-copy"><span data-video-render-kicker>VIDEO RENDERING</span><h3 data-video-render-title>正在生成视频画面</h3><p data-video-render-note>正在保持商品主体一致，并合成字幕与转场。</p><div class="video-render-progress"><span><i data-video-render-bar></i></span><strong data-video-render-percent>0%</strong></div><ol><li class="is-active" data-video-render-phase>生成分镜画面</li><li data-video-render-phase>合成字幕与声音</li><li data-video-render-phase>渲染成片</li></ol><button type="button" data-video-cancel>取消生成</button></div>
-                  </div>
-
-                  <div class="video-final-state" data-video-final-state hidden>
-                    <div class="video-player-card">
-                      <div class="video-player-poster"><img src="assets/dashboard/work-5-hd.jpg" alt="视频成片预览" /><button type="button" data-video-play aria-label="播放视频"><span></span></button><em data-video-player-time>00:15</em><div class="video-playing-indicator" data-video-playing hidden>预览播放中</div></div>
-                      <div class="video-player-meta"><div><span>生成完成</span><h3 data-video-final-title>产品展示视频 · 15 秒</h3><p>9:16 · 自动字幕 · 清爽电商</p></div><div><button type="button" data-video-regenerate>重新生成</button><button type="button" data-video-create-agent>Agent 修改镜头</button><button class="is-primary" type="button">下载视频</button></div></div>
+                    <div class="video-review-state" data-video-review-state>
+                      <div class="video-shot-inspector" data-video-story-inspector>
+                        <div class="video-shot-inspector-head">
+                          <span>分镜参考图</span>
+                          <div>镜头 <strong data-video-story-number>01</strong><i>/</i><span data-video-story-total>04</span></div>
+                        </div>
+                        <button class="video-shot-stage" type="button" data-video-story-open aria-label="查看当前分镜大图">
+                          <img data-video-story-image src="assets/dashboard/work-3-hd.jpg" alt="镜头 01 分镜参考图" width="960" height="640" />
+                          <span class="video-shot-safe-area" aria-hidden="true"></span>
+                          <i data-video-story-label>SHOT 01</i>
+                          <em>点击查看大图</em>
+                        </button>
+                        <div class="video-shot-inspector-meta">
+                          <span data-video-story-duration>约 3.8 秒</span>
+                          <span data-video-story-camera>近景 · 缓慢推进</span>
+                          <b>AI 规划参考</b>
+                        </div>
+                      </div>
+                      <div class="video-shot-copy">
+                        <span>SHOT REVIEW</span>
+                        <h3 id="video-story-title" data-video-review-title>商品开场特写</h3>
+                        <p data-video-story-note>用主体与品牌信息建立第一眼记忆</p>
+                        <dl class="video-shot-facts">
+                          <div><dt>画面重点</dt><dd data-video-story-focus>商品主体完整、品牌信息清晰</dd></div>
+                          <div><dt>构图检查</dt><dd>主体无遮挡，字幕位于平台安全区</dd></div>
+                        </dl>
+                        <div class="video-shot-review-actions">
+                          <button type="button" data-video-story-prev aria-label="查看上一个分镜">← 上一镜</button>
+                          <button type="button" data-video-story-redo-active>重新规划此镜头</button>
+                          <button type="button" data-video-story-next aria-label="查看下一个分镜">下一镜 →</button>
+                        </div>
+                      </div>
                     </div>
-                    <div class="video-timeline"><div class="video-timeline-ruler"><span>00:00</span><span>00:05</span><span>00:10</span><span>00:15</span></div><div class="video-timeline-track" data-video-timeline></div></div>
-                  </div>
+
+                    <div class="video-render-state" data-video-render-state hidden>
+                      <div class="video-render-frame"><img src="assets/dashboard/work-5-hd.jpg" alt="视频渲染预览" /><span data-video-render-frame-label>正在生成镜头 01</span><i></i></div>
+                      <div class="video-render-copy">
+                        <div class="video-running-task-head"><span>VIDEO TASK · V240715-01</span><b data-video-running-status>后台生成中</b></div>
+                        <span data-video-render-kicker>VIDEO RENDERING</span><h3 data-video-render-title>正在生成视频画面</h3><p data-video-render-note>正在保持商品主体一致，并合成字幕与转场。</p>
+                        <div class="video-render-progress"><span><i data-video-render-bar></i></span><strong data-video-render-percent>0%</strong></div>
+                        <ol><li class="is-active" data-video-render-phase>生成分镜画面</li><li data-video-render-phase>合成字幕与声音</li><li data-video-render-phase>渲染成片</li></ol>
+                        <div class="video-background-task-note"><i aria-hidden="true"></i><span><strong>任务已保存</strong>现在可以离开本页，完成后会在消息中心通知你。</span></div>
+                        <button type="button" data-video-cancel>取消生成</button>
+                      </div>
+                    </div>
+
+                    <div class="video-final-state" data-video-final-state hidden>
+                      <div class="video-player-card">
+                        <div class="video-player-poster"><img data-video-final-poster src="assets/dashboard/work-5-hd.jpg" alt="视频成片预览" /><button type="button" data-video-play aria-label="播放视频"><span></span></button><em data-video-player-time>00:15</em><div class="video-playing-indicator" data-video-playing hidden>预览播放中</div></div>
+                        <div class="video-player-meta"><div><span>生成完成</span><h3 data-video-final-title>产品展示视频 · 15 秒</h3><p data-video-final-meta>9:16 · 自动字幕 · 清爽电商</p></div><div><button type="button" data-video-reedit>重新编辑</button><button type="button" data-video-regenerate>再次生成</button><button type="button" data-video-create-agent>用 Agent 精细调整</button><button class="is-primary" type="button">下载视频</button></div></div>
+                      </div>
+                      <details class="video-result-details">
+                        <summary><span><strong>任务详细信息</strong><small>模型、规格、积分与生成时间</small></span><i></i></summary>
+                        <dl><div><dt>生成模型</dt><dd>Manniu Motion 2.0</dd></div><div><dt>画面比例</dt><dd data-video-final-ratio>9:16</dd></div><div><dt>帧率</dt><dd>24 FPS</dd></div><div><dt>生成时间</dt><dd data-video-final-time>刚刚</dd></div><div><dt>任务消耗</dt><dd>160 积分</dd></div></dl>
+                      </details>
+                      <div class="video-timeline"><div class="video-timeline-ruler"><span>00:00</span><span>00:05</span><span>00:10</span><span>00:15</span></div><div class="video-timeline-track" data-video-timeline></div></div>
+                    </div>
                 </div>
+                <dialog class="video-story-dialog" data-video-story-dialog aria-labelledby="video-story-dialog-title">
+                  <div class="video-story-dialog-shell">
+                    <header>
+                      <div><span>STORYBOARD PREVIEW</span><h2 id="video-story-dialog-title" data-video-story-dialog-title>商品开场特写</h2></div>
+                      <button type="button" data-video-story-dialog-close aria-label="关闭分镜大图预览"></button>
+                    </header>
+                    <div class="video-story-dialog-canvas">
+                      <button type="button" data-video-story-dialog-prev aria-label="查看上一个分镜">←</button>
+                      <figure>
+                        <img data-video-story-dialog-image src="assets/dashboard/work-3-hd.jpg" alt="镜头 01 分镜大图" width="1440" height="960" />
+                        <span aria-hidden="true"></span>
+                      </figure>
+                      <button type="button" data-video-story-dialog-next aria-label="查看下一个分镜">→</button>
+                    </div>
+                    <footer><span data-video-story-dialog-meta>镜头 01 · 约 3.8 秒 · 近景缓慢推进</span><small>使用 ← → 键切换镜头，Esc 退出预览</small></footer>
+                  </div>
+                </dialog>
               </section>
             </div>
           </div>
@@ -1291,9 +1351,11 @@
                   <article class="chat-message agent agent-task-message" data-video-agent-progress hidden>
                     <div class="chat-avatar">AI</div>
                     <div class="chat-bubble agent-task-bubble video-agent-task-bubble">
+                      <div class="video-agent-task-context"><span>VIDEO TASK · V240715-A1</span><b data-video-agent-task-status>后台生成中</b></div>
                       <div class="agent-task-head"><strong data-video-agent-progress-title>正在生成视频草案</strong><span data-video-agent-progress-percent>0%</span></div>
                       <span class="agent-task-track"><i data-video-agent-progress-bar></i></span>
                       <ol class="agent-task-stages"><li class="is-active" data-video-agent-progress-stage>拆解脚本</li><li data-video-agent-progress-stage>生成镜头</li><li data-video-agent-progress-stage>合成声音</li><li data-video-agent-progress-stage>渲染成片</li></ol>
+                      <div class="video-agent-background-note"><i aria-hidden="true"></i><span>任务会在后台继续，可以离开页面，完成后将通知你。</span><button type="button" data-video-agent-cancel>取消任务</button></div>
                     </div>
                   </article>
                   <article class="chat-message agent result-message" data-video-agent-result hidden>
@@ -1304,13 +1366,13 @@
                           <strong>视频草案已生成</strong>
                           <p>已生成 15 秒预览视频，可继续微调脚本或下载当前版本。</p>
                         </div>
-                        <button type="button">下载视频</button>
+                        <div class="video-agent-result-actions"><button type="button" data-video-agent-reedit>重新编辑</button><button type="button" data-video-agent-regenerate>再次生成</button><button class="is-primary" type="button">下载视频</button></div>
                       </div>
                       <div class="video-result-preview">
                         <div class="video-frame">
-                          <img src="assets/dashboard/work-5-hd.jpg" alt="视频生成预览" />
+                          <img data-video-agent-result-poster src="assets/dashboard/work-5-hd.jpg" alt="视频生成预览" />
                           <span class="video-play" aria-hidden="true"></span>
-                          <em>00:15</em>
+                          <em data-video-agent-result-duration>00:15</em>
                         </div>
                         <div class="video-shot-list">
                           <div><strong>镜头 01</strong><span>产品开场特写，突出品牌和质感</span><button type="button" data-video-shot-redo>重做</button></div>
@@ -1319,6 +1381,10 @@
                           <div><strong>镜头 04</strong><span>收尾 CTA 和平台适配画面</span><button type="button" data-video-shot-redo>重做</button></div>
                         </div>
                       </div>
+                      <details class="video-agent-result-details">
+                        <summary><span>任务详细信息</span><i></i></summary>
+                        <dl><div><dt>生成模型</dt><dd>Manniu Motion 2.0</dd></div><div><dt>视频规格</dt><dd data-video-agent-result-spec>9:16 · 15 秒</dd></div><div><dt>帧率</dt><dd>24 FPS</dd></div><div><dt>生成时间</dt><dd data-video-agent-result-time>刚刚</dd></div><div><dt>任务消耗</dt><dd>160 积分</dd></div></dl>
+                      </details>
                     </div>
                   </article>
                 </div>

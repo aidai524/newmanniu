@@ -187,6 +187,26 @@ const videoReviewDurationDetail = document.querySelector("[data-video-review-dur
 const videoReviewStyle = document.querySelector("[data-video-review-style]");
 const videoReviewVariants = document.querySelector("[data-video-review-variants]");
 const videoReviewTitle = document.querySelector("[data-video-review-title]");
+const videoStoryInspector = document.querySelector("[data-video-story-inspector]");
+const videoStoryImage = document.querySelector("[data-video-story-image]");
+const videoStoryNumber = document.querySelector("[data-video-story-number]");
+const videoStoryTotal = document.querySelector("[data-video-story-total]");
+const videoStoryLabel = document.querySelector("[data-video-story-label]");
+const videoStoryDuration = document.querySelector("[data-video-story-duration]");
+const videoStoryCamera = document.querySelector("[data-video-story-camera]");
+const videoStoryNote = document.querySelector("[data-video-story-note]");
+const videoStoryFocus = document.querySelector("[data-video-story-focus]");
+const videoStoryOpenButton = document.querySelector("[data-video-story-open]");
+const videoStoryPrevButton = document.querySelector("[data-video-story-prev]");
+const videoStoryNextButton = document.querySelector("[data-video-story-next]");
+const videoStoryRedoActiveButton = document.querySelector("[data-video-story-redo-active]");
+const videoStoryDialog = document.querySelector("[data-video-story-dialog]");
+const videoStoryDialogTitle = document.querySelector("[data-video-story-dialog-title]");
+const videoStoryDialogImage = document.querySelector("[data-video-story-dialog-image]");
+const videoStoryDialogMeta = document.querySelector("[data-video-story-dialog-meta]");
+const videoStoryDialogPrev = document.querySelector("[data-video-story-dialog-prev]");
+const videoStoryDialogNext = document.querySelector("[data-video-story-dialog-next]");
+const videoStoryDialogClose = document.querySelector("[data-video-story-dialog-close]");
 const videoCaptionButtons = [...document.querySelectorAll("[data-video-caption-group] button")];
 const videoAudioButtons = [...document.querySelectorAll("[data-video-audio-group] button")];
 const videoGenerateButton = document.querySelector("[data-video-generate]");
@@ -200,12 +220,19 @@ const videoRenderNote = document.querySelector("[data-video-render-note]");
 const videoRenderBar = document.querySelector("[data-video-render-bar]");
 const videoRenderPercent = document.querySelector("[data-video-render-percent]");
 const videoRenderPhases = [...document.querySelectorAll("[data-video-render-phase]")];
+const videoRunningStatus = document.querySelector("[data-video-running-status]");
 const videoCancelButton = document.querySelector("[data-video-cancel]");
 const videoRegenerateButton = document.querySelector("[data-video-regenerate]");
+const videoReeditButton = document.querySelector("[data-video-reedit]");
 const videoPlayButton = document.querySelector("[data-video-play]");
 const videoPlayingIndicator = document.querySelector("[data-video-playing]");
+const videoPlayerTime = document.querySelector("[data-video-player-time]");
 const videoTimeline = document.querySelector("[data-video-timeline]");
 const videoFinalTitle = document.querySelector("[data-video-final-title]");
+const videoFinalMeta = document.querySelector("[data-video-final-meta]");
+const videoFinalPoster = document.querySelector("[data-video-final-poster]");
+const videoFinalRatio = document.querySelector("[data-video-final-ratio]");
+const videoFinalTime = document.querySelector("[data-video-final-time]");
 const videoAgentPrompt = document.querySelector("[data-video-agent-prompt]");
 const videoAgentType = document.querySelector("[data-video-agent-type]");
 const videoAgentRatio = document.querySelector("[data-video-agent-ratio]");
@@ -235,7 +262,15 @@ const videoAgentProgressTitle = document.querySelector("[data-video-agent-progre
 const videoAgentProgressPercent = document.querySelector("[data-video-agent-progress-percent]");
 const videoAgentProgressBar = document.querySelector("[data-video-agent-progress-bar]");
 const videoAgentProgressStages = [...document.querySelectorAll("[data-video-agent-progress-stage]")];
+const videoAgentTaskStatus = document.querySelector("[data-video-agent-task-status]");
+const videoAgentCancelButton = document.querySelector("[data-video-agent-cancel]");
 const videoAgentResult = document.querySelector("[data-video-agent-result]");
+const videoAgentReeditButton = document.querySelector("[data-video-agent-reedit]");
+const videoAgentRegenerateButton = document.querySelector("[data-video-agent-regenerate]");
+const videoAgentResultSpec = document.querySelector("[data-video-agent-result-spec]");
+const videoAgentResultDuration = document.querySelector("[data-video-agent-result-duration]");
+const videoAgentResultTime = document.querySelector("[data-video-agent-result-time]");
+const videoAgentComposer = document.querySelector(".video-agent-page .agent-composer textarea");
 const outputTypeSelect = document.querySelector("[data-output-type]");
 const resolutionSelect = document.querySelector("[data-resolution]");
 const platformSelect = document.querySelector("[data-platform]");
@@ -1328,12 +1363,52 @@ const videoSceneImages = [
   "assets/dashboard/work-4-hd.jpg",
 ];
 
+const videoSceneCameras = [
+  "近景 · 缓慢推进",
+  "中近景 · 横向环绕",
+  "中景 · 场景跟随",
+  "微距 · 细节切换",
+  "中景 · 稳定观察",
+  "特写 · 字幕强化",
+  "中近景 · 节奏收束",
+  "定格 · 品牌收尾",
+];
+
+const videoSceneFocuses = [
+  "商品主体完整、品牌信息清晰",
+  "关键功能动作和卖点证据可见",
+  "商品与真实使用环境关系明确",
+  "材质纹理、结构与工艺细节清楚",
+  "使用反馈自然，画面稳定可信",
+  "利益点醒目但不遮挡商品主体",
+  "购买动作明确，画面节奏完成收束",
+  "品牌标识与平台安全区保持清晰",
+];
+
 let activeVideoTaskData = null;
+let activeVideoStoryboardIndex = 0;
+let currentVideoStoryboard = [];
 let videoTaskInterval = 0;
 let videoTaskTimeout = 0;
 let videoAgentInterval = 0;
 let videoAgentTimeout = 0;
 let videoPlaybackTimeout = 0;
+
+function formatVideoTaskTime(date = new Date()) {
+  return `今天 ${date.toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit", hour12: false })}`;
+}
+
+function updateVideoFinalMetadata(data, { poster, title, meta, time } = {}) {
+  if (!data) return;
+  const ratio = data.ratioText.split(" ")[0];
+  const subtitle = data.subtitleValue === "no" ? "无字幕" : "自动字幕";
+  if (videoFinalTitle) videoFinalTitle.textContent = title || `${data.typeText}视频 · ${data.durationSeconds} 秒`;
+  if (videoFinalMeta) videoFinalMeta.textContent = meta || `${ratio} · ${subtitle} · ${data.styleText}`;
+  if (videoFinalPoster) videoFinalPoster.src = poster || "assets/dashboard/work-5-hd.jpg";
+  if (videoFinalRatio) videoFinalRatio.textContent = ratio;
+  if (videoFinalTime) videoFinalTime.textContent = time || formatVideoTaskTime();
+  if (videoPlayerTime) videoPlayerTime.textContent = `00:${String(data.durationSeconds).padStart(2, "0")}`;
+}
 
 function collectVideoTaskData() {
   const sceneCount = Math.min(8, Math.max(1, Number.parseInt(videoSceneCountInput?.value || "4", 10) || 4));
@@ -1355,35 +1430,104 @@ function collectVideoTaskData() {
   };
 }
 
+function setVideoStoryAspect(element, ratioText = "9:16") {
+  if (!element) return;
+  const ratio = ratioText.split(" ")[0];
+  const [width, height] = ratio.split(":").map(Number);
+  element.style.setProperty("--video-story-aspect", width > 0 && height > 0 ? `${width} / ${height}` : "9 / 16");
+  element.dataset.videoStoryShape = width === height ? "square" : width > height ? "landscape" : "portrait";
+}
+
+function selectVideoStoryboard(index) {
+  if (!currentVideoStoryboard.length) return;
+  activeVideoStoryboardIndex = Math.min(currentVideoStoryboard.length - 1, Math.max(0, index));
+  const scene = currentVideoStoryboard[activeVideoStoryboardIndex];
+  videoStoryboardList?.querySelectorAll(".video-story-card").forEach((card, cardIndex) => {
+    const isActive = cardIndex === activeVideoStoryboardIndex;
+    card.classList.toggle("is-active", isActive);
+    card.querySelector("[data-video-story-select]")?.setAttribute("aria-pressed", String(isActive));
+  });
+  if (videoStoryImage) {
+    videoStoryImage.src = scene.image;
+    videoStoryImage.alt = `镜头 ${scene.number} 分镜参考图`;
+  }
+  if (videoStoryNumber) videoStoryNumber.textContent = scene.number;
+  if (videoStoryTotal) videoStoryTotal.textContent = String(currentVideoStoryboard.length).padStart(2, "0");
+  if (videoStoryLabel) videoStoryLabel.textContent = `SHOT ${scene.number}`;
+  if (videoStoryDuration) videoStoryDuration.textContent = `约 ${scene.duration} 秒`;
+  if (videoStoryCamera) videoStoryCamera.textContent = scene.camera;
+  if (videoReviewTitle) videoReviewTitle.textContent = scene.title;
+  if (videoStoryNote) videoStoryNote.textContent = scene.note;
+  if (videoStoryFocus) videoStoryFocus.textContent = scene.focus;
+  if (videoStoryDialogTitle) videoStoryDialogTitle.textContent = scene.title;
+  if (videoStoryDialogImage) {
+    videoStoryDialogImage.src = scene.image;
+    videoStoryDialogImage.alt = `镜头 ${scene.number} 分镜大图`;
+  }
+  if (videoStoryDialogMeta) videoStoryDialogMeta.textContent = `镜头 ${scene.number} · 约 ${scene.duration} 秒 · ${scene.camera}`;
+  [videoStoryPrevButton, videoStoryDialogPrev].forEach((button) => { if (button) button.disabled = activeVideoStoryboardIndex === 0; });
+  [videoStoryNextButton, videoStoryDialogNext].forEach((button) => { if (button) button.disabled = activeVideoStoryboardIndex === currentVideoStoryboard.length - 1; });
+  setVideoStoryAspect(videoStoryInspector, activeVideoTaskData?.ratioText);
+  setVideoStoryAspect(videoStoryDialog, activeVideoTaskData?.ratioText);
+}
+
+function redoVideoStoryboardScene(index) {
+  const scene = currentVideoStoryboard[index];
+  const card = videoStoryboardList?.querySelectorAll(".video-story-card")[index];
+  const button = card?.querySelector("[data-video-story-redo]");
+  if (!scene || !card || !button) return;
+  selectVideoStoryboard(index);
+  card.classList.add("is-refreshing");
+  videoStoryInspector?.classList.add("is-refreshing");
+  button.textContent = "规划中";
+  window.setTimeout(() => {
+    scene.revision += 1;
+    scene.image = videoSceneImages[(index + scene.revision) % videoSceneImages.length];
+    const thumbnail = card.querySelector("img");
+    if (thumbnail) thumbnail.src = scene.image;
+    card.classList.remove("is-refreshing");
+    videoStoryInspector?.classList.remove("is-refreshing");
+    button.textContent = "重做";
+    selectVideoStoryboard(index);
+    showWorkspaceToast(`镜头 ${index + 1} 已重新规划`);
+  }, 720);
+}
+
 function renderVideoStoryboard(data) {
   if (!videoStoryboardList || !videoTimeline) return;
   const secondsPerScene = data.durationSeconds / data.sceneCount;
-  const storyboard = Array.from({ length: data.sceneCount }, (_, index) => {
+  currentVideoStoryboard = Array.from({ length: data.sceneCount }, (_, index) => {
     const [title, note] = videoSceneBlueprints[index] || videoSceneBlueprints[videoSceneBlueprints.length - 1];
     const sceneNumber = String(index + 1).padStart(2, "0");
-    return `<article class="video-story-card">
-      <span class="video-story-thumb"><img src="${videoSceneImages[index % videoSceneImages.length]}" alt="镜头 ${sceneNumber} 预览" /><i>${sceneNumber}</i></span>
-      <div><span>约 ${secondsPerScene.toFixed(1)} 秒</span><strong>${title}</strong><p>${note}</p></div>
-      <button type="button" data-video-story-redo="${index}">重做</button>
-    </article>`;
-  }).join("");
-  videoStoryboardList.innerHTML = storyboard;
+    return {
+      title,
+      note,
+      number: sceneNumber,
+      duration: secondsPerScene.toFixed(1),
+      camera: videoSceneCameras[index] || "中景 · 稳定运镜",
+      focus: videoSceneFocuses[index] || "商品主体清晰，构图与字幕安全区合理",
+      image: videoSceneImages[index % videoSceneImages.length],
+      revision: 0,
+    };
+  });
+  videoStoryboardList.innerHTML = currentVideoStoryboard.map((scene, index) => `<article class="video-story-card">
+      <button class="video-story-select" type="button" data-video-story-select="${index}" aria-pressed="false" aria-label="查看镜头 ${scene.number}：${scene.title}">
+        <span class="video-story-thumb"><img src="${scene.image}" alt="" width="248" height="164" /><i>${scene.number}</i><em>查看</em></span>
+        <span class="video-story-copy"><small>约 ${scene.duration} 秒 · ${scene.camera.split(" · ")[0]}</small><strong>${scene.title}</strong><span>${scene.note}</span></span>
+      </button>
+      <button type="button" data-video-story-redo="${index}" aria-label="重新规划镜头 ${scene.number}">重做</button>
+    </article>`).join("");
   videoTimeline.innerHTML = Array.from({ length: data.sceneCount }, (_, index) => {
     const [title] = videoSceneBlueprints[index] || videoSceneBlueprints[videoSceneBlueprints.length - 1];
     return `<span style="flex:${(data.durationSeconds / data.sceneCount).toFixed(2)}"><i>${String(index + 1).padStart(2, "0")}</i>${title}</span>`;
   }).join("");
-  videoStoryboardList.querySelectorAll("[data-video-story-redo]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const card = button.closest(".video-story-card");
-      card?.classList.add("is-refreshing");
-      button.textContent = "规划中";
-      window.setTimeout(() => {
-        card?.classList.remove("is-refreshing");
-        button.textContent = "重做";
-        showWorkspaceToast(`镜头 ${Number(button.dataset.videoStoryRedo) + 1} 已重新规划`);
-      }, 720);
-    });
+  videoStoryboardList.querySelectorAll("[data-video-story-select]").forEach((button) => {
+    button.addEventListener("click", () => selectVideoStoryboard(Number(button.dataset.videoStorySelect)));
   });
+  videoStoryboardList.querySelectorAll("[data-video-story-redo]").forEach((button) => {
+    button.addEventListener("click", () => redoVideoStoryboardScene(Number(button.dataset.videoStoryRedo)));
+  });
+  selectVideoStoryboard(0);
 }
 
 function syncVideoReview(data) {
@@ -1397,8 +1541,7 @@ function syncVideoReview(data) {
   if (videoReviewDurationDetail) videoReviewDurationDetail.textContent = data.durationText.replace("秒", " 秒");
   if (videoReviewStyle) videoReviewStyle.textContent = data.styleText;
   if (videoReviewVariants) videoReviewVariants.textContent = `${data.variantCount} 条`;
-  if (videoReviewTitle) videoReviewTitle.textContent = `${data.sceneCount} 个镜头已匹配 ${data.durationSeconds} 秒节奏`;
-  if (videoFinalTitle) videoFinalTitle.textContent = `${data.typeText}视频 · ${data.durationSeconds} 秒`;
+  updateVideoFinalMetadata(data);
   videoCaptionButtons.forEach((button) => button.classList.toggle("is-active", button.dataset.value === data.subtitleValue));
   renderVideoStoryboard(data);
 }
@@ -1436,6 +1579,7 @@ function stopVideoTask({ restoreReview = false } = {}) {
   if (restoreReview) {
     showVideoWorkspaceState("review");
     setVideoStage(1);
+    if (videoRunningStatus) videoRunningStatus.textContent = "任务已取消";
   }
 }
 
@@ -1444,6 +1588,7 @@ function runVideoProgress({ mode = "render", duration = 2800, onComplete }) {
   showVideoWorkspaceState("render");
   setVideoRenderProgress(2);
   if (mode === "analysis") {
+    if (videoRunningStatus) videoRunningStatus.textContent = "后台分析中";
     if (videoRenderTitle) videoRenderTitle.textContent = "正在分析素材与创意";
     if (videoRenderNote) videoRenderNote.textContent = "正在识别商品主体、读取平台规则并规划分镜节奏。";
     if (videoRenderPhases[0]) videoRenderPhases[0].textContent = "识别商品主体";
@@ -1451,6 +1596,7 @@ function runVideoProgress({ mode = "render", duration = 2800, onComplete }) {
     if (videoRenderPhases[2]) videoRenderPhases[2].textContent = "规划分镜节奏";
     setVideoStage(0);
   } else {
+    if (videoRunningStatus) videoRunningStatus.textContent = "后台生成中";
     if (videoRenderTitle) videoRenderTitle.textContent = "正在生成视频画面";
     if (videoRenderNote) videoRenderNote.textContent = "正在保持商品主体一致，并合成字幕、声音与转场。";
     ["生成分镜画面", "合成字幕与声音", "渲染最终成片"].forEach((label, index) => {
@@ -1480,6 +1626,7 @@ function analyzeVideoTask() {
     onComplete: () => {
       showVideoWorkspaceState("review");
       setVideoStage(1);
+      if (videoRunningStatus) videoRunningStatus.textContent = "素材检查完成";
       showWorkspaceToast("素材分析完成，请确认分镜与声音设置");
     },
   });
@@ -1493,6 +1640,8 @@ function generateVideoTask() {
     onComplete: () => {
       showVideoWorkspaceState("final");
       setVideoStage(3);
+      if (videoRunningStatus) videoRunningStatus.textContent = "任务已完成";
+      updateVideoFinalMetadata(activeVideoTaskData, { time: formatVideoTaskTime() });
       showWorkspaceToast("视频已生成，并自动保存到我的资产");
     },
   });
@@ -1513,7 +1662,10 @@ function syncVideoAgentTask(data = activeVideoTaskData || collectVideoTaskData()
   if (videoAgentChatRatio) videoAgentChatRatio.textContent = data.ratioText;
   if (videoAgentChatDuration) videoAgentChatDuration.textContent = data.durationText;
   if (videoAgentChatPlatform) videoAgentChatPlatform.textContent = data.platformText;
+  if (videoAgentResultSpec) videoAgentResultSpec.textContent = `${data.ratioText.split(" ")[0]} · ${data.durationText.replace("秒", " 秒")}`;
+  if (videoAgentResultDuration) videoAgentResultDuration.textContent = `00:${String(data.durationSeconds).padStart(2, "0")}`;
   if (videoAgentStatus) videoAgentStatus.textContent = "视频任务准备中";
+  if (videoAgentTaskStatus) videoAgentTaskStatus.textContent = "等待生成";
   if (videoAgentProgress) videoAgentProgress.hidden = true;
   if (videoAgentResult) videoAgentResult.hidden = true;
   videoAgentSteps.forEach((step, index) => {
@@ -1549,6 +1701,7 @@ function runVideoAgentTask() {
   if (videoAgentProgress) videoAgentProgress.hidden = false;
   if (videoAgentResult) videoAgentResult.hidden = true;
   if (videoAgentStatus) videoAgentStatus.textContent = "Agent 正在生成视频";
+  if (videoAgentTaskStatus) videoAgentTaskStatus.textContent = "后台生成中";
   if (videoAgentProgressTitle) videoAgentProgressTitle.textContent = "正在生成可调整的视频草案";
   let progress = 3;
   setVideoAgentProgress(progress);
@@ -1563,6 +1716,8 @@ function runVideoAgentTask() {
     if (videoAgentProgress) videoAgentProgress.hidden = true;
     if (videoAgentResult) videoAgentResult.hidden = false;
     if (videoAgentStatus) videoAgentStatus.textContent = "视频草案已完成";
+    if (videoAgentTaskStatus) videoAgentTaskStatus.textContent = "任务已完成";
+    if (videoAgentResultTime) videoAgentResultTime.textContent = formatVideoTaskTime();
     videoAgentSteps.forEach((step) => {
       step.classList.remove("is-active");
       step.classList.add("is-complete");
@@ -1574,9 +1729,36 @@ function runVideoAgentTask() {
 startVideoQuickButton?.addEventListener("click", analyzeVideoTask);
 videoGenerateButton?.addEventListener("click", generateVideoTask);
 videoRegenerateButton?.addEventListener("click", generateVideoTask);
+videoReeditButton?.addEventListener("click", () => {
+  showVideoWorkspaceState("review");
+  setVideoStage(1);
+  showWorkspaceToast("已恢复原素材与全部参数，可以继续调整分镜");
+});
 videoCancelButton?.addEventListener("click", () => {
   stopVideoTask({ restoreReview: true });
   showWorkspaceToast("已取消本次生成，分镜设置仍为你保留");
+});
+videoStoryOpenButton?.addEventListener("click", () => {
+  if (videoStoryDialog && !videoStoryDialog.open) videoStoryDialog.showModal();
+});
+videoStoryPrevButton?.addEventListener("click", () => selectVideoStoryboard(activeVideoStoryboardIndex - 1));
+videoStoryNextButton?.addEventListener("click", () => selectVideoStoryboard(activeVideoStoryboardIndex + 1));
+videoStoryRedoActiveButton?.addEventListener("click", () => redoVideoStoryboardScene(activeVideoStoryboardIndex));
+videoStoryDialogPrev?.addEventListener("click", () => selectVideoStoryboard(activeVideoStoryboardIndex - 1));
+videoStoryDialogNext?.addEventListener("click", () => selectVideoStoryboard(activeVideoStoryboardIndex + 1));
+videoStoryDialogClose?.addEventListener("click", () => videoStoryDialog?.close());
+videoStoryDialog?.addEventListener("click", (event) => {
+  if (event.target === videoStoryDialog) videoStoryDialog.close();
+});
+videoStoryDialog?.addEventListener("keydown", (event) => {
+  if (event.key === "ArrowLeft" && activeVideoStoryboardIndex > 0) {
+    event.preventDefault();
+    selectVideoStoryboard(activeVideoStoryboardIndex - 1);
+  }
+  if (event.key === "ArrowRight" && activeVideoStoryboardIndex < currentVideoStoryboard.length - 1) {
+    event.preventDefault();
+    selectVideoStoryboard(activeVideoStoryboardIndex + 1);
+  }
 });
 startVideoAgentButton?.addEventListener("click", openVideoAgentTask);
 videoCreateAgentButtons.forEach((button) => button.addEventListener("click", openVideoAgentTask));
@@ -1605,6 +1787,24 @@ videoAgentAnalyzeButton?.addEventListener("click", () => {
   showWorkspaceToast(activeVideoReferenceFile ? "参考素材分析完成" : "未上传素材，已根据创意和平台完成分析");
 });
 videoAgentRunButton?.addEventListener("click", runVideoAgentTask);
+videoAgentRegenerateButton?.addEventListener("click", runVideoAgentTask);
+videoAgentCancelButton?.addEventListener("click", () => {
+  window.clearInterval(videoAgentInterval);
+  window.clearTimeout(videoAgentTimeout);
+  if (videoAgentProgress) videoAgentProgress.hidden = true;
+  if (videoAgentStatus) videoAgentStatus.textContent = "任务已取消，可继续修改";
+  if (videoAgentTaskStatus) videoAgentTaskStatus.textContent = "已取消";
+  showWorkspaceToast("视频任务已取消，脚本与设置仍为你保留");
+});
+videoAgentReeditButton?.addEventListener("click", () => {
+  window.clearInterval(videoAgentInterval);
+  window.clearTimeout(videoAgentTimeout);
+  if (videoAgentResult) videoAgentResult.hidden = true;
+  if (videoAgentStatus) videoAgentStatus.textContent = "等待修改后再次生成";
+  videoAgentComposer?.focus();
+  videoAgentComposer?.scrollIntoView({ behavior: "smooth", block: "center" });
+  showWorkspaceToast("原脚本与参数已保留，请直接告诉 Agent 需要修改的内容");
+});
 document.querySelectorAll("[data-video-shot-redo]").forEach((button) => {
   button.addEventListener("click", () => {
     button.textContent = "重做中";
