@@ -1,0 +1,20 @@
+{
+  "name": "manniu-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "蛮牛创作工作台本地原型",
+  "scripts": {
+    "build:ai": "esbuild background-removal.worker.js image-cleanup.worker.js image-enhance.worker.js --bundle --minify --format=iife --platform=browser --outdir=dist",
+    "start": "npm run build:ai && node server.js",
+    "dev": "npm run build:ai && node server.js",
+    "check": "node --check script.js && node --check ai-tools.js && node --check server.js && npm run build:ai"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^4.2.0",
+    "@tabler/icons": "^3.44.0",
+    "onnxruntime-web": "^1.27.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.1"
+  }
+}

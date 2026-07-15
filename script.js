@@ -59,10 +59,7 @@ const topbarCrumb = document.querySelector(".topbar-crumb");
 const accountTabsBar = document.querySelector(".workspace-account-tabs");
 const homePrompt = document.querySelector(".prompt-main textarea");
 const startDetailButton = document.querySelector("[data-start-detail]");
-const uploadTile = document.querySelector(".upload-tile");
-const referenceInput = document.querySelector("[data-reference-input]");
 const agentReferenceInput = document.querySelector("[data-agent-reference-input]");
-const uploadPreview = document.querySelector("[data-upload-preview]");
 const creationModeButtons = [...document.querySelectorAll("[data-creation-mode]")];
 const creationModePanels = [...document.querySelectorAll("[data-creation-mode-panel]")];
 const creationModeHelper = document.querySelector("[data-mode-helper]");
@@ -78,6 +75,12 @@ const quickHomeAddButtons = [...document.querySelectorAll("[data-quick-home-add]
 const quickHomeGallery = document.querySelector("[data-quick-home-gallery]");
 const quickHomeThumbnails = document.querySelector("[data-quick-home-thumbnails]");
 const quickHomeFileCount = document.querySelector("[data-quick-home-file-count]");
+const agentHomeUpload = document.querySelector("[data-agent-home-upload]");
+const agentHomeFileInput = document.querySelector("[data-agent-home-file]");
+const agentHomeAddButtons = [...document.querySelectorAll("[data-agent-home-add]")];
+const agentHomeGallery = document.querySelector("[data-agent-home-gallery]");
+const agentHomeThumbnails = document.querySelector("[data-agent-home-thumbnails]");
+const agentHomeFileCount = document.querySelector("[data-agent-home-file-count]");
 const quickHomePlatform = document.querySelector("[data-quick-home-platform]");
 const quickHomeTemplate = document.querySelector("[data-quick-home-template]");
 const quickHomeSellingPoint = document.querySelector("[data-quick-home-selling-point]");
@@ -204,6 +207,13 @@ const pageLabels = {
   assets: "我的资产",
   templates: "模板中心",
   toolbox: "AI 工具箱",
+  backgroundRemove: "智能抠图",
+  backgroundReplace: "AI 背景替换",
+  imageCleanup: "画面清理",
+  imageEnhance: "图片增强",
+  imageCompress: "图片压缩与转换",
+  imageResize: "图片尺寸与裁剪",
+  videoFrames: "视频抽帧",
   help: "反馈帮助",
   messages: "消息中心",
   account: "账户安全",
@@ -354,8 +364,12 @@ document.addEventListener("click", (event) => {
 function setPage(pageName) {
   if (!pagePanels.length) return;
 
+  if (pageName !== "videoFrames") document.querySelector("[data-frame-video]")?.pause();
+
   pagePanels.forEach((panel) => {
-    panel.classList.toggle("is-active", panel.dataset.pagePanel === pageName);
+    const isActivePanel = panel.dataset.pagePanel === pageName;
+    panel.classList.toggle("is-active", isActivePanel);
+    if (isActivePanel) panel.scrollTop = 0;
   });
 
   pageButtons.forEach((button) => {
@@ -364,7 +378,8 @@ function setPage(pageName) {
       const isAccountSettingsPage = targetPage === "account" && accountSettingsPages.has(pageName);
       const isCreationFlow = targetPage === "home" && ["detail", "quickCreate"].includes(pageName);
       const isVideoFlow = targetPage === "video" && pageName === "videoAgent";
-      button.classList.toggle("is-active", targetPage === pageName || isAccountSettingsPage || isCreationFlow || isVideoFlow);
+      const isToolFlow = targetPage === "toolbox" && ["backgroundRemove", "backgroundReplace", "imageCleanup", "imageEnhance", "imageCompress", "imageResize", "videoFrames"].includes(pageName);
+      button.classList.toggle("is-active", targetPage === pageName || isAccountSettingsPage || isCreationFlow || isVideoFlow || isToolFlow);
     }
   });
 
@@ -704,16 +719,16 @@ function syncReferencePreview(image, imageUrl) {
   else image.removeAttribute("src");
 }
 
-function renderQuickReferenceGallery() {
+function renderReferenceGallery({ upload, gallery, thumbnails, countLabel }) {
   const count = sharedReferenceFiles.length;
-  const emptyState = quickHomeUpload?.querySelector(".quick-upload-empty");
+  const emptyState = upload?.querySelector(".quick-upload-empty");
   if (emptyState) emptyState.hidden = count > 0;
-  if (quickHomeGallery) quickHomeGallery.hidden = count === 0;
-  if (quickHomeFileCount) quickHomeFileCount.textContent = String(count);
-  quickHomeUpload?.classList.toggle("has-images", count > 0);
-  if (!quickHomeThumbnails) return;
+  if (gallery) gallery.hidden = count === 0;
+  if (countLabel) countLabel.textContent = String(count);
+  upload?.classList.toggle("has-images", count > 0);
+  if (!thumbnails) return;
 
-  quickHomeThumbnails.replaceChildren();
+  thumbnails.replaceChildren();
   sharedReferenceFiles.forEach((file, index) => {
     const item = document.createElement("figure");
     item.className = "quick-upload-thumbnail";
@@ -731,7 +746,22 @@ function renderQuickReferenceGallery() {
       setSharedReferenceFiles(sharedReferenceFiles.filter((_, fileIndex) => fileIndex !== index));
     });
     item.append(image, badge, remove);
-    quickHomeThumbnails.append(item);
+    thumbnails.append(item);
+  });
+}
+
+function renderSharedReferenceGalleries() {
+  renderReferenceGallery({
+    upload: quickHomeUpload,
+    gallery: quickHomeGallery,
+    thumbnails: quickHomeThumbnails,
+    countLabel: quickHomeFileCount,
+  });
+  renderReferenceGallery({
+    upload: agentHomeUpload,
+    gallery: agentHomeGallery,
+    thumbnails: agentHomeThumbnails,
+    countLabel: agentHomeFileCount,
   });
 }
 
@@ -740,13 +770,11 @@ function syncSharedReferencePresentation({ limitReached = false } = {}) {
   const count = sharedReferenceFiles.length;
   sharedReferenceUrl = imageUrl;
 
-  syncReferencePreview(uploadPreview, imageUrl);
   syncReferencePreview(quickAnalyzedPreview, imageUrl);
   syncReferencePreview(quickAnalysisPreview, imageUrl);
   syncReferencePreview(agentReferencePreview, imageUrl);
-  uploadTile?.classList.toggle("has-image", count > 0);
   agentReference?.classList.toggle("has-image", count > 0);
-  renderQuickReferenceGallery();
+  renderSharedReferenceGalleries();
 
   if (quickHomeStatus) {
     quickHomeStatus.classList.remove("is-error", "is-warning", "is-ready");
@@ -798,38 +826,45 @@ function addQuickHomeReferenceImages(files) {
   setSharedReferenceFiles(files, { append: true });
 }
 
-uploadTile?.addEventListener("click", () => referenceInput?.click());
 quickHomeAddButtons.forEach((button) => {
   button.addEventListener("click", () => quickHomeFileInput?.click());
 });
-referenceInput?.addEventListener("change", () => {
-  applyReferenceImage(referenceInput.files?.[0]);
+agentHomeAddButtons.forEach((button) => {
+  button.addEventListener("click", () => agentHomeFileInput?.click());
 });
 quickHomeFileInput?.addEventListener("change", () => {
   addQuickHomeReferenceImages(quickHomeFileInput.files || []);
   quickHomeFileInput.value = "";
 });
+agentHomeFileInput?.addEventListener("change", () => {
+  addQuickHomeReferenceImages(agentHomeFileInput.files || []);
+  agentHomeFileInput.value = "";
+});
 agentReferenceInput?.addEventListener("change", () => {
   applyReferenceImage(agentReferenceInput.files?.[0]);
 });
 
-if (quickHomeUpload) {
+function enableReferenceDropzone(dropzone) {
+  if (!dropzone) return;
   ["dragenter", "dragover"].forEach((eventName) => {
-    quickHomeUpload.addEventListener(eventName, (event) => {
+    dropzone.addEventListener(eventName, (event) => {
       event.preventDefault();
-      quickHomeUpload.classList.add("is-dragging");
+      dropzone.classList.add("is-dragging");
     });
   });
   ["dragleave", "drop"].forEach((eventName) => {
-    quickHomeUpload.addEventListener(eventName, (event) => {
+    dropzone.addEventListener(eventName, (event) => {
       event.preventDefault();
-      quickHomeUpload.classList.remove("is-dragging");
+      dropzone.classList.remove("is-dragging");
     });
   });
-  quickHomeUpload.addEventListener("drop", (event) => {
+  dropzone.addEventListener("drop", (event) => {
     addQuickHomeReferenceImages(event.dataTransfer?.files || []);
   });
 }
+
+enableReferenceDropzone(quickHomeUpload);
+enableReferenceDropzone(agentHomeUpload);
 
 function applyVideoReference(file) {
   if (!file) return;
@@ -1497,3 +1532,1017 @@ document.querySelector("[data-mark-all-read]")?.addEventListener("click", () => 
 });
 
 syncMessageCounts();
+
+/* Local utility tools */
+function formatFileSize(bytes) {
+  if (!Number.isFinite(bytes) || bytes <= 0) return "0 KB";
+  if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(bytes >= 10 * 1024 * 1024 ? 1 : 2)} MB`;
+}
+
+function mimeExtension(mimeType) {
+  if (mimeType === "image/jpeg") return "jpg";
+  if (mimeType === "image/png") return "png";
+  return "webp";
+}
+
+function outputFileName(originalName, suffix, mimeType) {
+  const baseName = originalName.replace(/\.[^.]+$/, "") || "manniu-output";
+  return `${baseName}${suffix}.${mimeExtension(mimeType)}`;
+}
+
+function canvasToBlob(canvas, mimeType, quality) {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob((blob) => {
+      if (blob) resolve(blob);
+      else reject(new Error("图片编码失败"));
+    }, mimeType, quality);
+  });
+}
+
+async function decodeImageFile(file) {
+  if (typeof window.createImageBitmap === "function") return window.createImageBitmap(file);
+  const imageUrl = URL.createObjectURL(file);
+  try {
+    const image = new Image();
+    image.decoding = "async";
+    await new Promise((resolve, reject) => {
+      image.addEventListener("load", resolve, { once: true });
+      image.addEventListener("error", () => reject(new Error("图片读取失败")), { once: true });
+      image.src = imageUrl;
+    });
+    return image;
+  } finally {
+    URL.revokeObjectURL(imageUrl);
+  }
+}
+
+function imageSourceSize(source) {
+  return {
+    width: source.naturalWidth || source.width,
+    height: source.naturalHeight || source.height,
+  };
+}
+
+function releaseImageSource(source) {
+  if (typeof source?.close === "function") source.close();
+}
+
+function triggerBlobDownload(blob, fileName) {
+  const downloadUrl = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = downloadUrl;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(downloadUrl), 1200);
+}
+
+function bindLocalFileDrop(dropzone, input, onFiles) {
+  if (!dropzone || !input) return;
+  dropzone.addEventListener("click", () => input.click());
+  input.addEventListener("change", () => {
+    onFiles([...(input.files || [])]);
+    input.value = "";
+  });
+  ["dragenter", "dragover"].forEach((eventName) => {
+    dropzone.addEventListener(eventName, (event) => {
+      event.preventDefault();
+      dropzone.classList.add("is-dragging");
+    });
+  });
+  ["dragleave", "drop"].forEach((eventName) => {
+    dropzone.addEventListener(eventName, (event) => {
+      event.preventDefault();
+      dropzone.classList.remove("is-dragging");
+    });
+  });
+  dropzone.addEventListener("drop", (event) => onFiles([...(event.dataTransfer?.files || [])]));
+}
+
+const supportedImageTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
+
+/* Browser-local background removal */
+const backgroundInput = document.querySelector("[data-bg-input]");
+const backgroundDropzone = document.querySelector("[data-bg-drop]");
+const backgroundEdge = document.querySelector("[data-bg-edge]");
+const backgroundPreview = document.querySelector("[data-bg-preview]");
+const backgroundRunButton = document.querySelector("[data-bg-run]");
+const backgroundDownloadButton = document.querySelector("[data-bg-download]");
+const backgroundClearButton = document.querySelector("[data-bg-clear]");
+const backgroundFileName = document.querySelector("[data-bg-file-name]");
+const backgroundFileMeta = document.querySelector("[data-bg-file-meta]");
+const backgroundExampleButton = document.querySelector("[data-bg-example]");
+const backgroundStatus = document.querySelector("[data-bg-status]");
+const backgroundProgress = document.querySelector("[data-bg-progress]");
+const backgroundProgressBar = document.querySelector("[data-bg-progress-bar]");
+const backgroundEmpty = document.querySelector("[data-bg-empty]");
+const backgroundEditor = document.querySelector("[data-bg-editor]");
+const backgroundOriginal = document.querySelector("[data-bg-original]");
+const backgroundResult = document.querySelector("[data-bg-result]");
+const backgroundResultFrame = document.querySelector("[data-bg-result-frame]");
+const backgroundResultPlaceholder = document.querySelector("[data-bg-result-placeholder]");
+const backgroundTip = document.querySelector("[data-bg-tip]");
+let backgroundFile = null;
+let backgroundSourceUrl = "";
+let backgroundResultUrl = "";
+let backgroundResultBlob = null;
+let backgroundWorker = null;
+let backgroundWorkerRequest = null;
+let backgroundRequestId = 0;
+let backgroundBusy = false;
+
+function setBackgroundProgress(progress, statusText) {
+  const clampedProgress = Math.max(0, Math.min(100, Math.round(progress)));
+  if (backgroundProgress) backgroundProgress.hidden = clampedProgress <= 0 || clampedProgress >= 100;
+  if (backgroundProgressBar) backgroundProgressBar.style.transform = `scaleX(${clampedProgress / 100})`;
+  if (backgroundStatus && statusText) backgroundStatus.textContent = statusText;
+}
+
+function updateBackgroundPreviewSurface() {
+  if (!backgroundResultFrame) return;
+  backgroundResultFrame.classList.remove("checker", "preview-white", "preview-dark", "preview-mint");
+  const previewMode = backgroundPreview?.value || "checker";
+  backgroundResultFrame.classList.add(previewMode === "checker" ? "checker" : `preview-${previewMode}`);
+}
+
+function updateBackgroundControls() {
+  const hasFile = Boolean(backgroundFile);
+  const hasResult = Boolean(backgroundResultBlob);
+  if (backgroundRunButton) {
+    backgroundRunButton.disabled = !hasFile || backgroundBusy;
+    backgroundRunButton.textContent = backgroundBusy ? "正在智能抠图" : hasResult ? "重新智能抠图" : "开始智能抠图";
+  }
+  if (backgroundDownloadButton) backgroundDownloadButton.disabled = !hasResult || backgroundBusy;
+  if (backgroundClearButton) backgroundClearButton.disabled = !hasFile || backgroundBusy;
+  if (backgroundInput) backgroundInput.disabled = backgroundBusy;
+  if (backgroundDropzone) backgroundDropzone.disabled = backgroundBusy;
+  if (backgroundEdge) backgroundEdge.disabled = backgroundBusy;
+  if (backgroundExampleButton) backgroundExampleButton.disabled = backgroundBusy;
+}
+
+function releaseBackgroundUrls() {
+  if (backgroundSourceUrl) URL.revokeObjectURL(backgroundSourceUrl);
+  if (backgroundResultUrl) URL.revokeObjectURL(backgroundResultUrl);
+  backgroundSourceUrl = "";
+  backgroundResultUrl = "";
+}
+
+function resetBackgroundResult() {
+  if (backgroundResultUrl) URL.revokeObjectURL(backgroundResultUrl);
+  backgroundResultUrl = "";
+  backgroundResultBlob = null;
+  if (backgroundResult) {
+    backgroundResult.removeAttribute("src");
+    backgroundResult.hidden = true;
+  }
+  if (backgroundResultPlaceholder) {
+    backgroundResultPlaceholder.hidden = false;
+    backgroundResultPlaceholder.classList.remove("is-processing", "is-error");
+    backgroundResultPlaceholder.innerHTML = "<strong>等待处理</strong><span>点击“开始智能抠图”生成结果</span>";
+  }
+  if (backgroundTip) backgroundTip.textContent = "边缘复杂或主体与背景颜色接近时，可切换边缘处理方式后重新生成。";
+}
+
+function clearBackgroundTask() {
+  if (backgroundBusy) return;
+  releaseBackgroundUrls();
+  backgroundFile = null;
+  backgroundResultBlob = null;
+  if (backgroundOriginal) backgroundOriginal.removeAttribute("src");
+  resetBackgroundResult();
+  if (backgroundFileName) backgroundFileName.textContent = "尚未添加图片";
+  if (backgroundFileMeta) backgroundFileMeta.textContent = "等待选择素材";
+  if (backgroundStatus) backgroundStatus.textContent = "添加图片后可开始抠图";
+  if (backgroundEmpty) backgroundEmpty.hidden = false;
+  if (backgroundEditor) backgroundEditor.hidden = true;
+  setBackgroundProgress(0);
+  updateBackgroundControls();
+}
+
+async function selectBackgroundFile(files) {
+  if (backgroundBusy) {
+    showWorkspaceToast("当前图片正在处理，请稍候");
+    return;
+  }
+  const file = files.find((item) => supportedImageTypes.has(item.type));
+  if (!file) {
+    showWorkspaceToast("请选择 JPG、PNG 或 WebP 图片");
+    return;
+  }
+  if (file.size > 25 * 1024 * 1024) {
+    showWorkspaceToast("图片不能超过 25MB");
+    return;
+  }
+
+  releaseBackgroundUrls();
+  backgroundFile = file;
+  backgroundSourceUrl = URL.createObjectURL(file);
+  resetBackgroundResult();
+  if (backgroundOriginal) backgroundOriginal.src = backgroundSourceUrl;
+  if (backgroundFileName) backgroundFileName.textContent = file.name;
+  if (backgroundFileMeta) backgroundFileMeta.textContent = `${formatFileSize(file.size)} · 正在读取尺寸`;
+  if (backgroundEmpty) backgroundEmpty.hidden = true;
+  if (backgroundEditor) backgroundEditor.hidden = false;
+  if (backgroundStatus) backgroundStatus.textContent = "图片已就绪，可开始智能抠图";
+
+  try {
+    const source = await decodeImageFile(file);
+    const size = imageSourceSize(source);
+    if (backgroundFileMeta) backgroundFileMeta.textContent = `${size.width} × ${size.height} · ${formatFileSize(file.size)}`;
+    releaseImageSource(source);
+  } catch {
+    if (backgroundFileMeta) backgroundFileMeta.textContent = formatFileSize(file.size);
+  }
+  updateBackgroundControls();
+}
+
+function getBackgroundWorker() {
+  if (backgroundWorker) return backgroundWorker;
+  if (typeof Worker !== "function") throw new Error("当前浏览器不支持本地模型处理");
+
+  backgroundWorker = new Worker("dist/background-removal.worker.js?v=20260715", { name: "manniu-background-removal" });
+  backgroundWorker.addEventListener("message", (event) => {
+    const message = event.data || {};
+    if (message.type === "model-progress") {
+      const modelProgress = Number.isFinite(message.progress) ? message.progress : 0;
+      setBackgroundProgress(8 + (modelProgress * 0.62), modelProgress > 0 ? `首次加载本地模型 ${Math.round(modelProgress)}%` : "正在加载本地模型");
+      return;
+    }
+    if (message.type === "stage") {
+      const stageCopy = {
+        model: "正在准备本地模型",
+        decode: "正在读取图片",
+        inference: "正在识别并分离主体",
+        encode: "正在生成透明 PNG",
+      };
+      setBackgroundProgress(message.progress || 0, stageCopy[message.stage] || "正在处理图片");
+      return;
+    }
+    if (!backgroundWorkerRequest || message.id !== backgroundWorkerRequest.id) return;
+    if (message.type === "result") {
+      backgroundWorkerRequest.resolve(message);
+      backgroundWorkerRequest = null;
+    } else if (message.type === "error") {
+      backgroundWorkerRequest.reject(new Error(message.message || "本地模型处理失败"));
+      backgroundWorkerRequest = null;
+    }
+  });
+  backgroundWorker.addEventListener("error", () => {
+    if (backgroundWorkerRequest) {
+      backgroundWorkerRequest.reject(new Error("本地模型加载失败，请检查网络后重试"));
+      backgroundWorkerRequest = null;
+    }
+    backgroundWorker?.terminate();
+    backgroundWorker = null;
+  });
+  return backgroundWorker;
+}
+
+function runBackgroundWorker(file, edgeMode) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const worker = getBackgroundWorker();
+      const buffer = await file.arrayBuffer();
+      const id = ++backgroundRequestId;
+      backgroundWorkerRequest = { id, resolve, reject };
+      worker.postMessage({
+        type: "remove-background",
+        id,
+        buffer,
+        mimeType: file.type,
+        edgeMode,
+      }, [buffer]);
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
+bindLocalFileDrop(backgroundDropzone, backgroundInput, selectBackgroundFile);
+backgroundExampleButton?.addEventListener("click", async () => {
+  if (backgroundBusy) return;
+  try {
+    const response = await fetch("assets/dashboard/work-4-hd.jpg");
+    if (!response.ok) throw new Error("示例图片读取失败");
+    const blob = await response.blob();
+    await selectBackgroundFile([new File([blob], "示例相机.jpg", { type: blob.type || "image/jpeg" })]);
+  } catch (error) {
+    showWorkspaceToast(error instanceof Error ? error.message : "示例图片读取失败");
+  }
+});
+backgroundPreview?.addEventListener("change", updateBackgroundPreviewSurface);
+backgroundEdge?.addEventListener("change", () => {
+  if (!backgroundResultBlob || !backgroundStatus) return;
+  backgroundStatus.textContent = "边缘设置已更改，重新处理后生效";
+});
+backgroundClearButton?.addEventListener("click", clearBackgroundTask);
+backgroundDownloadButton?.addEventListener("click", () => {
+  if (!backgroundResultBlob || !backgroundFile) return;
+  triggerBlobDownload(backgroundResultBlob, outputFileName(backgroundFile.name, "-透明背景", "image/png"));
+  showWorkspaceToast("透明 PNG 已开始下载");
+});
+backgroundRunButton?.addEventListener("click", async () => {
+  if (!backgroundFile || backgroundBusy) return;
+  backgroundBusy = true;
+  resetBackgroundResult();
+  if (backgroundResultPlaceholder) {
+    backgroundResultPlaceholder.classList.add("is-processing");
+    backgroundResultPlaceholder.innerHTML = "<span class=\"background-remove-loader\" aria-hidden=\"true\"></span><strong>正在识别主体</strong><span>首次使用会先加载本地模型</span>";
+  }
+  setBackgroundProgress(4, "正在准备本地抠图模型");
+  updateBackgroundControls();
+
+  try {
+    const output = await runBackgroundWorker(backgroundFile, backgroundEdge?.value || "natural");
+    backgroundResultBlob = new Blob([output.buffer], { type: "image/png" });
+    backgroundResultUrl = URL.createObjectURL(backgroundResultBlob);
+    if (backgroundResult) {
+      backgroundResult.src = backgroundResultUrl;
+      backgroundResult.hidden = false;
+    }
+    if (backgroundResultPlaceholder) backgroundResultPlaceholder.hidden = true;
+    if (backgroundTip) backgroundTip.textContent = `${output.width} × ${output.height} · ${formatFileSize(backgroundResultBlob.size)} · 透明 PNG`;
+    setBackgroundProgress(100, "抠图已完成，可预览并下载透明 PNG");
+    showWorkspaceToast("智能抠图已完成");
+  } catch (error) {
+    resetBackgroundResult();
+    if (backgroundResultPlaceholder) {
+      backgroundResultPlaceholder.classList.add("is-error");
+      backgroundResultPlaceholder.innerHTML = "<strong>处理没有完成</strong><span>请检查网络或更换图片后重试</span>";
+    }
+    setBackgroundProgress(0, error instanceof Error ? error.message : "智能抠图失败，请重试");
+    showWorkspaceToast(error instanceof Error ? error.message : "智能抠图失败，请重试");
+  } finally {
+    backgroundBusy = false;
+    updateBackgroundControls();
+  }
+});
+updateBackgroundPreviewSurface();
+updateBackgroundControls();
+
+/* Image compression and conversion */
+const compressInput = document.querySelector("[data-compress-input]");
+const compressDropzone = document.querySelector("[data-compress-drop]");
+const compressFormat = document.querySelector("[data-compress-format]");
+const compressMaxEdge = document.querySelector("[data-compress-max-edge]");
+const compressQuality = document.querySelector("[data-compress-quality]");
+const compressQualityValue = document.querySelector("[data-compress-quality-value]");
+const compressQualityNote = document.querySelector("[data-compress-quality-note]");
+const compressRunButton = document.querySelector("[data-compress-run]");
+const compressClearButton = document.querySelector("[data-compress-clear]");
+const compressDownloadAll = document.querySelector("[data-compress-download-all]");
+const compressCount = document.querySelector("[data-compress-count]");
+const compressTotalSize = document.querySelector("[data-compress-total-size]");
+const compressResultSummary = document.querySelector("[data-compress-result-summary]");
+const compressList = document.querySelector("[data-compress-list]");
+let compressFiles = [];
+let compressPreviewUrls = [];
+let compressResults = [];
+let compressBusy = false;
+
+function releaseCompressUrls() {
+  compressPreviewUrls.forEach((url) => URL.revokeObjectURL(url));
+  compressResults.forEach((result) => {
+    if (result.url) URL.revokeObjectURL(result.url);
+  });
+  compressPreviewUrls = [];
+  compressResults = [];
+}
+
+function createCompressRow(file, index, result) {
+  const row = document.createElement("article");
+  row.className = `utility-file-row${result?.blob ? " is-complete" : ""}${result?.error ? " is-error" : ""}`;
+  const image = document.createElement("img");
+  image.src = result?.url || compressPreviewUrls[index];
+  image.alt = `${file.name} 预览`;
+
+  const copy = document.createElement("div");
+  const title = document.createElement("strong");
+  title.textContent = file.name;
+  const metadata = document.createElement("span");
+  if (result?.blob) {
+    const delta = file.size > 0 ? 1 - result.blob.size / file.size : 0;
+    const changeText = file.size <= 0
+      ? "已完成"
+      : delta >= 0
+        ? `减小 ${Math.round(delta * 100)}%`
+        : `增加 ${Math.round(Math.abs(delta) * 100)}%`;
+    metadata.textContent = `${formatFileSize(file.size)} → ${formatFileSize(result.blob.size)} · ${result.width} × ${result.height} · ${changeText}`;
+  } else if (result?.error) {
+    metadata.textContent = result.error;
+  } else {
+    metadata.textContent = `${formatFileSize(file.size)} · 等待处理`;
+  }
+  copy.append(title, metadata);
+
+  const action = document.createElement(result?.blob ? "button" : "span");
+  if (result?.blob) {
+    action.type = "button";
+    action.textContent = "下载";
+    action.addEventListener("click", () => triggerBlobDownload(result.blob, result.fileName));
+  } else {
+    action.textContent = result?.error ? "失败" : "待处理";
+  }
+  row.append(image, copy, action);
+  return row;
+}
+
+function renderCompressList() {
+  if (!compressList) return;
+  compressList.replaceChildren();
+  if (!compressFiles.length) {
+    const empty = document.createElement("div");
+    empty.className = "utility-empty-state";
+    empty.innerHTML = '<span aria-hidden="true">IMG</span><strong>还没有待处理图片</strong><p>添加图片后，可以统一设置格式、尺寸与输出质量。</p>';
+    compressList.append(empty);
+    return;
+  }
+  compressFiles.forEach((file, index) => compressList.append(createCompressRow(file, index, compressResults[index])));
+}
+
+function updateCompressControls() {
+  const hasFiles = compressFiles.length > 0;
+  if (compressCount) compressCount.textContent = hasFiles ? `已添加 ${compressFiles.length} 张图片` : "尚未添加图片";
+  if (compressTotalSize) {
+    const totalSize = compressFiles.reduce((total, file) => total + file.size, 0);
+    compressTotalSize.textContent = hasFiles ? `原始文件共 ${formatFileSize(totalSize)}` : "等待选择素材";
+  }
+  if (compressRunButton) compressRunButton.disabled = !hasFiles || compressBusy;
+  if (compressClearButton) compressClearButton.disabled = !hasFiles || compressBusy;
+  if (compressDownloadAll) compressDownloadAll.disabled = !compressResults.some((result) => result?.blob) || compressBusy;
+}
+
+function setCompressFiles(files) {
+  if (compressBusy) return;
+  const validFiles = files.filter((file) => supportedImageTypes.has(file.type)).slice(0, 10);
+  if (!validFiles.length) {
+    showWorkspaceToast("请选择 JPG、PNG 或 WebP 图片");
+    return;
+  }
+  const exceededLimit = files.filter((file) => supportedImageTypes.has(file.type)).length > 10;
+  releaseCompressUrls();
+  compressFiles = validFiles;
+  compressPreviewUrls = compressFiles.map((file) => URL.createObjectURL(file));
+  if (compressResultSummary) compressResultSummary.textContent = "参数将应用到列表中的全部图片";
+  renderCompressList();
+  updateCompressControls();
+  if (exceededLimit) showWorkspaceToast("最多处理 10 张图片，已保留前 10 张");
+}
+
+function syncCompressQuality() {
+  if (!compressQuality || !compressFormat) return;
+  const isPng = compressFormat.value === "image/png";
+  compressQuality.disabled = isPng;
+  if (compressQualityValue) compressQualityValue.textContent = isPng ? "无损" : `${compressQuality.value}%`;
+  if (compressQualityNote) {
+    compressQualityNote.textContent = isPng ? "PNG 使用无损编码，不应用质量参数" : "适合电商上传与网页展示";
+  }
+}
+
+function invalidateCompressResults() {
+  if (!compressResults.length || compressBusy) return;
+  compressResults.forEach((result) => {
+    if (result.url) URL.revokeObjectURL(result.url);
+  });
+  compressResults = [];
+  if (compressResultSummary) compressResultSummary.textContent = "参数已更改，请重新处理";
+  renderCompressList();
+  updateCompressControls();
+}
+
+async function compressOneImage(file, mimeType, quality, maxEdge) {
+  const source = await decodeImageFile(file);
+  try {
+    const sourceSize = imageSourceSize(source);
+    const scale = maxEdge > 0 && Math.max(sourceSize.width, sourceSize.height) > maxEdge
+      ? maxEdge / Math.max(sourceSize.width, sourceSize.height)
+      : 1;
+    const width = Math.max(1, Math.round(sourceSize.width * scale));
+    const height = Math.max(1, Math.round(sourceSize.height * scale));
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const context = canvas.getContext("2d");
+    if (!context) throw new Error("当前浏览器不支持图片处理");
+    if (mimeType === "image/jpeg") {
+      context.fillStyle = "#ffffff";
+      context.fillRect(0, 0, width, height);
+    }
+    context.drawImage(source, 0, 0, width, height);
+    const blob = await canvasToBlob(canvas, mimeType, quality);
+    return { blob, width, height, actualType: blob.type || mimeType };
+  } finally {
+    releaseImageSource(source);
+  }
+}
+
+bindLocalFileDrop(compressDropzone, compressInput, setCompressFiles);
+compressQuality?.addEventListener("input", () => {
+  syncCompressQuality();
+  invalidateCompressResults();
+});
+compressFormat?.addEventListener("change", () => {
+  syncCompressQuality();
+  invalidateCompressResults();
+});
+compressMaxEdge?.addEventListener("change", invalidateCompressResults);
+syncCompressQuality();
+
+compressClearButton?.addEventListener("click", () => {
+  if (compressBusy) return;
+  releaseCompressUrls();
+  compressFiles = [];
+  if (compressResultSummary) compressResultSummary.textContent = "添加图片后可开始处理";
+  renderCompressList();
+  updateCompressControls();
+});
+
+compressDownloadAll?.addEventListener("click", () => {
+  const downloadableResults = compressResults.filter((result) => result?.blob);
+  downloadableResults.forEach((result) => triggerBlobDownload(result.blob, result.fileName));
+  if (downloadableResults.length) showWorkspaceToast(`已开始下载 ${downloadableResults.length} 张图片`);
+});
+
+compressRunButton?.addEventListener("click", async () => {
+  if (!compressFiles.length || !compressFormat || !compressQuality || !compressMaxEdge) return;
+  compressBusy = true;
+  updateCompressControls();
+  compressRunButton.textContent = "正在处理 0%";
+  compressResults.forEach((result) => {
+    if (result.url) URL.revokeObjectURL(result.url);
+  });
+  compressResults = [];
+  const mimeType = compressFormat.value;
+  const quality = Number(compressQuality.value) / 100;
+  const maxEdge = Number(compressMaxEdge.value) || 0;
+
+  for (let index = 0; index < compressFiles.length; index += 1) {
+    const file = compressFiles[index];
+    try {
+      const processed = await compressOneImage(file, mimeType, quality, maxEdge);
+      compressResults[index] = {
+        ...processed,
+        url: URL.createObjectURL(processed.blob),
+        fileName: outputFileName(file.name, "-optimized", processed.actualType),
+      };
+    } catch (error) {
+      compressResults[index] = { error: error instanceof Error ? error.message : "处理失败" };
+    }
+    compressRunButton.textContent = `正在处理 ${Math.round(((index + 1) / compressFiles.length) * 100)}%`;
+  }
+
+  compressBusy = false;
+  compressRunButton.textContent = "重新批量处理";
+  const completed = compressResults.filter((result) => result?.blob).length;
+  if (compressResultSummary) compressResultSummary.textContent = `已完成 ${completed} 张，结果可逐张下载`;
+  renderCompressList();
+  updateCompressControls();
+  showWorkspaceToast(`已完成 ${completed} 张图片处理`);
+});
+
+/* Image resize and center crop */
+const resizeInput = document.querySelector("[data-resize-input]");
+const resizeDropzone = document.querySelector("[data-resize-drop]");
+const resizeEditor = document.querySelector("[data-resize-editor]");
+const resizeReplace = document.querySelector("[data-resize-replace]");
+const resizeSourceImage = document.querySelector("[data-resize-source]");
+const resizeCanvas = document.querySelector("[data-resize-canvas]");
+const resizeWidth = document.querySelector("[data-resize-width]");
+const resizeHeight = document.querySelector("[data-resize-height]");
+const resizeRatio = document.querySelector("[data-resize-ratio]");
+const resizeMode = document.querySelector("[data-resize-mode]");
+const resizeBackground = document.querySelector("[data-resize-background]");
+const resizeFormat = document.querySelector("[data-resize-format]");
+const resizeQuality = document.querySelector("[data-resize-quality]");
+const resizeQualityValue = document.querySelector("[data-resize-quality-value]");
+const resizeRunButton = document.querySelector("[data-resize-run]");
+const resizeDownloadButton = document.querySelector("[data-resize-download]");
+const resizeFileName = document.querySelector("[data-resize-file-name]");
+const resizeSourceInfo = document.querySelector("[data-resize-source-info]");
+const resizeOutputInfo = document.querySelector("[data-resize-output-info]");
+let resizeFile = null;
+let resizeSource = null;
+let resizeSourceUrl = "";
+let resizeOutputBlob = null;
+let resizeOutputName = "";
+
+function clampDimension(value) {
+  return Math.max(64, Math.min(4096, Number.parseInt(value || "1200", 10) || 1200));
+}
+
+function selectedRatioValue() {
+  if (!resizeRatio || resizeRatio.value === "custom") return null;
+  if (resizeRatio.value === "original") {
+    if (!resizeSource) return 1;
+    const size = imageSourceSize(resizeSource);
+    return size.width / size.height;
+  }
+  const [widthPart, heightPart] = resizeRatio.value.split(":").map(Number);
+  return widthPart / heightPart;
+}
+
+function syncResizeDimensions(changedSide = "width") {
+  if (!resizeWidth || !resizeHeight) return;
+  const ratio = selectedRatioValue();
+  if (!ratio) return;
+  if (changedSide === "height") {
+    let height = clampDimension(resizeHeight.value);
+    let width = Math.round(height * ratio);
+    if (width > 4096) {
+      width = 4096;
+      height = Math.round(width / ratio);
+    }
+    if (width < 64) {
+      width = 64;
+      height = Math.round(width / ratio);
+    }
+    resizeHeight.value = String(clampDimension(height));
+    resizeWidth.value = String(clampDimension(width));
+  } else {
+    let width = clampDimension(resizeWidth.value);
+    let height = Math.round(width / ratio);
+    if (height > 4096) {
+      height = 4096;
+      width = Math.round(height * ratio);
+    }
+    if (height < 64) {
+      height = 64;
+      width = Math.round(height * ratio);
+    }
+    resizeWidth.value = String(clampDimension(width));
+    resizeHeight.value = String(clampDimension(height));
+  }
+}
+
+function invalidateResizeResult() {
+  resizeOutputBlob = null;
+  resizeOutputName = "";
+  if (resizeDownloadButton) resizeDownloadButton.disabled = true;
+  if (resizeOutputInfo && resizeFile) resizeOutputInfo.textContent = "参数已更改，请重新生成预览";
+}
+
+function syncResizeQuality() {
+  if (!resizeQuality || !resizeFormat) return;
+  const isPng = resizeFormat.value === "image/png";
+  resizeQuality.disabled = isPng;
+  if (resizeQualityValue) resizeQualityValue.textContent = isPng ? "无损" : `${resizeQuality.value}%`;
+}
+
+async function renderResizeOutput() {
+  if (!resizeSource || !resizeCanvas || !resizeWidth || !resizeHeight || !resizeMode || !resizeBackground || !resizeFormat || !resizeQuality) return;
+  const width = clampDimension(resizeWidth.value);
+  const height = clampDimension(resizeHeight.value);
+  resizeWidth.value = String(width);
+  resizeHeight.value = String(height);
+  resizeCanvas.width = width;
+  resizeCanvas.height = height;
+  const context = resizeCanvas.getContext("2d");
+  if (!context) throw new Error("当前浏览器不支持图片处理");
+  context.clearRect(0, 0, width, height);
+  const backgroundMap = { white: "#ffffff", soft: "#f1f2f4", transparent: "transparent" };
+  let fillColor = backgroundMap[resizeBackground.value] || "#ffffff";
+  if (resizeFormat.value === "image/jpeg" && fillColor === "transparent") fillColor = "#ffffff";
+  if (fillColor !== "transparent") {
+    context.fillStyle = fillColor;
+    context.fillRect(0, 0, width, height);
+  }
+
+  const sourceSize = imageSourceSize(resizeSource);
+  const sourceRatio = sourceSize.width / sourceSize.height;
+  const targetRatio = width / height;
+  if (resizeMode.value === "cover") {
+    let sourceX = 0;
+    let sourceY = 0;
+    let sourceWidth = sourceSize.width;
+    let sourceHeight = sourceSize.height;
+    if (sourceRatio > targetRatio) {
+      sourceWidth = sourceSize.height * targetRatio;
+      sourceX = (sourceSize.width - sourceWidth) / 2;
+    } else {
+      sourceHeight = sourceSize.width / targetRatio;
+      sourceY = (sourceSize.height - sourceHeight) / 2;
+    }
+    context.drawImage(resizeSource, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, width, height);
+  } else {
+    const scale = Math.min(width / sourceSize.width, height / sourceSize.height);
+    const drawWidth = sourceSize.width * scale;
+    const drawHeight = sourceSize.height * scale;
+    context.drawImage(resizeSource, (width - drawWidth) / 2, (height - drawHeight) / 2, drawWidth, drawHeight);
+  }
+
+  const requestedType = resizeFormat.value;
+  const blob = await canvasToBlob(resizeCanvas, requestedType, Number(resizeQuality.value) / 100);
+  resizeOutputBlob = blob;
+  resizeOutputName = outputFileName(resizeFile?.name || "manniu-image", `-${width}x${height}`, blob.type || requestedType);
+  if (resizeOutputInfo) resizeOutputInfo.textContent = `${width} × ${height} · ${formatFileSize(blob.size)}`;
+  if (resizeDownloadButton) resizeDownloadButton.disabled = false;
+}
+
+async function setResizeFile(files) {
+  const file = files.find((item) => supportedImageTypes.has(item.type));
+  if (!file) {
+    showWorkspaceToast("请选择 JPG、PNG 或 WebP 图片");
+    return;
+  }
+  try {
+    const nextSource = await decodeImageFile(file);
+    releaseImageSource(resizeSource);
+    if (resizeSourceUrl) URL.revokeObjectURL(resizeSourceUrl);
+    resizeFile = file;
+    resizeSource = nextSource;
+    resizeSourceUrl = URL.createObjectURL(file);
+    const size = imageSourceSize(nextSource);
+    if (resizeSourceImage) resizeSourceImage.src = resizeSourceUrl;
+    if (resizeFileName) resizeFileName.textContent = file.name;
+    if (resizeSourceInfo) resizeSourceInfo.textContent = `${size.width} × ${size.height} · ${formatFileSize(file.size)}`;
+    if (resizeDropzone) resizeDropzone.hidden = true;
+    if (resizeEditor) resizeEditor.hidden = false;
+    if (resizeRunButton) resizeRunButton.disabled = false;
+    const preferredWidth = Math.min(4096, resizeRatio?.value === "1:1" ? Math.min(size.width, size.height) : size.width);
+    if (resizeWidth) resizeWidth.value = String(preferredWidth);
+    if (resizeHeight && resizeRatio?.value === "custom") resizeHeight.value = String(Math.min(4096, size.height));
+    syncResizeDimensions("width");
+    await renderResizeOutput();
+  } catch (error) {
+    showWorkspaceToast(error instanceof Error ? error.message : "图片读取失败");
+  }
+}
+
+bindLocalFileDrop(resizeDropzone, resizeInput, setResizeFile);
+resizeReplace?.addEventListener("click", () => resizeInput?.click());
+resizeRatio?.addEventListener("change", () => {
+  syncResizeDimensions("width");
+  invalidateResizeResult();
+});
+resizeWidth?.addEventListener("change", () => {
+  syncResizeDimensions("width");
+  invalidateResizeResult();
+});
+resizeHeight?.addEventListener("change", () => {
+  syncResizeDimensions("height");
+  invalidateResizeResult();
+});
+[resizeMode, resizeBackground].forEach((control) => control?.addEventListener("change", invalidateResizeResult));
+resizeFormat?.addEventListener("change", () => {
+  syncResizeQuality();
+  invalidateResizeResult();
+});
+resizeQuality?.addEventListener("input", () => {
+  syncResizeQuality();
+  invalidateResizeResult();
+});
+syncResizeQuality();
+resizeRunButton?.addEventListener("click", async () => {
+  if (!resizeSource || !resizeRunButton) return;
+  resizeRunButton.disabled = true;
+  resizeRunButton.textContent = "正在生成预览";
+  try {
+    await renderResizeOutput();
+    showWorkspaceToast("图片预览已更新");
+  } catch (error) {
+    showWorkspaceToast(error instanceof Error ? error.message : "图片处理失败");
+  } finally {
+    resizeRunButton.disabled = false;
+    resizeRunButton.textContent = "重新生成预览";
+  }
+});
+resizeDownloadButton?.addEventListener("click", () => {
+  if (resizeOutputBlob) triggerBlobDownload(resizeOutputBlob, resizeOutputName);
+});
+
+/* Video frame extraction */
+const frameInput = document.querySelector("[data-frame-input]");
+const frameDropzone = document.querySelector("[data-frame-drop]");
+const frameEditor = document.querySelector("[data-frame-editor]");
+const frameReplace = document.querySelector("[data-frame-replace]");
+const frameVideo = document.querySelector("[data-frame-video]");
+const frameCount = document.querySelector("[data-frame-count]");
+const frameFormat = document.querySelector("[data-frame-format]");
+const frameMaxWidth = document.querySelector("[data-frame-max-width]");
+const frameQuality = document.querySelector("[data-frame-quality]");
+const frameQualityValue = document.querySelector("[data-frame-quality-value]");
+const frameRunButton = document.querySelector("[data-frame-run]");
+const frameDownloadAll = document.querySelector("[data-frame-download-all]");
+const frameFileName = document.querySelector("[data-frame-file-name]");
+const frameVideoName = document.querySelector("[data-frame-video-name]");
+const frameVideoInfo = document.querySelector("[data-frame-video-info]");
+const frameStatus = document.querySelector("[data-frame-status]");
+const frameResultsContainer = document.querySelector("[data-frame-results]");
+let frameFile = null;
+let frameVideoUrl = "";
+let extractedFrames = [];
+let frameBusy = false;
+
+function formatTime(seconds) {
+  const safeSeconds = Math.max(0, Number(seconds) || 0);
+  const minutes = Math.floor(safeSeconds / 60);
+  const remainingSeconds = Math.floor(safeSeconds % 60);
+  return `${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
+}
+
+function clearExtractedFrames() {
+  extractedFrames.forEach((frame) => URL.revokeObjectURL(frame.url));
+  extractedFrames = [];
+  if (frameDownloadAll) frameDownloadAll.disabled = true;
+}
+
+function renderFrameResults() {
+  if (!frameResultsContainer) return;
+  frameResultsContainer.replaceChildren();
+  if (!extractedFrames.length) {
+    const empty = document.createElement("div");
+    empty.className = "utility-empty-state compact";
+    empty.innerHTML = '<span aria-hidden="true">FRAME</span><strong>尚未提取画面</strong><p>将按视频时长均匀选择关键时间点。</p>';
+    frameResultsContainer.append(empty);
+    return;
+  }
+  extractedFrames.forEach((frame, index) => {
+    const card = document.createElement("figure");
+    card.className = "frame-result-card";
+    const image = document.createElement("img");
+    image.src = frame.url;
+    image.alt = `视频画面 ${index + 1}，时间 ${formatTime(frame.time)}`;
+    const caption = document.createElement("figcaption");
+    const copy = document.createElement("span");
+    copy.innerHTML = `<strong>画面 ${String(index + 1).padStart(2, "0")}</strong><small>${formatTime(frame.time)} · ${formatFileSize(frame.blob.size)}</small>`;
+    const download = document.createElement("button");
+    download.type = "button";
+    download.textContent = "下载";
+    download.addEventListener("click", () => triggerBlobDownload(frame.blob, frame.fileName));
+    caption.append(copy, download);
+    card.append(image, caption);
+    frameResultsContainer.append(card);
+  });
+}
+
+function waitForVideoMetadata(video) {
+  return new Promise((resolve, reject) => {
+    if (video.readyState >= 1 && Number.isFinite(video.duration)) {
+      resolve();
+      return;
+    }
+    const onLoaded = () => {
+      cleanup();
+      resolve();
+    };
+    const onError = () => {
+      cleanup();
+      reject(new Error("当前浏览器无法读取这个视频"));
+    };
+    const cleanup = () => {
+      video.removeEventListener("loadedmetadata", onLoaded);
+      video.removeEventListener("error", onError);
+    };
+    video.addEventListener("loadedmetadata", onLoaded);
+    video.addEventListener("error", onError);
+  });
+}
+
+function seekVideo(video, time) {
+  return new Promise((resolve, reject) => {
+    const targetTime = Math.max(0, Math.min(time, Math.max(0, video.duration - 0.04)));
+    if (Math.abs(video.currentTime - targetTime) < 0.01 && video.readyState >= 2) {
+      resolve();
+      return;
+    }
+    const timeout = window.setTimeout(() => {
+      cleanup();
+      reject(new Error("读取视频画面超时"));
+    }, 10000);
+    const onSeeked = () => {
+      cleanup();
+      resolve();
+    };
+    const onError = () => {
+      cleanup();
+      reject(new Error("无法读取当前视频画面"));
+    };
+    const cleanup = () => {
+      window.clearTimeout(timeout);
+      video.removeEventListener("seeked", onSeeked);
+      video.removeEventListener("error", onError);
+    };
+    video.addEventListener("seeked", onSeeked);
+    video.addEventListener("error", onError);
+    video.currentTime = targetTime;
+  });
+}
+
+async function setFrameFile(files) {
+  const file = files.find((item) => item.type.startsWith("video/") || /\.(m4v|mov|mp4|webm)$/i.test(item.name));
+  if (!file || !frameVideo) {
+    showWorkspaceToast("请选择浏览器支持的视频文件");
+    return;
+  }
+  if (frameBusy) return;
+  clearExtractedFrames();
+  if (frameVideoUrl) URL.revokeObjectURL(frameVideoUrl);
+  frameFile = file;
+  frameVideoUrl = URL.createObjectURL(file);
+  frameVideo.src = frameVideoUrl;
+  frameVideo.load();
+  if (frameFileName) frameFileName.textContent = file.name;
+  if (frameVideoName) frameVideoName.textContent = file.name;
+  if (frameStatus) frameStatus.textContent = "正在读取视频信息";
+  try {
+    await waitForVideoMetadata(frameVideo);
+    const duration = frameVideo.duration;
+    if (!Number.isFinite(duration) || duration <= 0) throw new Error("无法识别视频时长");
+    if (frameVideoInfo) frameVideoInfo.textContent = `${formatTime(duration)} · ${frameVideo.videoWidth} × ${frameVideo.videoHeight} · ${formatFileSize(file.size)}`;
+    if (frameDropzone) frameDropzone.hidden = true;
+    if (frameEditor) frameEditor.hidden = false;
+    if (frameRunButton) frameRunButton.disabled = false;
+    if (frameStatus) frameStatus.textContent = "设置数量后开始提取";
+    renderFrameResults();
+    if (file.size > 200 * 1024 * 1024) showWorkspaceToast("视频超过 200MB，处理时可能占用较多内存");
+  } catch (error) {
+    showWorkspaceToast(error instanceof Error ? error.message : "视频读取失败");
+  }
+}
+
+bindLocalFileDrop(frameDropzone, frameInput, setFrameFile);
+frameReplace?.addEventListener("click", () => frameInput?.click());
+function invalidateFrameResults() {
+  if (!extractedFrames.length || frameBusy) return;
+  clearExtractedFrames();
+  renderFrameResults();
+  if (frameStatus) frameStatus.textContent = "参数已更改，请重新提取";
+}
+
+function syncFrameQuality() {
+  if (!frameQuality || !frameFormat) return;
+  const isPng = frameFormat.value === "image/png";
+  frameQuality.disabled = isPng;
+  if (frameQualityValue) frameQualityValue.textContent = isPng ? "无损" : `${frameQuality.value}%`;
+}
+
+[frameCount, frameMaxWidth].forEach((control) => control?.addEventListener("change", invalidateFrameResults));
+frameFormat?.addEventListener("change", () => {
+  syncFrameQuality();
+  invalidateFrameResults();
+});
+frameQuality?.addEventListener("input", () => {
+  syncFrameQuality();
+  invalidateFrameResults();
+});
+syncFrameQuality();
+
+frameRunButton?.addEventListener("click", async () => {
+  if (!frameVideo || !frameFile || !frameCount || !frameFormat || !frameMaxWidth || !frameQuality || frameBusy) return;
+  frameBusy = true;
+  frameRunButton.disabled = true;
+  frameRunButton.textContent = "正在提取 0%";
+  clearExtractedFrames();
+  if (frameResultsContainer) {
+    frameResultsContainer.innerHTML = '<div class="utility-processing-state"><span></span><strong>正在读取视频画面</strong><p>处理过程中请不要关闭当前页面。</p></div>';
+  }
+
+  const requestedCount = Math.max(1, Math.min(12, Number.parseInt(frameCount.value || "6", 10) || 6));
+  frameCount.value = String(requestedCount);
+  const maxWidth = Number(frameMaxWidth.value) || 1280;
+  const scale = Math.min(1, maxWidth / frameVideo.videoWidth);
+  const width = Math.max(1, Math.round(frameVideo.videoWidth * scale));
+  const height = Math.max(1, Math.round(frameVideo.videoHeight * scale));
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const context = canvas.getContext("2d");
+
+  try {
+    if (!context) throw new Error("当前浏览器不支持视频画面提取");
+    for (let index = 0; index < requestedCount; index += 1) {
+      const time = frameVideo.duration * ((index + 1) / (requestedCount + 1));
+      await seekVideo(frameVideo, time);
+      context.drawImage(frameVideo, 0, 0, width, height);
+      const blob = await canvasToBlob(canvas, frameFormat.value, Number(frameQuality.value) / 100);
+      extractedFrames.push({
+        blob,
+        time,
+        url: URL.createObjectURL(blob),
+        fileName: outputFileName(frameFile.name, `-frame-${String(index + 1).padStart(2, "0")}`, blob.type || frameFormat.value),
+      });
+      const progress = Math.round(((index + 1) / requestedCount) * 100);
+      frameRunButton.textContent = `正在提取 ${progress}%`;
+      if (frameStatus) frameStatus.textContent = `已读取 ${index + 1} / ${requestedCount} 个画面`;
+    }
+    renderFrameResults();
+    if (frameDownloadAll) frameDownloadAll.disabled = false;
+    if (frameStatus) frameStatus.textContent = `已提取 ${requestedCount} 张画面，可逐张或批量下载`;
+    showWorkspaceToast(`已完成 ${requestedCount} 张视频画面提取`);
+  } catch (error) {
+    renderFrameResults();
+    if (frameStatus) frameStatus.textContent = error instanceof Error ? error.message : "视频抽帧失败";
+    showWorkspaceToast(error instanceof Error ? error.message : "视频抽帧失败");
+  } finally {
+    frameBusy = false;
+    frameRunButton.disabled = false;
+    frameRunButton.textContent = "重新提取画面";
+  }
+});
+
+frameDownloadAll?.addEventListener("click", () => {
+  extractedFrames.forEach((frame) => triggerBlobDownload(frame.blob, frame.fileName));
+  if (extractedFrames.length) showWorkspaceToast(`已开始下载 ${extractedFrames.length} 张画面`);
+});

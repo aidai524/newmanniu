@@ -4,3 +4,8 @@ ck/
 # 临时文件
 _tmp_*.html
 .DS_Store
+
+# 本地服务与密钥
+.env
+.env.local
+node_modules/

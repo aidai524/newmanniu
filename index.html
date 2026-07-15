@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>蛮牛系统 - 工作台</title>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="designkit-theme.css?v=20260714-analysis-review" />
+    <link rel="stylesheet" href="designkit-theme.css?v=20260715-batch-two" />
   </head>
   <body class="dashboard-page">
     <div class="app-shell">
@@ -284,21 +284,43 @@
               </div>
 
               <div class="creation-mode-panel" data-creation-mode-panel="agent" hidden>
-                <section class="prompt-composer" aria-label="Agent 图片生成输入区">
-                <div class="prompt-main">
-                  <button class="upload-tile" type="button" aria-label="上传参考图片">
-                    <span class="upload-icon" aria-hidden="true"></span>
-                    <img class="upload-preview" data-upload-preview alt="参考图预览" hidden />
-                  </button>
-                  <input class="reference-file-input" id="home-reference-input" type="file" accept="image/*" data-reference-input hidden />
-                  <textarea
-                    aria-label="输入生成灵感"
-                    placeholder="输入你的即兴灵感，例如：生成一张「蛋牛」品牌的营销广告"
-                  ></textarea>
-                </div>
-                <div class="prompt-toolbar">
+                <section class="prompt-composer agent-home-composer" aria-label="Agent 图片生成输入区">
+                  <div class="quick-home-upload-wrap agent-home-upload-wrap">
+                    <div class="quick-home-upload" data-agent-home-upload>
+                      <button class="quick-upload-empty" type="button" aria-label="选择多张 Agent 商品参考图" data-agent-home-add>
+                        <span class="quick-upload-visual" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3.5" y="4" width="17" height="16" rx="3" />
+                            <circle cx="9" cy="9" r="1.4" />
+                            <path d="m5.5 17 4.1-4.2 3.1 3 2.4-2.5 3.4 3.7" />
+                          </svg>
+                          <i>+</i>
+                        </span>
+                        <strong>上传商品图</strong>
+                        <small>支持多选，也可将多张图片拖入这里</small>
+                      </button>
+                      <div class="quick-upload-gallery" data-agent-home-gallery hidden>
+                        <div class="quick-upload-gallery-head">
+                          <div><strong><span data-agent-home-file-count>0</span> 张素材</strong><small>首张作为主素材</small></div>
+                          <button type="button" data-agent-home-add>继续添加</button>
+                        </div>
+                        <div class="quick-upload-thumbnails" data-agent-home-thumbnails></div>
+                      </div>
+                    </div>
+                    <input type="file" accept="image/*" data-agent-home-file multiple hidden />
+                    <span class="quick-home-upload-tip">最多 6 张 · 支持 JPG、PNG、WebP · 可拖拽添加</span>
+                  </div>
+
+                  <div class="agent-home-prompt-wrap">
+                    <div class="prompt-main">
+                      <textarea
+                        aria-label="输入生成灵感"
+                        placeholder="输入你的即兴灵感，例如：生成一张「蛋牛」品牌的营销广告"
+                      ></textarea>
+                    </div>
+                    <div class="prompt-toolbar">
                   <div class="prompt-select">
-                    <span class="select-icon image-mode" aria-hidden="true"></span>
+                    <svg class="agent-control-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 8h.01"/><path d="M3 6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6"/><path d="m3 16 5-5c.928-.893 2.072-.893 3 0l5 5"/><path d="m14 14 1-1c.928-.893 2.072-.893 3 0l3 3"/></svg>
                     <select aria-label="选择生成类型" data-output-type>
                       <option value="detail">详情图</option>
                       <option value="main">主图</option>
@@ -306,7 +328,7 @@
                     <span class="select-arrow" aria-hidden="true"></span>
                   </div>
                   <div class="prompt-select resolution">
-                    <span class="select-icon cube" aria-hidden="true"></span>
+                    <svg class="agent-control-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3"/><path d="m12 12 8-4.5M12 12v9M12 12 4 7.5"/></svg>
                     <select aria-label="选择清晰度" data-resolution>
                       <option value="1k">1K</option>
                       <option value="2k" selected>2K</option>
@@ -315,7 +337,7 @@
                     <span class="select-arrow" aria-hidden="true"></span>
                   </div>
                   <div class="prompt-select platform">
-                    <span class="select-icon layout" aria-hidden="true"></span>
+                    <svg class="agent-control-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6M12 4v16"/></svg>
                     <select aria-label="选择平台" data-platform>
                       <option value="amazon" selected>亚马逊</option>
                       <option value="taobao">淘宝</option>
@@ -333,22 +355,22 @@
                   </div>
                   <button class="advanced-toggle" type="button" aria-expanded="false" data-advanced-toggle>高级选项</button>
                   <span class="credit-cost"><span aria-hidden="true">✧</span>80/次</span>
-                  <button class="analyze-button" type="button" aria-label="分析参考图" title="分析参考图">分析</button>
-                  <button class="generate-button" type="button" data-start-detail>进入 Agent</button>
-                </div>
-                <div class="prompt-advanced" data-advanced-panel hidden>
-                  <div class="advanced-field">
-                    <span>是否包含文字</span>
-                    <select aria-label="是否包含文字" data-include-text>
-                      <option value="include" selected>包含</option>
-                      <option value="exclude">不包含</option>
-                    </select>
+                  <button class="generate-button" type="button" data-start-detail>开始</button>
+                    </div>
+                    <div class="prompt-advanced" data-advanced-panel hidden>
+                      <div class="advanced-field">
+                        <span>是否包含文字</span>
+                        <select aria-label="是否包含文字" data-include-text>
+                          <option value="include" selected>包含</option>
+                          <option value="exclude">不包含</option>
+                        </select>
+                      </div>
+                      <div class="advanced-field">
+                        <span>生成数量</span>
+                        <input aria-label="生成数量" data-generate-count type="number" min="1" max="10" value="5" />
+                      </div>
+                    </div>
                   </div>
-                  <div class="advanced-field">
-                    <span>生成数量</span>
-                    <input aria-label="生成数量" data-generate-count type="number" min="1" max="10" value="5" />
-                  </div>
-                </div>
                 </section>
               </div>
 
@@ -556,7 +578,7 @@
                         <span class="quick-confirm-icon" aria-hidden="true">
                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="12" height="12" rx="2.5" /><path d="M8 20h9a3 3 0 0 0 3-3V8" /></svg>
                         </span>
-                        <div class="quick-confirm-card-head"><strong data-quick-count-label>生成数量</strong><small>可生成 1–10 张</small></div>
+                        <div class="quick-confirm-card-head"><strong data-quick-count-label>生成数量</strong><small>可生成 1-10 张</small></div>
                         <span class="quick-number-control">
                           <button type="button" aria-label="减少生成数量" data-count-step="-1">−</button>
                           <input type="number" min="1" max="10" value="4" aria-label="生成数量" data-quick-count />
@@ -1339,7 +1361,7 @@
               <div>
                 <span class="library-eyebrow">UTILITY COLLECTION</span>
                 <h1>AI 工具箱</h1>
-                <p>精选适合电商创作的第三方工具，补齐拆图、抠图、合成与导出环节。</p>
+                <p>在蛮牛内完成常用素材处理，复杂 AI 能力继续提供精选外部服务。</p>
               </div>
               <label class="library-search toolbox-search">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
@@ -1348,51 +1370,550 @@
             </header>
 
             <section class="toolbox-feature">
-              <div class="toolbox-feature-copy"><span>RECOMMENDED FLOW</span><h2>商品图上架前处理流水线</h2><p>抠背景 → 合成场景 → 高清修复 → 压缩导出，按常用顺序组织，减少来回查找。</p></div>
-              <ol><li><b>01</b><span>抠背景</span></li><li><b>02</b><span>场景合成</span></li><li><b>03</b><span>高清修复</span></li><li><b>04</b><span>压缩导出</span></li></ol>
+              <div class="toolbox-feature-copy"><span>LOCAL WORKFLOW</span><h2>常用素材在浏览器本地完成</h2><p>上传素材、设置参数、本地处理并下载结果。图片与视频不会上传到服务器。</p></div>
+              <ol><li><b>01</b><span>上传素材</span></li><li><b>02</b><span>设置参数</span></li><li><b>03</b><span>本地处理</span></li><li><b>04</b><span>下载结果</span></li></ol>
             </section>
-
-            <div class="library-toolbar">
-              <div class="library-filters" role="group" aria-label="工具类型筛选" data-filter-group="tools">
-                <button class="is-active" type="button" data-filter="all">全部工具</button>
-                <button type="button" data-filter="image">图片处理</button>
-                <button type="button" data-filter="commerce">电商效率</button>
-                <button type="button" data-filter="video">视频辅助</button>
-                <button type="button" data-filter="file">文件工具</button>
-              </div>
-              <span class="toolbox-note">外部服务将打开新窗口</span>
-            </div>
 
             <section class="toolbox-grid" data-tool-grid>
-              <a class="toolbox-card" href="https://www.remove.bg/zh" target="_blank" rel="noopener noreferrer" data-tool-category="image commerce" data-search-text="智能抠图 移除背景 remove bg">
-                <span class="tool-provider">remove.bg</span><i class="tool-icon mint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 18.5 9.5 14l3 2.5 3.2-3.5 3.3 3.5"/><circle cx="9" cy="9" r="2"/><rect x="3.5" y="4" width="17" height="16" rx="3"/></svg></i><div><h2>智能抠图</h2><p>快速移除商品背景，导出透明 PNG</p></div><b aria-hidden="true">↗</b>
-              </a>
-              <a class="toolbox-card" href="https://clipdrop.co/cleanup" target="_blank" rel="noopener noreferrer" data-tool-category="image commerce" data-search-text="清理画面 移除物体 水印 clipdrop cleanup">
-                <span class="tool-provider">Clipdrop</span><i class="tool-icon lime" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 19 5.5-5.5M8 8l8 8M6 5l13 13M15 4l5 5-9 9-5-5z"/></svg></i><div><h2>画面清理</h2><p>移除杂物、文字与干扰元素</p></div><b aria-hidden="true">↗</b>
-              </a>
-              <a class="toolbox-card" href="https://www.photoroom.com/tools/background-remover" target="_blank" rel="noopener noreferrer" data-tool-category="commerce image" data-search-text="商品图 合成 背景 场景 photoroom">
-                <span class="tool-provider">PhotoRoom</span><i class="tool-icon peach" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M8 16V8h8v8zM8 12h8"/></svg></i><div><h2>商品场景合成</h2><p>为商品快速替换背景和陈列场景</p></div><b aria-hidden="true">↗</b>
-              </a>
-              <a class="toolbox-card" href="https://cleanup.pictures/" target="_blank" rel="noopener noreferrer" data-tool-category="image" data-search-text="瑕疵修复 清理 图片 cleanup pictures">
-                <span class="tool-provider">Cleanup.pictures</span><i class="tool-icon blue" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4"/></svg></i><div><h2>瑕疵修复</h2><p>擦除局部瑕疵，保持背景自然连续</p></div><b aria-hidden="true">↗</b>
-              </a>
-              <a class="toolbox-card" href="https://squoosh.app/" target="_blank" rel="noopener noreferrer" data-tool-category="file image" data-search-text="图片压缩 格式转换 squoosh">
-                <span class="tool-provider">Squoosh</span><i class="tool-icon violet" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 7h10v10H7z"/><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></i><div><h2>图片压缩导出</h2><p>控制画质与体积，适配平台上传限制</p></div><b aria-hidden="true">↗</b>
-              </a>
-              <a class="toolbox-card" href="https://tinypng.com/" target="_blank" rel="noopener noreferrer" data-tool-category="file commerce" data-search-text="批量压缩 png jpg webp tinypng">
-                <span class="tool-provider">TinyPNG</span><i class="tool-icon yellow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 7h14M7 4h10v16H7zM10 11h4M10 15h4"/></svg></i><div><h2>批量图片压缩</h2><p>批量减小 PNG、JPG 与 WebP 体积</p></div><b aria-hidden="true">↗</b>
-              </a>
-              <a class="toolbox-card" href="https://ezgif.com/split" target="_blank" rel="noopener noreferrer" data-tool-category="video image" data-search-text="视频拆帧 GIF 拆图 ezgif split">
-                <span class="tool-provider">Ezgif</span><i class="tool-icon coral" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="3"/><path d="M9 5v14M15 5v14M4 10h5M15 14h5"/></svg></i><div><h2>视频拆帧</h2><p>提取关键画面，制作封面或商品素材</p></div><b aria-hidden="true">↗</b>
-              </a>
-              <a class="toolbox-card" href="https://www.veed.io/tools/video-resizer" target="_blank" rel="noopener noreferrer" data-tool-category="video commerce" data-search-text="视频尺寸 裁剪 平台适配 veed">
-                <span class="tool-provider">VEED</span><i class="tool-icon sky" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4H4v4M16 4h4v4M20 16v4h-4M4 16v4h4"/><path d="M8 12h8M12 8v8"/></svg></i><div><h2>视频尺寸适配</h2><p>一键转换竖版、横版与方形比例</p></div><b aria-hidden="true">↗</b>
-              </a>
-              <a class="toolbox-card" href="https://cloudconvert.com/" target="_blank" rel="noopener noreferrer" data-tool-category="file video" data-search-text="文件格式 转换 图片 视频 cloudconvert">
-                <span class="tool-provider">CloudConvert</span><i class="tool-icon gray" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17a4 4 0 0 1-.5-8A6 6 0 0 1 18 10a3.5 3.5 0 0 1-.5 7H7Z"/><path d="m9 14 3 3 3-3M12 10v7"/></svg></i><div><h2>格式批量转换</h2><p>转换常见图片、视频和文档格式</p></div><b aria-hidden="true">↗</b>
-              </a>
+              <button class="toolbox-card is-native" type="button" data-page="backgroundRemove" data-tool-category="image commerce" data-search-text="智能抠图 移除背景 透明 png 本地 AI 商品图">
+                <span class="tool-provider">蛮牛 · 本地智能</span><i class="tool-icon mint" aria-hidden="true"><svg data-icon="photo-scan" viewBox="0 0 24 24"><path d="M15 8h.01"/><path d="M6 13l2.644-2.644a1.21 1.21 0 0 1 1.712 0L14 14"/><path d="m13 13 1.644-1.644a1.21 1.21 0 0 1 1.712 0L18 13"/><path d="M3 7V5a2 2 0 0 1 2-2h2M3 17v2a2 2 0 0 0 2 2h2M17 3h2a2 2 0 0 1 2 2v2M17 21h2a2 2 0 0 0 2-2v-2"/></svg></i><div><h2>智能抠图</h2><p>本地识别主体，导出透明 PNG</p></div><b aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 18l6-6M13 6l6 6"/></svg></b>
+              </button>
+              <button class="toolbox-card is-native" type="button" data-page="imageCleanup" data-tool-category="image commerce" data-search-text="画面清理 移除物体 文字 水印 瑕疵 AI 补全 本地">
+                <span class="tool-provider">蛮牛 · 本地智能</span><i class="tool-icon lime" aria-hidden="true"><svg data-icon="eraser" viewBox="0 0 24 24"><path d="M19 20H8.5l-4.21-4.3a1 1 0 0 1 0-1.41l10-10a1 1 0 0 1 1.41 0l5 5a1 1 0 0 1 0 1.41L11.5 20M18 13.3 11.7 7"/></svg></i><div><h2>画面清理</h2><p>涂抹杂物或文字，由 AI 补全背景</p></div><b aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 18l6-6M13 6l6 6"/></svg></b>
+              </button>
+              <button class="toolbox-card is-native" type="button" data-page="backgroundReplace" data-tool-category="commerce image" data-search-text="AI 背景替换 商品图 白底 棚拍 生活场景 本地">
+                <span class="tool-provider">蛮牛 · 本地智能</span><i class="tool-icon peach" aria-hidden="true"><svg data-icon="photo-spark" viewBox="0 0 24 24"><path d="M15 8h.01M12 21H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v6M3 16l5-5c.928-.893 2.072-.893 3 0l3.993 3.993M14 14l1-1c.47-.452.995-.675 1.52-.67M19 22.5a4.75 4.75 0 0 1 3.5-3.5 4.75 4.75 0 0 1-3.5-3.5 4.75 4.75 0 0 1-3.5 3.5 4.75 4.75 0 0 1 3.5 3.5"/></svg></i><div><h2>AI 背景替换</h2><p>保留商品，生成白底、棚拍或生活场景</p></div><b aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 18l6-6M13 6l6 6"/></svg></b>
+              </button>
+              <button class="toolbox-card is-native" type="button" data-page="imageEnhance" data-tool-category="image commerce" data-search-text="图片增强 放大 去噪 修复模糊 细节补全 AI 本地">
+                <span class="tool-provider">蛮牛 · 本地智能</span><i class="tool-icon blue" aria-hidden="true"><svg data-icon="photo-bolt" viewBox="0 0 24 24"><path d="M15 8h.01M13.5 21H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v6.5M3 16l5-5c.928-.893 2.072-.893 3 0l4 4M14 14l1-1c.669-.643 1.45-.823 2.18-.54M19 16l-2 3h4l-2 3"/></svg></i><div><h2>图片增强</h2><p>2 倍放大、去噪并恢复画面细节</p></div><b aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 18l6-6M13 6l6 6"/></svg></b>
+              </button>
+              <button class="toolbox-card is-native" type="button" data-page="imageCompress" data-tool-category="file image commerce" data-search-text="图片压缩 批量压缩 格式转换 jpg png webp 本地处理">
+                <span class="tool-provider">蛮牛 · 本地</span><i class="tool-icon violet" aria-hidden="true"><svg data-icon="transform" viewBox="0 0 24 24"><path d="M3 6a3 3 0 1 0 6 0 3 3 0 0 0-6 0M21 11V8a2 2 0 0 0-2-2h-6l3 3m0-6-3 3M3 13v3a2 2 0 0 0 2 2h6l-3-3m0 6 3-3M15 18a3 3 0 1 0 6 0 3 3 0 0 0-6 0"/></svg></i><div><h2>图片压缩与转换</h2><p>批量压缩并导出 JPG、PNG 或 WebP</p></div><b aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 18l6-6M13 6l6 6"/></svg></b>
+              </button>
+              <button class="toolbox-card is-native" type="button" data-page="imageResize" data-tool-category="file image commerce" data-search-text="图片尺寸 调整 裁剪 比例 主图 详情图 本地处理">
+                <span class="tool-provider">蛮牛 · 本地</span><i class="tool-icon yellow" aria-hidden="true"><svg data-icon="crop" viewBox="0 0 24 24"><path d="M8 5v10a1 1 0 0 0 1 1h10M5 8h10a1 1 0 0 1 1 1v10"/></svg></i><div><h2>图片尺寸与裁剪</h2><p>适配方图、横图、竖图与自定义尺寸</p></div><b aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 18l6-6M13 6l6 6"/></svg></b>
+              </button>
+              <button class="toolbox-card is-native" type="button" data-page="videoFrames" data-tool-category="video image file" data-search-text="视频拆帧 视频抽帧 封面 关键画面 本地处理">
+                <span class="tool-provider">蛮牛 · 本地</span><i class="tool-icon coral" aria-hidden="true"><svg data-icon="photo-video" viewBox="0 0 24 24"><path d="M9 15H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v3M9 12a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3h-6a3 3 0 0 1-3-3v-6M3 12l2.296-2.296a2.41 2.41 0 0 1 3.408 0L9 10M14 13.5v3l2.5-1.5-2.5-1.5M7 6v.01"/></svg></i><div><h2>视频抽帧</h2><p>均匀提取关键画面，制作封面或素材</p></div><b aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 18l6-6M13 6l6 6"/></svg></b>
+              </button>
             </section>
             <p class="library-empty" data-tool-empty hidden>没有找到匹配工具，换个关键词试试。</p>
+          </div>
+        </section>
+
+        <section class="page-view utility-tool-page" data-page-panel="backgroundRemove" aria-label="智能抠图">
+          <div class="utility-shell">
+            <header class="utility-tool-head">
+              <div>
+                <button class="utility-back" type="button" data-page="toolbox"><span aria-hidden="true">←</span> 返回工具箱</button>
+                <h1>智能抠图</h1>
+                <p>在浏览器中识别图片主体，移除背景并导出透明 PNG。</p>
+              </div>
+              <span class="utility-local-badge"><i aria-hidden="true"></i>图片仅在浏览器中处理</span>
+            </header>
+
+            <div class="utility-layout">
+              <aside class="utility-settings" aria-label="智能抠图设置">
+                <div class="utility-panel-title"><span>处理设置</span><small>每次处理 1 张</small></div>
+                <label class="utility-field">
+                  <span>边缘处理</span>
+                  <select data-bg-edge aria-label="选择抠图边缘处理方式">
+                    <option value="natural">自然边缘，推荐</option>
+                    <option value="crisp">清晰边缘</option>
+                    <option value="soft">柔和边缘</option>
+                  </select>
+                </label>
+                <label class="utility-field">
+                  <span>预览背景</span>
+                  <select data-bg-preview aria-label="选择抠图结果预览背景">
+                    <option value="checker">透明棋盘格</option>
+                    <option value="white">白色</option>
+                    <option value="dark">深色</option>
+                    <option value="mint">薄荷绿</option>
+                  </select>
+                </label>
+                <button class="utility-primary-action" type="button" data-bg-run disabled>开始智能抠图</button>
+                <button class="utility-secondary-action" type="button" data-bg-download disabled>下载透明 PNG</button>
+                <p class="utility-privacy-note"><span aria-hidden="true">i</span>首次使用需下载约 45MB 模型，之后由浏览器缓存</p>
+              </aside>
+
+              <section class="utility-stage background-remove-stage" aria-label="智能抠图工作区">
+                <div class="utility-upload-row">
+                  <button class="utility-dropzone compact" type="button" data-bg-drop>
+                    <span class="utility-upload-icon" aria-hidden="true">+</span>
+                    <span><strong>选择或拖入一张图片</strong><small>支持 JPG、PNG、WebP，建议主体完整且边界清晰</small></span>
+                  </button>
+                  <input type="file" accept="image/jpeg,image/png,image/webp" hidden data-bg-input />
+                  <div class="utility-upload-summary"><strong data-bg-file-name>尚未添加图片</strong><span data-bg-file-meta>等待选择素材</span><button type="button" data-bg-example>试用示例图片</button></div>
+                </div>
+                <div class="utility-results-head">
+                  <div><span>处理预览</span><small data-bg-status aria-live="polite">添加图片后可开始抠图</small></div>
+                  <div class="utility-result-actions"><button type="button" data-bg-clear disabled>清空</button></div>
+                </div>
+
+                <div class="background-remove-progress" data-bg-progress hidden aria-hidden="true">
+                  <span data-bg-progress-bar></span>
+                </div>
+
+                <div class="utility-empty-state" data-bg-empty>
+                  <span aria-hidden="true">PNG</span>
+                  <strong>还没有抠图任务</strong>
+                  <p>上传主体清晰的商品图、人物照或物体照片，模型将在本地自动分离前景。</p>
+                </div>
+
+                <div class="background-remove-editor" data-bg-editor hidden>
+                  <div class="utility-compare-grid">
+                    <figure>
+                      <div class="utility-media-frame"><img alt="原始图片预览" data-bg-original /></div>
+                      <figcaption>原图</figcaption>
+                    </figure>
+                    <figure>
+                      <div class="utility-media-frame checker background-remove-result" data-bg-result-frame>
+                        <img alt="透明背景抠图结果" data-bg-result hidden />
+                        <div class="background-remove-result-placeholder" data-bg-result-placeholder>
+                          <strong>等待处理</strong><span>点击“开始智能抠图”生成结果</span>
+                        </div>
+                      </div>
+                      <figcaption>透明背景结果</figcaption>
+                    </figure>
+                  </div>
+                  <p class="background-remove-tip" data-bg-tip>边缘复杂或主体与背景颜色接近时，可切换边缘处理方式后重新生成。</p>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section class="page-view utility-tool-page" data-page-panel="backgroundReplace" aria-label="AI 背景替换">
+          <div class="utility-shell">
+            <header class="utility-tool-head">
+              <div>
+                <button class="utility-back" type="button" data-page="toolbox"><span aria-hidden="true">←</span> 返回工具箱</button>
+                <h1>AI 背景替换</h1>
+                <p>本地识别商品主体，合成白底、棚拍、生活场景或自定义背景。</p>
+              </div>
+              <span class="utility-local-badge"><i aria-hidden="true"></i>图片仅在浏览器中处理</span>
+            </header>
+
+            <div class="utility-layout">
+              <aside class="utility-settings" aria-label="背景替换设置">
+                <div class="utility-panel-title"><span>场景设置</span><small>每次处理 1 张</small></div>
+                <fieldset class="utility-preset-field">
+                  <legend>背景场景</legend>
+                  <div class="scene-preset-grid" data-scene-presets>
+                    <button class="is-active" type="button" data-scene-preset="white"><i class="scene-swatch white" aria-hidden="true"></i><span>纯净白底</span></button>
+                    <button type="button" data-scene-preset="studio"><i class="scene-swatch studio" aria-hidden="true"></i><span>柔灰棚拍</span></button>
+                    <button type="button" data-scene-preset="mint"><i class="scene-swatch mint" aria-hidden="true"></i><span>薄荷影棚</span></button>
+                    <button type="button" data-scene-preset="living"><i class="scene-swatch living" aria-hidden="true"></i><span>暖调生活</span></button>
+                  </div>
+                </fieldset>
+                <div class="utility-field">
+                  <span>自定义背景</span>
+                  <button class="utility-inline-upload" type="button" data-scene-bg-trigger>选择背景图片</button>
+                  <input type="file" accept="image/jpeg,image/png,image/webp" hidden data-scene-bg-input />
+                  <small data-scene-bg-name>选择后自动切换为自定义背景</small>
+                </div>
+                <label class="utility-field utility-range-field">
+                  <span>主体大小 <output data-scene-scale-value>86%</output></span>
+                  <input type="range" min="60" max="105" value="86" step="1" data-scene-scale />
+                  <small>保持商品居中并留出安全边距</small>
+                </label>
+                <label class="utility-field utility-range-field">
+                  <span>落地阴影 <output data-scene-shadow-value>35%</output></span>
+                  <input type="range" min="0" max="75" value="35" step="1" data-scene-shadow />
+                  <small>白底图可调为 0，场景图建议保留</small>
+                </label>
+                <button class="utility-primary-action" type="button" data-scene-run disabled>开始替换背景</button>
+                <button class="utility-secondary-action" type="button" data-scene-download disabled>下载场景图</button>
+                <p class="utility-privacy-note"><span aria-hidden="true">i</span>首次使用需下载约 45MB 抠图模型，之后由浏览器缓存</p>
+              </aside>
+
+              <section class="utility-stage" aria-label="背景替换工作区">
+                <div class="utility-upload-row">
+                  <button class="utility-dropzone compact" type="button" data-scene-drop>
+                    <span class="utility-upload-icon" aria-hidden="true">+</span>
+                    <span><strong>选择或拖入一张商品图</strong><small>支持 JPG、PNG、WebP，建议主体完整且无遮挡</small></span>
+                  </button>
+                  <input type="file" accept="image/jpeg,image/png,image/webp" hidden data-scene-input />
+                  <div class="utility-upload-summary"><strong data-scene-file-name>尚未添加图片</strong><span data-scene-file-meta>等待选择素材</span><button type="button" data-scene-example>试用示例图片</button></div>
+                </div>
+                <div class="utility-results-head">
+                  <div><span>合成预览</span><small data-scene-status aria-live="polite">添加图片后可开始替换背景</small></div>
+                  <div class="utility-result-actions"><button type="button" data-scene-clear disabled>清空</button></div>
+                </div>
+                <div class="background-remove-progress" data-scene-progress hidden aria-hidden="true"><span data-scene-progress-bar></span></div>
+                <div class="utility-empty-state" data-scene-empty>
+                  <span aria-hidden="true">BG</span>
+                  <strong>还没有背景替换任务</strong>
+                  <p>上传商品图后，AI 会先分离主体，再合成适合电商展示的背景。</p>
+                </div>
+                <div class="background-remove-editor" data-scene-editor hidden>
+                  <div class="utility-compare-grid">
+                    <figure><div class="utility-media-frame"><img alt="背景替换原图预览" data-scene-original /></div><figcaption>原图</figcaption></figure>
+                    <figure>
+                      <div class="utility-media-frame scene-result-frame" data-scene-result-frame>
+                        <img alt="背景替换结果" data-scene-result hidden />
+                        <div class="background-remove-result-placeholder" data-scene-placeholder><strong>等待处理</strong><span>选择场景后点击“开始替换背景”</span></div>
+                      </div>
+                      <figcaption data-scene-caption>纯净白底</figcaption>
+                    </figure>
+                  </div>
+                  <p class="background-remove-tip" data-scene-tip>主体边缘复杂时，可先使用智能抠图检查透明结果。</p>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section class="page-view utility-tool-page" data-page-panel="imageCleanup" aria-label="画面清理">
+          <div class="utility-shell">
+            <header class="utility-tool-head">
+              <div>
+                <button class="utility-back" type="button" data-page="toolbox"><span aria-hidden="true">←</span> 返回工具箱</button>
+                <h1>画面清理</h1>
+                <p>涂抹需要移除的杂物、文字或瑕疵，由 AI 补全周围背景。</p>
+              </div>
+              <span class="utility-local-badge"><i aria-hidden="true"></i>图片仅在浏览器中处理</span>
+            </header>
+
+            <div class="utility-layout cleanup-layout">
+              <aside class="utility-settings" aria-label="画面清理设置">
+                <div class="utility-panel-title"><span>清理设置</span><small>每次处理 1 张</small></div>
+                <div class="utility-field">
+                  <span>涂抹方式</span>
+                  <div class="utility-mode-switch" role="group" aria-label="选择涂抹方式">
+                    <button class="is-active" type="button" data-cleanup-mode="brush">画笔</button>
+                    <button type="button" data-cleanup-mode="eraser">橡皮</button>
+                  </div>
+                </div>
+                <label class="utility-field utility-range-field">
+                  <span>画笔大小 <output data-cleanup-brush-value>42 px</output></span>
+                  <input type="range" min="8" max="140" value="42" step="2" data-cleanup-brush />
+                  <small>稍微覆盖目标边缘，补全结果通常更自然</small>
+                </label>
+                <label class="utility-field utility-range-field">
+                  <span>边缘融合 <output data-cleanup-feather-value>8 px</output></span>
+                  <input type="range" min="0" max="24" value="8" step="1" data-cleanup-feather />
+                  <small>柔化修复区域与原图的接缝</small>
+                </label>
+                <div class="utility-inline-actions">
+                  <button type="button" data-cleanup-undo disabled>撤销一笔</button>
+                  <button type="button" data-cleanup-clear-mask disabled>清空涂抹</button>
+                </div>
+                <button class="utility-primary-action" type="button" data-cleanup-run disabled>开始 AI 补全</button>
+                <button class="utility-secondary-action" type="button" data-cleanup-download disabled>下载清理结果</button>
+                <p class="utility-privacy-note"><span aria-hidden="true">i</span>首次使用需下载约 208MB LaMa 模型，建议使用稳定网络</p>
+              </aside>
+
+              <section class="utility-stage" aria-label="画面清理工作区">
+                <div class="utility-upload-row">
+                  <button class="utility-dropzone compact" type="button" data-cleanup-drop>
+                    <span class="utility-upload-icon" aria-hidden="true">+</span>
+                    <span><strong>选择或拖入一张图片</strong><small>支持 JPG、PNG、WebP，涂抹红色区域将被移除</small></span>
+                  </button>
+                  <input type="file" accept="image/jpeg,image/png,image/webp" hidden data-cleanup-input />
+                  <div class="utility-upload-summary"><strong data-cleanup-file-name>尚未添加图片</strong><span data-cleanup-file-meta>等待选择素材</span><button type="button" data-cleanup-example>试用示例图片</button></div>
+                </div>
+                <div class="utility-results-head">
+                  <div><span>涂抹与修复</span><small data-cleanup-status aria-live="polite">添加图片后可开始涂抹</small></div>
+                  <div class="utility-result-actions"><button type="button" data-cleanup-clear disabled>清空</button></div>
+                </div>
+                <div class="background-remove-progress" data-cleanup-progress hidden aria-hidden="true"><span data-cleanup-progress-bar></span></div>
+                <div class="utility-empty-state" data-cleanup-empty>
+                  <span aria-hidden="true">FIX</span>
+                  <strong>还没有待清理图片</strong>
+                  <p>上传图片并涂抹目标区域，模型会根据周围纹理补全背景。</p>
+                </div>
+                <div class="cleanup-editor" data-cleanup-editor hidden>
+                  <div class="cleanup-workspace-grid">
+                    <figure>
+                      <div class="cleanup-canvas-frame" data-cleanup-canvas-frame>
+                        <canvas data-cleanup-source aria-label="待清理图片"></canvas>
+                        <canvas data-cleanup-mask aria-label="清理区域蒙版"></canvas>
+                        <span class="cleanup-brush-cursor" data-cleanup-cursor hidden></span>
+                      </div>
+                      <figcaption>涂抹要移除的区域</figcaption>
+                    </figure>
+                    <figure>
+                      <div class="utility-media-frame cleanup-result-frame">
+                        <img alt="画面清理结果" data-cleanup-result hidden />
+                        <div class="background-remove-result-placeholder" data-cleanup-placeholder><strong>等待补全</strong><span>涂抹目标后点击“开始 AI 补全”</span></div>
+                      </div>
+                      <figcaption>AI 补全结果</figcaption>
+                    </figure>
+                  </div>
+                  <p class="background-remove-tip" data-cleanup-tip>大面积复杂物体可分多次少量涂抹，通常比一次覆盖更自然。</p>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section class="page-view utility-tool-page" data-page-panel="imageEnhance" aria-label="图片增强">
+          <div class="utility-shell">
+            <header class="utility-tool-head">
+              <div>
+                <button class="utility-back" type="button" data-page="toolbox"><span aria-hidden="true">←</span> 返回工具箱</button>
+                <h1>图片增强</h1>
+                <p>使用本地 AI 放大图片，改善轻度模糊、噪点与细节缺失。</p>
+              </div>
+              <span class="utility-local-badge"><i aria-hidden="true"></i>图片仅在浏览器中处理</span>
+            </header>
+
+            <div class="utility-layout">
+              <aside class="utility-settings" aria-label="图片增强设置">
+                <div class="utility-panel-title"><span>增强设置</span><small>每次处理 1 张</small></div>
+                <label class="utility-field">
+                  <span>输出最长边</span>
+                  <select data-enhance-edge aria-label="选择增强图片最长边">
+                    <option value="1280">最高 2560 px，推荐</option>
+                    <option value="1024">最高 2048 px</option>
+                    <option value="800">最高 1600 px</option>
+                    <option value="640">最高 1280 px</option>
+                  </select>
+                </label>
+                <label class="utility-field utility-range-field">
+                  <span>去噪强度 <output data-enhance-denoise-value>18%</output></span>
+                  <input type="range" min="0" max="60" value="18" step="2" data-enhance-denoise />
+                  <small>适合压缩噪点和轻微颗粒，过高会损失纹理</small>
+                </label>
+                <label class="utility-field utility-range-field">
+                  <span>细节锐化 <output data-enhance-sharpen-value>28%</output></span>
+                  <input type="range" min="0" max="70" value="28" step="2" data-enhance-sharpen />
+                  <small>增强边缘与纹理，不建议对人像设置过高</small>
+                </label>
+                <label class="utility-field">
+                  <span>输出格式</span>
+                  <select data-enhance-format aria-label="选择增强图片输出格式">
+                    <option value="image/png">PNG，无损</option>
+                    <option value="image/jpeg">JPG，高质量</option>
+                    <option value="image/webp">WebP，高质量</option>
+                  </select>
+                </label>
+                <button class="utility-primary-action" type="button" data-enhance-run disabled>开始 AI 增强</button>
+                <button class="utility-secondary-action" type="button" data-enhance-download disabled>下载增强图片</button>
+                <p class="utility-privacy-note"><span aria-hidden="true">i</span>首次使用需下载约 7MB 增强模型，之后由浏览器缓存</p>
+              </aside>
+
+              <section class="utility-stage" aria-label="图片增强工作区">
+                <div class="utility-upload-row">
+                  <button class="utility-dropzone compact" type="button" data-enhance-drop>
+                    <span class="utility-upload-icon" aria-hidden="true">+</span>
+                    <span><strong>选择或拖入一张图片</strong><small>适合小图、轻度模糊图和压缩后图片</small></span>
+                  </button>
+                  <input type="file" accept="image/jpeg,image/png,image/webp" hidden data-enhance-input />
+                  <div class="utility-upload-summary"><strong data-enhance-file-name>尚未添加图片</strong><span data-enhance-file-meta>等待选择素材</span><button type="button" data-enhance-example>试用示例图片</button></div>
+                </div>
+                <div class="utility-results-head">
+                  <div><span>增强预览</span><small data-enhance-status aria-live="polite">添加图片后可开始增强</small></div>
+                  <div class="utility-result-actions"><button type="button" data-enhance-clear disabled>清空</button></div>
+                </div>
+                <div class="background-remove-progress" data-enhance-progress hidden aria-hidden="true"><span data-enhance-progress-bar></span></div>
+                <div class="utility-empty-state" data-enhance-empty>
+                  <span aria-hidden="true">2X</span>
+                  <strong>还没有图片增强任务</strong>
+                  <p>上传图片后，模型会进行 2 倍超分辨率重建，再按设置完成去噪与锐化。</p>
+                </div>
+                <div class="background-remove-editor" data-enhance-editor hidden>
+                  <div class="utility-compare-grid">
+                    <figure><div class="utility-media-frame"><img alt="图片增强原图预览" data-enhance-original /></div><figcaption>原图</figcaption></figure>
+                    <figure>
+                      <div class="utility-media-frame enhance-result-frame">
+                        <img alt="图片增强结果" data-enhance-result hidden />
+                        <div class="background-remove-result-placeholder" data-enhance-placeholder><strong>等待增强</strong><span>点击“开始 AI 增强”恢复细节</span></div>
+                      </div>
+                      <figcaption>2 倍增强结果</figcaption>
+                    </figure>
+                  </div>
+                  <p class="background-remove-tip" data-enhance-tip>AI 会重建缺失细节，但无法完全恢复原图中不存在的文字或纹理。</p>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section class="page-view utility-tool-page" data-page-panel="imageCompress" aria-label="图片压缩与格式转换">
+          <div class="utility-shell">
+            <header class="utility-tool-head">
+              <div>
+                <button class="utility-back" type="button" data-page="toolbox"><span aria-hidden="true">←</span> 返回工具箱</button>
+                <h1>图片压缩与格式转换</h1>
+                <p>批量减小图片体积，并转换为 JPG、PNG 或 WebP。</p>
+              </div>
+              <span class="utility-local-badge"><i aria-hidden="true"></i>文件仅在浏览器中处理</span>
+            </header>
+
+            <div class="utility-layout">
+              <aside class="utility-settings" aria-label="图片压缩参数">
+                <div class="utility-panel-title"><span>输出参数</span><small>最多同时处理 10 张</small></div>
+                <label class="utility-field">
+                  <span>输出格式</span>
+                  <select data-compress-format aria-label="选择压缩图片输出格式">
+                    <option value="image/webp">WebP，推荐</option>
+                    <option value="image/jpeg">JPG</option>
+                    <option value="image/png">PNG</option>
+                  </select>
+                </label>
+                <label class="utility-field">
+                  <span>最长边限制</span>
+                  <select data-compress-max-edge aria-label="选择图片最长边限制">
+                    <option value="0">保持原始尺寸</option>
+                    <option value="2560">2560 px</option>
+                    <option value="2048" selected>2048 px</option>
+                    <option value="1600">1600 px</option>
+                    <option value="1200">1200 px</option>
+                  </select>
+                </label>
+                <label class="utility-field utility-range-field">
+                  <span>输出质量 <output data-compress-quality-value>82%</output></span>
+                  <input type="range" min="40" max="100" value="82" step="1" data-compress-quality />
+                  <small data-compress-quality-note>适合电商上传与网页展示</small>
+                </label>
+                <button class="utility-primary-action" type="button" data-compress-run disabled>开始批量处理</button>
+                <p class="utility-privacy-note"><span aria-hidden="true">✓</span> 不上传文件，不保存处理记录</p>
+              </aside>
+
+              <section class="utility-stage" aria-label="图片压缩任务">
+                <div class="utility-upload-row">
+                  <button class="utility-dropzone compact" type="button" data-compress-drop>
+                    <span class="utility-upload-icon" aria-hidden="true">+</span>
+                    <span><strong>选择或拖入图片</strong><small>支持 JPG、PNG、WebP，单张建议不超过 30MB</small></span>
+                  </button>
+                  <input type="file" accept="image/jpeg,image/png,image/webp" multiple hidden data-compress-input />
+                  <div class="utility-upload-summary"><strong data-compress-count>尚未添加图片</strong><span data-compress-total-size>等待选择素材</span></div>
+                </div>
+                <div class="utility-results-head">
+                  <div><span>处理列表</span><small data-compress-result-summary>添加图片后可开始处理</small></div>
+                  <div class="utility-result-actions"><button type="button" data-compress-download-all disabled>下载全部</button><button type="button" data-compress-clear disabled>清空列表</button></div>
+                </div>
+                <div class="utility-result-list" data-compress-list>
+                  <div class="utility-empty-state" data-compress-empty>
+                    <span aria-hidden="true">IMG</span>
+                    <strong>还没有待处理图片</strong>
+                    <p>添加图片后，可以统一设置格式、尺寸与输出质量。</p>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section class="page-view utility-tool-page" data-page-panel="imageResize" aria-label="图片尺寸与裁剪">
+          <div class="utility-shell">
+            <header class="utility-tool-head">
+              <div>
+                <button class="utility-back" type="button" data-page="toolbox"><span aria-hidden="true">←</span> 返回工具箱</button>
+                <h1>图片尺寸与裁剪</h1>
+                <p>用中心裁剪或完整留白，快速适配常见电商图片比例。</p>
+              </div>
+              <span class="utility-local-badge"><i aria-hidden="true"></i>文件仅在浏览器中处理</span>
+            </header>
+
+            <div class="utility-layout">
+              <aside class="utility-settings" aria-label="图片尺寸与裁剪参数">
+                <div class="utility-panel-title"><span>画布参数</span><small data-resize-file-name>请先上传图片</small></div>
+                <div class="utility-dimension-grid">
+                  <label class="utility-field"><span>宽度</span><span class="utility-number-input"><input type="number" min="64" max="4096" value="1200" data-resize-width /><b>px</b></span></label>
+                  <label class="utility-field"><span>高度</span><span class="utility-number-input"><input type="number" min="64" max="4096" value="1200" data-resize-height /><b>px</b></span></label>
+                </div>
+                <label class="utility-field">
+                  <span>常用比例</span>
+                  <select data-resize-ratio aria-label="选择图片目标比例">
+                    <option value="original">原图比例</option>
+                    <option value="custom">自定义尺寸</option>
+                    <option value="1:1" selected>1:1 方形主图</option>
+                    <option value="4:3">4:3 横图</option>
+                    <option value="3:4">3:4 竖图</option>
+                    <option value="16:9">16:9 横版</option>
+                    <option value="9:16">9:16 竖版</option>
+                  </select>
+                </label>
+                <label class="utility-field">
+                  <span>适配方式</span>
+                  <select data-resize-mode aria-label="选择图片裁剪方式">
+                    <option value="cover">中心裁剪，铺满画布</option>
+                    <option value="contain">完整保留，自动留白</option>
+                  </select>
+                </label>
+                <label class="utility-field">
+                  <span>留白颜色</span>
+                  <select data-resize-background aria-label="选择图片留白颜色">
+                    <option value="white">白色</option>
+                    <option value="soft">浅灰</option>
+                    <option value="transparent">透明</option>
+                  </select>
+                </label>
+                <div class="utility-inline-fields">
+                  <label class="utility-field"><span>输出格式</span><select data-resize-format aria-label="选择裁剪图片输出格式"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select></label>
+                  <label class="utility-field utility-range-field"><span>质量 <output data-resize-quality-value>90%</output></span><input type="range" min="50" max="100" value="90" step="1" data-resize-quality /></label>
+                </div>
+                <button class="utility-primary-action" type="button" data-resize-run disabled>生成预览</button>
+                <button class="utility-secondary-action" type="button" data-resize-download disabled>下载处理结果</button>
+              </aside>
+
+              <section class="utility-stage" aria-label="图片裁剪预览">
+                <button class="utility-dropzone large" type="button" data-resize-drop>
+                  <span class="utility-upload-icon" aria-hidden="true">+</span>
+                  <strong>上传一张商品图片</strong>
+                  <small>支持 JPG、PNG、WebP，上传后会自动生成预览</small>
+                </button>
+                <input type="file" accept="image/jpeg,image/png,image/webp" hidden data-resize-input />
+                <div class="resize-editor" data-resize-editor hidden>
+                  <div class="resize-editor-head"><div><strong>尺寸预览</strong><span data-resize-source-info>等待读取图片</span></div><button type="button" data-resize-replace>更换图片</button></div>
+                  <div class="utility-compare-grid">
+                    <figure><div class="utility-media-frame checker"><img data-resize-source alt="原始图片预览" /></div><figcaption>原始图片</figcaption></figure>
+                    <figure><div class="utility-media-frame checker"><canvas data-resize-canvas aria-label="处理后图片预览"></canvas></div><figcaption data-resize-output-info>处理结果</figcaption></figure>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section class="page-view utility-tool-page" data-page-panel="videoFrames" aria-label="视频抽帧">
+          <div class="utility-shell">
+            <header class="utility-tool-head">
+              <div>
+                <button class="utility-back" type="button" data-page="toolbox"><span aria-hidden="true">←</span> 返回工具箱</button>
+                <h1>视频抽帧</h1>
+                <p>从视频中均匀提取关键画面，用作封面、详情页或创作参考。</p>
+              </div>
+              <span class="utility-local-badge"><i aria-hidden="true"></i>视频不会上传到服务器</span>
+            </header>
+
+            <div class="utility-layout">
+              <aside class="utility-settings" aria-label="视频抽帧参数">
+                <div class="utility-panel-title"><span>抽帧参数</span><small data-frame-file-name>请先上传视频</small></div>
+                <label class="utility-field"><span>提取数量</span><span class="utility-number-input"><input type="number" min="1" max="12" value="6" data-frame-count /><b>张</b></span></label>
+                <label class="utility-field"><span>图片格式</span><select data-frame-format aria-label="选择视频帧输出格式"><option value="image/jpeg">JPG</option><option value="image/webp">WebP</option><option value="image/png">PNG</option></select></label>
+                <label class="utility-field"><span>最大宽度</span><select data-frame-max-width aria-label="选择视频帧最大宽度"><option value="1920">1920 px</option><option value="1280" selected>1280 px</option><option value="960">960 px</option><option value="720">720 px</option></select></label>
+                <label class="utility-field utility-range-field"><span>图片质量 <output data-frame-quality-value>90%</output></span><input type="range" min="50" max="100" value="90" step="1" data-frame-quality /></label>
+                <button class="utility-primary-action" type="button" data-frame-run disabled>开始提取画面</button>
+                <button class="utility-secondary-action" type="button" data-frame-download-all disabled>下载全部画面</button>
+                <p class="utility-privacy-note"><span aria-hidden="true">✓</span> 建议视频大小不超过 200MB</p>
+              </aside>
+
+              <section class="utility-stage" aria-label="视频与抽帧结果">
+                <button class="utility-dropzone large" type="button" data-frame-drop>
+                  <span class="utility-upload-icon video" aria-hidden="true">▶</span>
+                  <strong>上传一个视频文件</strong>
+                  <small>支持浏览器可播放的 MP4、WebM 或 MOV</small>
+                </button>
+                <input type="file" accept="video/mp4,video/webm,video/quicktime,video/*" hidden data-frame-input />
+                <div class="frame-editor" data-frame-editor hidden>
+                  <div class="frame-video-card">
+                    <video controls preload="metadata" data-frame-video></video>
+                    <div><strong data-frame-video-name>视频预览</strong><span data-frame-video-info>等待读取视频</span><button type="button" data-frame-replace>更换视频</button></div>
+                  </div>
+                  <div class="utility-results-head">
+                    <div><span>提取结果</span><small data-frame-status>设置数量后开始提取</small></div>
+                  </div>
+                  <div class="frame-result-grid" data-frame-results>
+                    <div class="utility-empty-state compact"><span aria-hidden="true">FRAME</span><strong>尚未提取画面</strong><p>将按视频时长均匀选择关键时间点。</p></div>
+                  </div>
+                </div>
+              </section>
+            </div>
           </div>
         </section>
 
@@ -1710,10 +2231,6 @@
                 <span>到期时间：2026-06-26 10:54:36</span>
                 <a href="#">余额明细</a>
               </div>
-              <div class="membership-actions">
-                <button type="button"><span class="asset-box" aria-hidden="true"></span>扩充资产空间</button>
-                <button type="button">功能定价 <span aria-hidden="true">›</span></button>
-              </div>
             </header>
 
             <div class="membership-tabs" role="tablist" aria-label="套餐类型">
@@ -1803,7 +2320,6 @@
                 <tbody>
                   <tr><td><span class="benefit-icon headset"></span>专属客服</td><td class="no">×</td><td class="no">×</td><td class="yes">✓</td><td class="yes active-col">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
                   <tr><td><span class="benefit-icon shield"></span>可以商用</td><td class="no">×</td><td class="no">×</td><td class="yes">✓</td><td class="yes active-col">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-                  <tr><td><span class="benefit-icon psd"></span>导出 PSD 格式</td><td class="no">×</td><td class="no">×</td><td class="yes">✓</td><td class="yes active-col">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
                   <tr><td><span class="benefit-icon drop"></span>去除水印</td><td class="no">×</td><td class="no">×</td><td class="yes">✓</td><td class="yes active-col">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
                   <tr><td><span class="benefit-icon tag"></span>积分包折扣</td><td class="no">×</td><td class="no">×</td><td>9 折</td><td class="active-col">9 折</td><td>9 折</td><td>8 折</td><td>7 折</td></tr>
                   <tr><td><span class="benefit-icon team"></span>团队协作</td><td class="no">×</td><td class="no">×</td><td class="no">×</td><td class="active-col">2 人</td><td>2 人</td><td>4 人</td><td>4 人</td></tr>
@@ -1882,6 +2398,7 @@
       </main>
     </div>
 
-    <script src="script.js?v=20260714-workspace-pages"></script>
+    <script src="script.js?v=20260715-batch-two"></script>
+    <script src="ai-tools.js?v=20260715-batch-two"></script>
   </body>
 </html>
