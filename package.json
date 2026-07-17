@@ -7,7 +7,8 @@
     "build:ai": "esbuild background-removal.worker.js image-cleanup.worker.js image-enhance.worker.js --bundle --minify --format=iife --platform=browser --outdir=dist",
     "start": "npm run build:ai && node server.js",
     "dev": "npm run build:ai && node server.js",
-    "check": "node --check script.js && node --check ai-tools.js && node --check server.js && npm run build:ai"
+    "test:social-prompts": "node tests/social-prompts.test.js",
+    "check": "node --check social-prompts.js && node --check script.js && node --check ai-tools.js && node --check server.js && npm run test:social-prompts && npm run build:ai"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.2.0",

@@ -224,9 +224,10 @@
                           <option value="main">商品主图</option>
                           <option value="detail">详情图</option>
                           <option value="poster">营销海报</option>
+                          <option value="social">社媒营销</option>
                         </select>
                       </label>
-                      <label class="quick-home-field">
+                      <label class="quick-home-field" data-quick-home-platform-field>
                         <span>目标平台</span>
                         <select aria-label="快速生成目标平台" data-quick-home-platform>
                           <option value="amazon">亚马逊</option>
@@ -235,7 +236,7 @@
                           <option value="jd">京东</option>
                         </select>
                       </label>
-                      <label class="quick-home-field">
+                      <label class="quick-home-field" data-quick-home-template-field>
                         <span>生成模板</span>
                         <select aria-label="快速生成模板" data-quick-home-template>
                           <option value="auto">AI 智能推荐</option>
@@ -282,6 +283,39 @@
                           <option value="traffic">活动预热与引流</option>
                         </select>
                       </label>
+                      <label class="quick-home-field" data-quick-home-social-platform-field hidden>
+                        <span>发布平台</span>
+                        <select aria-label="选择社媒发布平台" data-quick-home-social-platform>
+                          <option value="xiaohongshu">小红书</option>
+                          <option value="douyin">抖音</option>
+                          <option value="wechat_article">微信公众号</option>
+                          <option value="wechat_channels">视频号</option>
+                          <option value="weibo">微博</option>
+                          <option value="generic_graphic">通用图文</option>
+                        </select>
+                      </label>
+                      <label class="quick-home-field" data-quick-home-social-objective-field hidden>
+                        <span>营销目标</span>
+                        <select aria-label="选择社媒营销目标" data-quick-home-social-objective>
+                          <option value="new_product_seeding">新品种草</option>
+                          <option value="product_review">商品测评</option>
+                          <option value="selling_point_intro">卖点介绍</option>
+                          <option value="campaign_promotion">活动促销</option>
+                          <option value="usage_tutorial">使用教程</option>
+                          <option value="brand_story">品牌故事</option>
+                          <option value="user_case">用户案例</option>
+                        </select>
+                      </label>
+                      <label class="quick-home-field" data-quick-home-social-tone-field hidden>
+                        <span>内容语气</span>
+                        <select aria-label="选择社媒内容语气" data-quick-home-social-tone>
+                          <option value="natural">自然种草</option>
+                          <option value="professional">专业可信</option>
+                          <option value="concise">简洁直接</option>
+                          <option value="official">品牌官方</option>
+                          <option value="warm">温暖生活</option>
+                        </select>
+                      </label>
                       <label class="quick-home-field">
                         <span>生成数量</span>
                         <span class="quick-home-number-control">
@@ -298,6 +332,14 @@
                       <label class="quick-home-field quick-home-poster-offer" data-quick-home-poster-offer-field hidden>
                         <span>价格或优惠 <small>选填，不会由 AI 编造</small></span>
                         <input type="text" data-quick-home-poster-offer placeholder="例如：新品首发价 ¥199，限时赠收纳袋" />
+                      </label>
+                      <label class="quick-home-field quick-home-social-audience" data-quick-home-social-audience-field hidden>
+                        <span>目标人群 <small>建议填写</small></span>
+                        <input type="text" data-quick-home-social-audience placeholder="例如：重视轻便与通勤效率的 25-35 岁上班族" />
+                      </label>
+                      <label class="quick-home-field quick-home-social-cta" data-quick-home-social-cta-field hidden>
+                        <span>行动引导 <small>选填</small></span>
+                        <input type="text" data-quick-home-social-cta placeholder="例如：收藏这份使用指南" />
                       </label>
                     </div>
 
@@ -354,6 +396,7 @@
                       <option value="detail">详情图</option>
                       <option value="main">主图</option>
                       <option value="poster">营销海报</option>
+                      <option value="social">社媒营销</option>
                     </select>
                     <span class="select-arrow" aria-hidden="true"></span>
                   </div>
@@ -373,6 +416,12 @@
                       <option value="taobao">淘宝</option>
                       <option value="pdd">拼多多</option>
                       <option value="jd">京东</option>
+                      <option value="xiaohongshu">小红书</option>
+                      <option value="douyin">抖音</option>
+                      <option value="wechat_article">微信公众号</option>
+                      <option value="wechat_channels">视频号</option>
+                      <option value="weibo">微博</option>
+                      <option value="generic_graphic">通用图文</option>
                     </select>
                     <span class="platform-language" data-amazon-language>
                       <span aria-hidden="true"></span>
@@ -432,7 +481,7 @@
                   </span>
                   <span><strong>视频创作</strong><small>商品短片免脚本</small></span>
                 </button>
-                <button type="button">
+                <button type="button" data-creation-path="social">
                   <span class="path-icon social" aria-hidden="true">
                     <svg viewBox="0 0 24 24" data-icon="share-3">
                       <path d="M13 4v4c-6.575 1.028 -9.02 6.788 -10 12c-.037 .206 5.384 -5.962 10 -6v4l8 -7l-8 -7" />
@@ -621,7 +670,7 @@
                       <span class="quick-analyzed-placeholder" aria-hidden="true">IMG</span>
                       <div class="quick-analyzed-copy">
                         <strong data-quick-analyzed-name>商品素材已通过检查</strong>
-                        <p>主体完整、清晰度良好，可以直接继续生成。</p>
+                        <p data-quick-analyzed-note>主体完整、清晰度良好，可以直接继续生成。</p>
                         <div>
                           <span data-quick-analysis-type>商品主图</span>
                           <span data-quick-analysis-platform>亚马逊</span>
@@ -652,10 +701,10 @@
 
                       <div class="quick-confirm-card quick-text-card">
                         <span class="quick-confirm-icon is-apricot" aria-hidden="true">T</span>
-                        <div class="quick-confirm-card-head"><strong>画面文字</strong><small>生成后仍可继续调整</small></div>
+                        <div class="quick-confirm-card-head"><strong data-quick-text-title>画面文字</strong><small data-quick-text-note>生成后仍可继续调整</small></div>
                         <div class="quick-text-options" role="group" aria-label="画面是否包含文字">
-                          <button class="is-active" type="button" aria-pressed="true" data-quick-text="include">包含文字</button>
-                          <button type="button" aria-pressed="false" data-quick-text="exclude">不含文字</button>
+                          <button class="is-active" type="button" aria-pressed="true" data-quick-text="include" data-quick-text-include-label>包含文字</button>
+                          <button type="button" aria-pressed="false" data-quick-text="exclude" data-quick-text-exclude-label>不含文字</button>
                         </div>
                         <select class="skip-custom-select" aria-label="画面是否包含文字" data-quick-include hidden>
                           <option value="include">包含文字</option>
@@ -675,7 +724,7 @@
                       <i aria-hidden="true"></i>
                     </summary>
                     <div class="quick-fields-grid quick-more-grid">
-                      <label class="quick-field">
+                      <label class="quick-field" data-quick-settings-platform-field>
                         <span>目标平台</span>
                         <select aria-label="目标平台" data-quick-platform>
                           <option value="amazon">亚马逊</option>
@@ -684,7 +733,7 @@
                           <option value="jd">京东</option>
                         </select>
                       </label>
-                      <label class="quick-field">
+                      <label class="quick-field" data-quick-settings-template-field>
                         <span>生成模板</span>
                         <select aria-label="生成模板" data-quick-template>
                           <option value="auto">AI 智能推荐</option>
@@ -693,6 +742,14 @@
                           <option value="premium">轻奢质感型</option>
                         </select>
                       </label>
+                      <div class="quick-field quick-readonly-field" data-quick-settings-social-platform-field hidden>
+                        <span>发布平台</span>
+                        <strong data-quick-settings-social-platform>小红书</strong>
+                      </div>
+                      <div class="quick-field quick-readonly-field" data-quick-settings-social-template-field hidden>
+                        <span>Prompt 模板</span>
+                        <strong data-quick-settings-social-template>social.xhs.seeding</strong>
+                      </div>
                       <label class="quick-field">
                         <span>清晰度</span>
                         <select aria-label="快速生成清晰度" data-quick-resolution>
@@ -707,6 +764,8 @@
                           <option value="1:1">1:1 · 主图</option>
                           <option value="3:4">3:4 · 详情</option>
                           <option value="4:5">4:5 · 社媒</option>
+                          <option value="9:16">9:16 · 短视频</option>
+                          <option value="16:9">16:9 · 文章封面</option>
                         </select>
                       </label>
                       <label class="quick-field">
@@ -766,11 +825,11 @@
                     </div>
                     <div class="quick-empty-copy">
                       <span>素材分析完成</span>
-                      <h3>商品主体与背景质量良好</h3>
+                      <h3 data-quick-analysis-heading>商品主体与背景质量良好</h3>
                       <p data-quick-analysis-summary>已识别完整商品主体，背景干净，适合按照亚马逊主图规范继续生成。</p>
                       <ul>
-                        <li><i>✓</i>主体边缘完整，无明显遮挡</li>
-                        <li><i>✓</i>清晰度满足 2K 生成要求</li>
+                        <li><i>✓</i><span data-quick-analysis-check-one>主体边缘完整，无明显遮挡</span></li>
+                        <li><i>✓</i><span data-quick-analysis-check-two>清晰度满足 2K 生成要求</span></li>
                         <li><i>✓</i><span data-quick-analysis-rule>已匹配亚马逊 · 1:1 规范</span></li>
                       </ul>
                     </div>
@@ -799,12 +858,12 @@
                     <div class="quick-result-summary">
                       <div>
                         <span class="quick-result-check" aria-hidden="true">✓</span>
-                        <div><h3 data-quick-result-title>已完成 4 张商品主图</h3><p>已按照当前平台、模板与文字设置完成生成。</p></div>
+                        <div><h3 data-quick-result-title>已完成 4 张商品主图</h3><p data-quick-result-note>已按照当前平台、模板与文字设置完成生成。</p></div>
                       </div>
                       <div class="quick-result-actions">
                         <button type="button" data-quick-regenerate>再生成一组</button>
                         <button type="button" data-quick-edit-agent>用 Agent 精细调整</button>
-                        <button class="is-primary" type="button">下载全部</button>
+                        <button class="is-primary" type="button" data-quick-result-primary>下载全部</button>
                       </div>
                     </div>
                     <div class="quick-result-grid" data-quick-result-grid>
@@ -2777,7 +2836,8 @@
       </main>
     </div>
 
-    <script src="script.js?v=20260715-batch-two"></script>
+    <script src="social-prompts.js?v=20260717-social-one"></script>
+    <script src="script.js?v=20260717-social-one"></script>
     <script src="ai-tools.js?v=20260715-batch-two"></script>
   </body>
 </html>

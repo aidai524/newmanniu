@@ -67,6 +67,8 @@ const quickHomeTypeSelect = document.querySelector("[data-quick-home-type-select
 const quickHomeCard = document.querySelector(".quick-home-card");
 const quickHomeTitle = document.querySelector("[data-quick-home-title]");
 const quickHomeSellingLabel = document.querySelector("[data-quick-home-selling-label]");
+const quickHomePlatformField = document.querySelector("[data-quick-home-platform-field]");
+const quickHomeTemplateField = document.querySelector("[data-quick-home-template-field]");
 const quickHomeMainField = document.querySelector("[data-quick-home-main-field]");
 const quickHomeDetailField = document.querySelector("[data-quick-home-detail-field]");
 const quickHomePosterTypeField = document.querySelector("[data-quick-home-poster-type-field]");
@@ -75,6 +77,16 @@ const quickHomePosterOfferField = document.querySelector("[data-quick-home-poste
 const quickHomePosterType = document.querySelector("[data-quick-home-poster-type]");
 const quickHomePosterObjective = document.querySelector("[data-quick-home-poster-objective]");
 const quickHomePosterOffer = document.querySelector("[data-quick-home-poster-offer]");
+const quickHomeSocialPlatformField = document.querySelector("[data-quick-home-social-platform-field]");
+const quickHomeSocialObjectiveField = document.querySelector("[data-quick-home-social-objective-field]");
+const quickHomeSocialToneField = document.querySelector("[data-quick-home-social-tone-field]");
+const quickHomeSocialAudienceField = document.querySelector("[data-quick-home-social-audience-field]");
+const quickHomeSocialCtaField = document.querySelector("[data-quick-home-social-cta-field]");
+const quickHomeSocialPlatform = document.querySelector("[data-quick-home-social-platform]");
+const quickHomeSocialObjective = document.querySelector("[data-quick-home-social-objective]");
+const quickHomeSocialTone = document.querySelector("[data-quick-home-social-tone]");
+const quickHomeSocialAudience = document.querySelector("[data-quick-home-social-audience]");
+const quickHomeSocialCta = document.querySelector("[data-quick-home-social-cta]");
 const quickHomeStatus = document.querySelector("[data-quick-home-status]");
 const quickHomeUpload = document.querySelector("[data-quick-home-upload]");
 const quickHomeFileInput = document.querySelector("[data-quick-home-file]");
@@ -110,12 +122,29 @@ const quickEmptyState = document.querySelector("[data-quick-empty]");
 const quickAnalyzing = document.querySelector("[data-quick-analyzing]");
 const quickResults = document.querySelector("[data-quick-results]");
 const quickResultTitle = document.querySelector("[data-quick-result-title]");
+const quickResultNote = document.querySelector("[data-quick-result-note]");
+const quickResultPrimary = document.querySelector("[data-quick-result-primary]");
 const quickResultGrid = document.querySelector("[data-quick-result-grid]");
 const quickTextButtons = [...document.querySelectorAll("[data-quick-text]")];
+const quickTextOptions = document.querySelector(".quick-text-options");
+const quickTextTitle = document.querySelector("[data-quick-text-title]");
+const quickTextNote = document.querySelector("[data-quick-text-note]");
+const quickTextIncludeLabel = document.querySelector("[data-quick-text-include-label]");
+const quickTextExcludeLabel = document.querySelector("[data-quick-text-exclude-label]");
 const quickConfirmNote = document.querySelector("[data-quick-confirm-note]");
+const quickSettingsPlatformField = document.querySelector("[data-quick-settings-platform-field]");
+const quickSettingsTemplateField = document.querySelector("[data-quick-settings-template-field]");
+const quickSettingsSocialPlatformField = document.querySelector("[data-quick-settings-social-platform-field]");
+const quickSettingsSocialTemplateField = document.querySelector("[data-quick-settings-social-template-field]");
+const quickSettingsSocialPlatform = document.querySelector("[data-quick-settings-social-platform]");
+const quickSettingsSocialTemplate = document.querySelector("[data-quick-settings-social-template]");
 const quickAnalyzedPreview = document.querySelector("[data-quick-analyzed-preview]");
 const quickAnalyzedName = document.querySelector("[data-quick-analyzed-name]");
+const quickAnalyzedNote = document.querySelector("[data-quick-analyzed-note]");
 const quickAnalysisPreview = document.querySelector("[data-quick-analysis-preview]");
+const quickAnalysisHeading = document.querySelector("[data-quick-analysis-heading]");
+const quickAnalysisCheckOne = document.querySelector("[data-quick-analysis-check-one]");
+const quickAnalysisCheckTwo = document.querySelector("[data-quick-analysis-check-two]");
 const quickAnalysisType = document.querySelector("[data-quick-analysis-type]");
 const quickAnalysisPlatform = document.querySelector("[data-quick-analysis-platform]");
 const quickAnalysisTemplate = document.querySelector("[data-quick-analysis-template]");
@@ -548,6 +577,43 @@ function setSelectValue(select, value) {
   select.dispatchEvent(new Event("change", { bubbles: true }));
 }
 
+function buildSocialPromptPlan() {
+  const compile = window.ManniuSocialPrompts?.compile;
+  const input = {
+    platform: quickHomeSocialPlatform?.value || "xiaohongshu",
+    objective: quickHomeSocialObjective?.value || "new_product_seeding",
+    audience: quickHomeSocialAudience?.value.trim() || "",
+    tone: quickHomeSocialTone?.value || "natural",
+    coreFacts: quickHomeSellingPoint?.value.trim() || "",
+    callToAction: quickHomeSocialCta?.value.trim() || "",
+    planCount: quickHomeCount?.value || quickCount?.value || "3",
+    includeVisuals: quickInclude?.value !== "exclude",
+    userCaseAuthorized: false,
+  };
+  if (typeof compile === "function") return compile(input);
+  return {
+    templateId: "social.xhs.seeding",
+    platform: { label: "小红书", ratio: "4:5", outputName: "图文笔记", outputHint: "封面、正文和图文卡片" },
+    objective: { label: "新品种草", defaultTitle: "这件新品，适合这样用", requiredFacts: ["产品特点", "目标用户", "使用场景"] },
+    tone: "自然种草",
+    missingFields: input.audience && input.coreFacts ? [] : ["contentFacts"],
+    userPrompt: "请根据已确认的商品事实规划小红书新品种草内容，缺少事实时先提问。",
+    prompt: "请根据已确认的商品事实规划小红书新品种草内容，返回结构化内容计划。",
+  };
+}
+
+function syncSocialSettings() {
+  const plan = buildSocialPromptPlan();
+  if (activeQuickType === "social") setSelectValue(quickRatio, plan.platform.ratio || "4:5");
+  if (activeQuickType === "social" && quickHomeSellingPoint) {
+    quickHomeSellingPoint.placeholder = `请填写：${plan.objective.requiredFacts.join("、")}`;
+  }
+  if (quickSettingsSocialPlatform) quickSettingsSocialPlatform.textContent = plan.platform.label;
+  if (quickSettingsSocialTemplate) quickSettingsSocialTemplate.textContent = plan.templateId;
+  if (quickWorkspace) quickWorkspace.dataset.socialTemplateId = plan.templateId;
+  return plan;
+}
+
 function setCreationMode(mode) {
   creationModeButtons.forEach((button) => {
     const isActive = button.dataset.creationMode === mode;
@@ -571,14 +637,21 @@ creationModeButtons.forEach((button) => {
     const mode = button.dataset.creationMode || "quick";
     if (mode === "agent") {
       setSelectValue(outputTypeSelect, activeQuickType);
-      setSelectValue(platformSelect, quickHomePlatform?.value || "amazon");
+      setSelectValue(
+        platformSelect,
+        activeQuickType === "social" ? quickHomeSocialPlatform?.value || "xiaohongshu" : quickHomePlatform?.value || "amazon",
+      );
       const sellingPoint = quickHomeSellingPoint?.value.trim();
-      if (sellingPoint && homePrompt) homePrompt.value = sellingPoint;
+      if (homePrompt && activeQuickType === "social") homePrompt.value = buildSocialPromptPlan().userPrompt;
+      else if (sellingPoint && homePrompt) homePrompt.value = sellingPoint;
     } else {
       setQuickType(outputTypeSelect?.value || activeQuickType, { keepCount: true, resetResult: false });
-      setSelectValue(quickHomePlatform, platformSelect?.value || "amazon");
+      if (activeQuickType === "social") setSelectValue(quickHomeSocialPlatform, platformSelect?.value || "xiaohongshu");
+      else setSelectValue(quickHomePlatform, platformSelect?.value || "amazon");
       if (quickHomeCount && generateCountInput) quickHomeCount.value = generateCountInput.value || quickHomeCount.value;
-      if (quickHomeSellingPoint && homePrompt?.value.trim()) quickHomeSellingPoint.value = homePrompt.value.trim();
+      if (activeQuickType !== "social" && quickHomeSellingPoint && homePrompt?.value.trim()) {
+        quickHomeSellingPoint.value = homePrompt.value.trim();
+      }
     }
     setCreationMode(mode);
   });
@@ -586,60 +659,119 @@ creationModeButtons.forEach((button) => {
 
 function updateQuickGenerateLabel() {
   const count = Math.max(1, Math.min(10, Number.parseInt(quickCount?.value || "4", 10) || 4));
+  const isSocial = activeQuickType === "social";
+  const includeSocialVisuals = quickInclude?.value !== "exclude";
+  const socialPlan = isSocial ? buildSocialPromptPlan() : null;
   if (quickGenerateLabel) {
     quickGenerateLabel.textContent = activeQuickType === "detail"
       ? `确认并生成 ${count} 屏详情图`
       : activeQuickType === "poster"
         ? `确认并生成 ${count} 张海报`
-        : `确认并生成 ${count} 张主图`;
+        : isSocial
+          ? `确认并生成 ${count} 套内容`
+          : `确认并生成 ${count} 张主图`;
   }
   if (quickConfirmNote) {
     quickConfirmNote.textContent = activeQuickType === "detail"
       ? `AI 建议生成 ${count} 屏详情图，按照首屏、卖点、场景和转化信息依次展开。`
       : activeQuickType === "poster"
         ? `AI 建议生成 ${count} 张海报，先锁定商品主体，再分别规划标题、活动信息和 CTA 安全区。`
-        : `AI 建议生成 ${count} 张不同构图的主图，并保留带文案与无文案的版本。`;
+        : isSocial
+          ? includeSocialVisuals
+            ? `AI 将生成 ${count} 套${socialPlan.platform.label}${socialPlan.objective.label}内容，每套包含${socialPlan.platform.outputHint}。`
+            : `AI 将生成 ${count} 套${socialPlan.platform.label}${socialPlan.objective.label}内容，仅输出可编辑发布文案、话题与行动引导。`
+          : `AI 建议生成 ${count} 张不同构图的主图，并保留带文案与无文案的版本。`;
   }
 }
 
 function setQuickType(type, { keepCount = false, resetResult = true } = {}) {
-  activeQuickType = ["detail", "poster"].includes(type) ? type : "main";
+  activeQuickType = ["detail", "poster", "social"].includes(type) ? type : "main";
   const isDetail = activeQuickType === "detail";
   const isPoster = activeQuickType === "poster";
+  const isSocial = activeQuickType === "social";
   if (quickHomeTypeSelect && quickHomeTypeSelect.value !== activeQuickType) {
     setSelectValue(quickHomeTypeSelect, activeQuickType);
   }
   if (quickHomeCard) quickHomeCard.dataset.quickType = activeQuickType;
   if (quickHomeTitle) {
-    quickHomeTitle.textContent = isDetail ? "详情图生成设置" : isPoster ? "营销海报生成设置" : "商品主图生成设置";
+    quickHomeTitle.textContent = isDetail
+      ? "详情图生成设置"
+      : isPoster
+        ? "营销海报生成设置"
+        : isSocial
+          ? "社媒营销生成设置"
+          : "商品主图生成设置";
   }
   if (quickHomeSellingLabel) {
-    quickHomeSellingLabel.textContent = isDetail ? "详情页核心卖点" : isPoster ? "海报主标题 / 核心信息" : "主图核心卖点";
+    quickHomeSellingLabel.textContent = isDetail
+      ? "详情页核心卖点"
+      : isPoster
+        ? "海报主标题 / 核心信息"
+        : isSocial
+          ? "已确认事实 / 核心信息"
+          : "主图核心卖点";
   }
   if (quickHomeSellingPoint) {
     quickHomeSellingPoint.placeholder = isDetail
       ? "例如：轻便、防滑、缓震，适合户外通勤人群"
       : isPoster
         ? "例如：轻盈上新｜新品首发限时体验"
-        : "例如：轻便、防滑，适合户外通勤";
+        : isSocial
+          ? "例如：鞋底防滑纹路、单只 260g，适合雨天通勤"
+          : "例如：轻便、防滑，适合户外通勤";
   }
-  if (quickHomeMainField) quickHomeMainField.hidden = isDetail || isPoster;
+  if (quickHomePlatformField) quickHomePlatformField.hidden = isSocial;
+  if (quickHomeTemplateField) quickHomeTemplateField.hidden = isSocial;
+  if (quickHomeMainField) quickHomeMainField.hidden = isDetail || isPoster || isSocial;
   if (quickHomeDetailField) quickHomeDetailField.hidden = !isDetail;
   if (quickHomePosterTypeField) quickHomePosterTypeField.hidden = !isPoster;
   if (quickHomePosterObjectiveField) quickHomePosterObjectiveField.hidden = !isPoster;
   if (quickHomePosterOfferField) quickHomePosterOfferField.hidden = !isPoster;
-  if (quickCanvasTitle) quickCanvasTitle.textContent = isPoster ? "海报分析与生成预览" : "素材分析与生成预览";
-  if (quickCountLabel) quickCountLabel.textContent = isDetail ? "详情屏数" : isPoster ? "海报数量" : "生成数量";
-  if (quickHomeCountUnit) quickHomeCountUnit.textContent = isDetail ? "屏" : "张";
+  if (quickHomeSocialPlatformField) quickHomeSocialPlatformField.hidden = !isSocial;
+  if (quickHomeSocialObjectiveField) quickHomeSocialObjectiveField.hidden = !isSocial;
+  if (quickHomeSocialToneField) quickHomeSocialToneField.hidden = !isSocial;
+  if (quickHomeSocialAudienceField) quickHomeSocialAudienceField.hidden = !isSocial;
+  if (quickHomeSocialCtaField) quickHomeSocialCtaField.hidden = !isSocial;
+  if (quickSettingsPlatformField) quickSettingsPlatformField.hidden = isSocial;
+  if (quickSettingsTemplateField) quickSettingsTemplateField.hidden = isSocial;
+  if (quickSettingsSocialPlatformField) quickSettingsSocialPlatformField.hidden = !isSocial;
+  if (quickSettingsSocialTemplateField) quickSettingsSocialTemplateField.hidden = !isSocial;
+  if (quickCanvasTitle) {
+    quickCanvasTitle.textContent = isPoster
+      ? "海报分析与生成预览"
+      : isSocial
+        ? "社媒内容分析与生成预览"
+        : "素材分析与生成预览";
+  }
+  if (quickCountLabel) {
+    quickCountLabel.textContent = isDetail ? "详情屏数" : isPoster ? "海报数量" : isSocial ? "内容方案数" : "生成数量";
+  }
+  if (quickHomeCountUnit) quickHomeCountUnit.textContent = isDetail ? "屏" : isSocial ? "套" : "张";
+  if (quickTextTitle) quickTextTitle.textContent = isSocial ? "内容输出" : "画面文字";
+  if (quickTextNote) quickTextNote.textContent = isSocial ? "文案始终可编辑" : "生成后仍可继续调整";
+  if (quickTextIncludeLabel) quickTextIncludeLabel.textContent = isSocial ? "文案 + 配图" : "包含文字";
+  if (quickTextExcludeLabel) quickTextExcludeLabel.textContent = isSocial ? "仅生成文案" : "不含文字";
+  if (quickTextOptions) quickTextOptions.setAttribute("aria-label", isSocial ? "选择社媒内容输出形式" : "画面是否包含文字");
+  if (quickInclude) quickInclude.setAttribute("aria-label", isSocial ? "选择社媒内容输出形式" : "画面是否包含文字");
+  if (quickResultNote) {
+    quickResultNote.textContent = isSocial
+      ? "文案、话题和视觉建议已按平台组织，可继续编辑或导出。"
+      : "已按照当前平台、模板与文字设置完成生成。";
+  }
+  if (quickResultPrimary) quickResultPrimary.textContent = isSocial ? "导出全部" : "下载全部";
   if (!keepCount) {
-    const defaultCount = isDetail ? "5" : isPoster ? "3" : "4";
+    const defaultCount = isDetail ? "5" : isPoster || isSocial ? "3" : "4";
     if (quickHomeCount) quickHomeCount.value = defaultCount;
     if (quickCount) quickCount.value = defaultCount;
   }
-  setSelectValue(quickRatio, isDetail || isPoster ? "3:4" : "1:1");
+  if (isSocial) syncSocialSettings();
+  else setSelectValue(quickRatio, isDetail || isPoster ? "3:4" : "1:1");
   quickResults?.classList.toggle("is-detail", isDetail);
   quickResults?.classList.toggle("is-poster", isPoster);
-  const phaseCopy = isPoster
+  quickResults?.classList.toggle("is-social", isSocial);
+  const phaseCopy = isSocial
+    ? ["核验商品与目标事实", "生成平台文案结构", "规划封面与内容卡片"]
+    : isPoster
     ? ["锁定商品与活动事实", "生成构图与海报背景", "排版可编辑文字层"]
     : isDetail
       ? ["锁定商品主体", "生成分屏构图与背景", "排版卖点与质检"]
@@ -650,7 +782,7 @@ function setQuickType(type, { keepCount = false, resetResult = true } = {}) {
   });
   creationPathButtons.forEach((button) => {
     const path = button.dataset.creationPath;
-    const isActive = isPoster ? path === "poster" : path === "commerce";
+    const isActive = isPoster ? path === "poster" : isSocial ? path === "social" : path === "commerce";
     button.classList.toggle("is-active-path", isActive);
     button.setAttribute("aria-pressed", String(isActive));
   });
@@ -674,51 +806,93 @@ quickTextButtons.forEach((button) => {
       item.classList.toggle("is-active", isActive);
       item.setAttribute("aria-pressed", String(isActive));
     });
+    if (activeQuickType === "social") {
+      const finalPhaseCopy = quickRenderPhases[2]?.querySelector("span");
+      if (finalPhaseCopy) finalPhaseCopy.textContent = value === "exclude" ? "整理话题与行动引导" : "规划封面与内容卡片";
+    }
     updateQuickGenerateLabel();
   });
 });
 
 function syncQuickAnalysisSummary() {
-  const platformText = quickPlatform?.selectedOptions[0]?.textContent?.trim()
-    || quickHomePlatform?.selectedOptions[0]?.textContent?.trim()
-    || "亚马逊";
-  const templateText = quickTemplate?.selectedOptions[0]?.textContent?.trim()
-    || quickHomeTemplate?.selectedOptions[0]?.textContent?.trim()
-    || "AI 智能推荐";
+  const isSocial = activeQuickType === "social";
+  const socialPlan = isSocial ? syncSocialSettings() : null;
+  const platformText = isSocial
+    ? socialPlan.platform.label
+    : quickPlatform?.selectedOptions[0]?.textContent?.trim()
+      || quickHomePlatform?.selectedOptions[0]?.textContent?.trim()
+      || "亚马逊";
+  const templateText = isSocial
+    ? socialPlan.templateId
+    : quickTemplate?.selectedOptions[0]?.textContent?.trim()
+      || quickHomeTemplate?.selectedOptions[0]?.textContent?.trim()
+      || "AI 智能推荐";
   const posterTypeText = quickHomePosterType?.selectedOptions[0]?.textContent?.trim() || "营销";
   const posterObjectiveText = quickHomePosterObjective?.selectedOptions[0]?.textContent?.trim() || "促进转化";
-  const typeText = activeQuickType === "detail" ? "详情图" : activeQuickType === "poster" ? `${posterTypeText}海报` : "商品主图";
-  const ratioText = activeQuickType === "detail" || activeQuickType === "poster" ? "3:4" : "1:1";
+  const typeText = activeQuickType === "detail"
+    ? "详情图"
+    : activeQuickType === "poster"
+      ? `${posterTypeText}海报`
+      : isSocial
+        ? `${socialPlan.objective.label}内容`
+        : "商品主图";
+  const ratioText = isSocial ? socialPlan.platform.ratio : activeQuickType === "detail" || activeQuickType === "poster" ? "3:4" : "1:1";
   const referenceCount = Math.max(1, sharedReferenceFiles.length);
+  const audienceText = quickHomeSocialAudience?.value.trim() || "待确认目标人群";
   if (quickAnalysisType) quickAnalysisType.textContent = typeText;
   if (quickAnalysisPlatform) quickAnalysisPlatform.textContent = platformText;
   if (quickAnalysisTemplate) quickAnalysisTemplate.textContent = templateText;
+  if (quickAnalyzedName) quickAnalyzedName.textContent = isSocial ? "社媒素材与内容事实已分析" : "商品素材已通过检查";
+  if (quickAnalyzedNote) {
+    quickAnalyzedNote.textContent = isSocial
+      ? "商品素材、受众和核心事实已读取，可以继续生成。"
+      : "主体完整、清晰度良好，可以直接继续生成。";
+  }
+  if (quickAnalysisHeading) quickAnalysisHeading.textContent = isSocial ? "平台规则与内容事实已就绪" : "商品主体与背景质量良好";
+  if (quickAnalysisCheckOne) {
+    quickAnalysisCheckOne.textContent = isSocial ? "商品素材可用于封面与内容卡片" : "主体边缘完整，无明显遮挡";
+  }
+  if (quickAnalysisCheckTwo) {
+    quickAnalysisCheckTwo.textContent = isSocial ? "缺少的事实会在内容计划中明确标记" : "清晰度满足 2K 生成要求";
+  }
   if (quickAnalysisSummary) {
     quickAnalysisSummary.textContent = activeQuickType === "detail"
       ? `已综合 ${referenceCount} 张商品素材中的主体、角度与细节，适合按照 ${platformText} 详情页结构规划多屏卖点。`
       : activeQuickType === "poster"
         ? `已综合 ${referenceCount} 张商品素材，并按照“${posterObjectiveText}”规划标题层级、商品安全区和行动按钮。活动价格只采用你明确提供的信息。`
-        : `已综合 ${referenceCount} 张商品素材，主体完整、背景干净，适合按照 ${platformText} 主图规范继续生成。`;
+        : isSocial
+          ? `已按${platformText}和“${socialPlan.objective.label}”组织内容方向，目标人群为${audienceText}。缺少体验、价格或案例事实时，AI 会标记待补充项。`
+          : `已综合 ${referenceCount} 张商品素材，主体完整、背景干净，适合按照 ${platformText} 主图规范继续生成。`;
   }
   if (quickAnalysisRule) {
-    quickAnalysisRule.textContent = activeQuickType === "poster"
-      ? `已匹配 ${platformText} · ${ratioText} 海报安全区`
-      : `已匹配 ${platformText} · ${ratioText} 规范`;
+    quickAnalysisRule.textContent = isSocial
+      ? `已匹配 ${platformText} · ${ratioText} · ${socialPlan.platform.outputName}`
+      : activeQuickType === "poster"
+        ? `已匹配 ${platformText} · ${ratioText} 海报安全区`
+        : `已匹配 ${platformText} · ${ratioText} 规范`;
   }
 }
 
-[quickPlatform, quickTemplate, quickHomePosterType, quickHomePosterObjective].forEach((select) => {
+[quickPlatform, quickTemplate, quickHomePosterType, quickHomePosterObjective, quickHomeSocialPlatform, quickHomeSocialObjective, quickHomeSocialTone].forEach((select) => {
   select?.addEventListener("change", syncQuickAnalysisSummary);
 });
-quickHomePosterOffer?.addEventListener("input", syncQuickAnalysisSummary);
+[quickHomePosterOffer, quickHomeSocialAudience, quickHomeSocialCta, quickHomeSellingPoint].forEach((input) => {
+  input?.addEventListener("input", () => {
+    syncQuickAnalysisSummary();
+    updateQuickGenerateLabel();
+  });
+});
 
 setQuickType(quickHomeTypeSelect?.value || "main", { keepCount: false, resetResult: false });
 
 function syncHomeQuickToWorkbench() {
   setQuickType(quickHomeTypeSelect?.value || activeQuickType, { keepCount: true, resetResult: false });
   if (quickCount && quickHomeCount) quickCount.value = quickHomeCount.value;
-  setSelectValue(quickPlatform, quickHomePlatform?.value || "amazon");
-  setSelectValue(quickTemplate, quickHomeTemplate?.value || "auto");
+  if (activeQuickType === "social") syncSocialSettings();
+  else {
+    setSelectValue(quickPlatform, quickHomePlatform?.value || "amazon");
+    setSelectValue(quickTemplate, quickHomeTemplate?.value || "auto");
+  }
   syncQuickAnalysisSummary();
 }
 
@@ -729,18 +903,26 @@ function beginQuickAnalysis() {
   if (quickAnalysisOrbit) quickAnalysisOrbit.hidden = false;
   if (quickRenderStatus) quickRenderStatus.hidden = true;
   const requestedCount = Math.max(1, Math.min(10, Number.parseInt(quickCount?.value || "4", 10) || 4));
-  if (quickAnalyzingLabel) quickAnalyzingLabel.textContent = `正在分析 ${sharedReferenceFiles.length} 张商品素材`;
+  if (quickAnalyzingLabel) {
+    quickAnalyzingLabel.textContent = activeQuickType === "social"
+      ? "正在理解商品素材与内容目标"
+      : `正在分析 ${sharedReferenceFiles.length} 张商品素材`;
+  }
   if (quickAnalyzingTitle) {
     quickAnalyzingTitle.textContent = activeQuickType === "detail"
       ? `正在规划 ${requestedCount} 屏详情图的内容结构…`
       : activeQuickType === "poster"
         ? `正在规划 ${requestedCount} 张海报的文案与版式…`
-        : `正在规划 ${requestedCount} 张主图的构图方向…`;
+        : activeQuickType === "social"
+          ? `正在规划 ${requestedCount} 套社媒内容结构…`
+          : `正在规划 ${requestedCount} 张主图的构图方向…`;
   }
   if (quickAnalyzingNote) {
     quickAnalyzingNote.textContent = activeQuickType === "poster"
       ? "正在校验活动事实、价格信息和中文文字安全区。"
-      : "分析完成后只需要确认生成数量和画面文字。";
+      : activeQuickType === "social"
+        ? "正在组合平台规则、营销目标、品牌语气和事实校验要求。"
+        : "分析完成后只需要确认生成数量和画面文字。";
   }
   if (quickGenerateButton) quickGenerateButton.disabled = true;
   if (quickGenerateLabel) quickGenerateLabel.textContent = "素材分析中…";
@@ -778,9 +960,16 @@ creationPathButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const path = button.dataset.creationPath;
     setCreationMode("quick");
-    setQuickType(path === "poster" ? "poster" : activeQuickType === "poster" ? "main" : activeQuickType);
+    const targetType = path === "poster"
+      ? "poster"
+      : path === "social"
+        ? "social"
+        : ["poster", "social"].includes(activeQuickType)
+          ? "main"
+          : activeQuickType;
+    setQuickType(targetType);
     quickHomeCard?.scrollIntoView({ behavior: "smooth", block: "center" });
-    const focusTarget = path === "poster" ? quickHomePosterType : quickHomeTypeSelect;
+    const focusTarget = path === "poster" ? quickHomePosterType : path === "social" ? quickHomeSocialPlatform : quickHomeTypeSelect;
     window.setTimeout(() => focusTarget?.parentElement?.querySelector(".custom-select-trigger")?.focus(), 260);
   });
 });
@@ -814,6 +1003,8 @@ function renderQuickResults() {
   if (!quickResultGrid) return;
   const requestedCount = Math.max(1, Math.min(10, Number.parseInt(quickCount?.value || "4", 10) || 4));
   const isPoster = activeQuickType === "poster";
+  const isSocial = activeQuickType === "social";
+  const socialPlan = isSocial ? buildSocialPromptPlan() : null;
   const imageSources = [
     "assets/dashboard/work-1-hd.jpg",
     "assets/dashboard/work-2-hd.jpg",
@@ -829,15 +1020,18 @@ function renderQuickResults() {
       ? "quick-result-card quick-detail-result-card"
       : isPoster
         ? "quick-result-card quick-poster-result-card"
-        : "quick-result-card quick-main-result-card";
+        : isSocial
+          ? "quick-result-card quick-social-result-card"
+          : "quick-result-card quick-main-result-card";
+    if (isSocial) card.dataset.socialPlatform = socialPlan.platformKey;
     const image = document.createElement("img");
     image.src = imageSources[index % imageSources.length];
-    image.alt = `${activeQuickType === "detail" ? "详情图" : isPoster ? "营销海报" : "主图"}快速生成结果 ${index + 1}`;
+    image.alt = `${activeQuickType === "detail" ? "详情图" : isPoster ? "营销海报" : isSocial ? "社媒内容封面" : "主图"}快速生成结果 ${index + 1}`;
 
     const redo = document.createElement("button");
     redo.type = "button";
     redo.textContent = "重做";
-    redo.addEventListener("click", () => showWorkspaceToast(`已提交${activeQuickType === "detail" ? "当前详情屏" : isPoster ? "当前海报" : "当前方案"}重新生成`));
+    redo.addEventListener("click", () => showWorkspaceToast(`已提交${activeQuickType === "detail" ? "当前详情屏" : isPoster ? "当前海报" : isSocial ? "当前内容方案" : "当前方案"}重新生成`));
     const download = document.createElement("button");
     download.type = "button";
     download.textContent = "下载";
@@ -904,6 +1098,96 @@ function renderQuickResults() {
       actions.append(edit, redo, download);
       footer.append(label, actions);
       card.append(frame, footer);
+    } else if (isSocial) {
+      const facts = quickHomeSellingPoint?.value.trim();
+      const audience = quickHomeSocialAudience?.value.trim();
+      const ctaText = quickHomeSocialCta?.value.trim() || "了解更多";
+      const titleVariants = [
+        socialPlan.objective.defaultTitle,
+        `从使用场景认识这件商品`,
+        `适合谁，核心特点是什么`,
+        `把真实信息讲得更清楚`,
+        `发布前先看这份内容清单`,
+      ];
+      const factHeadline = facts?.split(/[，。；;]/)[0]?.trim();
+      const headline = factHeadline ? factHeadline.slice(0, 26) : titleVariants[index % titleVariants.length];
+      const bodyText = facts
+        ? `${audience ? `面向${audience}，` : ""}围绕已确认信息“${facts}”组织内容，不补写未提供的体验、价格或效果数据。`
+        : `${audience ? `面向${audience}，` : ""}先建立内容结构，并将缺少的商品事实标记为待补充项。`;
+      const tagText = `#${socialPlan.objective.label} #商品内容 #使用场景`;
+
+      if (quickInclude?.value !== "exclude") {
+        const cover = document.createElement("div");
+        cover.className = "quick-social-cover";
+        const shade = document.createElement("span");
+        shade.className = "quick-social-cover-shade";
+        const platformBadge = document.createElement("span");
+        platformBadge.className = "quick-social-platform-badge";
+        platformBadge.textContent = socialPlan.platform.label;
+        const coverCopy = document.createElement("div");
+        coverCopy.className = "quick-social-cover-copy";
+        const coverObjective = document.createElement("span");
+        coverObjective.textContent = socialPlan.objective.label;
+        const coverTitle = document.createElement("strong");
+        coverTitle.textContent = headline;
+        coverCopy.append(coverObjective, coverTitle);
+        cover.append(image, shade, platformBadge, coverCopy);
+        card.append(cover);
+      } else {
+        card.classList.add("is-copy-only");
+        const textHead = document.createElement("div");
+        textHead.className = "quick-social-text-head";
+        const platform = document.createElement("strong");
+        platform.textContent = socialPlan.platform.label;
+        const template = document.createElement("span");
+        template.textContent = socialPlan.templateId;
+        textHead.append(platform, template);
+        card.append(textHead);
+      }
+
+      const content = document.createElement("div");
+      content.className = "quick-social-content";
+      const meta = document.createElement("span");
+      meta.className = "quick-social-meta";
+      meta.textContent = `${socialPlan.objective.label} · ${socialPlan.tone}`;
+      const title = document.createElement("strong");
+      title.textContent = headline;
+      const body = document.createElement("p");
+      body.textContent = bodyText;
+      const tags = document.createElement("small");
+      tags.textContent = tagText;
+      const cta = document.createElement("em");
+      cta.textContent = `行动引导：${ctaText}`;
+      content.append(meta, title, body, tags, cta);
+
+      const footer = document.createElement("div");
+      footer.className = "quick-social-footer";
+      const label = document.createElement("span");
+      label.textContent = `内容方案 ${String(index + 1).padStart(2, "0")} · ${socialPlan.platform.outputName}`;
+      const actions = document.createElement("div");
+      actions.className = "quick-social-actions";
+      const edit = document.createElement("button");
+      edit.type = "button";
+      edit.textContent = "编辑文案";
+      edit.addEventListener("click", () => showWorkspaceToast("已打开社媒文案编辑状态"));
+      const copy = document.createElement("button");
+      copy.type = "button";
+      copy.textContent = "复制";
+      copy.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(`${headline}\n\n${bodyText}\n\n${tagText}\n${ctaText}`);
+          showWorkspaceToast("社媒文案已复制");
+        } catch {
+          showWorkspaceToast("暂时无法访问剪贴板，请使用编辑文案复制");
+        }
+      });
+      const exportButton = document.createElement("button");
+      exportButton.type = "button";
+      exportButton.textContent = "导出";
+      exportButton.addEventListener("click", () => showWorkspaceToast("已准备导出文案、标签和视觉提示词"));
+      actions.append(edit, copy, redo, exportButton);
+      footer.append(label, actions);
+      card.append(content, footer);
     } else {
       const badge = document.createElement("span");
       badge.className = "quick-result-badge";
@@ -924,7 +1208,14 @@ function renderQuickResults() {
       ? `已完成 ${requestedCount} 屏详情图`
       : isPoster
         ? `已完成 ${requestedCount} 张营销海报`
-        : `已完成 ${requestedCount} 张商品主图`;
+        : isSocial
+          ? `已完成 ${requestedCount} 套${socialPlan.platform.label}内容`
+          : `已完成 ${requestedCount} 张商品主图`;
+  }
+  if (quickResultNote && isSocial) {
+    quickResultNote.textContent = quickInclude?.value === "exclude"
+      ? "发布文案、话题和行动引导已按平台组织，可继续编辑或导出。"
+      : "文案、话题和视觉建议已按平台组织，可继续编辑或导出。";
   }
 }
 
@@ -972,19 +1263,27 @@ function startQuickGeneration() {
   if (quickRenderStatus) quickRenderStatus.hidden = false;
   quickGenerateButton.disabled = true;
   if (quickAnalyzingLabel) {
-    quickAnalyzingLabel.textContent = activeQuickType === "poster" ? "正在生成你的营销海报" : "正在生成你的电商视觉";
+    quickAnalyzingLabel.textContent = activeQuickType === "poster"
+      ? "正在生成你的营销海报"
+      : activeQuickType === "social"
+        ? "正在生成你的社媒内容"
+        : "正在生成你的电商视觉";
   }
   if (quickAnalyzingTitle) {
     quickAnalyzingTitle.textContent = activeQuickType === "detail"
       ? "组织卖点层级并生成详情图…"
       : activeQuickType === "poster"
         ? "生成海报底图并排版可编辑文案…"
-        : "匹配构图与文案并生成商品主图…";
+        : activeQuickType === "social"
+          ? "生成平台文案、话题与视觉内容计划…"
+          : "匹配构图与文案并生成商品主图…";
   }
   if (quickAnalyzingNote) {
     quickAnalyzingNote.textContent = activeQuickType === "poster"
       ? "商品底图与中文文字分层生成，后续可单独修改标题和活动信息。"
-      : "已采用刚刚确认的数量与画面文字设置。";
+      : activeQuickType === "social"
+        ? "正在校验事实来源，并按平台组织标题、正文、标签、封面和内容卡片。"
+        : "已采用刚刚确认的数量与画面文字设置。";
   }
   if (quickGenerateLabel) quickGenerateLabel.textContent = "正在生成…";
   setQuickRenderProgress(4);
@@ -1276,25 +1575,30 @@ function openImageAgentTask({
   if (agentChatType) agentChatType.textContent = typeText;
   if (agentChatResolution) agentChatResolution.textContent = resolutionText;
   if (agentChatPlatform) agentChatPlatform.textContent = platformSummary;
-  if (agentChatCount) agentChatCount.textContent = `${generateCount}张`;
+  if (agentChatCount) agentChatCount.textContent = `${generateCount}${typeValue === "social" ? "套" : "张"}`;
 
   const isMain = typeValue === "main";
   const isPoster = typeValue === "poster";
-  const agentName = isMain ? "主图 Agent" : isPoster ? "海报 Agent" : "详情图 Agent";
+  const isSocial = typeValue === "social";
+  const agentName = isMain ? "主图 Agent" : isPoster ? "海报 Agent" : isSocial ? "社媒营销 Agent" : "详情图 Agent";
   if (agentPageTitle) agentPageTitle.textContent = agentName;
   if (agentPageDescription) {
     agentPageDescription.textContent = isMain
       ? "我会分析商品主体、构图和投放场景，再通过对话细化背景与文案方向"
       : isPoster
         ? "我会校验活动事实、规划商品构图，并与你确认标题、价格和行动按钮层级"
-        : "我会理解商品、参考图和平台规则，再与你确认分屏卖点和页面节奏";
+        : isSocial
+          ? "我会组合平台与营销目标模板，核验事实来源，再与你确认文案、话题和视觉内容计划"
+          : "我会理解商品、参考图和平台规则，再与你确认分屏卖点和页面节奏";
   }
   const flowSteps = [...document.querySelectorAll("[data-agent-flow-step]")];
   const flowCopy = isMain
     ? ["理解商品与投放目标", "分析主体、构图和背景", "确认卖点、文案和方向", "生成主图并输出变体"]
     : isPoster
       ? ["理解商品与活动目标", "核验活动和优惠事实", "确认标题、价格和 CTA 层级", "生成海报并输出可编辑文字层"]
-      : ["理解需求与平台规则", "分析参考图风格和构图", "确认分屏卖点和页面节奏", "生成详情图并输出结果"];
+      : isSocial
+        ? ["读取平台与营销目标", "核验商品、体验和案例事实", "确认受众、语气与内容结构", "生成文案、话题和视觉计划"]
+        : ["理解需求与平台规则", "分析参考图风格和构图", "确认分屏卖点和页面节奏", "生成详情图并输出结果"];
   flowSteps.forEach((step, index) => {
     if (flowCopy[index]) step.textContent = flowCopy[index];
   });
@@ -1307,25 +1611,35 @@ function openImageAgentTask({
       ? "我已读取快速生成中的素材和参数。接下来可以继续指定构图、背景、商品摆放或文案位置，也可以让我直接给出多套主图方向。"
       : isPoster
         ? "我已读取商品素材、海报类型和营销目标。接下来会先核验活动事实，再规划海报底图与可编辑文字层。"
-        : "我已读取你的商品素材和基础设置。接下来会先规划每一屏的任务与卖点，再按确认后的顺序生成完整详情页。";
+        : isSocial
+          ? "我已读取社媒平台、营销目标、目标人群和内容语气。接下来会先检查事实缺口，再规划可编辑文案、话题、封面和内容卡片。"
+          : "我已读取你的商品素材和基础设置。接下来会先规划每一屏的任务与卖点，再按确认后的顺序生成完整详情页。";
   }
   if (checklist) {
     checklist.textContent = isMain
       ? "核心卖点、投放平台、背景倾向，以及是否需要固定品牌文案。"
       : isPoster
         ? "商品名称、营销目标、真实价格或优惠、活动时间，以及必须出现的品牌信息。"
-        : "产品名称、核心卖点、目标用户、详情页屏数和必须出现的品牌信息。";
+        : isSocial
+          ? "商品事实、目标人群、真实体验或测评依据、活动规则、案例授权，以及必须出现的品牌信息。"
+          : "产品名称、核心卖点、目标用户、详情页屏数和必须出现的品牌信息。";
   }
-  if (resultTitle) resultTitle.textContent = `已生成 ${generateCount} 张${isMain ? "主图" : isPoster ? "营销海报" : "详情图"}`;
+  if (resultTitle) {
+    resultTitle.textContent = isSocial
+      ? `已生成 ${generateCount} 套社媒内容`
+      : `已生成 ${generateCount} 张${isMain ? "主图" : isPoster ? "营销海报" : "详情图"}`;
+  }
   if (resultNote) {
     resultNote.textContent = isMain
       ? "已生成多套构图与背景方向，可下载、继续生成变体或用对话精细调整。"
       : isPoster
         ? "已完成海报底图与文字层排版，可继续修改标题、活动信息和行动按钮。"
-        : "已按照当前分屏方案完成生成，可逐屏预览、调整或批量下载。";
+        : isSocial
+          ? "已完成平台文案、话题、封面与内容卡片计划，可继续修改语气、事实来源和行动引导。"
+          : "已按照当前分屏方案完成生成，可逐屏预览、调整或批量下载。";
   }
   document.querySelectorAll("[data-agent-result-label]").forEach((label, index) => {
-    label.textContent = `${isMain ? "主图方案" : isPoster ? "海报方案" : "详情图"} ${String(index + 1).padStart(2, "0")}`;
+    label.textContent = `${isMain ? "主图方案" : isPoster ? "海报方案" : isSocial ? "内容方案" : "详情图"} ${String(index + 1).padStart(2, "0")}`;
   });
   document.querySelectorAll(".generated-grid .generated-card").forEach((card, index) => {
     card.hidden = index >= Number.parseInt(generateCount, 10);
@@ -1402,8 +1716,10 @@ document.querySelectorAll("[data-agent-redo]").forEach((button) => {
 });
 
 startDetailButton?.addEventListener("click", () => {
-  const promptValue = homePrompt?.value.trim() || "输入你的即兴灵感，例如：生成一张「蛋牛」品牌的营销广告";
   const typeValue = outputTypeSelect?.value || "detail";
+  const promptValue = typeValue === "social"
+    ? homePrompt?.value.trim() || buildSocialPromptPlan().userPrompt
+    : homePrompt?.value.trim() || "输入你的即兴灵感，例如：生成一张「蛋牛」品牌的营销广告";
   const typeText = outputTypeSelect?.selectedOptions[0]?.textContent?.trim() || "详情图";
   const resolutionText = resolutionSelect?.selectedOptions[0]?.textContent?.trim() || "2K";
   const platformText = platformSelect?.selectedOptions[0]?.textContent?.trim() || "亚马逊";
@@ -1417,27 +1733,34 @@ startDetailButton?.addEventListener("click", () => {
 
 function openAgentFromQuick() {
   const isPoster = activeQuickType === "poster";
-  const typeText = activeQuickType === "detail" ? "详情图" : isPoster ? "营销海报" : "主图";
+  const isSocial = activeQuickType === "social";
+  const socialPlan = isSocial ? buildSocialPromptPlan() : null;
+  const typeText = activeQuickType === "detail" ? "详情图" : isPoster ? "营销海报" : isSocial ? "社媒营销" : "主图";
   const posterTypeText = quickHomePosterType?.selectedOptions[0]?.textContent?.trim() || "新品发布";
   const posterObjectiveText = quickHomePosterObjective?.selectedOptions[0]?.textContent?.trim() || "建立新品第一印象";
   const posterOfferText = quickHomePosterOffer?.value.trim();
   const sellingPointText = quickHomeSellingPoint?.value.trim();
-  const promptValue = isPoster
-    ? `请根据商品素材规划${posterTypeText}海报，营销目标是${posterObjectiveText}${sellingPointText ? `，主标题或核心信息为：${sellingPointText}` : ""}${posterOfferText ? `，真实优惠信息为：${posterOfferText}` : "，未提供价格或优惠时不要自行编造"}`
-    : sellingPointText || (activeQuickType === "detail" ? "请根据商品素材规划完整详情页" : "请根据商品素材生成高转化电商主图");
+  const promptValue = isSocial
+    ? socialPlan.userPrompt
+    : isPoster
+      ? `请根据商品素材规划${posterTypeText}海报，营销目标是${posterObjectiveText}${sellingPointText ? `，主标题或核心信息为：${sellingPointText}` : ""}${posterOfferText ? `，真实优惠信息为：${posterOfferText}` : "，未提供价格或优惠时不要自行编造"}`
+      : sellingPointText || (activeQuickType === "detail" ? "请根据商品素材规划完整详情页" : "请根据商品素材生成高转化电商主图");
   const resolutionText = quickResolution?.selectedOptions[0]?.textContent?.split("·")[0]?.trim() || "2K";
-  const platformText = quickPlatform?.selectedOptions[0]?.textContent?.trim() || "亚马逊";
-  const languageText = quickLanguage?.selectedOptions[0]?.textContent?.trim() || "中文";
-  const includeText = quickInclude?.selectedOptions[0]?.textContent?.trim() || "包含文字";
-  const generateCount = quickCount?.value || (activeQuickType === "detail" ? "5" : isPoster ? "3" : "4");
+  const platformText = isSocial ? socialPlan.platform.label : quickPlatform?.selectedOptions[0]?.textContent?.trim() || "亚马逊";
+  const languageText = isSocial ? "不适用" : quickLanguage?.selectedOptions[0]?.textContent?.trim() || "中文";
+  const includeText = isSocial
+    ? quickInclude?.value === "exclude" ? "仅生成文案" : "文案 + 配图"
+    : quickInclude?.selectedOptions[0]?.textContent?.trim() || "包含文字";
+  const generateCount = quickCount?.value || (activeQuickType === "detail" ? "5" : isPoster || isSocial ? "3" : "4");
 
   setSelectValue(outputTypeSelect, activeQuickType);
   setSelectValue(resolutionSelect, quickResolution?.value || "2k");
-  setSelectValue(platformSelect, quickPlatform?.value || "amazon");
+  setSelectValue(platformSelect, isSocial ? quickHomeSocialPlatform?.value || "xiaohongshu" : quickPlatform?.value || "amazon");
   setSelectValue(languageSelect, quickLanguage?.value || "zh");
   setSelectValue(includeTextSelect, quickInclude?.value || "include");
   if (generateCountInput) generateCountInput.value = generateCount;
   if (homePrompt) homePrompt.value = promptValue;
+  if (agentPrompt && isSocial) agentPrompt.dataset.promptTemplateId = socialPlan.templateId;
 
   openImageAgentTask({
     promptValue,
@@ -1466,12 +1789,13 @@ agentToQuickButton?.addEventListener("click", () => {
   }
   const typeValue = outputTypeSelect?.value || (agentType?.textContent?.includes("主图") ? "main" : "detail");
   setQuickType(typeValue, { keepCount: true, resetResult: false });
-  setSelectValue(quickPlatform, platformSelect?.value || "amazon");
+  if (typeValue === "social") setSelectValue(quickHomeSocialPlatform, platformSelect?.value || "xiaohongshu");
+  else setSelectValue(quickPlatform, platformSelect?.value || "amazon");
   setSelectValue(quickResolution, resolutionSelect?.value || "2k");
   setSelectValue(quickLanguage, languageSelect?.value || "zh");
   setSelectValue(quickInclude, includeTextSelect?.value || "include");
   if (quickCount && generateCountInput) quickCount.value = generateCountInput.value || quickCount.value;
-  if (quickHomeSellingPoint && homePrompt) quickHomeSellingPoint.value = homePrompt.value.trim();
+  if (typeValue !== "social" && quickHomeSellingPoint && homePrompt) quickHomeSellingPoint.value = homePrompt.value.trim();
   quickTextButtons.forEach((item) => {
     const isActive = item.dataset.quickText === quickInclude?.value;
     item.classList.toggle("is-active", isActive);
