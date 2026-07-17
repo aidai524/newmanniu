@@ -223,6 +223,7 @@
                         <select aria-label="选择快速生成类型" data-quick-home-type-select>
                           <option value="main">商品主图</option>
                           <option value="detail">详情图</option>
+                          <option value="poster">营销海报</option>
                         </select>
                       </label>
                       <label class="quick-home-field">
@@ -261,6 +262,26 @@
                           <option value="parameter">参数详解</option>
                         </select>
                       </label>
+                      <label class="quick-home-field" data-quick-home-poster-type-field hidden>
+                        <span>海报类型</span>
+                        <select aria-label="选择海报类型" data-quick-home-poster-type>
+                          <option value="product_launch">新品发布</option>
+                          <option value="limited_promotion">限时促销</option>
+                          <option value="single_feature">单品卖点</option>
+                          <option value="festival_event">节日活动</option>
+                          <option value="brand_campaign">品牌宣传</option>
+                          <option value="store_live_announcement">门店 / 直播预告</option>
+                        </select>
+                      </label>
+                      <label class="quick-home-field" data-quick-home-poster-objective-field hidden>
+                        <span>营销目标</span>
+                        <select aria-label="选择海报营销目标" data-quick-home-poster-objective>
+                          <option value="launch">建立新品第一印象</option>
+                          <option value="conversion">突出优惠并促进转化</option>
+                          <option value="awareness">强化品牌认知</option>
+                          <option value="traffic">活动预热与引流</option>
+                        </select>
+                      </label>
                       <label class="quick-home-field">
                         <span>生成数量</span>
                         <span class="quick-home-number-control">
@@ -273,6 +294,10 @@
                       <label class="quick-home-field quick-home-selling">
                         <span><i data-quick-home-selling-label>主图核心卖点</i> <small>选填</small></span>
                         <input type="text" data-quick-home-selling-point placeholder="例如：轻便、防滑，适合户外通勤" />
+                      </label>
+                      <label class="quick-home-field quick-home-poster-offer" data-quick-home-poster-offer-field hidden>
+                        <span>价格或优惠 <small>选填，不会由 AI 编造</small></span>
+                        <input type="text" data-quick-home-poster-offer placeholder="例如：新品首发价 ¥199，限时赠收纳袋" />
                       </label>
                     </div>
 
@@ -328,6 +353,7 @@
                     <select aria-label="选择生成类型" data-output-type>
                       <option value="detail">详情图</option>
                       <option value="main">主图</option>
+                      <option value="poster">营销海报</option>
                     </select>
                     <span class="select-arrow" aria-hidden="true"></span>
                   </div>
@@ -379,7 +405,7 @@
               </div>
 
               <section class="creation-paths" aria-label="创作类型">
-                <button type="button" data-focus-quick>
+                <button type="button" data-focus-quick data-creation-path="commerce">
                   <span class="path-icon commerce" aria-hidden="true">
                     <svg viewBox="0 0 24 24" data-icon="shopping-bag">
                       <path d="M6.331 8h11.339a2 2 0 0 1 1.977 2.304l-1.255 8.152a3 3 0 0 1 -2.966 2.544h-6.852a3 3 0 0 1 -2.965 -2.544l-1.255 -8.152a2 2 0 0 1 1.977 -2.304" />
@@ -388,7 +414,7 @@
                   </span>
                   <span><strong>电商设计</strong><small>卖货素材一键做</small></span>
                 </button>
-                <button type="button">
+                <button type="button" data-creation-path="poster">
                   <span class="path-icon poster" aria-hidden="true">
                     <svg viewBox="0 0 24 24" data-icon="layout-board">
                       <path d="M4 6a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -12" />
