@@ -87,6 +87,45 @@ const quickHomeSocialObjective = document.querySelector("[data-quick-home-social
 const quickHomeSocialTone = document.querySelector("[data-quick-home-social-tone]");
 const quickHomeSocialAudience = document.querySelector("[data-quick-home-social-audience]");
 const quickHomeSocialCta = document.querySelector("[data-quick-home-social-cta]");
+const quickHomeBrandGoalField = document.querySelector("[data-quick-home-brand-goal-field]");
+const quickHomeBrandArchetypeField = document.querySelector("[data-quick-home-brand-archetype-field]");
+const quickHomeBrandToneField = document.querySelector("[data-quick-home-brand-tone-field]");
+const quickHomeBrandChannelsField = document.querySelector("[data-quick-home-brand-channels-field]");
+const quickHomeBrandTypographyField = document.querySelector("[data-quick-home-brand-typography-field]");
+const quickHomeBrandLayoutField = document.querySelector("[data-quick-home-brand-layout-field]");
+const quickHomeBrandNameField = document.querySelector("[data-quick-home-brand-name-field]");
+const quickHomeBrandPositioningField = document.querySelector("[data-quick-home-brand-positioning-field]");
+const quickHomeBrandPrimaryField = document.querySelector("[data-quick-home-brand-primary-field]");
+const quickHomeBrandSecondaryField = document.querySelector("[data-quick-home-brand-secondary-field]");
+const quickHomeBrandFixedCopyField = document.querySelector("[data-quick-home-brand-fixed-copy-field]");
+const quickHomeBrandForbiddenField = document.querySelector("[data-quick-home-brand-forbidden-field]");
+const quickHomeBrandGoal = document.querySelector("[data-quick-home-brand-goal]");
+const quickHomeBrandArchetype = document.querySelector("[data-quick-home-brand-archetype]");
+const quickHomeBrandTone = document.querySelector("[data-quick-home-brand-tone]");
+const quickHomeBrandChannels = document.querySelector("[data-quick-home-brand-channels]");
+const quickHomeBrandTypography = document.querySelector("[data-quick-home-brand-typography]");
+const quickHomeBrandLayout = document.querySelector("[data-quick-home-brand-layout]");
+const quickHomeBrandName = document.querySelector("[data-quick-home-brand-name]");
+const quickHomeBrandPositioning = document.querySelector("[data-quick-home-brand-positioning]");
+const quickHomeBrandPrimary = document.querySelector("[data-quick-home-brand-primary]");
+const quickHomeBrandSecondary = document.querySelector("[data-quick-home-brand-secondary]");
+const quickHomeBrandFixedCopy = document.querySelector("[data-quick-home-brand-fixed-copy]");
+const quickHomeBrandForbidden = document.querySelector("[data-quick-home-brand-forbidden]");
+const quickHomeExpandGoalField = document.querySelector("[data-quick-home-expand-goal-field]");
+const quickHomeExpandModeField = document.querySelector("[data-quick-home-expand-mode-field]");
+const quickHomeExpandAnchorField = document.querySelector("[data-quick-home-expand-anchor-field]");
+const quickHomeExpandScaleField = document.querySelector("[data-quick-home-expand-scale-field]");
+const quickHomeExpandTargetsField = document.querySelector("[data-quick-home-expand-targets-field]");
+const quickHomeExpandDescriptionField = document.querySelector("[data-quick-home-expand-description-field]");
+const quickHomeExpandGoal = document.querySelector("[data-quick-home-expand-goal]");
+const quickHomeExpandMode = document.querySelector("[data-quick-home-expand-mode]");
+const quickHomeExpandAnchor = document.querySelector("[data-quick-home-expand-anchor]");
+const quickHomeExpandScale = document.querySelector("[data-quick-home-expand-scale]");
+const quickHomeExpandDescription = document.querySelector("[data-quick-home-expand-description]");
+const quickExpandTargetInputs = [...document.querySelectorAll("[data-quick-expand-target]")];
+const quickExpandCustomSize = document.querySelector("[data-quick-expand-custom-size]");
+const quickExpandCustomWidth = document.querySelector("[data-quick-expand-custom-width]");
+const quickExpandCustomHeight = document.querySelector("[data-quick-expand-custom-height]");
 const quickHomeStatus = document.querySelector("[data-quick-home-status]");
 const quickHomeUpload = document.querySelector("[data-quick-home-upload]");
 const quickHomeFileInput = document.querySelector("[data-quick-home-file]");
@@ -105,7 +144,10 @@ const quickHomeTemplate = document.querySelector("[data-quick-home-template]");
 const quickHomeSellingPoint = document.querySelector("[data-quick-home-selling-point]");
 const quickHomeCount = document.querySelector("[data-quick-home-count]");
 const quickHomeCountUnit = document.querySelector("[data-quick-home-count-unit]");
+const quickHomeCountField = document.querySelector("[data-quick-home-count-field]");
+const quickHomeSellingField = document.querySelector("[data-quick-home-selling-field]");
 const openQuickButton = document.querySelector("[data-open-quick]");
+const openQuickLabel = document.querySelector("[data-open-quick-label]");
 const quickPlatform = document.querySelector("[data-quick-platform]");
 const quickTemplate = document.querySelector("[data-quick-template]");
 const quickInclude = document.querySelector("[data-quick-include]");
@@ -115,6 +157,7 @@ const quickRatio = document.querySelector("[data-quick-ratio]");
 const quickLanguage = document.querySelector("[data-quick-language]");
 const quickCanvasTitle = document.querySelector("[data-quick-canvas-title]");
 const quickCountLabel = document.querySelector("[data-quick-count-label]");
+const quickCountNote = document.querySelector("[data-quick-count-note]");
 const quickGenerateButton = document.querySelector("[data-quick-generate]");
 const quickGenerateLabel = document.querySelector("[data-quick-generate-label]");
 const quickWorkspace = document.querySelector("[data-quick-workspace]");
@@ -138,6 +181,20 @@ const quickSettingsSocialPlatformField = document.querySelector("[data-quick-set
 const quickSettingsSocialTemplateField = document.querySelector("[data-quick-settings-social-template-field]");
 const quickSettingsSocialPlatform = document.querySelector("[data-quick-settings-social-platform]");
 const quickSettingsSocialTemplate = document.querySelector("[data-quick-settings-social-template]");
+const quickSettingsBrandGoalField = document.querySelector("[data-quick-settings-brand-goal-field]");
+const quickSettingsBrandTemplateField = document.querySelector("[data-quick-settings-brand-template-field]");
+const quickSettingsBrandGoal = document.querySelector("[data-quick-settings-brand-goal]");
+const quickSettingsBrandTemplate = document.querySelector("[data-quick-settings-brand-template]");
+const quickSettingsExpandModeField = document.querySelector("[data-quick-settings-expand-mode-field]");
+const quickSettingsExpandTargetsField = document.querySelector("[data-quick-settings-expand-targets-field]");
+const quickSettingsExpandTemplateField = document.querySelector("[data-quick-settings-expand-template-field]");
+const quickSettingsExpandMode = document.querySelector("[data-quick-settings-expand-mode]");
+const quickSettingsExpandTargets = document.querySelector("[data-quick-settings-expand-targets]");
+const quickSettingsExpandTemplate = document.querySelector("[data-quick-settings-expand-template]");
+const quickSettingsResolutionField = document.querySelector("[data-quick-settings-resolution-field]");
+const quickSettingsRatioField = document.querySelector("[data-quick-settings-ratio-field]");
+const quickSettingsLanguageField = document.querySelector("[data-quick-settings-language-field]");
+const quickSettingsBackgroundField = document.querySelector("[data-quick-settings-background-field]");
 const quickAnalyzedPreview = document.querySelector("[data-quick-analyzed-preview]");
 const quickAnalyzedName = document.querySelector("[data-quick-analyzed-name]");
 const quickAnalyzedNote = document.querySelector("[data-quick-analyzed-note]");
@@ -194,6 +251,7 @@ const imageAgentTaskPercent = document.querySelector("[data-agent-task-percent]"
 const imageAgentTaskBar = document.querySelector("[data-agent-task-bar]");
 const imageAgentTaskStages = [...document.querySelectorAll("[data-agent-task-stage]")];
 const imageAgentResultMessage = document.querySelector("[data-agent-result-message]");
+const imageAgentResultGrid = imageAgentResultMessage?.querySelector(".generated-grid");
 const imageAgentFlowProgress = document.querySelector("[data-agent-flow-progress]");
 const videoPrompt = document.querySelector("[data-video-prompt]");
 const videoReferenceInput = document.querySelector("[data-video-reference-input]");
@@ -614,6 +672,103 @@ function syncSocialSettings() {
   return plan;
 }
 
+function buildBrandPromptPlan() {
+  const compile = window.ManniuBrandPrompts?.compile;
+  const input = {
+    goal: quickHomeBrandGoal?.value || "create_kit",
+    archetype: quickHomeBrandArchetype?.value || "modern_commerce",
+    tone: quickHomeBrandTone?.value || "precise",
+    channels: quickHomeBrandChannels?.value || "omnichannel",
+    typography: quickHomeBrandTypography?.value || "modern_sans",
+    layoutStyle: quickHomeBrandLayout?.value || "product_focus",
+    brandName: quickHomeBrandName?.value.trim() || "",
+    positioning: quickHomeBrandPositioning?.value.trim() || "",
+    primaryColor: quickHomeBrandPrimary?.value.trim() || "",
+    secondaryColor: quickHomeBrandSecondary?.value.trim() || "",
+    fixedCopy: quickHomeBrandFixedCopy?.value.trim() || "",
+    forbiddenRules: quickHomeBrandForbidden?.value.trim() || "",
+    directionCount: quickHomeCount?.value || quickCount?.value || "1",
+    includeVoice: quickInclude?.value !== "exclude",
+    assets: sharedReferenceFiles.map((file, index) => ({
+      id: `asset_${String(index + 1).padStart(2, "0")}`,
+      type: index === 0 ? "primary_logo" : "brand_asset",
+      name: file.name,
+    })),
+  };
+  if (typeof compile === "function") return compile(input);
+  return {
+    templateId: "brand.commerce.create",
+    status: input.brandName ? "draft" : "needs_input",
+    archetype: { label: "现代电商" },
+    goal: { label: "建立新 Brand Kit", requiredFacts: ["品牌名称", "品牌定位", "至少一项现有视觉依据"] },
+    tone: "专业严谨",
+    typography: "现代无衬线",
+    layoutStyle: "商品主体优先",
+    channels: "电商、社媒、视频与线下",
+    primaryColor: input.primaryColor || "",
+    secondaryColor: input.secondaryColor || "",
+    missingFields: input.brandName ? ["brand.positioning", "brandAssets.logoOrMark"] : ["brand.name"],
+    invalidFields: [],
+    userPrompt: `请为${input.brandName || "待确认品牌名称"}建立可执行的 Brand Kit。`,
+    prompt: "请整理品牌视觉规范，并将建议与已确认信息分开标记。",
+  };
+}
+
+function syncBrandSettings() {
+  const plan = buildBrandPromptPlan();
+  if (quickSettingsBrandGoal) quickSettingsBrandGoal.textContent = plan.goal.label;
+  if (quickSettingsBrandTemplate) quickSettingsBrandTemplate.textContent = plan.templateId;
+  if (quickWorkspace) quickWorkspace.dataset.brandTemplateId = plan.templateId;
+  return plan;
+}
+
+function buildExpandPromptPlan() {
+  const compile = window.ManniuExpandPrompts?.compile;
+  const selectedTargets = quickExpandTargetInputs.filter((input) => input.checked).map((input) => input.value);
+  const input = {
+    goal: quickHomeExpandGoal?.value || "multi_platform",
+    mode: quickHomeExpandMode?.value || "scene_extend",
+    subjectAnchor: quickHomeExpandAnchor?.value || "auto",
+    subjectScale: quickHomeExpandScale?.value || "keep",
+    sourceAssetId: sharedReferenceFiles.length ? "asset_source_01" : "",
+    sourceFileName: sharedReferenceFiles[0]?.name || "",
+    targets: selectedTargets,
+    customTarget: {
+      width: quickExpandCustomWidth?.value || "",
+      height: quickExpandCustomHeight?.value || "",
+    },
+    directionCount: quickHomeCount?.value || quickCount?.value || "1",
+    allowRecompose: quickInclude?.value === "exclude",
+    backgroundDescription: quickHomeExpandDescription?.value.trim() || "",
+  };
+  if (typeof compile === "function") return compile(input);
+  const fallbackTargets = selectedTargets.map((key) => ({ key, label: key, width: 1080, height: 1080, ratio: "1:1", safeInset: 64 }));
+  return {
+    templateId: "expand.scene.platform",
+    status: input.sourceAssetId && fallbackTargets.length ? "ready" : "needs_input",
+    mode: { label: "延续原场景" },
+    goal: { label: "多平台适配" },
+    subjectAnchor: "AI 自动判断",
+    subjectScale: "保持原图占比",
+    allowRecompose: input.allowRecompose,
+    directionCount: Number.parseInt(input.directionCount, 10) || 1,
+    targets: fallbackTargets,
+    missingFields: input.sourceAssetId ? fallbackTargets.length ? [] : ["targets"] : ["sourceImage.assetId"],
+    invalidFields: [],
+    userPrompt: "请锁定原图主体，为所选目标尺寸补全画布外部区域。",
+    prompt: "请逐尺寸规划智能拓图，保持原图主体、文字与品牌信息不变。",
+  };
+}
+
+function syncExpandSettings() {
+  const plan = buildExpandPromptPlan();
+  if (quickSettingsExpandMode) quickSettingsExpandMode.textContent = `${plan.mode.label} / ${plan.subjectAnchor}`;
+  if (quickSettingsExpandTargets) quickSettingsExpandTargets.textContent = `${plan.targets.length} 个尺寸 / 每个 ${plan.directionCount} 个方向`;
+  if (quickSettingsExpandTemplate) quickSettingsExpandTemplate.textContent = plan.templateId;
+  if (quickWorkspace) quickWorkspace.dataset.expandTemplateId = plan.templateId;
+  return plan;
+}
+
 function setCreationMode(mode) {
   creationModeButtons.forEach((button) => {
     const isActive = button.dataset.creationMode === mode;
@@ -626,9 +781,17 @@ function setCreationMode(mode) {
     panel.classList.toggle("is-active", isActive);
   });
   if (creationModeHelper) {
-    creationModeHelper.textContent = mode === "agent"
-      ? "适合复杂要求、多轮沟通，以及逐屏或局部精细调整。"
-      : "上传商品图，选择用途和模板，快速获得可用结果。";
+    creationModeHelper.textContent = activeQuickType === "brand"
+      ? mode === "agent"
+        ? "适合梳理品牌冲突、补充禁用规则，以及逐项确认视觉规范。"
+        : "上传 Logo 与品牌资产，填写已确认信息，快速建立可追溯的 Brand Kit。"
+      : activeQuickType === "expand"
+        ? mode === "agent"
+          ? "适合处理复杂边缘、指定文案安全区，以及逐尺寸调整扩展方向。"
+          : "上传一张原图，选择多个目标尺寸，批量生成自然延展的适配画面。"
+        : mode === "agent"
+          ? "适合复杂要求、多轮沟通，以及逐屏或局部精细调整。"
+          : "上传商品图，选择用途和模板，快速获得可用结果。";
   }
 }
 
@@ -639,17 +802,25 @@ creationModeButtons.forEach((button) => {
       setSelectValue(outputTypeSelect, activeQuickType);
       setSelectValue(
         platformSelect,
-        activeQuickType === "social" ? quickHomeSocialPlatform?.value || "xiaohongshu" : quickHomePlatform?.value || "amazon",
+        activeQuickType === "social"
+          ? quickHomeSocialPlatform?.value || "xiaohongshu"
+          : activeQuickType === "brand"
+            ? "brand_all"
+            : activeQuickType === "expand"
+              ? "multi_size"
+            : quickHomePlatform?.value || "amazon",
       );
       const sellingPoint = quickHomeSellingPoint?.value.trim();
       if (homePrompt && activeQuickType === "social") homePrompt.value = buildSocialPromptPlan().userPrompt;
+      else if (homePrompt && activeQuickType === "brand") homePrompt.value = buildBrandPromptPlan().userPrompt;
+      else if (homePrompt && activeQuickType === "expand") homePrompt.value = buildExpandPromptPlan().userPrompt;
       else if (sellingPoint && homePrompt) homePrompt.value = sellingPoint;
     } else {
       setQuickType(outputTypeSelect?.value || activeQuickType, { keepCount: true, resetResult: false });
       if (activeQuickType === "social") setSelectValue(quickHomeSocialPlatform, platformSelect?.value || "xiaohongshu");
-      else setSelectValue(quickHomePlatform, platformSelect?.value || "amazon");
+      else if (!["brand", "expand"].includes(activeQuickType)) setSelectValue(quickHomePlatform, platformSelect?.value || "amazon");
       if (quickHomeCount && generateCountInput) quickHomeCount.value = generateCountInput.value || quickHomeCount.value;
-      if (activeQuickType !== "social" && quickHomeSellingPoint && homePrompt?.value.trim()) {
+      if (!["social", "brand", "expand"].includes(activeQuickType) && quickHomeSellingPoint && homePrompt?.value.trim()) {
         quickHomeSellingPoint.value = homePrompt.value.trim();
       }
     }
@@ -658,10 +829,16 @@ creationModeButtons.forEach((button) => {
 });
 
 function updateQuickGenerateLabel() {
-  const count = Math.max(1, Math.min(10, Number.parseInt(quickCount?.value || "4", 10) || 4));
+  const maxCount = ["brand", "expand"].includes(activeQuickType) ? 3 : 10;
+  const count = Math.max(1, Math.min(maxCount, Number.parseInt(quickCount?.value || "4", 10) || 4));
   const isSocial = activeQuickType === "social";
+  const isBrand = activeQuickType === "brand";
+  const isExpand = activeQuickType === "expand";
   const includeSocialVisuals = quickInclude?.value !== "exclude";
   const socialPlan = isSocial ? buildSocialPromptPlan() : null;
+  const brandPlan = isBrand ? buildBrandPromptPlan() : null;
+  const expandPlan = isExpand ? buildExpandPromptPlan() : null;
+  const expandOutputCount = isExpand ? expandPlan.targets.length * count : 0;
   if (quickGenerateLabel) {
     quickGenerateLabel.textContent = activeQuickType === "detail"
       ? `确认并生成 ${count} 屏详情图`
@@ -669,6 +846,10 @@ function updateQuickGenerateLabel() {
         ? `确认并生成 ${count} 张海报`
         : isSocial
           ? `确认并生成 ${count} 套内容`
+          : isBrand
+            ? `确认并生成 ${count} 版规范`
+            : isExpand
+              ? expandPlan.targets.length ? `确认并生成 ${expandOutputCount} 张适配图` : "请先选择目标尺寸"
           : `确认并生成 ${count} 张主图`;
   }
   if (quickConfirmNote) {
@@ -680,15 +861,25 @@ function updateQuickGenerateLabel() {
           ? includeSocialVisuals
             ? `AI 将生成 ${count} 套${socialPlan.platform.label}${socialPlan.objective.label}内容，每套包含${socialPlan.platform.outputHint}。`
             : `AI 将生成 ${count} 套${socialPlan.platform.label}${socialPlan.objective.label}内容，仅输出可编辑发布文案、话题与行动引导。`
+          : isBrand
+            ? quickInclude?.value === "exclude"
+              ? `AI 将整理 ${count} 版${brandPlan.goal.label}规范，仅输出 Logo、色彩、字体和版式规则。`
+              : `AI 将整理 ${count} 版${brandPlan.goal.label}规范，包含视觉系统、固定文案、品牌语气和禁用规则。`
+            : isExpand
+              ? expandPlan.targets.length
+                ? `AI 将为 ${expandPlan.targets.length} 个目标尺寸分别生成 ${count} 个方向，共 ${expandOutputCount} 张。${expandPlan.allowRecompose ? "允许轻微调整主体位置，商品内容保持不变。" : "原图区域与主体保持锁定。"}`
+                : "请至少选择 1 个目标尺寸，再开始智能拓图。"
           : `AI 建议生成 ${count} 张不同构图的主图，并保留带文案与无文案的版本。`;
   }
 }
 
 function setQuickType(type, { keepCount = false, resetResult = true } = {}) {
-  activeQuickType = ["detail", "poster", "social"].includes(type) ? type : "main";
+  activeQuickType = ["detail", "poster", "social", "brand", "expand"].includes(type) ? type : "main";
   const isDetail = activeQuickType === "detail";
   const isPoster = activeQuickType === "poster";
   const isSocial = activeQuickType === "social";
+  const isBrand = activeQuickType === "brand";
+  const isExpand = activeQuickType === "expand";
   if (quickHomeTypeSelect && quickHomeTypeSelect.value !== activeQuickType) {
     setSelectValue(quickHomeTypeSelect, activeQuickType);
   }
@@ -700,6 +891,10 @@ function setQuickType(type, { keepCount = false, resetResult = true } = {}) {
         ? "营销海报生成设置"
         : isSocial
           ? "社媒营销生成设置"
+          : isBrand
+            ? "品牌视觉管理"
+            : isExpand
+              ? "智能拓图设置"
           : "商品主图生成设置";
   }
   if (quickHomeSellingLabel) {
@@ -709,6 +904,10 @@ function setQuickType(type, { keepCount = false, resetResult = true } = {}) {
         ? "海报主标题 / 核心信息"
         : isSocial
           ? "已确认事实 / 核心信息"
+          : isBrand
+            ? "品牌定位"
+            : isExpand
+              ? "背景补全要求"
           : "主图核心卖点";
   }
   if (quickHomeSellingPoint) {
@@ -718,11 +917,15 @@ function setQuickType(type, { keepCount = false, resetResult = true } = {}) {
         ? "例如：轻盈上新｜新品首发限时体验"
         : isSocial
           ? "例如：鞋底防滑纹路、单只 260g，适合雨天通勤"
+          : isBrand
+            ? "例如：面向电商运营团队的 AI 创作工作台"
+            : isExpand
+              ? "例如：延续冷灰色棚拍光线，右侧留出标题区域"
           : "例如：轻便、防滑，适合户外通勤";
   }
-  if (quickHomePlatformField) quickHomePlatformField.hidden = isSocial;
-  if (quickHomeTemplateField) quickHomeTemplateField.hidden = isSocial;
-  if (quickHomeMainField) quickHomeMainField.hidden = isDetail || isPoster || isSocial;
+  if (quickHomePlatformField) quickHomePlatformField.hidden = isSocial || isBrand || isExpand;
+  if (quickHomeTemplateField) quickHomeTemplateField.hidden = isSocial || isBrand || isExpand;
+  if (quickHomeMainField) quickHomeMainField.hidden = isDetail || isPoster || isSocial || isBrand || isExpand;
   if (quickHomeDetailField) quickHomeDetailField.hidden = !isDetail;
   if (quickHomePosterTypeField) quickHomePosterTypeField.hidden = !isPoster;
   if (quickHomePosterObjectiveField) quickHomePosterObjectiveField.hidden = !isPoster;
@@ -732,45 +935,105 @@ function setQuickType(type, { keepCount = false, resetResult = true } = {}) {
   if (quickHomeSocialToneField) quickHomeSocialToneField.hidden = !isSocial;
   if (quickHomeSocialAudienceField) quickHomeSocialAudienceField.hidden = !isSocial;
   if (quickHomeSocialCtaField) quickHomeSocialCtaField.hidden = !isSocial;
-  if (quickSettingsPlatformField) quickSettingsPlatformField.hidden = isSocial;
-  if (quickSettingsTemplateField) quickSettingsTemplateField.hidden = isSocial;
+  if (quickHomeBrandGoalField) quickHomeBrandGoalField.hidden = !isBrand;
+  if (quickHomeBrandArchetypeField) quickHomeBrandArchetypeField.hidden = !isBrand;
+  if (quickHomeBrandToneField) quickHomeBrandToneField.hidden = !isBrand;
+  if (quickHomeBrandChannelsField) quickHomeBrandChannelsField.hidden = !isBrand;
+  if (quickHomeBrandTypographyField) quickHomeBrandTypographyField.hidden = !isBrand;
+  if (quickHomeBrandLayoutField) quickHomeBrandLayoutField.hidden = !isBrand;
+  if (quickHomeBrandNameField) quickHomeBrandNameField.hidden = !isBrand;
+  if (quickHomeBrandPositioningField) quickHomeBrandPositioningField.hidden = !isBrand;
+  if (quickHomeBrandPrimaryField) quickHomeBrandPrimaryField.hidden = !isBrand;
+  if (quickHomeBrandSecondaryField) quickHomeBrandSecondaryField.hidden = !isBrand;
+  if (quickHomeBrandFixedCopyField) quickHomeBrandFixedCopyField.hidden = !isBrand;
+  if (quickHomeBrandForbiddenField) quickHomeBrandForbiddenField.hidden = !isBrand;
+  if (quickHomeExpandGoalField) quickHomeExpandGoalField.hidden = !isExpand;
+  if (quickHomeExpandModeField) quickHomeExpandModeField.hidden = !isExpand;
+  if (quickHomeExpandAnchorField) quickHomeExpandAnchorField.hidden = !isExpand;
+  if (quickHomeExpandScaleField) quickHomeExpandScaleField.hidden = !isExpand;
+  if (quickHomeExpandTargetsField) quickHomeExpandTargetsField.hidden = !isExpand;
+  if (quickHomeExpandDescriptionField) quickHomeExpandDescriptionField.hidden = !isExpand;
+  if (quickHomeSellingField) quickHomeSellingField.hidden = isBrand || isExpand;
+  if (quickSettingsPlatformField) quickSettingsPlatformField.hidden = isSocial || isBrand || isExpand;
+  if (quickSettingsTemplateField) quickSettingsTemplateField.hidden = isSocial || isBrand || isExpand;
   if (quickSettingsSocialPlatformField) quickSettingsSocialPlatformField.hidden = !isSocial;
   if (quickSettingsSocialTemplateField) quickSettingsSocialTemplateField.hidden = !isSocial;
+  if (quickSettingsBrandGoalField) quickSettingsBrandGoalField.hidden = !isBrand;
+  if (quickSettingsBrandTemplateField) quickSettingsBrandTemplateField.hidden = !isBrand;
+  if (quickSettingsExpandModeField) quickSettingsExpandModeField.hidden = !isExpand;
+  if (quickSettingsExpandTargetsField) quickSettingsExpandTargetsField.hidden = !isExpand;
+  if (quickSettingsExpandTemplateField) quickSettingsExpandTemplateField.hidden = !isExpand;
+  if (quickSettingsResolutionField) quickSettingsResolutionField.hidden = isBrand || isExpand;
+  if (quickSettingsRatioField) quickSettingsRatioField.hidden = isBrand || isExpand;
+  if (quickSettingsLanguageField) quickSettingsLanguageField.hidden = isBrand || isExpand;
+  if (quickSettingsBackgroundField) quickSettingsBackgroundField.hidden = isBrand || isExpand;
   if (quickCanvasTitle) {
     quickCanvasTitle.textContent = isPoster
       ? "海报分析与生成预览"
       : isSocial
         ? "社媒内容分析与生成预览"
+        : isBrand
+          ? "Brand Kit 分析与规范预览"
+          : isExpand
+            ? "多尺寸拓图分析与预览"
         : "素材分析与生成预览";
   }
   if (quickCountLabel) {
-    quickCountLabel.textContent = isDetail ? "详情屏数" : isPoster ? "海报数量" : isSocial ? "内容方案数" : "生成数量";
+    quickCountLabel.textContent = isDetail ? "详情屏数" : isPoster ? "海报数量" : isSocial ? "内容方案数" : isBrand ? "规范版本" : isExpand ? "每尺寸方向数" : "生成数量";
   }
-  if (quickHomeCountUnit) quickHomeCountUnit.textContent = isDetail ? "屏" : isSocial ? "套" : "张";
-  if (quickTextTitle) quickTextTitle.textContent = isSocial ? "内容输出" : "画面文字";
-  if (quickTextNote) quickTextNote.textContent = isSocial ? "文案始终可编辑" : "生成后仍可继续调整";
-  if (quickTextIncludeLabel) quickTextIncludeLabel.textContent = isSocial ? "文案 + 配图" : "包含文字";
-  if (quickTextExcludeLabel) quickTextExcludeLabel.textContent = isSocial ? "仅生成文案" : "不含文字";
-  if (quickTextOptions) quickTextOptions.setAttribute("aria-label", isSocial ? "选择社媒内容输出形式" : "画面是否包含文字");
-  if (quickInclude) quickInclude.setAttribute("aria-label", isSocial ? "选择社媒内容输出形式" : "画面是否包含文字");
+  if (quickCountNote) quickCountNote.textContent = isBrand ? "可整理 1-3 个品牌方向" : isExpand ? "每个尺寸可生成 1-3 个方向" : "可生成 1-10 张";
+  if (quickHomeCount) quickHomeCount.max = isBrand || isExpand ? "3" : "10";
+  if (quickCount) quickCount.max = isBrand || isExpand ? "3" : "10";
+  if (quickHomeCountUnit) quickHomeCountUnit.textContent = isDetail ? "屏" : isSocial ? "套" : isBrand ? "版" : isExpand ? "向" : "张";
+  if (quickTextTitle) quickTextTitle.textContent = isSocial ? "内容输出" : isBrand ? "规范范围" : isExpand ? "原图保护" : "画面文字";
+  if (quickTextNote) quickTextNote.textContent = isSocial ? "文案始终可编辑" : isBrand ? "建议与已确认项分开标记" : isExpand ? "默认不改动原图区域" : "生成后仍可继续调整";
+  if (quickTextIncludeLabel) quickTextIncludeLabel.textContent = isSocial ? "文案 + 配图" : isBrand ? "完整 Brand Kit" : isExpand ? "锁定原图内容" : "包含文字";
+  if (quickTextExcludeLabel) quickTextExcludeLabel.textContent = isSocial ? "仅生成文案" : isBrand ? "仅视觉规范" : isExpand ? "允许轻微重排" : "不含文字";
+  if (quickTextOptions) quickTextOptions.setAttribute("aria-label", isSocial ? "选择社媒内容输出形式" : isBrand ? "选择品牌规范范围" : isExpand ? "选择拓图原图保护方式" : "画面是否包含文字");
+  if (quickInclude) quickInclude.setAttribute("aria-label", isSocial ? "选择社媒内容输出形式" : isBrand ? "选择品牌规范范围" : isExpand ? "选择拓图原图保护方式" : "画面是否包含文字");
   if (quickResultNote) {
     quickResultNote.textContent = isSocial
       ? "文案、话题和视觉建议已按平台组织，可继续编辑或导出。"
+      : isBrand
+        ? "Logo、色彩、字体、版式和品牌语气已整理，可继续确认或导出。"
+        : isExpand
+          ? "所有目标尺寸已分别补全，可检查安全区后批量下载。"
       : "已按照当前平台、模板与文字设置完成生成。";
   }
-  if (quickResultPrimary) quickResultPrimary.textContent = isSocial ? "导出全部" : "下载全部";
+  if (quickResultPrimary) quickResultPrimary.textContent = isSocial ? "导出全部" : isBrand ? "导出 Brand Kit" : isExpand ? "下载全部尺寸" : "下载全部";
+  if (openQuickLabel) openQuickLabel.textContent = isBrand ? "整理品牌规范" : isExpand ? "分析拓图空间" : "分析商品素材";
+  const quickUploadTitle = quickHomeUpload?.querySelector(".quick-upload-empty strong");
+  const quickUploadNote = quickHomeUpload?.querySelector(".quick-upload-empty small");
+  const quickUploadTip = quickHomeCard?.querySelector(".quick-home-upload-tip");
+  const agentUploadTitle = agentHomeUpload?.querySelector(".quick-upload-empty strong");
+  const agentUploadNote = agentHomeUpload?.querySelector(".quick-upload-empty small");
+  if (quickUploadTitle) quickUploadTitle.textContent = isBrand ? "上传 Logo 和品牌资产" : isExpand ? "上传需要拓展的原图" : "上传商品图";
+  if (quickUploadNote) quickUploadNote.textContent = isBrand ? "支持 Logo、图形标识和现有视觉样张" : isExpand ? "首张图作为拓图源文件，其余图片作为场景参考" : "支持多选，也可将多张图片拖入这里";
+  if (quickUploadTip) quickUploadTip.textContent = isBrand ? "最多 6 张，支持 PNG、JPG、WebP，首张作为主 Logo" : isExpand ? "最多 6 张，支持 JPG、PNG、WebP，原图区域默认锁定" : "最多 6 张 · 支持 JPG、PNG、WebP · 可拖拽添加";
+  if (agentUploadTitle) agentUploadTitle.textContent = isBrand ? "上传 Logo 和品牌资产" : isExpand ? "上传需要拓展的原图" : "上传商品图";
+  if (agentUploadNote) agentUploadNote.textContent = isBrand ? "让 Agent 识别现有资产与规范冲突" : isExpand ? "让 Agent 分析主体边缘、场景与扩展方向" : "支持多选，也可将多张图片拖入这里";
+  quickHomeAddButtons.forEach((button) => button.setAttribute("aria-label", isBrand ? "选择品牌资产" : isExpand ? "选择拓图原图和场景参考" : "选择商品参考图"));
+  agentHomeAddButtons.forEach((button) => button.setAttribute("aria-label", isBrand ? "选择 Agent 品牌资产" : isExpand ? "选择 Agent 拓图原图和场景参考" : "选择 Agent 商品参考图"));
   if (!keepCount) {
-    const defaultCount = isDetail ? "5" : isPoster || isSocial ? "3" : "4";
+    const defaultCount = isDetail ? "5" : isPoster || isSocial ? "3" : isBrand || isExpand ? "1" : "4";
     if (quickHomeCount) quickHomeCount.value = defaultCount;
     if (quickCount) quickCount.value = defaultCount;
   }
   if (isSocial) syncSocialSettings();
+  else if (isBrand) syncBrandSettings();
+  else if (isExpand) syncExpandSettings();
   else setSelectValue(quickRatio, isDetail || isPoster ? "3:4" : "1:1");
   quickResults?.classList.toggle("is-detail", isDetail);
   quickResults?.classList.toggle("is-poster", isPoster);
   quickResults?.classList.toggle("is-social", isSocial);
+  quickResults?.classList.toggle("is-brand", isBrand);
+  quickResults?.classList.toggle("is-expand", isExpand);
   const phaseCopy = isSocial
     ? ["核验商品与目标事实", "生成平台文案结构", "规划封面与内容卡片"]
+    : isBrand
+      ? ["盘点品牌资产与事实", "整理视觉和语言规则", "生成可执行 Brand Kit"]
+      : isExpand
+        ? ["锁定原图主体与边界", "逐尺寸补全画布", "检查安全区与一致性"]
     : isPoster
     ? ["锁定商品与活动事实", "生成构图与海报背景", "排版可编辑文字层"]
     : isDetail
@@ -782,12 +1045,15 @@ function setQuickType(type, { keepCount = false, resetResult = true } = {}) {
   });
   creationPathButtons.forEach((button) => {
     const path = button.dataset.creationPath;
-    const isActive = isPoster ? path === "poster" : isSocial ? path === "social" : path === "commerce";
+    const isActive = isPoster ? path === "poster" : isSocial ? path === "social" : isBrand ? path === "brand" : isExpand ? path === "expand" : path === "commerce";
     button.classList.toggle("is-active-path", isActive);
     button.setAttribute("aria-pressed", String(isActive));
   });
   syncQuickAnalysisSummary();
   updateQuickGenerateLabel();
+  syncSharedReferencePresentation();
+  const activeCreationMode = creationModeButtons.find((button) => button.classList.contains("is-active"))?.dataset.creationMode || "quick";
+  setCreationMode(activeCreationMode);
 
   if (resetResult) {
     setQuickWorkspaceState("review");
@@ -809,6 +1075,13 @@ quickTextButtons.forEach((button) => {
     if (activeQuickType === "social") {
       const finalPhaseCopy = quickRenderPhases[2]?.querySelector("span");
       if (finalPhaseCopy) finalPhaseCopy.textContent = value === "exclude" ? "整理话题与行动引导" : "规划封面与内容卡片";
+    } else if (activeQuickType === "brand") {
+      const finalPhaseCopy = quickRenderPhases[2]?.querySelector("span");
+      if (finalPhaseCopy) finalPhaseCopy.textContent = value === "exclude" ? "输出视觉规范" : "生成完整 Brand Kit";
+    } else if (activeQuickType === "expand") {
+      const finalPhaseCopy = quickRenderPhases[2]?.querySelector("span");
+      if (finalPhaseCopy) finalPhaseCopy.textContent = value === "exclude" ? "检查重排与安全区" : "检查原图锁定与安全区";
+      syncExpandSettings();
     }
     updateQuickGenerateLabel();
   });
@@ -816,14 +1089,26 @@ quickTextButtons.forEach((button) => {
 
 function syncQuickAnalysisSummary() {
   const isSocial = activeQuickType === "social";
+  const isBrand = activeQuickType === "brand";
+  const isExpand = activeQuickType === "expand";
   const socialPlan = isSocial ? syncSocialSettings() : null;
+  const brandPlan = isBrand ? syncBrandSettings() : null;
+  const expandPlan = isExpand ? syncExpandSettings() : null;
   const platformText = isSocial
     ? socialPlan.platform.label
+    : isBrand
+      ? brandPlan.channels
+      : isExpand
+        ? expandPlan.goal.label
     : quickPlatform?.selectedOptions[0]?.textContent?.trim()
       || quickHomePlatform?.selectedOptions[0]?.textContent?.trim()
       || "亚马逊";
   const templateText = isSocial
     ? socialPlan.templateId
+    : isBrand
+      ? brandPlan.templateId
+      : isExpand
+        ? expandPlan.templateId
     : quickTemplate?.selectedOptions[0]?.textContent?.trim()
       || quickHomeTemplate?.selectedOptions[0]?.textContent?.trim()
       || "AI 智能推荐";
@@ -835,25 +1120,36 @@ function syncQuickAnalysisSummary() {
       ? `${posterTypeText}海报`
       : isSocial
         ? `${socialPlan.objective.label}内容`
+        : isBrand
+          ? "Brand Kit"
+          : isExpand
+            ? "智能拓图"
         : "商品主图";
-  const ratioText = isSocial ? socialPlan.platform.ratio : activeQuickType === "detail" || activeQuickType === "poster" ? "3:4" : "1:1";
-  const referenceCount = Math.max(1, sharedReferenceFiles.length);
+  const ratioText = isSocial ? socialPlan.platform.ratio : isExpand ? "多比例" : activeQuickType === "detail" || activeQuickType === "poster" ? "3:4" : "1:1";
+  const referenceCount = isBrand ? sharedReferenceFiles.length : Math.max(1, sharedReferenceFiles.length);
   const audienceText = quickHomeSocialAudience?.value.trim() || "待确认目标人群";
+  const brandNameText = quickHomeBrandName?.value.trim() || "待确认品牌名称";
   if (quickAnalysisType) quickAnalysisType.textContent = typeText;
   if (quickAnalysisPlatform) quickAnalysisPlatform.textContent = platformText;
   if (quickAnalysisTemplate) quickAnalysisTemplate.textContent = templateText;
-  if (quickAnalyzedName) quickAnalyzedName.textContent = isSocial ? "社媒素材与内容事实已分析" : "商品素材已通过检查";
+  if (quickAnalyzedName) quickAnalyzedName.textContent = isSocial ? "社媒素材与内容事实已分析" : isBrand ? "品牌资产与基础规范已盘点" : isExpand ? "原图主体与可扩展边界已分析" : "商品素材已通过检查";
   if (quickAnalyzedNote) {
     quickAnalyzedNote.textContent = isSocial
       ? "商品素材、受众和核心事实已读取，可以继续生成。"
+      : isBrand
+        ? referenceCount
+          ? `已读取 ${referenceCount} 项品牌资产，AI 建议和已确认规则会分开标记。`
+          : "尚未上传 Logo，仍可建立规范草案，资产规则会标记为待补充。"
+        : isExpand
+          ? `已读取原图与 ${Math.max(0, referenceCount - 1)} 张场景参考，将为 ${expandPlan.targets.length} 个尺寸独立规划扩展区域。`
       : "主体完整、清晰度良好，可以直接继续生成。";
   }
-  if (quickAnalysisHeading) quickAnalysisHeading.textContent = isSocial ? "平台规则与内容事实已就绪" : "商品主体与背景质量良好";
+  if (quickAnalysisHeading) quickAnalysisHeading.textContent = isSocial ? "平台规则与内容事实已就绪" : isBrand ? "品牌事实和视觉方向已就绪" : isExpand ? "原图保护区与拓图空间已就绪" : "商品主体与背景质量良好";
   if (quickAnalysisCheckOne) {
-    quickAnalysisCheckOne.textContent = isSocial ? "商品素材可用于封面与内容卡片" : "主体边缘完整，无明显遮挡";
+    quickAnalysisCheckOne.textContent = isSocial ? "商品素材可用于封面与内容卡片" : isBrand ? referenceCount ? `${referenceCount} 项资产已进入 Logo 与图形资产清单` : "Logo 与图形资产将标记为待补充" : isExpand ? "原图主体、Logo 与包装文字已进入保护区" : "主体边缘完整，无明显遮挡";
   }
   if (quickAnalysisCheckTwo) {
-    quickAnalysisCheckTwo.textContent = isSocial ? "缺少的事实会在内容计划中明确标记" : "清晰度满足 2K 生成要求";
+    quickAnalysisCheckTwo.textContent = isSocial ? "缺少的事实会在内容计划中明确标记" : isBrand ? "建议色彩、字体和版式不会伪装成已确认规范" : isExpand ? "每个目标比例将独立生成，不会直接拉伸原图" : "清晰度满足 2K 生成要求";
   }
   if (quickAnalysisSummary) {
     quickAnalysisSummary.textContent = activeQuickType === "detail"
@@ -862,24 +1158,42 @@ function syncQuickAnalysisSummary() {
         ? `已综合 ${referenceCount} 张商品素材，并按照“${posterObjectiveText}”规划标题层级、商品安全区和行动按钮。活动价格只采用你明确提供的信息。`
         : isSocial
           ? `已按${platformText}和“${socialPlan.objective.label}”组织内容方向，目标人群为${audienceText}。缺少体验、价格或案例事实时，AI 会标记待补充项。`
+          : isBrand
+            ? `正在为“${brandNameText}”执行${brandPlan.goal.label}。已确认信息会保留原文，缺少的 Logo、色值或授权会进入待补充清单。`
+            : isExpand
+              ? `将采用${expandPlan.mode.label}，为 ${expandPlan.targets.map((target) => `${target.label} ${target.ratio}`).join("、") || "待选择尺寸"}分别规划补全区域。${expandPlan.allowRecompose ? "主体位置可轻微调整，但商品内容保持不变。" : "原图像素与主体位置保持锁定。"}`
           : `已综合 ${referenceCount} 张商品素材，主体完整、背景干净，适合按照 ${platformText} 主图规范继续生成。`;
   }
   if (quickAnalysisRule) {
     quickAnalysisRule.textContent = isSocial
       ? `已匹配 ${platformText} · ${ratioText} · ${socialPlan.platform.outputName}`
+      : isBrand
+        ? `已匹配 ${brandPlan.archetype.label} / ${brandPlan.goal.label}`
+      : isExpand
+        ? `已匹配 ${expandPlan.targets.length} 个尺寸 / ${expandPlan.subjectAnchor}`
       : activeQuickType === "poster"
         ? `已匹配 ${platformText} · ${ratioText} 海报安全区`
         : `已匹配 ${platformText} · ${ratioText} 规范`;
   }
 }
 
-[quickPlatform, quickTemplate, quickHomePosterType, quickHomePosterObjective, quickHomeSocialPlatform, quickHomeSocialObjective, quickHomeSocialTone].forEach((select) => {
+[quickPlatform, quickTemplate, quickHomePosterType, quickHomePosterObjective, quickHomeSocialPlatform, quickHomeSocialObjective, quickHomeSocialTone, quickHomeBrandGoal, quickHomeBrandArchetype, quickHomeBrandTone, quickHomeBrandChannels, quickHomeBrandTypography, quickHomeBrandLayout, quickHomeExpandGoal, quickHomeExpandMode, quickHomeExpandAnchor, quickHomeExpandScale].forEach((select) => {
   select?.addEventListener("change", syncQuickAnalysisSummary);
 });
-[quickHomePosterOffer, quickHomeSocialAudience, quickHomeSocialCta, quickHomeSellingPoint].forEach((input) => {
+[quickHomePosterOffer, quickHomeSocialAudience, quickHomeSocialCta, quickHomeSellingPoint, quickHomeBrandName, quickHomeBrandPositioning, quickHomeBrandPrimary, quickHomeBrandSecondary, quickHomeBrandFixedCopy, quickHomeBrandForbidden, quickHomeExpandDescription, quickExpandCustomWidth, quickExpandCustomHeight].forEach((input) => {
   input?.addEventListener("input", () => {
     syncQuickAnalysisSummary();
     updateQuickGenerateLabel();
+    if (["brand", "expand"].includes(activeQuickType)) syncSharedReferencePresentation();
+  });
+});
+
+quickExpandTargetInputs.forEach((input) => {
+  input.addEventListener("change", () => {
+    if (input.value === "custom" && quickExpandCustomSize) quickExpandCustomSize.hidden = !input.checked;
+    syncQuickAnalysisSummary();
+    updateQuickGenerateLabel();
+    syncSharedReferencePresentation();
   });
 });
 
@@ -889,6 +1203,8 @@ function syncHomeQuickToWorkbench() {
   setQuickType(quickHomeTypeSelect?.value || activeQuickType, { keepCount: true, resetResult: false });
   if (quickCount && quickHomeCount) quickCount.value = quickHomeCount.value;
   if (activeQuickType === "social") syncSocialSettings();
+  else if (activeQuickType === "brand") syncBrandSettings();
+  else if (activeQuickType === "expand") syncExpandSettings();
   else {
     setSelectValue(quickPlatform, quickHomePlatform?.value || "amazon");
     setSelectValue(quickTemplate, quickHomeTemplate?.value || "auto");
@@ -902,10 +1218,15 @@ function beginQuickAnalysis() {
   setQuickWorkspaceState("processing");
   if (quickAnalysisOrbit) quickAnalysisOrbit.hidden = false;
   if (quickRenderStatus) quickRenderStatus.hidden = true;
-  const requestedCount = Math.max(1, Math.min(10, Number.parseInt(quickCount?.value || "4", 10) || 4));
+  const requestedCount = Math.max(1, Math.min(["brand", "expand"].includes(activeQuickType) ? 3 : 10, Number.parseInt(quickCount?.value || "4", 10) || 4));
+  const expandTargetCount = activeQuickType === "expand" ? buildExpandPromptPlan().targets.length : 0;
   if (quickAnalyzingLabel) {
     quickAnalyzingLabel.textContent = activeQuickType === "social"
       ? "正在理解商品素材与内容目标"
+      : activeQuickType === "brand"
+        ? "正在盘点品牌资产与已确认规范"
+        : activeQuickType === "expand"
+          ? "正在识别原图保护区与可扩展边界"
       : `正在分析 ${sharedReferenceFiles.length} 张商品素材`;
   }
   if (quickAnalyzingTitle) {
@@ -915,6 +1236,10 @@ function beginQuickAnalysis() {
         ? `正在规划 ${requestedCount} 张海报的文案与版式…`
         : activeQuickType === "social"
           ? `正在规划 ${requestedCount} 套社媒内容结构…`
+          : activeQuickType === "brand"
+            ? `正在整理 ${requestedCount} 版 Brand Kit 结构…`
+            : activeQuickType === "expand"
+              ? `正在规划 ${expandTargetCount} 个尺寸的拓图空间…`
           : `正在规划 ${requestedCount} 张主图的构图方向…`;
   }
   if (quickAnalyzingNote) {
@@ -922,10 +1247,14 @@ function beginQuickAnalysis() {
       ? "正在校验活动事实、价格信息和中文文字安全区。"
       : activeQuickType === "social"
         ? "正在组合平台规则、营销目标、品牌语气和事实校验要求。"
+        : activeQuickType === "brand"
+          ? "正在区分已确认规范、AI 建议、授权检查和待补充信息。"
+          : activeQuickType === "expand"
+            ? "正在检查原图边缘、主体安全区、光线、透视与各尺寸扩展方向。"
         : "分析完成后只需要确认生成数量和画面文字。";
   }
   if (quickGenerateButton) quickGenerateButton.disabled = true;
-  if (quickGenerateLabel) quickGenerateLabel.textContent = "素材分析中…";
+  if (quickGenerateLabel) quickGenerateLabel.textContent = activeQuickType === "brand" ? "品牌规范盘点中…" : activeQuickType === "expand" ? "拓图空间分析中…" : "素材分析中…";
   setQuickStage(2);
   window.setTimeout(() => {
     setQuickWorkspaceState("review");
@@ -937,10 +1266,35 @@ function beginQuickAnalysis() {
 }
 
 openQuickButton?.addEventListener("click", () => {
-  if (!sharedReferenceUrl) {
+  if (activeQuickType === "brand" && !quickHomeBrandName?.value.trim()) {
     if (quickHomeStatus) {
       quickHomeStatus.classList.add("is-error");
-      quickHomeStatus.innerHTML = '<i aria-hidden="true">!</i>请先上传商品素材，再开始分析';
+      quickHomeStatus.innerHTML = '<i aria-hidden="true">!</i>请先填写品牌名称，再整理 Brand Kit';
+    }
+    quickHomeBrandName?.focus();
+    return;
+  }
+  const expandPlan = activeQuickType === "expand" ? buildExpandPromptPlan() : null;
+  if (expandPlan?.invalidFields.length) {
+    if (quickHomeStatus) {
+      quickHomeStatus.classList.add("is-error");
+      quickHomeStatus.innerHTML = '<i aria-hidden="true">!</i>自定义宽高需在 320-4096 px 之间';
+    }
+    quickExpandCustomWidth?.focus();
+    return;
+  }
+  if (activeQuickType === "expand" && !expandPlan.targets.length) {
+    if (quickHomeStatus) {
+      quickHomeStatus.classList.add("is-error");
+      quickHomeStatus.innerHTML = '<i aria-hidden="true">!</i>请至少选择 1 个目标尺寸';
+    }
+    quickHomeExpandTargetsField?.scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+  if (activeQuickType !== "brand" && !sharedReferenceUrl) {
+    if (quickHomeStatus) {
+      quickHomeStatus.classList.add("is-error");
+      quickHomeStatus.innerHTML = `<i aria-hidden="true">!</i>${activeQuickType === "expand" ? "请先上传 1 张拓图原图，再分析扩展空间" : "请先上传商品素材，再开始分析"}`;
     }
     quickHomeUpload?.focus();
     return;
@@ -959,17 +1313,21 @@ focusQuickButtons.forEach((button) => {
 creationPathButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const path = button.dataset.creationPath;
-    setCreationMode("quick");
     const targetType = path === "poster"
       ? "poster"
       : path === "social"
         ? "social"
-        : ["poster", "social"].includes(activeQuickType)
+        : path === "brand"
+          ? "brand"
+        : path === "expand"
+          ? "expand"
+        : ["poster", "social", "brand", "expand"].includes(activeQuickType)
           ? "main"
           : activeQuickType;
     setQuickType(targetType);
+    setCreationMode("quick");
     quickHomeCard?.scrollIntoView({ behavior: "smooth", block: "center" });
-    const focusTarget = path === "poster" ? quickHomePosterType : path === "social" ? quickHomeSocialPlatform : quickHomeTypeSelect;
+    const focusTarget = path === "poster" ? quickHomePosterType : path === "social" ? quickHomeSocialPlatform : path === "brand" ? quickHomeBrandGoal : path === "expand" ? quickHomeExpandGoal : quickHomeTypeSelect;
     window.setTimeout(() => focusTarget?.parentElement?.querySelector(".custom-select-trigger")?.focus(), 260);
   });
 });
@@ -1001,10 +1359,18 @@ function setQuickWorkspaceState(state) {
 
 function renderQuickResults() {
   if (!quickResultGrid) return;
-  const requestedCount = Math.max(1, Math.min(10, Number.parseInt(quickCount?.value || "4", 10) || 4));
+  const requestedCount = Math.max(1, Math.min(["brand", "expand"].includes(activeQuickType) ? 3 : 10, Number.parseInt(quickCount?.value || "4", 10) || 4));
   const isPoster = activeQuickType === "poster";
   const isSocial = activeQuickType === "social";
+  const isBrand = activeQuickType === "brand";
+  const isExpand = activeQuickType === "expand";
   const socialPlan = isSocial ? buildSocialPromptPlan() : null;
+  const brandPlan = isBrand ? buildBrandPromptPlan() : null;
+  const expandPlan = isExpand ? buildExpandPromptPlan() : null;
+  const expandItems = isExpand
+    ? expandPlan.targets.flatMap((target) => Array.from({ length: requestedCount }, (_, directionIndex) => ({ target, directionIndex })))
+    : [];
+  const outputCount = isExpand ? expandItems.length : requestedCount;
   const imageSources = [
     "assets/dashboard/work-1-hd.jpg",
     "assets/dashboard/work-2-hd.jpg",
@@ -1014,7 +1380,7 @@ function renderQuickResults() {
     "assets/dashboard/work-5-hd.jpg",
   ];
   quickResultGrid.replaceChildren();
-  for (let index = 0; index < requestedCount; index += 1) {
+  for (let index = 0; index < outputCount; index += 1) {
     const card = document.createElement("article");
     card.className = activeQuickType === "detail"
       ? "quick-result-card quick-detail-result-card"
@@ -1022,16 +1388,20 @@ function renderQuickResults() {
         ? "quick-result-card quick-poster-result-card"
         : isSocial
           ? "quick-result-card quick-social-result-card"
+          : isBrand
+            ? "quick-result-card quick-brand-result-card"
+            : isExpand
+              ? "quick-result-card quick-expand-result-card"
           : "quick-result-card quick-main-result-card";
     if (isSocial) card.dataset.socialPlatform = socialPlan.platformKey;
     const image = document.createElement("img");
     image.src = imageSources[index % imageSources.length];
-    image.alt = `${activeQuickType === "detail" ? "详情图" : isPoster ? "营销海报" : isSocial ? "社媒内容封面" : "主图"}快速生成结果 ${index + 1}`;
+    image.alt = `${activeQuickType === "detail" ? "详情图" : isPoster ? "营销海报" : isSocial ? "社媒内容封面" : isBrand ? "品牌资产" : isExpand ? "智能拓图" : "主图"}快速生成结果 ${index + 1}`;
 
     const redo = document.createElement("button");
     redo.type = "button";
     redo.textContent = "重做";
-    redo.addEventListener("click", () => showWorkspaceToast(`已提交${activeQuickType === "detail" ? "当前详情屏" : isPoster ? "当前海报" : isSocial ? "当前内容方案" : "当前方案"}重新生成`));
+    redo.addEventListener("click", () => showWorkspaceToast(`已提交${activeQuickType === "detail" ? "当前详情屏" : isPoster ? "当前海报" : isSocial ? "当前内容方案" : isBrand ? "当前品牌规范" : isExpand ? "当前尺寸" : "当前方案"}重新生成`));
     const download = document.createElement("button");
     download.type = "button";
     download.textContent = "下载";
@@ -1098,6 +1468,152 @@ function renderQuickResults() {
       actions.append(edit, redo, download);
       footer.append(label, actions);
       card.append(frame, footer);
+    } else if (isExpand) {
+      redo.textContent = "重做此尺寸";
+      const { target, directionIndex } = expandItems[index];
+      const art = document.createElement("div");
+      art.className = `quick-expand-art is-${expandPlan.modeKey} anchor-${quickHomeExpandAnchor?.value || "auto"} scale-${quickHomeExpandScale?.value || "keep"}`;
+      art.style.setProperty("--expand-ratio", String(target.width / target.height));
+      art.setAttribute("aria-label", `${target.label} ${target.width}x${target.height} 拓图预览`);
+
+      const extendedBackground = document.createElement("span");
+      extendedBackground.className = "quick-expand-background";
+      if (sharedReferenceUrl && ["scene_extend", "blur_extend"].includes(expandPlan.modeKey)) {
+        extendedBackground.style.backgroundImage = `url("${sharedReferenceUrl}")`;
+      }
+      const original = document.createElement("img");
+      original.src = sharedReferenceUrl || imageSources[index % imageSources.length];
+      original.alt = `${target.label}中的锁定原图区域`;
+      original.className = "quick-expand-original";
+      const originalBoundary = document.createElement("span");
+      originalBoundary.className = "quick-expand-source-boundary";
+      originalBoundary.setAttribute("aria-hidden", "true");
+      const safeArea = document.createElement("span");
+      safeArea.className = "quick-expand-safe-area";
+      safeArea.style.inset = `${Math.max(4, Math.min(12, (target.safeInset / Math.min(target.width, target.height)) * 100))}%`;
+      safeArea.setAttribute("aria-hidden", "true");
+      art.append(extendedBackground, original, originalBoundary, safeArea);
+
+      const content = document.createElement("div");
+      content.className = "quick-expand-content";
+      const identity = document.createElement("div");
+      identity.className = "quick-expand-identity";
+      const label = document.createElement("strong");
+      label.textContent = target.label;
+      const meta = document.createElement("span");
+      meta.textContent = `${target.width}x${target.height} / ${target.ratio}`;
+      identity.append(label, meta);
+      const checks = document.createElement("div");
+      checks.className = "quick-expand-checks";
+      const lock = document.createElement("small");
+      lock.textContent = expandPlan.allowRecompose ? "主体可轻微重排" : "原图区域已锁定";
+      const direction = document.createElement("small");
+      direction.textContent = `方向 ${String(directionIndex + 1).padStart(2, "0")} / 安全边距 ${target.safeInset}px`;
+      checks.append(lock, direction);
+      content.append(identity, checks);
+
+      const footer = document.createElement("div");
+      footer.className = "quick-expand-footer";
+      const template = document.createElement("span");
+      template.textContent = `${expandPlan.templateId} / ${expandPlan.mode.label}`;
+      const actions = document.createElement("div");
+      actions.className = "quick-expand-actions";
+      const compare = document.createElement("button");
+      compare.type = "button";
+      compare.textContent = "对比原图";
+      compare.addEventListener("click", () => showWorkspaceToast("已显示原图边界与主体保护区"));
+      const downloadSize = document.createElement("button");
+      downloadSize.type = "button";
+      downloadSize.textContent = "下载";
+      downloadSize.addEventListener("click", () => showWorkspaceToast(`已准备下载 ${target.width}x${target.height} 结果`));
+      actions.append(compare, redo, downloadSize);
+      footer.append(template, actions);
+      card.append(art, content, footer);
+    } else if (isBrand) {
+      redo.textContent = "重新整理";
+      const brandName = quickHomeBrandName?.value.trim() || "待确认品牌";
+      const primaryFallbacks = ["#2F7D71", "#315A72", "#5D4B78"];
+      const secondaryFallbacks = ["#D7E85B", "#C8D7E8", "#E0B27A"];
+      const primaryColor = brandPlan.primaryColor || primaryFallbacks[index % primaryFallbacks.length];
+      const secondaryColor = brandPlan.secondaryColor || secondaryFallbacks[index % secondaryFallbacks.length];
+      const neutralColor = index === 0 ? "#F2F5F4" : index === 1 ? "#F0F3F7" : "#F5F2F7";
+      const header = document.createElement("div");
+      header.className = "quick-brand-header";
+      const mark = document.createElement("div");
+      mark.className = "quick-brand-mark";
+      if (sharedReferenceUrl) {
+        const logo = document.createElement("img");
+        logo.src = sharedReferenceUrl;
+        logo.alt = `${brandName} 主 Logo`;
+        mark.append(logo);
+      } else {
+        const initials = document.createElement("strong");
+        initials.textContent = brandName.slice(0, 2).toUpperCase();
+        mark.append(initials);
+      }
+      const identity = document.createElement("div");
+      identity.className = "quick-brand-identity";
+      const identityLabel = document.createElement("span");
+      identityLabel.textContent = brandPlan.goal.label;
+      const identityName = document.createElement("strong");
+      identityName.textContent = brandName;
+      const identityMeta = document.createElement("small");
+      identityMeta.textContent = `${brandPlan.archetype.label} / ${brandPlan.status === "ready" ? "信息完整" : "规范草案"}`;
+      identity.append(identityLabel, identityName, identityMeta);
+      const palette = document.createElement("div");
+      palette.className = "quick-brand-palette";
+      [primaryColor, secondaryColor, neutralColor].forEach((color, colorIndex) => {
+        const swatch = document.createElement("span");
+        swatch.style.backgroundColor = color;
+        swatch.setAttribute("aria-label", `${colorIndex === 0 ? "主色" : colorIndex === 1 ? "辅助色" : "中性色"} ${color}`);
+        palette.append(swatch);
+      });
+      header.append(mark, identity, palette);
+
+      const rules = document.createElement("div");
+      rules.className = "quick-brand-rules";
+      const addRule = (labelText, valueText, metaText, wide = false) => {
+        const rule = document.createElement("section");
+        rule.className = wide ? "quick-brand-rule is-wide" : "quick-brand-rule";
+        const label = document.createElement("span");
+        label.textContent = labelText;
+        const value = document.createElement("strong");
+        value.textContent = valueText;
+        const meta = document.createElement("small");
+        meta.textContent = metaText;
+        rule.append(label, value, meta);
+        rules.append(rule);
+      };
+      addRule("色彩系统", `${primaryColor} / ${secondaryColor}`, brandPlan.primaryColor ? "已确认主色" : "建议色值，待品牌方确认");
+      addRule("字体方向", brandPlan.typography, "具体字体需完成商用授权检查");
+      addRule("品牌语气", quickInclude?.value === "exclude" ? "本版仅整理视觉规范" : brandPlan.tone, quickInclude?.value === "exclude" ? "语言规范未展开" : "固定文案保持原文");
+      addRule("常用版式", brandPlan.layoutStyle, brandPlan.channels);
+      if (quickInclude?.value !== "exclude") {
+        addRule("固定文案", quickHomeBrandFixedCopy?.value.trim() || "尚未提供固定文案", quickHomeBrandFixedCopy?.value.trim() ? "已确认内容，不由 AI 改写" : "建议补充品牌名称、口号与常用行动文案", true);
+      }
+      addRule("禁用规则", quickHomeBrandForbidden?.value.trim() || "Logo 不变形，不虚构品牌事实", quickHomeBrandForbidden?.value.trim() ? "用户规则优先级最高" : "系统基础规则，建议继续补充", true);
+
+      const footer = document.createElement("div");
+      footer.className = "quick-brand-footer";
+      const template = document.createElement("span");
+      template.textContent = `${brandPlan.templateId} / 方向 ${String(index + 1).padStart(2, "0")}`;
+      const actions = document.createElement("div");
+      actions.className = "quick-brand-actions";
+      const edit = document.createElement("button");
+      edit.type = "button";
+      edit.textContent = "编辑规范";
+      edit.addEventListener("click", () => showWorkspaceToast("已进入 Brand Kit 编辑状态"));
+      const setDefault = document.createElement("button");
+      setDefault.type = "button";
+      setDefault.textContent = "设为默认";
+      setDefault.addEventListener("click", () => showWorkspaceToast("已将当前方向设为默认品牌规范"));
+      const exportButton = document.createElement("button");
+      exportButton.type = "button";
+      exportButton.textContent = "导出 JSON";
+      exportButton.addEventListener("click", () => showWorkspaceToast("已准备导出 Brand Kit JSON"));
+      actions.append(edit, setDefault, redo, exportButton);
+      footer.append(template, actions);
+      card.append(header, rules, footer);
     } else if (isSocial) {
       const facts = quickHomeSellingPoint?.value.trim();
       const audience = quickHomeSocialAudience?.value.trim();
@@ -1210,12 +1726,26 @@ function renderQuickResults() {
         ? `已完成 ${requestedCount} 张营销海报`
         : isSocial
           ? `已完成 ${requestedCount} 套${socialPlan.platform.label}内容`
+          : isBrand
+            ? `已完成 ${requestedCount} 版 Brand Kit`
+            : isExpand
+              ? `已完成 ${expandPlan.targets.length} 个尺寸，共 ${outputCount} 张适配图`
           : `已完成 ${requestedCount} 张商品主图`;
   }
   if (quickResultNote && isSocial) {
     quickResultNote.textContent = quickInclude?.value === "exclude"
       ? "发布文案、话题和行动引导已按平台组织，可继续编辑或导出。"
       : "文案、话题和视觉建议已按平台组织，可继续编辑或导出。";
+  }
+  if (quickResultNote && isBrand) {
+    quickResultNote.textContent = brandPlan.status === "ready"
+      ? "品牌资产、视觉规则和语言规范已整理，可继续确认或导出。"
+      : "已生成品牌规范草案，建议补充待确认资产、色值或授权信息。";
+  }
+  if (quickResultNote && isExpand) {
+    quickResultNote.textContent = expandPlan.allowRecompose
+      ? "已按各画布轻微调整主体位置，商品结构、Logo 与包装文字保持不变。"
+      : "原图区域保持锁定，所有新增内容只出现在扩展画布中。";
   }
 }
 
@@ -1247,14 +1777,23 @@ function stopQuickGeneration({ restoreReview = false } = {}) {
 }
 
 function startQuickGeneration() {
-  if (!sharedReferenceUrl) {
+  if (activeQuickType !== "brand" && !sharedReferenceUrl) {
     setPage("home");
     setCreationMode("quick");
     if (quickHomeStatus) {
       quickHomeStatus.classList.add("is-error");
-      quickHomeStatus.innerHTML = '<i aria-hidden="true">!</i>商品素材已失效，请重新上传后分析';
+      quickHomeStatus.innerHTML = `<i aria-hidden="true">!</i>${activeQuickType === "expand" ? "拓图原图已失效，请重新上传后分析" : "商品素材已失效，请重新上传后分析"}`;
     }
     window.setTimeout(() => quickHomeUpload?.focus(), 0);
+    return;
+  }
+  if (activeQuickType === "expand" && !buildExpandPromptPlan().targets.length) {
+    setPage("home");
+    setCreationMode("quick");
+    if (quickHomeStatus) {
+      quickHomeStatus.classList.add("is-error");
+      quickHomeStatus.innerHTML = '<i aria-hidden="true">!</i>请重新选择至少 1 个目标尺寸';
+    }
     return;
   }
   stopQuickGeneration();
@@ -1267,6 +1806,10 @@ function startQuickGeneration() {
       ? "正在生成你的营销海报"
       : activeQuickType === "social"
         ? "正在生成你的社媒内容"
+        : activeQuickType === "brand"
+          ? "正在整理你的 Brand Kit"
+          : activeQuickType === "expand"
+            ? "正在生成多尺寸拓图结果"
         : "正在生成你的电商视觉";
   }
   if (quickAnalyzingTitle) {
@@ -1276,6 +1819,10 @@ function startQuickGeneration() {
         ? "生成海报底图并排版可编辑文案…"
         : activeQuickType === "social"
           ? "生成平台文案、话题与视觉内容计划…"
+          : activeQuickType === "brand"
+            ? "生成品牌资产、色彩、字体与版式规范…"
+            : activeQuickType === "expand"
+              ? "逐尺寸补全背景并检查主体安全区…"
           : "匹配构图与文案并生成商品主图…";
   }
   if (quickAnalyzingNote) {
@@ -1283,6 +1830,10 @@ function startQuickGeneration() {
       ? "商品底图与中文文字分层生成，后续可单独修改标题和活动信息。"
       : activeQuickType === "social"
         ? "正在校验事实来源，并按平台组织标题、正文、标签、封面和内容卡片。"
+        : activeQuickType === "brand"
+          ? "正在检查 Logo 使用、色彩来源、字体授权、固定文案和禁用规则。"
+          : activeQuickType === "expand"
+            ? "每个比例独立生成，原图主体、Logo、包装文字和商品结构保持不变。"
         : "已采用刚刚确认的数量与画面文字设置。";
   }
   if (quickGenerateLabel) quickGenerateLabel.textContent = "正在生成…";
@@ -1317,7 +1868,8 @@ document.querySelectorAll("[data-count-step]").forEach((button) => {
   button.addEventListener("click", () => {
     if (!quickCount) return;
     const step = Number.parseInt(button.dataset.countStep || "0", 10);
-    const nextValue = Math.max(1, Math.min(10, (Number.parseInt(quickCount.value || "1", 10) || 1) + step));
+    const maxCount = ["brand", "expand"].includes(activeQuickType) ? 3 : 10;
+    const nextValue = Math.max(1, Math.min(maxCount, (Number.parseInt(quickCount.value || "1", 10) || 1) + step));
     quickCount.value = String(nextValue);
     updateQuickGenerateLabel();
   });
@@ -1330,12 +1882,12 @@ document.querySelectorAll("[data-home-count-step]").forEach((button) => {
     if (!quickHomeCount) return;
     const step = Number.parseInt(button.dataset.homeCountStep || "0", 10);
     const current = Number.parseInt(quickHomeCount.value || "1", 10) || 1;
-    quickHomeCount.value = String(Math.max(1, Math.min(10, current + step)));
+    quickHomeCount.value = String(Math.max(1, Math.min(["brand", "expand"].includes(activeQuickType) ? 3 : 10, current + step)));
   });
 });
 
 quickHomeCount?.addEventListener("change", () => {
-  const nextValue = Math.max(1, Math.min(10, Number.parseInt(quickHomeCount.value || "1", 10) || 1));
+  const nextValue = Math.max(1, Math.min(["brand", "expand"].includes(activeQuickType) ? 3 : 10, Number.parseInt(quickHomeCount.value || "1", 10) || 1));
   quickHomeCount.value = String(nextValue);
 });
 
@@ -1361,13 +1913,13 @@ function renderReferenceGallery({ upload, gallery, thumbnails, countLabel }) {
     item.className = "quick-upload-thumbnail";
     const image = document.createElement("img");
     image.src = sharedReferenceUrls[index];
-    image.alt = `商品素材 ${index + 1}`;
+    image.alt = `${activeQuickType === "brand" ? "品牌资产" : activeQuickType === "expand" ? index === 0 ? "拓图原图" : "场景参考" : "商品素材"} ${index + 1}`;
     image.title = file.name;
     const badge = document.createElement("span");
-    badge.textContent = index === 0 ? "主素材" : String(index + 1).padStart(2, "0");
+    badge.textContent = index === 0 ? activeQuickType === "brand" ? "主 Logo" : activeQuickType === "expand" ? "拓图原图" : "主素材" : String(index + 1).padStart(2, "0");
     const remove = document.createElement("button");
     remove.type = "button";
-    remove.setAttribute("aria-label", `移除商品素材 ${index + 1}`);
+    remove.setAttribute("aria-label", `移除${activeQuickType === "brand" ? "品牌资产" : activeQuickType === "expand" ? "拓图素材" : "商品素材"} ${index + 1}`);
     remove.textContent = "×";
     remove.addEventListener("click", () => {
       setSharedReferenceFiles(sharedReferenceFiles.filter((_, fileIndex) => fileIndex !== index));
@@ -1400,6 +1952,16 @@ function syncSharedReferencePresentation({ limitReached = false } = {}) {
   syncReferencePreview(quickAnalyzedPreview, imageUrl);
   syncReferencePreview(quickAnalysisPreview, imageUrl);
   syncReferencePreview(agentReferencePreview, imageUrl);
+  if (quickAnalyzedPreview) quickAnalyzedPreview.alt = activeQuickType === "brand"
+    ? "已盘点的品牌资产"
+    : activeQuickType === "expand"
+      ? "已分析的拓图原图"
+      : "已分析的商品素材";
+  if (quickAnalysisPreview) quickAnalysisPreview.alt = activeQuickType === "brand"
+    ? "品牌资产分析预览"
+    : activeQuickType === "expand"
+      ? "拓图原图分析预览"
+      : "商品素材分析预览";
   agentReference?.classList.toggle("has-image", count > 0);
   renderSharedReferenceGalleries();
 
@@ -1409,20 +1971,42 @@ function syncSharedReferencePresentation({ limitReached = false } = {}) {
       quickHomeStatus.classList.add(limitReached ? "is-warning" : "is-ready");
       quickHomeStatus.innerHTML = limitReached
         ? `<i aria-hidden="true">!</i>最多支持 ${quickReferenceLimit} 张，已保留前 ${quickReferenceLimit} 张素材`
-        : `<i aria-hidden="true"></i>已添加 ${count} 张素材，可以开始智能分析`;
+        : activeQuickType === "brand"
+          ? `<i aria-hidden="true"></i>已添加 ${count} 项品牌资产，可以开始整理规范`
+          : activeQuickType === "expand"
+            ? `<i aria-hidden="true"></i>已添加拓图原图${count > 1 ? `和 ${count - 1} 张场景参考` : ""}，可以分析扩展空间`
+          : `<i aria-hidden="true"></i>已添加 ${count} 张素材，可以开始智能分析`;
     } else {
-      quickHomeStatus.innerHTML = '<i aria-hidden="true"></i>上传商品图后，AI 会先完成素材分析';
+      quickHomeStatus.innerHTML = activeQuickType === "brand"
+        ? quickHomeBrandName?.value.trim()
+          ? '<i aria-hidden="true"></i>品牌名称已填写，可先建立规范草案，Logo 稍后补充'
+          : '<i aria-hidden="true"></i>先填写品牌名称，Logo 和品牌资产可选上传'
+        : activeQuickType === "expand"
+          ? '<i aria-hidden="true"></i>上传 1 张原图后，AI 会分析主体保护区和可扩展边界'
+        : '<i aria-hidden="true"></i>上传商品图后，AI 会先完成素材分析';
     }
   }
 
   if (quickAnalyzedName) {
-    quickAnalyzedName.textContent = count > 0 ? `${count} 张商品素材已通过检查` : "商品素材已通过检查";
+    quickAnalyzedName.textContent = activeQuickType === "brand"
+      ? count > 0 ? `${count} 项品牌资产已完成盘点` : "品牌基础信息已完成盘点"
+      : activeQuickType === "expand"
+        ? count > 0 ? "原图与扩展边界已完成分析" : "等待上传拓图原图"
+      : count > 0 ? `${count} 张商品素材已通过检查` : "商品素材已通过检查";
   }
-  if (agentReferenceName) agentReferenceName.textContent = count > 0 ? `${count} 张商品素材` : "暂无参考图";
+  if (agentReferenceName) agentReferenceName.textContent = count > 0 ? activeQuickType === "brand" ? `${count} 项品牌资产` : activeQuickType === "expand" ? `1 张拓图原图${count > 1 ? ` / ${count - 1} 张场景参考` : ""}` : `${count} 张商品素材` : activeQuickType === "brand" ? "暂无品牌资产" : activeQuickType === "expand" ? "暂无拓图原图" : "暂无参考图";
   if (agentReferenceNote) {
     agentReferenceNote.textContent = count > 0
-      ? "首张作为主素材，其余图片用于补充细节、角度、构图和色调参考。"
-      : "在对话输入区点击“添加参考图”补充素材";
+      ? activeQuickType === "brand"
+        ? "首张作为主 Logo，其余文件用于识别图形资产、色彩和现有版式。"
+        : activeQuickType === "expand"
+          ? "首张锁定为拓图原图，其余图片只用于参考光线、色调与场景。"
+        : "首张作为主素材，其余图片用于补充细节、角度、构图和色调参考。"
+      : activeQuickType === "brand"
+        ? "可以先建立规范草案，再补充 Logo 和图形资产"
+        : activeQuickType === "expand"
+          ? "请先上传 1 张需要拓展的原图"
+        : "在对话输入区点击“添加参考图”补充素材";
   }
   if (agentReferenceStatus) agentReferenceStatus.textContent = count > 0 ? `已上传 ${count} 张` : "未上传";
 }
@@ -1553,6 +2137,63 @@ videoAdvancedToggle?.addEventListener("click", () => {
   videoAdvancedToggle.setAttribute("aria-expanded", String(shouldOpen));
 });
 
+function renderImageAgentResultCards({ typeValue, generateCount }) {
+  if (!imageAgentResultGrid) return;
+  const directionCount = Math.max(1, Number.parseInt(generateCount, 10) || 1);
+  const expandPlan = typeValue === "expand" ? buildExpandPromptPlan() : null;
+  const resultItems = expandPlan
+    ? expandPlan.targets.flatMap((target) => Array.from({ length: directionCount }, (_, directionIndex) => ({
+      label: `${target.label} · 方向 ${String(directionIndex + 1).padStart(2, "0")}`,
+      alt: `${target.label} ${target.width}x${target.height} 拓图结果`,
+      ratio: `${target.width} / ${target.height}`,
+      ratioLabel: `${target.width}x${target.height} · ${target.ratio}`,
+      shape: target.width === target.height ? "square" : target.width > target.height ? "landscape" : "portrait",
+      image: sharedReferenceUrl || "assets/dashboard/work-2-hd.jpg",
+    })))
+    : Array.from({ length: directionCount }, (_, index) => ({
+      label: `${typeValue === "main" ? "主图方案" : typeValue === "poster" ? "海报方案" : typeValue === "social" ? "内容方案" : typeValue === "brand" ? "品牌方向" : "详情图"} ${String(index + 1).padStart(2, "0")}`,
+      alt: `生成结果 ${index + 1}`,
+      image: `assets/dashboard/work-${[1, 2, 3, 4, 6][index % 5]}-hd.jpg`,
+    }));
+
+  imageAgentResultGrid.replaceChildren();
+  resultItems.forEach((item) => {
+    const card = document.createElement("article");
+    card.className = `generated-card${expandPlan ? " is-expand" : ""}`;
+    const image = document.createElement("img");
+    image.src = item.image;
+    image.alt = item.alt;
+    if (expandPlan) {
+      const preview = document.createElement("figure");
+      preview.className = "generated-expand-preview";
+      preview.dataset.shape = item.shape;
+      preview.style.setProperty("--agent-expand-ratio", item.ratio);
+      const ratio = document.createElement("i");
+      ratio.textContent = item.ratioLabel;
+      preview.append(image, ratio);
+      card.append(preview);
+    } else {
+      card.append(image);
+    }
+    const footer = document.createElement("div");
+    const label = document.createElement("span");
+    label.textContent = item.label;
+    const actions = document.createElement("span");
+    const redo = document.createElement("button");
+    redo.type = "button";
+    redo.dataset.agentRedo = "";
+    redo.textContent = "重做";
+    redo.addEventListener("click", () => showWorkspaceToast(`已提交${item.label}局部重做`));
+    const download = document.createElement("button");
+    download.type = "button";
+    download.textContent = "下载";
+    actions.append(redo, download);
+    footer.append(label, actions);
+    card.append(footer);
+    imageAgentResultGrid.append(card);
+  });
+}
+
 function openImageAgentTask({
   promptValue,
   typeValue,
@@ -1575,12 +2216,19 @@ function openImageAgentTask({
   if (agentChatType) agentChatType.textContent = typeText;
   if (agentChatResolution) agentChatResolution.textContent = resolutionText;
   if (agentChatPlatform) agentChatPlatform.textContent = platformSummary;
-  if (agentChatCount) agentChatCount.textContent = `${generateCount}${typeValue === "social" ? "套" : "张"}`;
+  if (agentChatCount) agentChatCount.textContent = `${generateCount}${typeValue === "social" ? "套" : typeValue === "brand" ? "版" : typeValue === "expand" ? "向" : "张"}`;
 
   const isMain = typeValue === "main";
   const isPoster = typeValue === "poster";
   const isSocial = typeValue === "social";
-  const agentName = isMain ? "主图 Agent" : isPoster ? "海报 Agent" : isSocial ? "社媒营销 Agent" : "详情图 Agent";
+  const isBrand = typeValue === "brand";
+  const isExpand = typeValue === "expand";
+  const expandAgentPlan = isExpand ? buildExpandPromptPlan() : null;
+  const agentName = isMain ? "主图 Agent" : isPoster ? "海报 Agent" : isSocial ? "社媒营销 Agent" : isBrand ? "Brand Kit Agent" : isExpand ? "智能拓图 Agent" : "详情图 Agent";
+  const agentPage = document.querySelector("[data-agent-page]");
+  const agentChatHelper = document.querySelector("[data-agent-chat-helper]");
+  const agentChatInput = document.querySelector("[data-agent-chat-input]");
+  if (agentPage) agentPage.setAttribute("aria-label", `${agentName} 工作区`);
   if (agentPageTitle) agentPageTitle.textContent = agentName;
   if (agentPageDescription) {
     agentPageDescription.textContent = isMain
@@ -1589,6 +2237,10 @@ function openImageAgentTask({
         ? "我会校验活动事实、规划商品构图，并与你确认标题、价格和行动按钮层级"
         : isSocial
           ? "我会组合平台与营销目标模板，核验事实来源，再与你确认文案、话题和视觉内容计划"
+          : isBrand
+            ? "我会盘点 Logo、色彩、字体、固定文案和禁用规则，再与你逐项确认品牌规范"
+            : isExpand
+              ? "我会分析原图主体、场景边缘与目标比例，再逐尺寸规划自然扩展区域"
           : "我会理解商品、参考图和平台规则，再与你确认分屏卖点和页面节奏";
   }
   const flowSteps = [...document.querySelectorAll("[data-agent-flow-step]")];
@@ -1598,6 +2250,10 @@ function openImageAgentTask({
       ? ["理解商品与活动目标", "核验活动和优惠事实", "确认标题、价格和 CTA 层级", "生成海报并输出可编辑文字层"]
       : isSocial
         ? ["读取平台与营销目标", "核验商品、体验和案例事实", "确认受众、语气与内容结构", "生成文案、话题和视觉计划"]
+        : isBrand
+          ? ["读取品牌资产与定位", "区分已确认项与建议项", "确认色彩、字体、语气和禁用规则", "生成可执行 Brand Kit"]
+          : isExpand
+            ? ["识别原图主体与保护区", "分析目标比例与扩展方向", "确认安全区和场景约束", "逐尺寸生成并完成一致性检查"]
         : ["理解需求与平台规则", "分析参考图风格和构图", "确认分屏卖点和页面节奏", "生成详情图并输出结果"];
   flowSteps.forEach((step, index) => {
     if (flowCopy[index]) step.textContent = flowCopy[index];
@@ -1606,6 +2262,27 @@ function openImageAgentTask({
   const checklist = document.querySelector("[data-agent-checklist]");
   const resultTitle = document.querySelector("[data-agent-result-title]");
   const resultNote = document.querySelector("[data-agent-result-note]");
+  if (agentChatHelper) {
+    agentChatHelper.textContent = isBrand
+      ? "你可以继续补充品牌信息，也可以让 Agent 直接盘点并整理规范"
+      : isExpand
+        ? "你可以继续指定扩展方向和留白区域，也可以让 Agent 直接规划全部尺寸"
+      : isSocial
+        ? "你可以继续补充内容事实，也可以让 Agent 直接开始规划"
+        : "你可以继续补充产品信息，也可以直接让 Agent 开始分析";
+  }
+  if (agentChatInput) {
+    agentChatInput.placeholder = isBrand
+      ? "继续补充 Logo 用法、品牌色、字体、固定文案或禁用规则…"
+      : isExpand
+        ? "继续补充背景、光线、主体位置或文案安全区要求…"
+      : isSocial
+        ? "继续补充商品事实、目标人群、语气或发布要求…"
+        : "继续补充产品卖点、品牌风格、目标平台要求…";
+  }
+  if (imageAgentAnalyzeButton) imageAgentAnalyzeButton.textContent = isBrand ? "盘点品牌资产" : isExpand ? "分析拓图边界" : isSocial ? "核验内容事实" : "先分析参考图";
+  if (imageAgentRunButton) imageAgentRunButton.textContent = isBrand ? "整理 Brand Kit" : isExpand ? "生成全部尺寸" : isSocial ? "生成内容方案" : "直接生成方案";
+  if (imageAgentSupplementButton) imageAgentSupplementButton.textContent = isBrand ? "补充品牌规范" : isExpand ? "补充拓图要求" : isSocial ? "补充内容事实" : "补充产品卖点";
   if (intro) {
     intro.textContent = isMain
       ? "我已读取快速生成中的素材和参数。接下来可以继续指定构图、背景、商品摆放或文案位置，也可以让我直接给出多套主图方向。"
@@ -1613,6 +2290,10 @@ function openImageAgentTask({
         ? "我已读取商品素材、海报类型和营销目标。接下来会先核验活动事实，再规划海报底图与可编辑文字层。"
         : isSocial
           ? "我已读取社媒平台、营销目标、目标人群和内容语气。接下来会先检查事实缺口，再规划可编辑文案、话题、封面和内容卡片。"
+          : isBrand
+            ? "我已读取品牌名称、定位、现有资产和规范偏好。接下来会先标记缺失项，再整理可以直接交给设计与运营团队执行的 Brand Kit。"
+            : isExpand
+              ? "我已读取拓图原图、目标尺寸和原图保护设置。接下来会逐尺寸判断扩展方向，并检查主体、Logo、包装文字和光影是否保持一致。"
           : "我已读取你的商品素材和基础设置。接下来会先规划每一屏的任务与卖点，再按确认后的顺序生成完整详情页。";
   }
   if (checklist) {
@@ -1622,11 +2303,19 @@ function openImageAgentTask({
         ? "商品名称、营销目标、真实价格或优惠、活动时间，以及必须出现的品牌信息。"
         : isSocial
           ? "商品事实、目标人群、真实体验或测评依据、活动规则、案例授权，以及必须出现的品牌信息。"
+          : isBrand
+            ? "品牌名称、定位、主 Logo、已确认色值、字体授权、固定文案、常用版式和明确禁用规则。"
+            : isExpand
+              ? "需要锁定的主体、目标尺寸、希望延展的背景、主体位置，以及是否需要预留文案安全区。"
           : "产品名称、核心卖点、目标用户、详情页屏数和必须出现的品牌信息。";
   }
   if (resultTitle) {
     resultTitle.textContent = isSocial
       ? `已生成 ${generateCount} 套社媒内容`
+      : isBrand
+        ? `已生成 ${generateCount} 版 Brand Kit`
+        : isExpand
+          ? `已生成 ${expandAgentPlan.targets.length} 个尺寸，共 ${expandAgentPlan.targets.length * Number.parseInt(generateCount, 10)} 张适配图`
       : `已生成 ${generateCount} 张${isMain ? "主图" : isPoster ? "营销海报" : "详情图"}`;
   }
   if (resultNote) {
@@ -1636,14 +2325,13 @@ function openImageAgentTask({
         ? "已完成海报底图与文字层排版，可继续修改标题、活动信息和行动按钮。"
         : isSocial
           ? "已完成平台文案、话题、封面与内容卡片计划，可继续修改语气、事实来源和行动引导。"
+          : isBrand
+            ? "已完成品牌资产、色彩、字体、版式与语言规范草案，可继续逐项确认并导出。"
+            : isExpand
+              ? "已逐尺寸补全画布并完成主体保护、安全区、边缘连续性和光影一致性检查。"
           : "已按照当前分屏方案完成生成，可逐屏预览、调整或批量下载。";
   }
-  document.querySelectorAll("[data-agent-result-label]").forEach((label, index) => {
-    label.textContent = `${isMain ? "主图方案" : isPoster ? "海报方案" : isSocial ? "内容方案" : "详情图"} ${String(index + 1).padStart(2, "0")}`;
-  });
-  document.querySelectorAll(".generated-grid .generated-card").forEach((card, index) => {
-    card.hidden = index >= Number.parseInt(generateCount, 10);
-  });
+  renderImageAgentResultCards({ typeValue, generateCount });
   resetImageAgentTask();
 
   setPage("detail");
@@ -1685,6 +2373,12 @@ function runImageAgentTask() {
       ? "正在生成多套主图方向"
       : agentType?.textContent?.includes("海报")
         ? "正在生成海报底图与文字层"
+        : agentType?.textContent?.includes("品牌视觉")
+          ? "正在整理 Brand Kit 与执行规范"
+          : agentType?.textContent?.includes("智能拓图")
+            ? "正在逐尺寸补全画布与检查原图保护区"
+          : agentType?.textContent?.includes("社媒")
+            ? "正在生成社媒内容与视觉计划"
         : "正在逐屏生成详情页";
   }
   imageAgentTaskProgress?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -1706,7 +2400,19 @@ function runImageAgentTask() {
 imageAgentRunButton?.addEventListener("click", runImageAgentTask);
 imageAgentAnalyzeButton?.addEventListener("click", () => {
   setImageAgentTaskProgress(28);
-  showWorkspaceToast(sharedReferenceFiles.length ? `已完成 ${sharedReferenceFiles.length} 张参考图分析` : "未上传参考图，已按平台规则完成分析");
+  const isBrandTask = agentType?.textContent?.includes("品牌视觉管理");
+  const isExpandTask = agentType?.textContent?.includes("智能拓图");
+  showWorkspaceToast(isBrandTask
+    ? sharedReferenceFiles.length
+      ? `已完成 ${sharedReferenceFiles.length} 个品牌资产盘点`
+      : "暂无品牌资产，已建立待补充清单"
+    : isExpandTask
+      ? sharedReferenceFiles.length
+        ? "已完成原图主体、边缘与扩展方向分析"
+        : "请先上传需要拓展的原图"
+    : sharedReferenceFiles.length
+      ? `已完成 ${sharedReferenceFiles.length} 张参考图分析`
+      : "未上传参考图，已按平台规则完成分析");
 });
 imageAgentSupplementButton?.addEventListener("click", () => {
   document.querySelector('[data-page-panel="detail"] .agent-composer textarea')?.focus();
@@ -1717,8 +2423,17 @@ document.querySelectorAll("[data-agent-redo]").forEach((button) => {
 
 startDetailButton?.addEventListener("click", () => {
   const typeValue = outputTypeSelect?.value || "detail";
+  if (typeValue === "expand" && !sharedReferenceUrl) {
+    showWorkspaceToast("智能拓图需要先上传 1 张原图");
+    agentHomeUpload?.focus();
+    return;
+  }
   const promptValue = typeValue === "social"
     ? homePrompt?.value.trim() || buildSocialPromptPlan().userPrompt
+    : typeValue === "brand"
+      ? homePrompt?.value.trim() || buildBrandPromptPlan().userPrompt
+      : typeValue === "expand"
+        ? homePrompt?.value.trim() || buildExpandPromptPlan().userPrompt
     : homePrompt?.value.trim() || "输入你的即兴灵感，例如：生成一张「蛋牛」品牌的营销广告";
   const typeText = outputTypeSelect?.selectedOptions[0]?.textContent?.trim() || "详情图";
   const resolutionText = resolutionSelect?.selectedOptions[0]?.textContent?.trim() || "2K";
@@ -1727,40 +2442,64 @@ startDetailButton?.addEventListener("click", () => {
     ? languageSelect?.selectedOptions[0]?.textContent?.trim() || "中文"
     : "不适用";
   const includeText = includeTextSelect?.selectedOptions[0]?.textContent?.trim() || "包含";
-  const generateCount = generateCountInput?.value || "5";
+  const rawGenerateCount = Number.parseInt(generateCountInput?.value || "5", 10) || 1;
+  const generateCount = String(["brand", "expand"].includes(typeValue)
+    ? Math.max(1, Math.min(3, rawGenerateCount))
+    : Math.max(1, Math.min(10, rawGenerateCount)));
+  if (generateCountInput) generateCountInput.value = generateCount;
   openImageAgentTask({ promptValue, typeValue, typeText, resolutionText, platformText, languageText, includeText, generateCount });
+});
+
+outputTypeSelect?.addEventListener("change", () => {
+  if (!generateCountInput) return;
+  const isConstrainedType = ["brand", "expand"].includes(outputTypeSelect.value);
+  generateCountInput.max = isConstrainedType ? "3" : "10";
+  const currentCount = Number.parseInt(generateCountInput.value || "1", 10) || 1;
+  generateCountInput.value = String(Math.max(1, Math.min(isConstrainedType ? 3 : 10, currentCount)));
 });
 
 function openAgentFromQuick() {
   const isPoster = activeQuickType === "poster";
   const isSocial = activeQuickType === "social";
+  const isBrand = activeQuickType === "brand";
+  const isExpand = activeQuickType === "expand";
   const socialPlan = isSocial ? buildSocialPromptPlan() : null;
-  const typeText = activeQuickType === "detail" ? "详情图" : isPoster ? "营销海报" : isSocial ? "社媒营销" : "主图";
+  const brandPlan = isBrand ? buildBrandPromptPlan() : null;
+  const expandPlan = isExpand ? buildExpandPromptPlan() : null;
+  const typeText = activeQuickType === "detail" ? "详情图" : isPoster ? "营销海报" : isSocial ? "社媒营销" : isBrand ? "品牌视觉管理" : isExpand ? "智能拓图" : "主图";
   const posterTypeText = quickHomePosterType?.selectedOptions[0]?.textContent?.trim() || "新品发布";
   const posterObjectiveText = quickHomePosterObjective?.selectedOptions[0]?.textContent?.trim() || "建立新品第一印象";
   const posterOfferText = quickHomePosterOffer?.value.trim();
   const sellingPointText = quickHomeSellingPoint?.value.trim();
   const promptValue = isSocial
     ? socialPlan.userPrompt
+    : isBrand
+      ? brandPlan.userPrompt
+      : isExpand
+        ? expandPlan.userPrompt
     : isPoster
       ? `请根据商品素材规划${posterTypeText}海报，营销目标是${posterObjectiveText}${sellingPointText ? `，主标题或核心信息为：${sellingPointText}` : ""}${posterOfferText ? `，真实优惠信息为：${posterOfferText}` : "，未提供价格或优惠时不要自行编造"}`
       : sellingPointText || (activeQuickType === "detail" ? "请根据商品素材规划完整详情页" : "请根据商品素材生成高转化电商主图");
   const resolutionText = quickResolution?.selectedOptions[0]?.textContent?.split("·")[0]?.trim() || "2K";
-  const platformText = isSocial ? socialPlan.platform.label : quickPlatform?.selectedOptions[0]?.textContent?.trim() || "亚马逊";
-  const languageText = isSocial ? "不适用" : quickLanguage?.selectedOptions[0]?.textContent?.trim() || "中文";
+  const platformText = isSocial ? socialPlan.platform.label : isBrand ? "品牌全渠道" : isExpand ? `${expandPlan.targets.length} 个目标尺寸` : quickPlatform?.selectedOptions[0]?.textContent?.trim() || "亚马逊";
+  const languageText = isSocial || isBrand || isExpand ? "不适用" : quickLanguage?.selectedOptions[0]?.textContent?.trim() || "中文";
   const includeText = isSocial
     ? quickInclude?.value === "exclude" ? "仅生成文案" : "文案 + 配图"
+    : isBrand
+      ? quickInclude?.value === "exclude" ? "仅视觉规范" : "完整 Brand Kit"
+      : isExpand
+        ? quickInclude?.value === "exclude" ? "允许轻微重排" : "锁定原图内容"
     : quickInclude?.selectedOptions[0]?.textContent?.trim() || "包含文字";
-  const generateCount = quickCount?.value || (activeQuickType === "detail" ? "5" : isPoster || isSocial ? "3" : "4");
+  const generateCount = quickCount?.value || (activeQuickType === "detail" ? "5" : isPoster || isSocial ? "3" : isBrand || isExpand ? "1" : "4");
 
   setSelectValue(outputTypeSelect, activeQuickType);
   setSelectValue(resolutionSelect, quickResolution?.value || "2k");
-  setSelectValue(platformSelect, isSocial ? quickHomeSocialPlatform?.value || "xiaohongshu" : quickPlatform?.value || "amazon");
+  setSelectValue(platformSelect, isSocial ? quickHomeSocialPlatform?.value || "xiaohongshu" : isBrand ? "brand_all" : isExpand ? "multi_size" : quickPlatform?.value || "amazon");
   setSelectValue(languageSelect, quickLanguage?.value || "zh");
   setSelectValue(includeTextSelect, quickInclude?.value || "include");
   if (generateCountInput) generateCountInput.value = generateCount;
   if (homePrompt) homePrompt.value = promptValue;
-  if (agentPrompt && isSocial) agentPrompt.dataset.promptTemplateId = socialPlan.templateId;
+  if (agentPrompt && (isSocial || isBrand || isExpand)) agentPrompt.dataset.promptTemplateId = isSocial ? socialPlan.templateId : isBrand ? brandPlan.templateId : expandPlan.templateId;
 
   openImageAgentTask({
     promptValue,
@@ -1777,25 +2516,25 @@ function openAgentFromQuick() {
 quickToAgentButtons.forEach((button) => button.addEventListener("click", openAgentFromQuick));
 
 agentToQuickButton?.addEventListener("click", () => {
-  if (!sharedReferenceUrl) {
+  const typeValue = outputTypeSelect?.value || (agentType?.textContent?.includes("主图") ? "main" : "detail");
+  if (typeValue !== "brand" && !sharedReferenceUrl) {
     setCreationMode("quick");
     setPage("home");
     if (quickHomeStatus) {
       quickHomeStatus.classList.add("is-error");
-      quickHomeStatus.innerHTML = '<i aria-hidden="true">!</i>快速生成需要先上传至少 1 张商品图';
+      quickHomeStatus.innerHTML = `<i aria-hidden="true">!</i>${typeValue === "expand" ? "智能拓图需要先上传 1 张原图" : "快速生成需要先上传至少 1 张商品图"}`;
     }
     window.setTimeout(() => quickHomeUpload?.focus(), 0);
     return;
   }
-  const typeValue = outputTypeSelect?.value || (agentType?.textContent?.includes("主图") ? "main" : "detail");
   setQuickType(typeValue, { keepCount: true, resetResult: false });
   if (typeValue === "social") setSelectValue(quickHomeSocialPlatform, platformSelect?.value || "xiaohongshu");
-  else setSelectValue(quickPlatform, platformSelect?.value || "amazon");
+  else if (!["brand", "expand"].includes(typeValue)) setSelectValue(quickPlatform, platformSelect?.value || "amazon");
   setSelectValue(quickResolution, resolutionSelect?.value || "2k");
   setSelectValue(quickLanguage, languageSelect?.value || "zh");
   setSelectValue(quickInclude, includeTextSelect?.value || "include");
   if (quickCount && generateCountInput) quickCount.value = generateCountInput.value || quickCount.value;
-  if (typeValue !== "social" && quickHomeSellingPoint && homePrompt) quickHomeSellingPoint.value = homePrompt.value.trim();
+  if (!["social", "brand", "expand"].includes(typeValue) && quickHomeSellingPoint && homePrompt) quickHomeSellingPoint.value = homePrompt.value.trim();
   quickTextButtons.forEach((item) => {
     const isActive = item.dataset.quickText === quickInclude?.value;
     item.classList.toggle("is-active", isActive);

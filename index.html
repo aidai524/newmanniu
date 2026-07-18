@@ -225,6 +225,8 @@
                           <option value="detail">详情图</option>
                           <option value="poster">营销海报</option>
                           <option value="social">社媒营销</option>
+                          <option value="brand">品牌视觉管理</option>
+                          <option value="expand">智能拓图</option>
                         </select>
                       </label>
                       <label class="quick-home-field" data-quick-home-platform-field>
@@ -316,7 +318,116 @@
                           <option value="warm">温暖生活</option>
                         </select>
                       </label>
-                      <label class="quick-home-field">
+                      <label class="quick-home-field" data-quick-home-brand-goal-field hidden>
+                        <span>管理目标</span>
+                        <select aria-label="选择品牌管理目标" data-quick-home-brand-goal>
+                          <option value="create_kit">建立新 Brand Kit</option>
+                          <option value="organize_assets">整理现有品牌资产</option>
+                          <option value="unify_channels">统一多渠道视觉</option>
+                          <option value="refresh_guidelines">更新品牌规范</option>
+                        </select>
+                      </label>
+                      <label class="quick-home-field" data-quick-home-brand-archetype-field hidden>
+                        <span>品牌类型</span>
+                        <select aria-label="选择品牌类型" data-quick-home-brand-archetype>
+                          <option value="modern_commerce">现代电商</option>
+                          <option value="lifestyle">生活方式</option>
+                          <option value="professional">专业服务</option>
+                          <option value="technology">科技产品</option>
+                          <option value="natural">自然与可持续</option>
+                        </select>
+                      </label>
+                      <label class="quick-home-field" data-quick-home-brand-tone-field hidden>
+                        <span>品牌语气</span>
+                        <select aria-label="选择品牌语气" data-quick-home-brand-tone>
+                          <option value="precise">专业严谨</option>
+                          <option value="warm">温暖亲和</option>
+                          <option value="concise">简洁直接</option>
+                          <option value="energetic">积极有活力</option>
+                          <option value="premium">克制高级</option>
+                        </select>
+                      </label>
+                      <label class="quick-home-field" data-quick-home-brand-channels-field hidden>
+                        <span>适用渠道</span>
+                        <select aria-label="选择品牌适用渠道" data-quick-home-brand-channels>
+                          <option value="omnichannel">电商、社媒、视频与线下</option>
+                          <option value="commerce">电商平台</option>
+                          <option value="social">社媒平台</option>
+                          <option value="video">视频与直播</option>
+                          <option value="offline">包装与线下物料</option>
+                        </select>
+                      </label>
+                      <label class="quick-home-field" data-quick-home-brand-typography-field hidden>
+                        <span>字体方向</span>
+                        <select aria-label="选择品牌字体方向" data-quick-home-brand-typography>
+                          <option value="modern_sans">现代无衬线</option>
+                          <option value="humanist_sans">人文无衬线</option>
+                          <option value="geometric">几何无衬线</option>
+                          <option value="editorial_serif">编辑型衬线</option>
+                          <option value="system_first">系统字体优先</option>
+                        </select>
+                      </label>
+                      <label class="quick-home-field" data-quick-home-brand-layout-field hidden>
+                        <span>常用版式</span>
+                        <select aria-label="选择品牌常用版式" data-quick-home-brand-layout>
+                          <option value="product_focus">商品主体优先</option>
+                          <option value="editorial_grid">编辑网格</option>
+                          <option value="minimal_space">留白简约</option>
+                          <option value="information_dense">高密度信息</option>
+                        </select>
+                      </label>
+                      <label class="quick-home-field" data-quick-home-expand-goal-field hidden>
+                        <span>使用目标</span>
+                        <select aria-label="选择智能拓图使用目标" data-quick-home-expand-goal>
+                          <option value="multi_platform">多平台适配</option>
+                          <option value="campaign_batch">活动物料套图</option>
+                          <option value="copy_space">预留文案空间</option>
+                        </select>
+                      </label>
+                      <label class="quick-home-field" data-quick-home-expand-mode-field hidden>
+                        <span>拓图方式</span>
+                        <select aria-label="选择智能拓图方式" data-quick-home-expand-mode>
+                          <option value="scene_extend">延续原场景</option>
+                          <option value="studio_extend">棚拍背景扩展</option>
+                          <option value="clean_extend">纯色背景扩展</option>
+                          <option value="blur_extend">柔焦背景扩展</option>
+                        </select>
+                      </label>
+                      <label class="quick-home-field" data-quick-home-expand-anchor-field hidden>
+                        <span>主体位置</span>
+                        <select aria-label="选择拓图主体位置" data-quick-home-expand-anchor>
+                          <option value="auto">AI 自动判断</option>
+                          <option value="center">主体居中</option>
+                          <option value="left">主体靠左</option>
+                          <option value="right">主体靠右</option>
+                        </select>
+                      </label>
+                      <label class="quick-home-field" data-quick-home-expand-scale-field hidden>
+                        <span>主体占比</span>
+                        <select aria-label="选择拓图主体占比" data-quick-home-expand-scale>
+                          <option value="keep">保持原图占比</option>
+                          <option value="compact">缩小主体，增加留白</option>
+                          <option value="prominent">突出主体，减少留白</option>
+                        </select>
+                      </label>
+                      <fieldset class="quick-home-expand-targets" data-quick-home-expand-targets-field hidden>
+                        <legend>目标尺寸 <small>至少选择 1 项</small></legend>
+                        <div class="quick-expand-target-grid">
+                          <label><input type="checkbox" value="square" data-quick-expand-target checked /><span><strong>方形主图</strong><small>1080x1080 / 1:1</small></span></label>
+                          <label><input type="checkbox" value="portrait" data-quick-expand-target checked /><span><strong>社媒竖图</strong><small>1080x1350 / 4:5</small></span></label>
+                          <label><input type="checkbox" value="vertical" data-quick-expand-target checked /><span><strong>短视频竖屏</strong><small>1080x1920 / 9:16</small></span></label>
+                          <label><input type="checkbox" value="commerce" data-quick-expand-target /><span><strong>电商竖图</strong><small>1200x1600 / 3:4</small></span></label>
+                          <label><input type="checkbox" value="landscape" data-quick-expand-target checked /><span><strong>横版封面</strong><small>1920x1080 / 16:9</small></span></label>
+                          <label><input type="checkbox" value="article" data-quick-expand-target /><span><strong>文章头图</strong><small>900x383 / 2.35:1</small></span></label>
+                          <label><input type="checkbox" value="custom" data-quick-expand-target /><span><strong>自定义</strong><small>320-4096 px</small></span></label>
+                        </div>
+                        <div class="quick-expand-custom-size" data-quick-expand-custom-size hidden>
+                          <label><span>宽度</span><input type="number" min="320" max="4096" value="1440" aria-label="自定义拓图宽度" data-quick-expand-custom-width /></label>
+                          <i aria-hidden="true">×</i>
+                          <label><span>高度</span><input type="number" min="320" max="4096" value="900" aria-label="自定义拓图高度" data-quick-expand-custom-height /></label>
+                        </div>
+                      </fieldset>
+                      <label class="quick-home-field" data-quick-home-count-field>
                         <span>生成数量</span>
                         <span class="quick-home-number-control">
                           <button type="button" aria-label="减少首页生成数量" data-home-count-step="-1">−</button>
@@ -325,7 +436,7 @@
                           <button type="button" aria-label="增加首页生成数量" data-home-count-step="1">+</button>
                         </span>
                       </label>
-                      <label class="quick-home-field quick-home-selling">
+                      <label class="quick-home-field quick-home-selling" data-quick-home-selling-field>
                         <span><i data-quick-home-selling-label>主图核心卖点</i> <small>选填</small></span>
                         <input type="text" data-quick-home-selling-point placeholder="例如：轻便、防滑，适合户外通勤" />
                       </label>
@@ -341,12 +452,40 @@
                         <span>行动引导 <small>选填</small></span>
                         <input type="text" data-quick-home-social-cta placeholder="例如：收藏这份使用指南" />
                       </label>
+                      <label class="quick-home-field quick-home-brand-name" data-quick-home-brand-name-field hidden>
+                        <span>品牌名称 <small>必填</small></span>
+                        <input type="text" maxlength="50" data-quick-home-brand-name placeholder="例如：蛮牛系统" />
+                      </label>
+                      <label class="quick-home-field quick-home-brand-positioning" data-quick-home-brand-positioning-field hidden>
+                        <span>品牌定位 <small>建议填写目标用户与核心价值</small></span>
+                        <input type="text" maxlength="180" data-quick-home-brand-positioning placeholder="例如：面向电商运营团队的 AI 创作工作台" />
+                      </label>
+                      <label class="quick-home-field quick-home-brand-color" data-quick-home-brand-primary-field hidden>
+                        <span>主色 <small>HEX</small></span>
+                        <input type="text" maxlength="7" data-quick-home-brand-primary placeholder="#2F7D71" />
+                      </label>
+                      <label class="quick-home-field quick-home-brand-color" data-quick-home-brand-secondary-field hidden>
+                        <span>辅助色 <small>选填</small></span>
+                        <input type="text" maxlength="7" data-quick-home-brand-secondary placeholder="#D7E85B" />
+                      </label>
+                      <label class="quick-home-field quick-home-brand-fixed-copy" data-quick-home-brand-fixed-copy-field hidden>
+                        <span>品牌名称与固定文案 <small>用分号分隔</small></span>
+                        <input type="text" maxlength="240" data-quick-home-brand-fixed-copy placeholder="例如：蛮牛系统；AI 团队，让电商创作更快、更准、更好看" />
+                      </label>
+                      <label class="quick-home-field quick-home-brand-forbidden" data-quick-home-brand-forbidden-field hidden>
+                        <span>禁用规则 <small>用分号分隔</small></span>
+                        <input type="text" maxlength="240" data-quick-home-brand-forbidden placeholder="例如：Logo 不得变形；不使用未经证实的数据" />
+                      </label>
+                      <label class="quick-home-field quick-home-expand-description" data-quick-home-expand-description-field hidden>
+                        <span>背景补全要求 <small>选填，只描述扩展区域</small></span>
+                        <input type="text" maxlength="240" data-quick-home-expand-description placeholder="例如：延续冷灰色棚拍光线，右侧留出标题区域" />
+                      </label>
                     </div>
 
                     <div class="quick-home-footer">
                       <span data-quick-home-status role="status" aria-live="polite"><i aria-hidden="true"></i>上传商品图后，AI 会先完成素材分析</span>
                       <button type="button" data-open-quick>
-                        分析商品素材
+                        <span data-open-quick-label>分析商品素材</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5" /></svg>
                       </button>
                     </div>
@@ -397,6 +536,8 @@
                       <option value="main">主图</option>
                       <option value="poster">营销海报</option>
                       <option value="social">社媒营销</option>
+                      <option value="brand">品牌视觉管理</option>
+                      <option value="expand">智能拓图</option>
                     </select>
                     <span class="select-arrow" aria-hidden="true"></span>
                   </div>
@@ -422,6 +563,8 @@
                       <option value="wechat_channels">视频号</option>
                       <option value="weibo">微博</option>
                       <option value="generic_graphic">通用图文</option>
+                      <option value="brand_all">品牌全渠道</option>
+                      <option value="multi_size">多尺寸适配</option>
                     </select>
                     <span class="platform-language" data-amazon-language>
                       <span aria-hidden="true"></span>
@@ -489,7 +632,7 @@
                   </span>
                   <span><strong>社媒营销</strong><small>图文内容全包</small></span>
                 </button>
-                <button type="button">
+                <button type="button" data-creation-path="brand">
                   <span class="path-icon brand-kit" aria-hidden="true">
                     <svg viewBox="0 0 24 24" data-icon="palette">
                       <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
@@ -498,7 +641,7 @@
                   </span>
                   <span><strong>品牌设计</strong><small>统一品牌视觉</small></span>
                 </button>
-                <button type="button">
+                <button type="button" data-creation-path="expand">
                   <span class="path-icon office" aria-hidden="true">
                     <svg viewBox="0 0 24 24" data-icon="arrows-maximize">
                       <path d="M16 4h4v4M14 10l6 -6M8 20h-4v-4M4 20l6 -6M16 20h4v-4M14 14l6 6M8 4h-4v4M4 4l6 6" />
@@ -691,7 +834,7 @@
                         <span class="quick-confirm-icon" aria-hidden="true">
                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="12" height="12" rx="2.5" /><path d="M8 20h9a3 3 0 0 0 3-3V8" /></svg>
                         </span>
-                        <div class="quick-confirm-card-head"><strong data-quick-count-label>生成数量</strong><small>可生成 1-10 张</small></div>
+                        <div class="quick-confirm-card-head"><strong data-quick-count-label>生成数量</strong><small data-quick-count-note>可生成 1-10 张</small></div>
                         <span class="quick-number-control">
                           <button type="button" aria-label="减少生成数量" data-count-step="-1">−</button>
                           <input type="number" min="1" max="10" value="4" aria-label="生成数量" data-quick-count />
@@ -750,7 +893,27 @@
                         <span>Prompt 模板</span>
                         <strong data-quick-settings-social-template>social.xhs.seeding</strong>
                       </div>
-                      <label class="quick-field">
+                      <div class="quick-field quick-readonly-field" data-quick-settings-brand-goal-field hidden>
+                        <span>管理目标</span>
+                        <strong data-quick-settings-brand-goal>建立新 Brand Kit</strong>
+                      </div>
+                      <div class="quick-field quick-readonly-field" data-quick-settings-brand-template-field hidden>
+                        <span>Prompt 模板</span>
+                        <strong data-quick-settings-brand-template>brand.commerce.create</strong>
+                      </div>
+                      <div class="quick-field quick-readonly-field" data-quick-settings-expand-mode-field hidden>
+                        <span>拓图方式</span>
+                        <strong data-quick-settings-expand-mode>延续原场景</strong>
+                      </div>
+                      <div class="quick-field quick-readonly-field" data-quick-settings-expand-targets-field hidden>
+                        <span>目标画布</span>
+                        <strong data-quick-settings-expand-targets>4 个尺寸</strong>
+                      </div>
+                      <div class="quick-field quick-readonly-field" data-quick-settings-expand-template-field hidden>
+                        <span>Prompt 模板</span>
+                        <strong data-quick-settings-expand-template>expand.scene.platform</strong>
+                      </div>
+                      <label class="quick-field" data-quick-settings-resolution-field>
                         <span>清晰度</span>
                         <select aria-label="快速生成清晰度" data-quick-resolution>
                           <option value="1k">1K · 标准</option>
@@ -758,7 +921,7 @@
                           <option value="4k">4K · 高清</option>
                         </select>
                       </label>
-                      <label class="quick-field">
+                      <label class="quick-field" data-quick-settings-ratio-field>
                         <span>画面比例</span>
                         <select aria-label="快速生成画面比例" data-quick-ratio>
                           <option value="1:1">1:1 · 主图</option>
@@ -768,14 +931,14 @@
                           <option value="16:9">16:9 · 文章封面</option>
                         </select>
                       </label>
-                      <label class="quick-field">
+                      <label class="quick-field" data-quick-settings-language-field>
                         <span>文字语言</span>
                         <select aria-label="快速生成文字语言" data-quick-language>
                           <option value="zh">中文</option>
                           <option value="en">英文</option>
                         </select>
                       </label>
-                      <label class="quick-field">
+                      <label class="quick-field" data-quick-settings-background-field>
                         <span>画布背景</span>
                         <select aria-label="快速生成画布背景" data-quick-background>
                           <option value="auto">自动推荐</option>
@@ -879,7 +1042,7 @@
           </div>
         </section>
 
-        <section class="page-view detail-layout" data-page-panel="detail" aria-label="详情图 Agent">
+        <section class="page-view detail-layout" data-page-panel="detail" aria-label="详情图 Agent" data-agent-page>
           <div class="agent-page">
             <header class="agent-head">
               <div>
@@ -947,7 +1110,7 @@
                 <div class="agent-chat-head">
                   <div>
                     <h2>与 Agent 对话</h2>
-                    <p>你可以继续补充产品信息，也可以直接让 Agent 开始分析</p>
+                    <p data-agent-chat-helper>你可以继续补充产品信息，也可以直接让 Agent 开始分析</p>
                   </div>
                   <button type="button">重新整理需求</button>
                 </div>
@@ -1040,7 +1203,7 @@
                 </div>
 
                 <div class="agent-composer">
-                  <textarea aria-label="继续和 Agent 对话" placeholder="继续补充产品卖点、品牌风格、目标平台要求…"></textarea>
+                  <textarea aria-label="继续和 Agent 对话" placeholder="继续补充产品卖点、品牌风格、目标平台要求…" data-agent-chat-input></textarea>
                   <div class="agent-composer-actions">
                     <label class="agent-attach" data-agent-attach>
                       <span>添加参考图</span>
@@ -2837,7 +3000,9 @@
     </div>
 
     <script src="social-prompts.js?v=20260717-social-one"></script>
-    <script src="script.js?v=20260717-social-one"></script>
+    <script src="brand-prompts.js?v=20260717-brand-one"></script>
+    <script src="expand-prompts.js?v=20260718-expand-one"></script>
+    <script src="script.js?v=20260718-expand-one"></script>
     <script src="ai-tools.js?v=20260715-batch-two"></script>
   </body>
 </html>

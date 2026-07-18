@@ -8,7 +8,9 @@
     "start": "npm run build:ai && node server.js",
     "dev": "npm run build:ai && node server.js",
     "test:social-prompts": "node tests/social-prompts.test.js",
-    "check": "node --check social-prompts.js && node --check script.js && node --check ai-tools.js && node --check server.js && npm run test:social-prompts && npm run build:ai"
+    "test:brand-prompts": "node tests/brand-prompts.test.js",
+    "test:expand-prompts": "node tests/expand-prompts.test.js",
+    "check": "node --check social-prompts.js && node --check brand-prompts.js && node --check expand-prompts.js && node --check script.js && node --check ai-tools.js && node --check server.js && npm run test:social-prompts && npm run test:brand-prompts && npm run test:expand-prompts && npm run build:ai"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.2.0",
