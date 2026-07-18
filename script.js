@@ -3045,7 +3045,8 @@ sidebarToggle?.addEventListener("click", () => {
 });
 
 pageButtons.forEach((button) => {
-  button.addEventListener("click", () => {
+  button.addEventListener("click", (event) => {
+    if (button instanceof HTMLAnchorElement) event.preventDefault();
     if (button.dataset.page === "quickCreate") syncHomeQuickToWorkbench();
     if (button.dataset.page) setPage(button.dataset.page);
   });
@@ -3285,7 +3286,7 @@ document.querySelector('[data-account-form="enterprise-name"]')?.addEventListene
 
   if (nameLength < 2 || nameLength > 30) {
     if (enterpriseNameError) {
-      enterpriseNameError.textContent = "企业名称需为 2–30 个字符。";
+      enterpriseNameError.textContent = "企业名称需为 2-30 个字符。";
       enterpriseNameError.hidden = false;
     }
     enterpriseNameInput?.focus();

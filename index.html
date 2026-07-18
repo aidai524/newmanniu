@@ -657,7 +657,7 @@
                     <span class="section-eyebrow">RECOMMENDED</span>
                     <h2>推荐工具</h2>
                   </div>
-                  <a href="#">查看全部</a>
+                  <a href="#toolbox" data-page="toolbox">查看全部</a>
                 </div>
                 <div class="tool-suite-grid">
                   <button class="tool-feature tool-feature-commerce" type="button" data-focus-quick>
@@ -681,58 +681,56 @@
                     </span>
                   </button>
                   <div class="tool-mini-grid">
-                    <button type="button">
-                      <span class="tool-mini-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" data-icon="photo-edit">
-                          <path d="M15 8h.01M11 20h-4a3 3 0 0 1 -3 -3v-10a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v4" />
-                          <path d="M4 15l4 -4c.928 -.893 2.072 -.893 3 0l3 3M14 14l1 -1c.31 -.298 .644 -.497 .987 -.596M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39" />
-                        </svg>
-                      </span>
-                      <span class="tool-mini-copy"><strong>图片编辑</strong><small>裁剪、调色与精修</small></span>
-                    </button>
-                    <button type="button">
-                      <span class="tool-mini-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" data-icon="square-plus">
-                          <path d="M9 12h6M12 9v6" />
-                          <path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14" />
-                        </svg>
-                      </span>
-                      <span class="tool-mini-copy"><strong>创建设计</strong><small>从空白画布开始</small></span>
-                    </button>
-                    <button type="button">
-                      <span class="tool-mini-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" data-icon="photo-up">
-                          <path d="M15 8h.01M12.5 21h-6.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6.5" />
-                          <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l3.5 3.5M14 14l1 -1c.679 -.653 1.473 -.829 2.214 -.526M19 22v-6M22 19l-3 -3l-3 3" />
-                        </svg>
-                      </span>
-                      <span class="tool-mini-copy"><strong>变清晰</strong><small>智能补足画面细节</small></span>
-                    </button>
-                    <button type="button">
-                      <span class="tool-mini-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" data-icon="eraser">
-                          <path d="M19 20h-10.5l-4.21 -4.3a1 1 0 0 1 0 -1.41l10 -10a1 1 0 0 1 1.41 0l5 5a1 1 0 0 1 0 1.41l-9.2 9.3M18 13.3l-6.3 -6.3" />
-                        </svg>
-                      </span>
-                      <span class="tool-mini-copy"><strong>AI 消除</strong><small>无痕移除多余元素</small></span>
-                    </button>
-                    <button type="button">
+                    <button type="button" data-page="backgroundRemove">
                       <span class="tool-mini-icon" aria-hidden="true">
                         <svg viewBox="0 0 24 24" data-icon="photo-scan">
                           <path d="M15 8h.01M6 13l2.644 -2.644a1.21 1.21 0 0 1 1.712 0l3.644 3.644M13 13l1.644 -1.644a1.21 1.21 0 0 1 1.712 0l1.644 1.644" />
                           <path d="M3 7v-2a2 2 0 0 1 2 -2h2M3 17v2a2 2 0 0 0 2 2h2M17 3h2a2 2 0 0 1 2 2v2M17 21h2a2 2 0 0 0 2 -2v-2" />
                         </svg>
                       </span>
-                      <span class="tool-mini-copy"><strong>智能抠图</strong><small>精准识别主体边缘</small></span>
+                      <span class="tool-mini-copy"><strong>智能抠图</strong><small>本地识别主体，导出透明 PNG</small></span>
                     </button>
-                    <button type="button">
+                    <button type="button" data-page="imageCleanup">
                       <span class="tool-mini-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" data-icon="apps">
-                          <path d="M4 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4M4 15a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4M14 15a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4" />
-                          <path d="M14 7h6M17 4v6" />
+                        <svg viewBox="0 0 24 24" data-icon="eraser">
+                          <path d="M19 20h-10.5l-4.21 -4.3a1 1 0 0 1 0 -1.41l10 -10a1 1 0 0 1 1.41 0l5 5a1 1 0 0 1 0 1.41l-9.2 9.3M18 13.3l-6.3 -6.3" />
                         </svg>
                       </span>
-                      <span class="tool-mini-copy"><strong>更多工具</strong><small>探索完整创作能力</small></span>
+                      <span class="tool-mini-copy"><strong>画面清理</strong><small>涂抹杂物或文字，补全背景</small></span>
+                    </button>
+                    <button type="button" data-page="backgroundReplace">
+                      <span class="tool-mini-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" data-icon="photo-spark">
+                          <path d="M15 8h.01M12 21h-6a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6M3 16l5 -5c.928 -.893 2.072 -.893 3 0l3.993 3.993M14 14l1 -1c.47 -.452 .995 -.675 1.52 -.67" />
+                          <path d="M19 22.5a4.75 4.75 0 0 1 3.5 -3.5a4.75 4.75 0 0 1 -3.5 -3.5a4.75 4.75 0 0 1 -3.5 3.5a4.75 4.75 0 0 1 3.5 3.5" />
+                        </svg>
+                      </span>
+                      <span class="tool-mini-copy"><strong>AI 背景替换</strong><small>生成白底、棚拍或生活场景</small></span>
+                    </button>
+                    <button type="button" data-page="imageEnhance">
+                      <span class="tool-mini-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" data-icon="photo-bolt">
+                          <path d="M15 8h.01M13.5 21h-7.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6.5M3 16l5 -5c.928 -.893 2.072 -.893 3 0l4 4M14 14l1 -1c.669 -.643 1.45 -.823 2.18 -.54" />
+                          <path d="M19 16l-2 3h4l-2 3" />
+                        </svg>
+                      </span>
+                      <span class="tool-mini-copy"><strong>图片增强</strong><small>放大、去噪并恢复画面细节</small></span>
+                    </button>
+                    <button type="button" data-page="imageCompress">
+                      <span class="tool-mini-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" data-icon="transform">
+                          <path d="M3 6a3 3 0 1 0 6 0a3 3 0 0 0 -6 0M21 11v-3a2 2 0 0 0 -2 -2h-6l3 3m0 -6l-3 3M3 13v3a2 2 0 0 0 2 2h6l-3 -3m0 6l3 -3M15 18a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                        </svg>
+                      </span>
+                      <span class="tool-mini-copy"><strong>图片压缩与转换</strong><small>批量导出 JPG、PNG 或 WebP</small></span>
+                    </button>
+                    <button type="button" data-page="imageResize">
+                      <span class="tool-mini-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" data-icon="crop">
+                          <path d="M8 5v10a1 1 0 0 0 1 1h10M5 8h10a1 1 0 0 1 1 1v10" />
+                        </svg>
+                      </span>
+                      <span class="tool-mini-copy"><strong>图片尺寸与裁剪</strong><small>适配电商及社媒常用比例</small></span>
                     </button>
                   </div>
                 </div>
@@ -2633,7 +2631,7 @@
             </header>
             <form class="account-dialog-form" data-account-form="enterprise-name">
               <div class="enterprise-current-name"><span>当前企业名称</span><strong data-enterprise-current-name>蛮牛创意科技</strong></div>
-              <label class="account-field"><span>新的企业名称 <small>2–30 个字符</small></span><input name="enterprise-name" type="text" minlength="2" maxlength="30" autocomplete="organization" placeholder="请输入企业名称" required data-enterprise-name-input /></label>
+              <label class="account-field"><span>新的企业名称 <small>2-30 个字符</small></span><input name="enterprise-name" type="text" minlength="2" maxlength="30" autocomplete="organization" placeholder="请输入企业名称" required data-enterprise-name-input /></label>
               <div class="enterprise-name-rule" data-enterprise-name-rule>
                 <span aria-hidden="true">30</span>
                 <div><strong>每 30 天仅可修改一次</strong><p data-enterprise-name-rule-copy>修改成功后，企业名称将在所有成员账号中同步更新。</p></div>
