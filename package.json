@@ -10,7 +10,14 @@
     "test:social-prompts": "node tests/social-prompts.test.js",
     "test:brand-prompts": "node tests/brand-prompts.test.js",
     "test:expand-prompts": "node tests/expand-prompts.test.js",
-    "check": "node --check social-prompts.js && node --check brand-prompts.js && node --check expand-prompts.js && node --check script.js && node --check ai-tools.js && node --check server.js && npm run test:social-prompts && npm run test:brand-prompts && npm run test:expand-prompts && npm run build:ai"
+    "test:template-catalog": "node tests/template-catalog.test.js",
+    "test:template-real-cases": "node tests/template-real-cases.test.js",
+    "templates:preview": "node scripts/generate-template-assets.js --dry-run",
+    "templates:generate": "node scripts/generate-template-assets.js",
+    "templates:real:preview": "node scripts/generate-template-real-cases.js --dry-run",
+    "templates:real:prompts": "node scripts/print-template-real-case-prompts.js",
+    "templates:real:generate": "node scripts/generate-template-real-cases.js",
+    "check": "node --check social-prompts.js && node --check brand-prompts.js && node --check expand-prompts.js && node --check template-catalog.js && node --check template-real-cases.js && node --check script.js && node --check ai-tools.js && node --check server.js && npm run test:social-prompts && npm run test:brand-prompts && npm run test:expand-prompts && npm run test:template-catalog && npm run test:template-real-cases && npm run build:ai"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.2.0",

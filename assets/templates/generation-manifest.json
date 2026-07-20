@@ -1,0 +1,169 @@
+{
+  "version": "2026.07.20",
+  "model": "gpt-image-2",
+  "generatedAt": "2026-07-20T04:12:35.048Z",
+  "items": {
+    "commerce.fashion.linen-dress": {
+      "taskId": "task_01KXYSDD81Y6TPDZ14FPYMKBWB",
+      "asset": "assets/templates/commerce-fashion-linen-dress.png",
+      "model": "gpt-image-2",
+      "ratio": "1:1",
+      "resolution": "2K",
+      "cost": 0.014,
+      "generatedAt": "2026-07-20T03:35:35.800Z"
+    },
+    "commerce.snack.daily-nuts-detail": {
+      "taskId": "task_01KXYSJMH2833HPG8W29E08V3Q",
+      "asset": "assets/templates/commerce-snack-daily-nuts.png",
+      "model": "gpt-image-2",
+      "ratio": "3:4",
+      "resolution": "2K",
+      "cost": 0.014,
+      "generatedAt": "2026-07-20T03:37:55.594Z"
+    },
+    "poster.coffee.product-launch": {
+      "taskId": "task_01KXYSJMFR6WQ9AJDBJ9NYPX4M",
+      "asset": "assets/templates/poster-coffee-launch.png",
+      "model": "gpt-image-2",
+      "ratio": "3:4",
+      "resolution": "2K",
+      "cost": 0.014,
+      "generatedAt": "2026-07-20T03:38:11.788Z"
+    },
+    "commerce.audio.noise-cancelling-headphones": {
+      "taskId": "task_01KXYSJMFRVCFDMM21B73T2KJ3",
+      "asset": "assets/templates/commerce-audio-headphones.png",
+      "model": "gpt-image-2",
+      "ratio": "1:1",
+      "resolution": "2K",
+      "cost": 0.014,
+      "generatedAt": "2026-07-20T03:38:32.691Z"
+    },
+    "poster.fragrance.limited-promotion": {
+      "taskId": "task_01KXYSM395WG7HD95RKXMMEB0E",
+      "asset": "assets/templates/poster-fragrance-promotion.png",
+      "model": "gpt-image-2",
+      "ratio": "3:4",
+      "resolution": "2K",
+      "cost": 0.014,
+      "generatedAt": "2026-07-20T03:39:02.824Z"
+    },
+    "video.running-shoes.dynamic-15s": {
+      "taskId": "task_01KXYSN7G9N1Y7FZT2W9Z55QVC",
+      "asset": "assets/templates/video-running-shoes.png",
+      "model": "gpt-image-2",
+      "ratio": "9:16",
+      "resolution": "2K",
+      "cost": 0.014,
+      "generatedAt": "2026-07-20T03:39:18.997Z"
+    },
+    "poster.sunscreen.summer-campaign": {
+      "taskId": "task_01KXYSMK3387C2PFWF91JPKH0B",
+      "asset": "assets/templates/poster-sunscreen-summer.png",
+      "model": "gpt-image-2",
+      "ratio": "3:4",
+      "resolution": "2K",
+      "cost": 0.014,
+      "generatedAt": "2026-07-20T03:39:26.390Z"
+    },
+    "video.skincare.serum-demo": {
+      "taskId": "task_01KXYSP4Y4ADNAQZSJJ4B9J4YZ",
+      "asset": "assets/templates/video-skincare-serum.png",
+      "model": "gpt-image-2",
+      "ratio": "9:16",
+      "resolution": "2K",
+      "cost": 0.014,
+      "generatedAt": "2026-07-20T03:39:57.248Z"
+    },
+    "social.fashion.xhs-seeding": {
+      "taskId": "task_01KXYSPVYDQACKX2NJDXHR33QQ",
+      "asset": "assets/templates/social-fashion-xhs.png",
+      "model": "gpt-image-2",
+      "ratio": "4:5",
+      "resolution": "2K",
+      "cost": 0.014,
+      "generatedAt": "2026-07-20T03:40:33.021Z"
+    },
+    "video.coffee-maker.lifestyle": {
+      "taskId": "task_01KXYSPMQAQZQAVQRN641AWQ65",
+      "asset": "assets/templates/video-portable-coffee-maker.png",
+      "model": "gpt-image-2",
+      "ratio": "16:9",
+      "resolution": "2K",
+      "cost": 0.014,
+      "generatedAt": "2026-07-20T03:40:33.563Z"
+    },
+    "social.audio.review-cards": {
+      "taskId": "task_01KXYSQT2R7ST38907TD9V6SNZ",
+      "asset": "assets/templates/social-headphones-review.png",
+      "model": "gpt-image-2",
+      "ratio": "4:5",
+      "resolution": "2K",
+      "cost": 0.014,
+      "generatedAt": "2026-07-20T03:41:08.105Z"
+    },
+    "brand.coffee.modern-kit": {
+      "taskId": "task_01KXYV896AFF1478S4CJTH9FA0",
+      "asset": "assets/templates/brand-coffee-modern.png",
+      "model": "gpt-image-2",
+      "ratio": "16:9",
+      "resolution": "2K",
+      "cost": 0.014,
+      "generatedAt": "2026-07-20T04:07:36.423Z"
+    },
+    "social.snack.office-sharing": {
+      "taskId": "task_01KXYSRX9Z86D8YBGVR0GJKBWP",
+      "asset": "assets/templates/social-snack-office.png",
+      "model": "gpt-image-2",
+      "ratio": "4:5",
+      "resolution": "2K",
+      "cost": 0.014,
+      "generatedAt": "2026-07-20T03:41:51.868Z"
+    },
+    "brand.skincare.natural-kit": {
+      "taskId": "task_01KXYVCX8KQ8SQD9XDH1A7DJ3P",
+      "asset": "assets/templates/brand-skincare-natural.png",
+      "model": "gpt-image-2",
+      "ratio": "16:9",
+      "resolution": "2K",
+      "cost": 0.014,
+      "generatedAt": "2026-07-20T04:09:58.618Z"
+    },
+    "expand.sneaker.vertical-scene": {
+      "taskId": "task_01KXYSVA0JHQQDG7SDGEXZBMZ4",
+      "asset": "assets/templates/expand-sneaker-vertical.png",
+      "model": "gpt-image-2",
+      "ratio": "9:16",
+      "resolution": "2K",
+      "cost": 0.014,
+      "generatedAt": "2026-07-20T03:42:58.585Z"
+    },
+    "expand.chair.landscape-room": {
+      "taskId": "task_01KXYSWAHEQKZEK1GRP8YJ77DE",
+      "asset": "assets/templates/expand-chair-landscape.png",
+      "model": "gpt-image-2",
+      "ratio": "16:9",
+      "resolution": "2K",
+      "cost": 0.014,
+      "generatedAt": "2026-07-20T03:42:59.130Z"
+    },
+    "brand.audio.technology-kit": {
+      "taskId": "task_01KXYVHHMYQFP9HE6T8NSQK4CE",
+      "asset": "assets/templates/brand-audio-technology.png",
+      "model": "gpt-image-2",
+      "ratio": "16:9",
+      "resolution": "2K",
+      "cost": 0.014,
+      "generatedAt": "2026-07-20T04:12:35.046Z"
+    },
+    "expand.snack.square-campaign": {
+      "taskId": "task_01KXYSXB5MPAW859KP05HAVPZK",
+      "asset": "assets/templates/expand-snack-square.png",
+      "model": "gpt-image-2",
+      "ratio": "1:1",
+      "resolution": "2K",
+      "cost": 0.014,
+      "generatedAt": "2026-07-20T03:43:33.892Z"
+    }
+  }
+}

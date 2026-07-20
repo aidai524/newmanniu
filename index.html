@@ -236,6 +236,8 @@
                           <option value="taobao">淘宝</option>
                           <option value="pdd">拼多多</option>
                           <option value="jd">京东</option>
+                          <option value="xiaohongshu">小红书</option>
+                          <option value="douyin">抖音</option>
                         </select>
                       </label>
                       <label class="quick-home-field" data-quick-home-template-field>
@@ -872,6 +874,8 @@
                           <option value="taobao">淘宝</option>
                           <option value="pdd">拼多多</option>
                           <option value="jd">京东</option>
+                          <option value="xiaohongshu">小红书</option>
+                          <option value="douyin">抖音</option>
                         </select>
                       </label>
                       <label class="quick-field" data-quick-settings-template-field>
@@ -1293,6 +1297,7 @@
                   <select aria-label="选择视频时长" data-video-duration>
                     <option value="10">10秒</option>
                     <option value="15" selected>15秒</option>
+                    <option value="20">20秒</option>
                     <option value="30">30秒</option>
                   </select>
                   <span class="select-arrow" aria-hidden="true"></span>
@@ -1310,6 +1315,8 @@
                     <option value="pdd">拼多多</option>
                     <option value="jd">京东</option>
                     <option value="douyin">抖音</option>
+                    <option value="xiaohongshu">小红书</option>
+                    <option value="wechat">视频号</option>
                   </select>
                   <span class="select-arrow" aria-hidden="true"></span>
                 </div>
@@ -1345,6 +1352,8 @@
                     <option value="clean" selected>清爽电商</option>
                     <option value="premium">高级质感</option>
                     <option value="energetic">动感促销</option>
+                    <option value="soft">柔和美妆</option>
+                    <option value="lifestyle">生活方式</option>
                   </select>
                 </div>
                 <div class="advanced-field">
@@ -1760,69 +1769,27 @@
                 <button type="button" data-template-featured>使用精选模板 <span aria-hidden="true">↗</span></button>
               </div>
               <div class="template-spotlight-art" aria-hidden="true">
-                <img src="assets/dashboard/work-1-hd.jpg" alt="" />
-                <img src="assets/dashboard/work-5-hd.jpg" alt="" />
+                <img src="assets/template-real-cases/commerce-fashion-linen-dress.png" alt="" />
+                <img src="assets/template-real-cases/brand-coffee-modern-kit.png" alt="" />
                 <span>参数已配置</span>
               </div>
             </section>
 
             <div class="library-toolbar template-toolbar">
               <div class="library-filters" role="group" aria-label="模板分类" data-filter-group="templates">
-                <button class="is-active" type="button" data-filter="all">全部</button>
-                <button type="button" data-filter="main">商品主图</button>
-                <button type="button" data-filter="detail">详情图</button>
-                <button type="button" data-filter="video">短视频</button>
-                <button type="button" data-filter="social">社媒营销</button>
+                <button class="is-active" type="button" data-filter="all">全部 <span>18</span></button>
+                <button type="button" data-filter="commerce">电商设计 <span>3</span></button>
+                <button type="button" data-filter="poster">海报设计 <span>3</span></button>
+                <button type="button" data-filter="video">视频创作 <span>3</span></button>
+                <button type="button" data-filter="social">社媒营销 <span>3</span></button>
+                <button type="button" data-filter="brand">品牌设计 <span>3</span></button>
+                <button type="button" data-filter="expand">智能拓图 <span>3</span></button>
               </div>
               <button class="library-sort" type="button">综合推荐 <span aria-hidden="true">⌄</span></button>
             </div>
 
-            <section class="template-grid" aria-label="模板列表" data-template-grid>
-              <article class="template-card template-card-wide" data-template-category="main" data-search-text="清透护肤 夏日 精华液 商品主图">
-                <div class="template-preview"><img src="assets/dashboard/work-1-hd.jpg" alt="清透护肤商品主图模板" loading="lazy" /><span>编辑精选</span></div>
-                <div class="template-card-copy"><div><small>商品主图 · 护肤</small><h2>清透夏日护肤主图</h2><p>亚马逊 / 1:1 / 2K · 生成 4 张</p></div><button type="button" data-template-use data-template-name="清透夏日护肤主图" data-template-mode="商品主图" data-template-platform="亚马逊 · 1:1 · 2K">立即使用</button></div>
-              </article>
-              <article class="template-card" data-template-category="detail" data-search-text="家居 单椅 空间 详情图">
-                <div class="template-preview"><img src="assets/dashboard/work-2-hd.jpg" alt="家居空间详情图模板" loading="lazy" /><span>高转化</span></div>
-                <div class="template-card-copy"><div><small>详情图 · 家居</small><h2>极简空间卖点详情</h2><p>淘宝 / 3:4 / 2K · 生成 5 张</p></div><button type="button" data-template-use data-template-name="极简空间卖点详情" data-template-mode="详情图" data-template-platform="淘宝 · 3:4 · 2K">立即使用</button></div>
-              </article>
-              <article class="template-card" data-template-category="video" data-search-text="鞋履 新品 种草 短视频">
-                <div class="template-preview"><img src="assets/dashboard/work-3-hd.jpg" alt="鞋履种草短视频模板" loading="lazy" /><span>视频</span><i class="asset-play" aria-hidden="true"></i></div>
-                <div class="template-card-copy"><div><small>短视频 · 鞋服</small><h2>新品鞋履 15 秒种草</h2><p>抖音 / 9:16 / 4 镜头</p></div><button type="button" data-template-use data-template-name="新品鞋履 15 秒种草" data-template-mode="短视频" data-template-platform="抖音 · 9:16 · 15秒">立即使用</button></div>
-              </article>
-              <article class="template-card" data-template-category="social" data-search-text="相机 复古 社交媒体 海报">
-                <div class="template-preview"><img src="assets/dashboard/work-4-hd.jpg" alt="复古相机社交媒体模板" loading="lazy" /><span>社媒</span></div>
-                <div class="template-card-copy"><div><small>社媒营销 · 数码</small><h2>复古质感新品发布</h2><p>小红书 / 3:4 / 1K · 生成 3 张</p></div><button type="button" data-template-use data-template-name="复古质感新品发布" data-template-mode="社媒营销" data-template-platform="小红书 · 3:4 · 1K">立即使用</button></div>
-              </article>
-              <article class="template-card" data-template-category="video" data-search-text="手袋 通勤 产品展示 短视频">
-                <div class="template-preview"><img src="assets/dashboard/work-5-hd.jpg" alt="通勤手袋短视频模板" loading="lazy" /><span>视频</span><i class="asset-play" aria-hidden="true"></i></div>
-                <div class="template-card-copy"><div><small>短视频 · 箱包</small><h2>通勤手袋质感展示</h2><p>视频号 / 16:9 / 20秒</p></div><button type="button" data-template-use data-template-name="通勤手袋质感展示" data-template-mode="短视频" data-template-platform="视频号 · 16:9 · 20秒">立即使用</button></div>
-              </article>
-              <article class="template-card" data-template-category="main" data-search-text="食品 轻食 早餐 促销 主图">
-                <div class="template-preview"><img src="assets/dashboard/work-6-hd.jpg" alt="轻食早餐促销主图模板" loading="lazy" /><span>新品</span></div>
-                <div class="template-card-copy"><div><small>商品主图 · 食品</small><h2>轻食早餐促销主图</h2><p>京东 / 1:1 / 2K · 生成 4 张</p></div><button type="button" data-template-use data-template-name="轻食早餐促销主图" data-template-mode="商品主图" data-template-platform="京东 · 1:1 · 2K">立即使用</button></div>
-              </article>
-            </section>
+            <section class="template-grid" aria-label="模板列表" data-template-grid></section>
             <p class="library-empty" data-template-empty hidden>没有找到匹配模板，试试“主图”“视频”或具体品类。</p>
-
-            <dialog class="template-use-dialog" data-template-dialog>
-              <form method="dialog" class="template-dialog-card" data-template-form>
-                <header><div><span>USE TEMPLATE</span><h2 data-template-dialog-name>清透夏日护肤主图</h2><p>配置已锁定，你只需要提供自己的商品参考图。</p></div><button type="button" data-template-close aria-label="关闭模板设置">×</button></header>
-                <div class="template-ready-settings">
-                  <span><small>生成类型</small><strong data-template-dialog-mode>商品主图</strong></span>
-                  <span><small>平台与规格</small><strong data-template-dialog-platform>亚马逊 · 1:1 · 2K</strong></span>
-                  <span><small>创作策略</small><strong>自动复用模板经验</strong></span>
-                </div>
-                <button class="template-upload-zone" type="button" data-template-upload-trigger>
-                  <img data-template-upload-preview alt="商品参考图预览" hidden />
-                  <span class="template-upload-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16v13H4z"/><circle cx="9" cy="10" r="1.5"/><path d="m6.5 17 4-4 2.5 2 2-2 2.5 2.5"/></svg></span>
-                  <strong data-template-upload-label>上传你的商品参考图</strong>
-                  <small>支持 JPG、PNG，建议主体清晰且无遮挡</small>
-                </button>
-                <input type="file" accept="image/*" data-template-reference hidden />
-                <footer><span><i aria-hidden="true">✓</i> 其余参数已为你配置完成</span><button type="submit">开始生成 <b aria-hidden="true">↗</b></button></footer>
-              </form>
-            </dialog>
           </div>
         </section>
 
@@ -3000,7 +2967,8 @@
     <script src="social-prompts.js?v=20260717-social-one"></script>
     <script src="brand-prompts.js?v=20260717-brand-one"></script>
     <script src="expand-prompts.js?v=20260718-expand-one"></script>
-    <script src="script.js?v=20260718-expand-one"></script>
+    <script src="template-catalog.js?v=20260720-real-two"></script>
+    <script src="script.js?v=20260720-templates-two"></script>
     <script src="ai-tools.js?v=20260715-batch-two"></script>
   </body>
 </html>

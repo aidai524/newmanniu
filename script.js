@@ -71,6 +71,8 @@ const quickHomePlatformField = document.querySelector("[data-quick-home-platform
 const quickHomeTemplateField = document.querySelector("[data-quick-home-template-field]");
 const quickHomeMainField = document.querySelector("[data-quick-home-main-field]");
 const quickHomeDetailField = document.querySelector("[data-quick-home-detail-field]");
+const quickHomeCategory = document.querySelector("[data-quick-home-category]");
+const quickHomeDetailFocus = document.querySelector("[data-quick-home-detail-focus]");
 const quickHomePosterTypeField = document.querySelector("[data-quick-home-poster-type-field]");
 const quickHomePosterObjectiveField = document.querySelector("[data-quick-home-poster-objective-field]");
 const quickHomePosterOfferField = document.querySelector("[data-quick-home-poster-offer-field]");
@@ -3595,6 +3597,45 @@ function setupCardFilter({ groupName, cardSelector, categoryKey, searchSelector,
   refresh();
 }
 
+function escapeTemplateText(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function renderTemplateCatalog() {
+  const grid = document.querySelector("[data-template-grid]");
+  const catalog = window.ManniuTemplateCatalog;
+  if (!grid || !catalog?.templates?.length) return;
+  const categoryLabels = new Map(catalog.categories.map((category) => [category.key, category.label]));
+
+  grid.innerHTML = catalog.templates.map((template) => {
+    const categoryLabel = categoryLabels.get(template.category) || template.category;
+    const play = template.quickType === "video" ? '<i class="asset-play" aria-hidden="true"></i>' : "";
+    return `
+      <article class="template-card${template.wide ? " template-card-wide" : ""}" data-template-category="${escapeTemplateText(template.category)}" data-template-id="${escapeTemplateText(template.id)}" data-search-text="${escapeTemplateText(template.searchText)}">
+        <div class="template-preview is-${escapeTemplateText(template.previewStyle || "landscape")}">
+          <img src="${escapeTemplateText(template.asset)}" alt="${escapeTemplateText(template.title)}模板预览" loading="lazy" />
+          <span>${escapeTemplateText(template.badge)}</span>${play}
+        </div>
+        <div class="template-card-copy">
+          <div>
+            <small>${escapeTemplateText(categoryLabel)} · ${escapeTemplateText(template.mode)}</small>
+            <h2>${escapeTemplateText(template.title)}</h2>
+            <p>${escapeTemplateText(template.description)}</p>
+            <em>${escapeTemplateText(template.meta)}</em>
+          </div>
+          <button type="button" data-template-use data-template-id="${escapeTemplateText(template.id)}">立即使用</button>
+        </div>
+      </article>`;
+  }).join("");
+}
+
+renderTemplateCatalog();
+
 setupCardFilter({
   groupName: "assets",
   cardSelector: "[data-asset-grid] .asset-card",
@@ -3619,74 +3660,113 @@ setupCardFilter({
   emptySelector: "[data-tool-empty]",
 });
 
-const templateDialog = document.querySelector("[data-template-dialog]");
-const templateReferenceInput = document.querySelector("[data-template-reference]");
-const templateUploadTrigger = document.querySelector("[data-template-upload-trigger]");
-const templateUploadPreview = document.querySelector("[data-template-upload-preview]");
-const templateUploadLabel = document.querySelector("[data-template-upload-label]");
-let selectedTemplateMode = "商品主图";
+function findTemplateById(templateId) {
+  return window.ManniuTemplateCatalog?.templates?.find((template) => template.id === templateId) || null;
+}
 
-function openTemplateDialog(trigger) {
-  if (!templateDialog || !trigger) return;
-  const templateName = trigger.dataset.templateName || "清透夏日护肤主图";
-  selectedTemplateMode = trigger.dataset.templateMode || "商品主图";
-  const platform = trigger.dataset.templatePlatform || "亚马逊 · 1:1 · 2K";
-  const nameTarget = templateDialog.querySelector("[data-template-dialog-name]");
-  const modeTarget = templateDialog.querySelector("[data-template-dialog-mode]");
-  const platformTarget = templateDialog.querySelector("[data-template-dialog-platform]");
-  if (nameTarget) nameTarget.textContent = templateName;
-  if (modeTarget) modeTarget.textContent = selectedTemplateMode;
-  if (platformTarget) platformTarget.textContent = platform;
-  if (templateReferenceInput) templateReferenceInput.value = "";
-  if (templateUploadPreview) {
-    templateUploadPreview.hidden = true;
-    templateUploadPreview.removeAttribute("src");
+function rememberActiveTemplate(template) {
+  const catalog = window.ManniuTemplateCatalog;
+  if (!template || !catalog?.compileRuntimePrompt) return;
+  window.ManniuActiveTemplateContext = Object.freeze({
+    id: template.id,
+    title: template.title,
+    exampleProduct: template.productSlot?.exampleLabel || "",
+    replacementHint: template.productSlot?.replacementHint || "",
+    runtimePrompt: template.runtimePrompt,
+    compile(variables) {
+      return catalog.compileRuntimePrompt(template.id, variables);
+    },
+  });
+}
+
+function setTemplateCount(count) {
+  const value = String(count || 1);
+  if (quickHomeCount) quickHomeCount.value = value;
+  if (quickCount) quickCount.value = value;
+  quickHomeCount?.dispatchEvent(new Event("change", { bubbles: true }));
+}
+
+function applyTemplatePreset(template) {
+  const preset = template?.preset || {};
+  if (template.quickType === "video") {
+    setSelectValue(videoTypeSelect, preset.videoType);
+    setSelectValue(videoRatioSelect, preset.ratio);
+    setSelectValue(videoDurationSelect, preset.duration);
+    setSelectValue(videoPlatformSelect, preset.platform);
+    setSelectValue(videoStyleSelect, preset.style);
+    if (videoSceneCountInput) videoSceneCountInput.value = String(preset.sceneCount || 4);
+    return;
   }
-  templateUploadTrigger?.classList.remove("has-image");
-  if (templateUploadLabel) templateUploadLabel.textContent = "上传你的商品参考图";
-  if (!templateDialog.open) templateDialog.showModal();
+
+  setQuickType(template.quickType, { keepCount: false, resetResult: true });
+  setCreationMode("quick");
+  setSelectValue(quickHomePlatform, preset.platform);
+  setSelectValue(quickPlatform, preset.platform);
+  setSelectValue(quickHomeTemplate, preset.template);
+  setSelectValue(quickTemplate, preset.template);
+  setSelectValue(quickHomeCategory, preset.category);
+  setSelectValue(quickHomeDetailFocus, preset.detailFocus);
+  setSelectValue(quickHomePosterType, preset.posterType);
+  setSelectValue(quickHomePosterObjective, preset.posterObjective);
+  setSelectValue(quickHomeSocialPlatform, preset.socialPlatform);
+  setSelectValue(quickHomeSocialObjective, preset.socialObjective);
+  setSelectValue(quickHomeSocialTone, preset.socialTone);
+  setSelectValue(quickHomeBrandGoal, preset.brandGoal);
+  setSelectValue(quickHomeBrandArchetype, preset.brandArchetype);
+  setSelectValue(quickHomeBrandTone, preset.brandTone);
+  setSelectValue(quickHomeBrandChannels, preset.brandChannels);
+  setSelectValue(quickHomeExpandGoal, preset.expandGoal);
+  setSelectValue(quickHomeExpandMode, preset.expandMode);
+  setSelectValue(quickHomeExpandAnchor, preset.expandAnchor);
+
+  if (template.quickType === "expand" && preset.expandTargets) {
+    const targetByRatio = { "1:1": "square", "4:5": "portrait", "9:16": "vertical", "3:4": "commerce", "16:9": "landscape" };
+    const selectedTarget = targetByRatio[preset.expandTargets] || preset.expandTargets;
+    quickExpandTargetInputs.forEach((input) => {
+      input.checked = input.value === selectedTarget;
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+  }
+
+  setTemplateCount(preset.count);
+  if (template.quickType === "social") syncSocialSettings();
+  else if (template.quickType === "brand") syncBrandSettings();
+  else if (template.quickType === "expand") syncExpandSettings();
+}
+
+function openTemplateInCreationCenter(template) {
+  if (!template) return;
+  rememberActiveTemplate(template);
+  applyTemplatePreset(template);
+
+  if (template.quickType === "video") {
+    if (videoPrompt) {
+      videoPrompt.value = template.editorPrompt || template.description;
+      videoPrompt.dispatchEvent(new Event("input", { bubbles: true }));
+    }
+    setPage("video");
+    requestAnimationFrame(() => document.querySelector(".video-composer")?.scrollIntoView({ behavior: "smooth", block: "center" }));
+  } else {
+    if (quickHomeCard) {
+      quickHomeCard.dataset.templateId = template.id;
+      quickHomeCard.dataset.templateName = template.title;
+    }
+    if (quickHomeStatus) quickHomeStatus.textContent = `已应用「${template.title}」模板，请上传商品图并继续编辑参数`;
+    setPage("home");
+    requestAnimationFrame(() => quickHomeCard?.scrollIntoView({ behavior: "smooth", block: "start" }));
+  }
+
+  showWorkspaceToast(`已应用「${template.title}」，参数仍可继续修改`);
 }
 
 document.querySelectorAll("[data-template-use]").forEach((button) => {
-  button.addEventListener("click", () => openTemplateDialog(button));
+  button.addEventListener("click", () => openTemplateInCreationCenter(findTemplateById(button.dataset.templateId)));
 });
 
 document.querySelector("[data-template-featured]")?.addEventListener("click", () => {
-  openTemplateDialog(document.querySelector("[data-template-use]"));
-});
-
-document.querySelector("[data-template-close]")?.addEventListener("click", () => templateDialog?.close("cancel"));
-templateDialog?.addEventListener("click", (event) => {
-  if (event.target === templateDialog) templateDialog.close("cancel");
-});
-
-templateUploadTrigger?.addEventListener("click", () => templateReferenceInput?.click());
-templateReferenceInput?.addEventListener("change", () => {
-  const file = templateReferenceInput.files?.[0];
-  if (!file || !templateUploadPreview) return;
-  templateUploadPreview.src = URL.createObjectURL(file);
-  templateUploadPreview.hidden = false;
-  templateUploadTrigger?.classList.add("has-image");
-  if (templateUploadLabel) templateUploadLabel.textContent = file.name;
-});
-
-document.querySelector("[data-template-form]")?.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const file = templateReferenceInput?.files?.[0];
-  if (!file) {
-    showWorkspaceToast("请先上传商品参考图");
-    templateUploadTrigger?.focus();
-    return;
-  }
-  if (selectedTemplateMode === "短视频") {
-    applyVideoReference(file);
-    setPage("video");
-  } else {
-    applyReferenceImage(file);
-    setPage("home");
-  }
-  templateDialog?.close("confirmed");
-  showWorkspaceToast("模板参数已应用，可直接开始生成");
+  const featuredTemplate = window.ManniuTemplateCatalog?.templates?.find((template) => template.featured)
+    || window.ManniuTemplateCatalog?.templates?.[0];
+  openTemplateInCreationCenter(featuredTemplate);
 });
 
 const helpArticles = [...document.querySelectorAll("[data-help-category]")];
