@@ -103,7 +103,7 @@ function updateSceneControls() {
 function getSceneWorker() {
   if (sceneWorker) return sceneWorker;
   if (typeof Worker !== "function") throw new Error("当前浏览器不支持本地模型处理");
-  sceneWorker = new Worker("dist/background-removal.worker.js?v=20260715-batch-two", { name: "manniu-background-replace" });
+  sceneWorker = new Worker("dist/background-removal.worker.js?v=20260720-alpha-cleanup", { name: "manniu-background-replace" });
   sceneWorker.addEventListener("message", (event) => {
     const message = event.data || {};
     if (message.type === "model-progress") {

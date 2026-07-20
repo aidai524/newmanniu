@@ -25,15 +25,30 @@ function loadRuntime() {
   return runtimePromise;
 }
 
+const EDGE_PROFILES = Object.freeze({
+  natural: { transparent: 0.12, opaque: 0.88, cutoff: 6 },
+  crisp: { transparent: 0.24, opaque: 0.72, cutoff: 10 },
+  soft: { transparent: 0.07, opaque: 0.94, cutoff: 4 },
+});
+
+function smoothstep(value) {
+  return value * value * (3 - (2 * value));
+}
+
 function adjustAlpha(image, mode) {
-  if (mode === "natural" || image.channels !== 4) return image;
+  if (image.channels !== 4) return image;
+  const profile = EDGE_PROFILES[mode] || EDGE_PROFILES.natural;
   const data = image.data;
   for (let index = 3; index < data.length; index += 4) {
     const value = data[index] / 255;
-    if (mode === "crisp") {
-      data[index] = Math.round(Math.max(0, Math.min(1, (value - 0.28) / 0.44)) * 255);
-    } else {
-      data[index] = Math.round(Math.sqrt(value) * 255);
+    const normalized = Math.max(0, Math.min(1, (value - profile.transparent) / (profile.opaque - profile.transparent)));
+    const nextAlpha = Math.round(smoothstep(normalized) * 255);
+    data[index] = nextAlpha <= profile.cutoff ? 0 : nextAlpha;
+
+    if (data[index] === 0) {
+      data[index - 3] = 0;
+      data[index - 2] = 0;
+      data[index - 1] = 0;
     }
   }
   return image;

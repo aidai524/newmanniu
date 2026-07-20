@@ -3620,6 +3620,10 @@ function renderTemplateCatalog() {
         <div class="template-preview is-${escapeTemplateText(template.previewStyle || "landscape")}">
           <img src="${escapeTemplateText(template.asset)}" alt="${escapeTemplateText(template.title)}模板预览" loading="lazy" />
           <span>${escapeTemplateText(template.badge)}</span>${play}
+          <button class="template-preview-open" type="button" data-template-detail data-template-id="${escapeTemplateText(template.id)}" aria-label="查看${escapeTemplateText(template.title)}完整案例">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 3.5H4.8a1.3 1.3 0 0 0-1.3 1.3v2.7M12.5 3.5h2.7a1.3 1.3 0 0 1 1.3 1.3v2.7M7.5 16.5H4.8a1.3 1.3 0 0 1-1.3-1.3v-2.7M12.5 16.5h2.7a1.3 1.3 0 0 0 1.3-1.3v-2.7"/><circle cx="10" cy="10" r="2.4"/></svg>
+            <span>查看完整案例</span>
+          </button>
         </div>
         <div class="template-card-copy">
           <div>
@@ -3628,7 +3632,10 @@ function renderTemplateCatalog() {
             <p>${escapeTemplateText(template.description)}</p>
             <em>${escapeTemplateText(template.meta)}</em>
           </div>
-          <button type="button" data-template-use data-template-id="${escapeTemplateText(template.id)}">立即使用</button>
+          <span class="template-card-actions">
+            <button class="template-card-detail" type="button" data-template-detail data-template-id="${escapeTemplateText(template.id)}">查看案例</button>
+            <button class="template-card-use" type="button" data-template-use data-template-id="${escapeTemplateText(template.id)}">立即使用</button>
+          </span>
         </div>
       </article>`;
   }).join("");
@@ -3663,6 +3670,147 @@ setupCardFilter({
 function findTemplateById(templateId) {
   return window.ManniuTemplateCatalog?.templates?.find((template) => template.id === templateId) || null;
 }
+
+const templateDetailDialog = document.querySelector("[data-template-detail-dialog]");
+const templateDetailImage = document.querySelector("[data-template-detail-image]");
+const templateDetailFigure = document.querySelector("[data-template-detail-figure]");
+const templateDetailCounter = document.querySelector("[data-template-detail-counter]");
+const templateDetailBadge = document.querySelector("[data-template-detail-badge]");
+const templateDetailCaption = document.querySelector("[data-template-detail-caption]");
+const templateDetailCategory = document.querySelector("[data-template-detail-category]");
+const templateDetailTitle = document.querySelector("[data-template-detail-title]");
+const templateDetailDescription = document.querySelector("[data-template-detail-description]");
+const templateDetailPlatform = document.querySelector("[data-template-detail-platform]");
+const templateDetailRatio = document.querySelector("[data-template-detail-ratio]");
+const templateDetailResolution = document.querySelector("[data-template-detail-resolution]");
+const templateDetailMode = document.querySelector("[data-template-detail-mode]");
+const templateDetailProduct = document.querySelector("[data-template-detail-product]");
+const templateDetailReplacement = document.querySelector("[data-template-detail-replacement]");
+const templateDetailOutcome = document.querySelector("[data-template-detail-outcome]");
+const templateDetailAssurance = document.querySelector("[data-template-detail-assurance]");
+const templateDetailOriginal = document.querySelector("[data-template-detail-original]");
+const templateDetailPrevTitle = document.querySelector("[data-template-detail-prev-title]");
+const templateDetailNextTitle = document.querySelector("[data-template-detail-next-title]");
+const templateDetailUseButton = document.querySelector("[data-template-detail-use]");
+let activeTemplateDetail = null;
+let templateDetailReturnFocus = null;
+
+const templateDetailOutcomeCopy = Object.freeze({
+  main: "上传你的商品图后，复用这套构图、光线与商品层级，生成多套可继续调整的主图方向。",
+  detail: "上传商品图并补充卖点后，复用这套信息节奏与分屏结构，生成完整详情页方案。",
+  poster: "上传商品图并确认活动事实后，生成同风格底图，并保留标题、价格和 CTA 的可编辑安全区。",
+  video: "上传商品素材后，复用这套镜头节奏与关键视觉，进入视频工作台继续调整分镜和时长。",
+  social: "上传商品素材并补充真实卖点后，生成同一视觉方向的封面、内容卡片和平台文案结构。",
+  brand: "替换为你的品牌商品与资产后，延续这套色彩、材质和版式逻辑整理 Brand Kit。",
+  expand: "上传需要拓展的原图后，锁定商品主体，只在目标画布的新增区域延展场景。",
+});
+
+function templateDetailItems() {
+  return window.ManniuTemplateCatalog?.templates || [];
+}
+
+function templateDetailCategoryLabel(template) {
+  return window.ManniuTemplateCatalog?.categories?.find((category) => category.key === template.category)?.label || template.category;
+}
+
+function updateTemplateDetail(template) {
+  const templates = templateDetailItems();
+  const activeIndex = Math.max(0, templates.findIndex((item) => item.id === template.id));
+  const previousTemplate = templates[(activeIndex - 1 + templates.length) % templates.length];
+  const nextTemplate = templates[(activeIndex + 1) % templates.length];
+  const [ratioWidth, ratioHeight] = String(template.ratio || "1:1").split(":").map(Number);
+  const shape = ratioWidth === ratioHeight ? "square" : ratioWidth > ratioHeight ? "landscape" : "portrait";
+
+  activeTemplateDetail = template;
+  if (templateDetailCounter) templateDetailCounter.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(templates.length).padStart(2, "0")}`;
+  if (templateDetailBadge) templateDetailBadge.textContent = template.badge;
+  if (templateDetailCaption) templateDetailCaption.textContent = `${template.title} · 完整真实案例`;
+  if (templateDetailCategory) templateDetailCategory.textContent = `${templateDetailCategoryLabel(template)} / ${template.mode}`;
+  if (templateDetailTitle) templateDetailTitle.textContent = template.title;
+  if (templateDetailDescription) templateDetailDescription.textContent = template.description;
+  if (templateDetailPlatform) templateDetailPlatform.textContent = template.platform;
+  if (templateDetailRatio) templateDetailRatio.textContent = template.ratio;
+  if (templateDetailResolution) templateDetailResolution.textContent = template.resolution;
+  if (templateDetailMode) templateDetailMode.textContent = template.quickType === "video" ? "关键视觉 + 分镜" : template.mode;
+  if (templateDetailProduct) templateDetailProduct.textContent = template.productSlot?.exampleLabel || "真实商品案例";
+  if (templateDetailReplacement) templateDetailReplacement.textContent = template.productSlot?.replacementHint || "上传你的商品图即可复用此模板方向。";
+  if (templateDetailOutcome) templateDetailOutcome.textContent = templateDetailOutcomeCopy[template.quickType] || templateDetailOutcomeCopy.main;
+  if (templateDetailAssurance) {
+    templateDetailAssurance.textContent = template.quickType === "video"
+      ? "当前案例图验证关键视觉与视频首帧方向，完整视频将在视频工作台生成"
+      : "完整案例已经过商品一致性、场景真实性与发布安全验收";
+  }
+  if (templateDetailOriginal) templateDetailOriginal.href = template.asset;
+  if (templateDetailPrevTitle) templateDetailPrevTitle.textContent = previousTemplate?.title || "上一套模板";
+  if (templateDetailNextTitle) templateDetailNextTitle.textContent = nextTemplate?.title || "下一套模板";
+  if (templateDetailFigure) {
+    templateDetailFigure.dataset.shape = shape;
+    templateDetailFigure.style.setProperty("--template-detail-ratio", `${ratioWidth || 1} / ${ratioHeight || 1}`);
+  }
+  if (templateDetailImage) {
+    templateDetailImage.classList.remove("is-ready");
+    templateDetailImage.alt = `${template.title}完整真实生成案例`;
+    templateDetailImage.src = template.asset;
+    if (templateDetailImage.complete) requestAnimationFrame(() => templateDetailImage.classList.add("is-ready"));
+  }
+}
+
+function openTemplateDetail(template, trigger) {
+  if (!template || !templateDetailDialog) return;
+  templateDetailReturnFocus = trigger || document.activeElement;
+  updateTemplateDetail(template);
+  if (!templateDetailDialog.open) templateDetailDialog.showModal();
+  requestAnimationFrame(() => templateDetailDialog.querySelector("[data-template-detail-close]")?.focus());
+}
+
+function closeTemplateDetail({ restoreFocus = true } = {}) {
+  if (!templateDetailDialog?.open) return;
+  if (!restoreFocus) templateDetailReturnFocus = null;
+  templateDetailDialog.close();
+}
+
+function stepTemplateDetail(direction) {
+  const templates = templateDetailItems();
+  if (!templates.length || !activeTemplateDetail) return;
+  const activeIndex = Math.max(0, templates.findIndex((template) => template.id === activeTemplateDetail.id));
+  const nextIndex = (activeIndex + direction + templates.length) % templates.length;
+  updateTemplateDetail(templates[nextIndex]);
+}
+
+templateDetailImage?.addEventListener("load", () => templateDetailImage.classList.add("is-ready"));
+document.querySelector("[data-template-grid]")?.addEventListener("click", (event) => {
+  const trigger = event.target.closest("[data-template-detail]");
+  if (!trigger) return;
+  openTemplateDetail(findTemplateById(trigger.dataset.templateId), trigger);
+});
+document.querySelectorAll("[data-template-detail-close]").forEach((button) => {
+  button.addEventListener("click", () => closeTemplateDetail());
+});
+document.querySelector("[data-template-detail-prev]")?.addEventListener("click", () => stepTemplateDetail(-1));
+document.querySelector("[data-template-detail-next]")?.addEventListener("click", () => stepTemplateDetail(1));
+templateDetailDialog?.addEventListener("click", (event) => {
+  if (event.target === templateDetailDialog) closeTemplateDetail();
+});
+templateDetailDialog?.addEventListener("close", () => {
+  const focusTarget = templateDetailReturnFocus;
+  templateDetailReturnFocus = null;
+  focusTarget?.focus?.({ preventScroll: true });
+});
+templateDetailDialog?.addEventListener("keydown", (event) => {
+  if (event.key === "ArrowLeft") {
+    event.preventDefault();
+    stepTemplateDetail(-1);
+  } else if (event.key === "ArrowRight") {
+    event.preventDefault();
+    stepTemplateDetail(1);
+  }
+});
+templateDetailUseButton?.addEventListener("click", () => {
+  if (!activeTemplateDetail) return;
+  const template = activeTemplateDetail;
+  closeTemplateDetail({ restoreFocus: false });
+  openTemplateInCreationCenter(template);
+});
 
 function rememberActiveTemplate(template) {
   const catalog = window.ManniuTemplateCatalog;
@@ -4112,7 +4260,7 @@ function getBackgroundWorker() {
   if (backgroundWorker) return backgroundWorker;
   if (typeof Worker !== "function") throw new Error("当前浏览器不支持本地模型处理");
 
-  backgroundWorker = new Worker("dist/background-removal.worker.js?v=20260715", { name: "manniu-background-removal" });
+  backgroundWorker = new Worker("dist/background-removal.worker.js?v=20260720-alpha-cleanup", { name: "manniu-background-removal" });
   backgroundWorker.addEventListener("message", (event) => {
     const message = event.data || {};
     if (message.type === "model-progress") {

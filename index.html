@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>蛮牛系统 - 工作台</title>
     <link rel="stylesheet" href="styles.css?v=20260716-typography" />
-    <link rel="stylesheet" href="designkit-theme.css?v=20260716-typography" />
+    <link rel="stylesheet" href="designkit-theme.css?v=20260720-template-detail" />
   </head>
   <body class="dashboard-page">
     <div class="app-shell">
@@ -2956,6 +2956,89 @@
             </div>
           </div>
         </section>
+
+        <dialog class="template-detail-dialog" data-template-detail-dialog aria-labelledby="template-detail-title" aria-describedby="template-detail-description">
+          <div class="template-detail-shell">
+            <section class="template-detail-gallery" aria-label="模板真实案例预览">
+              <header class="template-detail-gallery-head">
+                <div>
+                  <span class="template-detail-proof"><i aria-hidden="true"></i>REAL CASE</span>
+                  <span class="template-detail-counter" data-template-detail-counter>01 / 18</span>
+                </div>
+                <div class="template-detail-gallery-actions">
+                  <a href="#" target="_blank" rel="noopener" data-template-detail-original>查看原图 <span aria-hidden="true">↗</span></a>
+                  <button type="button" data-template-detail-close aria-label="关闭模板详情">
+                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15" /></svg>
+                  </button>
+                </div>
+              </header>
+
+              <figure class="template-detail-figure" data-template-detail-figure>
+                <span class="template-detail-image-glow" aria-hidden="true"></span>
+                <img src="" alt="" data-template-detail-image />
+                <figcaption>
+                  <span data-template-detail-badge>编辑精选</span>
+                  <strong data-template-detail-caption>完整真实案例</strong>
+                </figcaption>
+              </figure>
+
+              <nav class="template-detail-pagination" aria-label="浏览模板案例">
+                <button type="button" data-template-detail-prev>
+                  <span aria-hidden="true">←</span>
+                  <span><small>上一套</small><strong data-template-detail-prev-title>上一套模板</strong></span>
+                </button>
+                <button type="button" data-template-detail-next>
+                  <span><small>下一套</small><strong data-template-detail-next-title>下一套模板</strong></span>
+                  <span aria-hidden="true">→</span>
+                </button>
+              </nav>
+            </section>
+
+            <section class="template-detail-content">
+              <header class="template-detail-heading">
+                <span data-template-detail-category>电商设计 / 商品主图</span>
+                <h2 id="template-detail-title" data-template-detail-title>亚麻女装清透主图</h2>
+                <p id="template-detail-description" data-template-detail-description>自然光与面料细节并重</p>
+              </header>
+
+              <dl class="template-detail-specs" aria-label="模板输出规格">
+                <div><dt>适用平台</dt><dd data-template-detail-platform>淘宝</dd></div>
+                <div><dt>画面比例</dt><dd data-template-detail-ratio>1:1</dd></div>
+                <div><dt>输出精度</dt><dd data-template-detail-resolution>2K</dd></div>
+                <div><dt>生成方式</dt><dd data-template-detail-mode>商品主图</dd></div>
+              </dl>
+
+              <section class="template-detail-section template-detail-product">
+                <div class="template-detail-section-head">
+                  <span>01</span>
+                  <div><small>DEMO PRODUCT</small><h3>案例使用的真实商品</h3></div>
+                </div>
+                <strong data-template-detail-product>米杏色亚麻中长连衣裙</strong>
+                <p data-template-detail-replacement>可替换为适合展示穿搭或材质的商品。</p>
+              </section>
+
+              <section class="template-detail-section template-detail-outcome">
+                <div class="template-detail-section-head">
+                  <span>02</span>
+                  <div><small>WHAT YOU GET</small><h3>应用模板后</h3></div>
+                </div>
+                <p data-template-detail-outcome>上传你的商品图后，复用这套构图、光线与信息层级生成新作品。</p>
+                <div class="template-detail-assurance">
+                  <i aria-hidden="true">✓</i>
+                  <span data-template-detail-assurance>完整案例已经过商品一致性与场景真实性验收</span>
+                </div>
+              </section>
+
+              <footer class="template-detail-footer">
+                <button class="template-detail-secondary" type="button" data-template-detail-close>继续浏览</button>
+                <button class="template-detail-primary" type="button" data-template-detail-use>
+                  <span>使用此模板</span><span aria-hidden="true">↗</span>
+                </button>
+              </footer>
+            </section>
+          </div>
+        </dialog>
+
         <button class="support-float" type="button" aria-label="联系客服">
           <span aria-hidden="true"></span>
           联系客服
@@ -2968,7 +3051,7 @@
     <script src="brand-prompts.js?v=20260717-brand-one"></script>
     <script src="expand-prompts.js?v=20260718-expand-one"></script>
     <script src="template-catalog.js?v=20260720-real-two"></script>
-    <script src="script.js?v=20260720-templates-two"></script>
-    <script src="ai-tools.js?v=20260715-batch-two"></script>
+    <script src="script.js?v=20260720-template-detail-alpha-fix"></script>
+    <script src="ai-tools.js?v=20260720-alpha-cleanup"></script>
   </body>
 </html>
