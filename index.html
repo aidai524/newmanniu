@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>蛮牛系统 - 工作台</title>
     <link rel="stylesheet" href="styles.css?v=20260716-typography" />
-    <link rel="stylesheet" href="designkit-theme.css?v=20260720-template-detail" />
+    <link rel="stylesheet" href="designkit-theme.css?v=20260721-notification-two" />
   </head>
   <body class="dashboard-page">
     <div class="app-shell">
@@ -103,7 +103,7 @@
               </svg>
             </span>
             消息中心
-            <span class="badge-dot" data-message-badge>3</span>
+            <span class="badge-dot" data-message-badge>4</span>
           </button>
           <button class="side-item" type="button" data-title="更多">
             <span class="sidebar-icon" aria-hidden="true">
@@ -2428,8 +2428,8 @@
             <header class="library-page-head">
               <div>
                 <span class="library-eyebrow">NOTIFICATIONS</span>
-                <h1>消息中心 <em data-message-unread-count>3 条未读</em></h1>
-                <p>集中查看生成任务、账户安全、会员与系统更新通知。</p>
+                <h1>消息中心 <em data-message-unread-count>4 条未读</em></h1>
+                <p>按创作任务、资产协作、账户设置、会员额度和系统动态分类管理通知。</p>
               </div>
               <button class="library-secondary-button" type="button" data-mark-all-read>
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 4 4L19 5"/><path d="m10 16 2 2 8-9"/></svg>
@@ -2437,38 +2437,17 @@
               </button>
             </header>
 
+            <section class="message-category-map" aria-label="通知分类" data-message-categories></section>
+
             <div class="library-toolbar message-toolbar">
-              <div class="library-filters" role="group" aria-label="消息筛选" data-filter-group="messages">
-                <button class="is-active" type="button" data-filter="all">全部</button>
-                <button type="button" data-filter="unread">未读 <span data-message-filter-count>3</span></button>
-                <button type="button" data-filter="task">任务通知</button>
-                <button type="button" data-filter="account">账户与权益</button>
-                <button type="button" data-filter="system">系统动态</button>
+              <div class="library-filters" role="group" aria-label="消息筛选">
+                <button class="is-active" type="button" data-message-filter="all">全部</button>
+                <button type="button" data-message-filter="unread">未读 <span data-message-filter-count>4</span></button>
               </div>
+              <p class="message-filter-summary" data-message-filter-summary>显示全部通知</p>
             </div>
 
-            <section class="message-list" aria-label="通知列表" data-message-list>
-              <article class="message-item is-unread" data-message-kind="task" tabindex="0">
-                <i class="message-type-icon mint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/><circle cx="12" cy="12" r="9"/></svg></i>
-                <div class="message-copy"><div><span>任务通知</span><time>2 分钟前</time></div><h2>你的「夏日精华液主图」已生成完成</h2><p>共生成 4 张图片，已自动保存至「我的资产」，现在可以预览或下载。</p><button type="button" data-page="assets">查看结果 <span aria-hidden="true">↗</span></button></div><span class="message-unread-dot" aria-label="未读"></span>
-              </article>
-              <article class="message-item is-unread" data-message-kind="account" tabindex="0">
-                <i class="message-type-icon peach" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 2.8 8 7 10 4.2-2 7-5.5 7-10V6z"/><path d="M9.5 12 11 13.5l3.5-4"/></svg></i>
-                <div class="message-copy"><div><span>账户安全</span><time>今天 09:26</time></div><h2>检测到一次新的登录</h2><p>设备：Chrome · macOS，地点：上海。如非本人操作，请立即修改密码。</p><button type="button" data-page="account">检查账户 <span aria-hidden="true">↗</span></button></div><span class="message-unread-dot" aria-label="未读"></span>
-              </article>
-              <article class="message-item is-unread" data-message-kind="account" tabindex="0">
-                <i class="message-type-icon lime" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m4 8 3 3 5-7 5 7 3-3-2 10H6z"/><path d="M7 21h10"/></svg></i>
-                <div class="message-copy"><div><span>会员权益</span><time>昨天 18:40</time></div><h2>专业版将在 12 天后到期</h2><p>续费后可继续使用当前积分、50GB 资产空间与无水印导出能力。</p><button type="button" data-page="rights">查看会员 <span aria-hidden="true">↗</span></button></div><span class="message-unread-dot" aria-label="未读"></span>
-              </article>
-              <article class="message-item" data-message-kind="system" tabindex="0">
-                <i class="message-type-icon blue" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="4"/></svg></i>
-                <div class="message-copy"><div><span>系统动态</span><time>7 月 12 日</time></div><h2>模板中心新增 12 套电商模板</h2><p>覆盖护肤、鞋服、家居与食品品类，只需上传商品图即可生成同款。</p><button type="button" data-page="templates">浏览模板 <span aria-hidden="true">↗</span></button></div>
-              </article>
-              <article class="message-item" data-message-kind="task" tabindex="0">
-                <i class="message-type-icon violet" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></svg></i>
-                <div class="message-copy"><div><span>任务通知</span><time>7 月 11 日</time></div><h2>「通勤手袋卖点视频」已保存</h2><p>视频草案与封面已进入我的资产，可继续调整脚本或下载封面。</p><button type="button" data-page="assets">查看资产 <span aria-hidden="true">↗</span></button></div>
-              </article>
-            </section>
+            <section class="message-list" aria-label="通知列表" data-message-list></section>
             <p class="library-empty" data-message-empty hidden>当前筛选下没有消息。</p>
           </div>
         </section>
@@ -3051,7 +3030,8 @@
     <script src="brand-prompts.js?v=20260717-brand-one"></script>
     <script src="expand-prompts.js?v=20260718-expand-one"></script>
     <script src="template-catalog.js?v=20260720-real-two"></script>
-    <script src="script.js?v=20260720-template-detail-alpha-fix"></script>
+    <script src="notification-catalog.js?v=20260721-notification-two"></script>
+    <script src="script.js?v=20260721-notification-two"></script>
     <script src="ai-tools.js?v=20260720-alpha-cleanup"></script>
   </body>
 </html>

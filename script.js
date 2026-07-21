@@ -3963,12 +3963,81 @@ document.querySelector(".support-float")?.addEventListener("click", () => {
   showWorkspaceToast("客服入口已唤起，我们会尽快回应");
 });
 
+const notificationCatalog = window.ManniuNotificationCatalog;
+const messageCategoryMap = document.querySelector("[data-message-categories]");
+const messageList = document.querySelector("[data-message-list]");
+
+const messageCategoryIcons = Object.freeze({
+  task: '<svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/><circle cx="12" cy="12" r="9"/></svg>',
+  asset: '<svg viewBox="0 0 24 24"><path d="M4 7.5h6l2-2h8v13H4z"/><path d="M8 12h8M8 15h5"/></svg>',
+  account: '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 19.5c.6-4 3-6 6.5-6s5.9 2 6.5 6"/><path d="M18.5 4.8v3.4M16.8 6.5h3.4"/></svg>',
+  billing: '<svg viewBox="0 0 24 24"><path d="m4 8 3 3 5-7 5 7 3-3-2 10H6z"/><path d="M7 21h10"/></svg>',
+  system: '<svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="4"/></svg>',
+});
+
+function renderNotificationCenter() {
+  if (!notificationCatalog || !messageCategoryMap || !messageList) return;
+  const resolvedNotifications = notificationCatalog.notifications.map((notification) => notificationCatalog.resolveNotification(notification));
+  const categoryCounts = new Map(notificationCatalog.categories.map((category) => [
+    category.key,
+    resolvedNotifications.filter((notification) => notification.category.key === category.key).length,
+  ]));
+
+  messageCategoryMap.innerHTML = notificationCatalog.categories.map((category, index) => `
+    <button class="message-category-card accent-${escapeTemplateText(category.accent)}" type="button" data-message-filter="${escapeTemplateText(category.key)}">
+      <span><i aria-hidden="true"></i>${escapeTemplateText(category.code)} · ${String(index + 1).padStart(2, "0")}</span>
+      <strong>${escapeTemplateText(category.label)} <b>${categoryCounts.get(category.key) || 0}</b></strong>
+      <small>${escapeTemplateText(category.description)}</small>
+    </button>
+  `).join("");
+
+  const groupNames = [...new Set(resolvedNotifications.map((notification) => notification.group))];
+  messageList.innerHTML = groupNames.map((groupName) => {
+    const groupNotifications = resolvedNotifications.filter((notification) => notification.group === groupName);
+    const items = groupNotifications.map((notification) => {
+      const unreadClass = notification.read ? "" : " is-unread";
+      const unreadState = notification.read
+        ? ""
+        : '<span class="message-state" aria-label="未读"><i aria-hidden="true"></i><small>未读</small></span>';
+      const priority = notification.template.tone === "critical" ? '<span class="message-priority">需要关注</span>' : "";
+      return `
+        <article class="message-item kind-${escapeTemplateText(notification.category.key)} tone-${escapeTemplateText(notification.template.tone)}${unreadClass}" data-message-kind="${escapeTemplateText(notification.category.key)}" data-message-id="${escapeTemplateText(notification.id)}" tabindex="0">
+          <i class="message-type-icon" aria-hidden="true">${messageCategoryIcons[notification.category.key] || messageCategoryIcons.system}</i>
+          <div class="message-copy">
+            <div class="message-meta">
+              <span class="message-category-label">${escapeTemplateText(notification.category.label)}</span>
+              <span class="message-event-label">${escapeTemplateText(notification.template.eventLabel)}</span>
+              ${priority}
+              <time>${escapeTemplateText(notification.time)}</time>
+            </div>
+            <h2>${escapeTemplateText(notification.title)}</h2>
+            <p>${escapeTemplateText(notification.body)}</p>
+            <button type="button" data-message-page="${escapeTemplateText(notification.action.page)}">${escapeTemplateText(notification.action.label)} <span aria-hidden="true">↗</span></button>
+          </div>
+          ${unreadState}
+        </article>
+      `;
+    }).join("");
+    return `
+      <section class="message-day-group" data-message-group>
+        <header><h2>${escapeTemplateText(groupName)}</h2><span>${groupNotifications.length} 条</span></header>
+        <div>${items}</div>
+      </section>
+    `;
+  }).join("");
+}
+
+renderNotificationCenter();
+
 const messageItems = [...document.querySelectorAll("[data-message-kind]")];
-const messageFilterGroup = document.querySelector('[data-filter-group="messages"]');
+const messageGroups = [...document.querySelectorAll("[data-message-group]")];
+const messageFilterButtons = [...document.querySelectorAll("[data-message-filter]")];
 const messageBadge = document.querySelector("[data-message-badge]");
 const messageUnreadCount = document.querySelector("[data-message-unread-count]");
 const messageFilterCount = document.querySelector("[data-message-filter-count]");
+const messageFilterSummary = document.querySelector("[data-message-filter-summary]");
 const messageEmpty = document.querySelector("[data-message-empty]");
+const markAllReadButton = document.querySelector("[data-mark-all-read]");
 let activeMessageFilter = "all";
 
 function unreadMessageCount() {
@@ -3983,6 +4052,7 @@ function syncMessageCounts() {
   }
   if (messageUnreadCount) messageUnreadCount.textContent = count ? `${count} 条未读` : "全部已读";
   if (messageFilterCount) messageFilterCount.textContent = String(count);
+  if (markAllReadButton) markAllReadButton.disabled = count === 0;
 }
 
 function refreshMessages() {
@@ -3994,35 +4064,53 @@ function refreshMessages() {
     item.hidden = !shouldShow;
     if (shouldShow) visibleCount += 1;
   });
+  messageGroups.forEach((group) => {
+    group.hidden = ![...group.querySelectorAll("[data-message-kind]")].some((item) => !item.hidden);
+  });
+  if (messageFilterSummary) {
+    const category = notificationCatalog?.categories?.find((item) => item.key === activeMessageFilter);
+    const label = activeMessageFilter === "all" ? "全部通知" : activeMessageFilter === "unread" ? "未读通知" : category?.label || "当前分类";
+    messageFilterSummary.textContent = `显示 ${label} · ${visibleCount} 条`;
+  }
   if (messageEmpty) messageEmpty.hidden = visibleCount > 0;
 }
 
-messageFilterGroup?.querySelectorAll("[data-filter]").forEach((button) => {
+messageFilterButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    activeMessageFilter = button.dataset.filter || "all";
-    messageFilterGroup.querySelectorAll("[data-filter]").forEach((item) => item.classList.toggle("is-active", item === button));
+    activeMessageFilter = button.dataset.messageFilter || "all";
+    messageFilterButtons.forEach((item) => item.classList.toggle("is-active", item.dataset.messageFilter === activeMessageFilter));
     refreshMessages();
   });
 });
 
+function markMessageRead(item) {
+  if (!item.classList.contains("is-unread")) return;
+  item.classList.remove("is-unread");
+  item.querySelector(".message-state")?.remove();
+  syncMessageCounts();
+  if (activeMessageFilter === "unread") refreshMessages();
+}
+
 messageItems.forEach((item) => {
-  const markRead = () => {
-    if (!item.classList.contains("is-unread")) return;
-    item.classList.remove("is-unread");
-    item.querySelector(".message-unread-dot")?.remove();
-    syncMessageCounts();
-    if (activeMessageFilter === "unread") refreshMessages();
-  };
-  item.addEventListener("click", markRead);
+  item.addEventListener("click", () => markMessageRead(item));
   item.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") markRead();
+    if (event.target.closest("button")) return;
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      markMessageRead(item);
+    }
   });
 });
 
-document.querySelector("[data-mark-all-read]")?.addEventListener("click", () => {
+messageList?.addEventListener("click", (event) => {
+  const action = event.target.closest("[data-message-page]");
+  if (action?.dataset.messagePage) setPage(action.dataset.messagePage);
+});
+
+markAllReadButton?.addEventListener("click", () => {
   messageItems.forEach((item) => {
     item.classList.remove("is-unread");
-    item.querySelector(".message-unread-dot")?.remove();
+    item.querySelector(".message-state")?.remove();
   });
   syncMessageCounts();
   refreshMessages();
@@ -4030,6 +4118,7 @@ document.querySelector("[data-mark-all-read]")?.addEventListener("click", () => 
 });
 
 syncMessageCounts();
+refreshMessages();
 
 /* Local utility tools */
 function formatFileSize(bytes) {
