@@ -424,6 +424,7 @@ const pageLabels = {
   detail: "详情图 Agent",
   quickCreate: "快速生成",
   assets: "我的资产",
+  team: "团队协作",
   templates: "模板中心",
   toolbox: "AI 工具箱",
   backgroundRemove: "智能抠图",
@@ -435,7 +436,7 @@ const pageLabels = {
   videoFrames: "视频抽帧",
   help: "反馈帮助",
   messages: "消息中心",
-  account: "账户安全",
+  account: "账户设置",
   orders: "我的订单",
   points: "积分明细",
   rights: "我的权益",
@@ -1798,6 +1799,22 @@ function startQuickGeneration() {
     }
     return;
   }
+  const quickTaskNames = {
+    main: "商品主图快速生成",
+    detail: "商品详情图快速生成",
+    poster: "营销海报快速生成",
+    social: "社媒内容快速生成",
+    brand: "品牌视觉规范生成",
+    expand: "多尺寸智能拓图",
+  };
+  applyTaskAccessToCreation(quickWorkspace, {
+    title: quickTaskNames[activeQuickType] || "图片快速生成",
+    description: "从快速生成工作区创建的任务",
+    type: activeQuickType === "brand" ? "品牌任务" : "图片任务",
+    thumbnail: "assets/dashboard/work-1-hd.jpg",
+    destinationPage: "quickCreate",
+    outputMeta: `${quickCount?.value || 4} 个生成结果`,
+  });
   stopQuickGeneration();
   setQuickWorkspaceState("processing");
   if (quickAnalysisOrbit) quickAnalysisOrbit.hidden = true;
@@ -2368,6 +2385,15 @@ function resetImageAgentTask() {
 }
 
 function runImageAgentTask() {
+  const agentTaskType = agentType?.textContent?.trim() || "详情图";
+  applyTaskAccessToCreation(imageAgentTaskProgress, {
+    title: `${agentTaskType} Agent 任务`,
+    description: "由图片 Agent 规划并生成的创作任务",
+    type: "图片任务",
+    thumbnail: "assets/dashboard/work-2-hd.jpg",
+    destinationPage: "detail",
+    outputMeta: `${agentCount?.textContent?.trim() || "5"} 个生成结果`,
+  });
   resetImageAgentTask();
   if (imageAgentTaskProgress) imageAgentTaskProgress.hidden = false;
   if (imageAgentTaskTitle) {
@@ -2839,6 +2865,14 @@ function analyzeVideoTask() {
 
 function generateVideoTask() {
   if (!activeVideoTaskData) syncVideoReview(collectVideoTaskData());
+  applyTaskAccessToCreation(videoRenderState, {
+    title: `${activeVideoTaskData?.typeText || "产品展示"}视频`,
+    description: "从分镜确认工作区创建的视频任务",
+    type: "视频任务",
+    thumbnail: "assets/dashboard/work-5-hd.jpg",
+    destinationPage: "videoCreate",
+    outputMeta: `${activeVideoTaskData?.durationText || "15秒"} · ${activeVideoTaskData?.ratioText || "9:16"}`,
+  });
   runVideoProgress({
     mode: "render",
     duration: 3200,
@@ -2901,6 +2935,14 @@ function setVideoAgentProgress(progress) {
 }
 
 function runVideoAgentTask() {
+  applyTaskAccessToCreation(videoAgentProgress, {
+    title: `${activeVideoTaskData?.typeText || "产品展示"}视频 Agent 任务`,
+    description: "由视频 Agent 规划镜头并生成的视频任务",
+    type: "视频任务",
+    thumbnail: "assets/dashboard/work-3-hd.jpg",
+    destinationPage: "videoAgent",
+    outputMeta: `${activeVideoTaskData?.durationText || "15秒"} · ${activeVideoTaskData?.ratioText || "9:16"}`,
+  });
   window.clearInterval(videoAgentInterval);
   window.clearTimeout(videoAgentTimeout);
   if (videoAgentProgress) videoAgentProgress.hidden = false;
@@ -3605,6 +3647,638 @@ function escapeTemplateText(value) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 }
+
+function setupCreationTaskAccess() {
+  const catalog = window.ManniuTeamCollaboration;
+  const dialog = document.querySelector("[data-task-access-dialog]");
+  const form = document.querySelector("[data-task-access-form]");
+  const triggers = [...document.querySelectorAll("[data-task-access-trigger]")];
+  if (!catalog?.members?.length || !dialog || !form || !triggers.length) return;
+
+  const visibilityOptions = document.querySelector("[data-task-visibility-options]");
+  const memberAccessList = document.querySelector("[data-task-access-members]");
+  const defaultPermissionField = document.querySelector("[data-task-default-permission]");
+  const defaultPermissionSelect = document.querySelector("[data-task-permission-select]");
+  const accessSection = document.querySelector("[data-task-access-section]");
+  const accessTitle = document.querySelector("[data-task-access-title]");
+  const accessDescription = document.querySelector("[data-task-access-description]");
+  const summary = document.querySelector("[data-task-access-summary]");
+  const summaryText = summary?.querySelector("span");
+  const permissionByKey = new Map(catalog.permissionLevels.map((permission) => [permission.key, permission]));
+  const memberById = new Map(catalog.members.map((member) => [member.id, member]));
+  let draftAccess = { visibility: "private", memberAccess: [], teamPermission: "viewer" };
+  let lastTrigger = null;
+
+  const permissionOptionsMarkup = (selectedPermission) => catalog.permissionLevels.map((permission) => `
+    <option value="${escapeTemplateText(permission.key)}"${permission.key === selectedPermission ? " selected" : ""}>${escapeTemplateText(permission.label)}</option>
+  `).join("");
+
+  const memberAvatarMarkup = (member) => `
+    <span class="team-person-avatar is-${escapeTemplateText(member.color || "dark")}" title="${escapeTemplateText(member.name)}">${escapeTemplateText(member.initials)}</span>`;
+
+  function getSelectedVisibility() {
+    return visibilityOptions?.querySelector('input[name="task-visibility"]:checked')?.value || "private";
+  }
+
+  function getSelectedMemberAccess() {
+    return [...memberAccessList.querySelectorAll("[data-task-member-access]:checked")].map((checkbox) => ({
+      memberId: checkbox.value,
+      permission: checkbox.closest(".team-share-member-row")?.querySelector("[data-task-member-permission]")?.value || "viewer",
+    }));
+  }
+
+  function getDraftPresentation(access = draftAccess) {
+    if (access.visibility === "private") return { label: "仅自己可见", detail: "默认设置", shortDetail: "默认" };
+    if (access.visibility === "team") {
+      const permission = permissionByKey.get(access.teamPermission);
+      return { label: "全团队可见", detail: `全团队 · ${permission?.label || "仅查看"}`, shortDetail: permission?.label || "仅查看" };
+    }
+    const names = access.memberAccess.map((item) => memberById.get(item.memberId)?.name).filter(Boolean);
+    return {
+      label: "指定成员可见",
+      detail: names.length ? `${names.slice(0, 2).join("、")}${names.length > 2 ? ` 等 ${names.length} 人` : ""}` : "尚未选择成员",
+      shortDetail: `${names.length} 位成员`,
+    };
+  }
+
+  function updateTriggers() {
+    const presentation = getDraftPresentation();
+    triggers.forEach((trigger) => {
+      const label = trigger.querySelector("[data-task-access-label]");
+      const detail = trigger.querySelector("[data-task-access-detail]");
+      if (label) label.textContent = presentation.label;
+      if (detail) detail.textContent = trigger.classList.contains("is-toolbar") || trigger.classList.contains("is-heading")
+        ? presentation.shortDetail
+        : presentation.detail;
+      trigger.classList.toggle("is-shared", draftAccess.visibility !== "private");
+      trigger.dataset.taskVisibility = draftAccess.visibility;
+      trigger.setAttribute("aria-label", `设置新任务可见范围，当前${presentation.label}，${presentation.detail}`);
+    });
+  }
+
+  function updateDialogSummary() {
+    if (!summaryText) return;
+    const visibility = getSelectedVisibility();
+    const selectedMembers = getSelectedMemberAccess();
+    summary?.classList.remove("is-warning");
+    if (visibility === "private") {
+      summaryText.textContent = "新任务将仅自己可见；创建后仍可随时共享";
+      return;
+    }
+    if (visibility === "team") {
+      const permission = permissionByKey.get(defaultPermissionSelect?.value);
+      const activeCount = catalog.members.filter((member) => member.status === "active").length;
+      summaryText.textContent = `新任务将向 ${activeCount} 位正常成员开放 · ${permission?.label || "仅查看"}`;
+      return;
+    }
+    if (!selectedMembers.length) {
+      summaryText.textContent = "请选择至少一位正常状态的团队成员";
+      summary?.classList.add("is-warning");
+      return;
+    }
+    summaryText.textContent = `新任务将向 ${selectedMembers.length} 位指定成员开放`;
+  }
+
+  function syncDialogMode() {
+    const visibility = getSelectedVisibility();
+    const isPrivate = visibility === "private";
+    const isSelected = visibility === "selected_members";
+    accessSection?.classList.toggle("is-muted", isPrivate);
+    if (memberAccessList) memberAccessList.hidden = !isSelected;
+    if (defaultPermissionField) defaultPermissionField.hidden = visibility !== "team";
+    if (accessTitle) accessTitle.textContent = isPrivate ? "无需设置成员权限" : isSelected ? "设置成员权限" : "设置团队默认权限";
+    if (accessDescription) {
+      accessDescription.textContent = isPrivate
+        ? "切换为指定成员或全团队可见后，可继续设置权限"
+        : isSelected
+          ? "待激活或已停用成员不能获得新任务权限"
+          : "团队所有者和任务创建者始终保留管理权限";
+    }
+    visibilityOptions?.querySelectorAll(".team-visibility-option").forEach((option) => {
+      option.classList.toggle("is-selected", option.querySelector("input")?.checked);
+    });
+    updateDialogSummary();
+  }
+
+  function openDialog(trigger) {
+    lastTrigger = trigger;
+    visibilityOptions.innerHTML = catalog.visibilityOptions.map((option, index) => `
+      <label class="team-visibility-option${option.key === draftAccess.visibility ? " is-selected" : ""}">
+        <input type="radio" name="task-visibility" value="${escapeTemplateText(option.key)}"${option.key === draftAccess.visibility ? " checked" : ""} />
+        <span class="team-visibility-index">0${index + 1}</span>
+        <span><strong>${escapeTemplateText(option.label)}</strong><small>${escapeTemplateText(option.description)}</small></span>
+        <i aria-hidden="true"></i>
+      </label>`).join("");
+    memberAccessList.innerHTML = catalog.members.filter((member) => member.id !== catalog.currentUserId).map((member) => {
+      const access = draftAccess.memberAccess.find((item) => item.memberId === member.id);
+      const isAvailable = member.status === "active";
+      return `
+        <div class="team-share-member-row${isAvailable ? "" : " is-disabled"}">
+          <label>
+            <input type="checkbox" data-task-member-access value="${escapeTemplateText(member.id)}"${access ? " checked" : ""}${isAvailable ? "" : " disabled"} />
+            ${memberAvatarMarkup(member)}
+            <span><strong>${escapeTemplateText(member.name)}</strong><small>${escapeTemplateText(isAvailable ? member.statusLabel : "待激活，暂不可授权")}</small></span>
+          </label>
+          <select data-task-member-permission aria-label="设置${escapeTemplateText(member.name)}的新任务权限"${isAvailable && access ? "" : " disabled"}>${permissionOptionsMarkup(access?.permission || "viewer")}</select>
+        </div>`;
+    }).join("");
+    defaultPermissionSelect.innerHTML = permissionOptionsMarkup(draftAccess.teamPermission);
+    syncDialogMode();
+    if (!dialog.open) dialog.showModal();
+    requestAnimationFrame(() => visibilityOptions.querySelector("input:checked")?.focus());
+  }
+
+  triggers.forEach((trigger) => trigger.addEventListener("click", () => openDialog(trigger)));
+  visibilityOptions?.addEventListener("change", syncDialogMode);
+  memberAccessList?.addEventListener("change", (event) => {
+    const checkbox = event.target.closest("[data-task-member-access]");
+    if (checkbox) {
+      const select = checkbox.closest(".team-share-member-row")?.querySelector("[data-task-member-permission]");
+      if (select) select.disabled = !checkbox.checked;
+    }
+    updateDialogSummary();
+  });
+  defaultPermissionSelect?.addEventListener("change", updateDialogSummary);
+  document.querySelectorAll("[data-task-access-close]").forEach((button) => {
+    button.addEventListener("click", () => dialog.close("cancel"));
+  });
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close("cancel");
+  });
+  dialog.addEventListener("close", () => {
+    lastTrigger?.focus();
+    lastTrigger = null;
+  });
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const visibility = getSelectedVisibility();
+    const memberAccess = getSelectedMemberAccess();
+    if (visibility === "selected_members" && !memberAccess.length) {
+      updateDialogSummary();
+      memberAccessList.querySelector("[data-task-member-access]:not(:disabled)")?.focus();
+      return;
+    }
+    draftAccess = {
+      visibility,
+      memberAccess: visibility === "selected_members" ? memberAccess : [],
+      teamPermission: defaultPermissionSelect?.value || "viewer",
+    };
+    updateTriggers();
+    dialog.close("saved");
+    const presentation = getDraftPresentation();
+    showWorkspaceToast(`新任务将按「${presentation.label}」创建`);
+  });
+
+  window.ManniuTaskAccess = {
+    getSnapshot() {
+      const presentation = getDraftPresentation();
+      return {
+        visibility: draftAccess.visibility,
+        memberAccess: draftAccess.memberAccess.map((access) => ({ ...access })),
+        teamPermission: draftAccess.teamPermission,
+        label: presentation.label,
+        detail: presentation.detail,
+      };
+    },
+  };
+  updateTriggers();
+}
+
+function applyTaskAccessToCreation(target, task = {}) {
+  const access = window.ManniuTaskAccess?.getSnapshot?.() || {
+    visibility: "private",
+    memberAccess: [],
+    teamPermission: "viewer",
+    label: "仅自己可见",
+    detail: "默认设置",
+  };
+  if (target) {
+    target.dataset.taskVisibility = access.visibility;
+    target.dataset.taskMemberAccess = JSON.stringify(access.memberAccess);
+    target.dataset.taskTeamPermission = access.teamPermission;
+    target.dataset.taskAccessLabel = access.label;
+  }
+  const createdTaskId = target?.dataset.createdTaskId || `created-task-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+  if (target) target.dataset.createdTaskId = createdTaskId;
+  window.dispatchEvent(new CustomEvent("manniu:task-created", {
+    detail: {
+      id: createdTaskId,
+      title: task.title || "新创作任务",
+      description: task.description || "刚刚创建的创作任务",
+      type: task.type || "图片任务",
+      thumbnail: task.thumbnail || "assets/dashboard/work-1-hd.jpg",
+      destinationPage: task.destinationPage || "quickCreate",
+      outputMeta: task.outputMeta || "生成中",
+      access,
+    },
+  }));
+  showWorkspaceToast(`${task.type || "任务"}已创建 · ${access.label}`);
+  return access;
+}
+
+setupCreationTaskAccess();
+
+function setupTeamCollaboration() {
+  const catalog = window.ManniuTeamCollaboration;
+  const taskGrid = document.querySelector("[data-team-task-grid]");
+  const memberList = document.querySelector("[data-team-member-list]");
+  const shareDialog = document.querySelector("[data-team-share-dialog]");
+  const shareForm = document.querySelector("[data-team-share-form]");
+  if (!catalog?.tasks?.length || !taskGrid || !memberList || !shareDialog || !shareForm) return;
+
+  const members = catalog.members.map((member) => ({ ...member }));
+  const teamAccessStorageKey = `manniu.team-access.${catalog.version}`;
+  const createdTaskStorageKey = `manniu.team-created-tasks.${catalog.version}`;
+  const validVisibilityKeys = new Set(catalog.visibilityOptions.map((option) => option.key));
+  const validPermissionKeys = new Set(catalog.permissionLevels.map((permission) => permission.key));
+  const activeMemberIds = new Set(members.filter((member) => member.status === "active").map((member) => member.id));
+  let persistedAccessByTask = new Map();
+  try {
+    const storedAccess = JSON.parse(window.localStorage.getItem(teamAccessStorageKey) || "[]");
+    if (Array.isArray(storedAccess)) persistedAccessByTask = new Map(storedAccess.map((item) => [item.id, item]));
+  } catch (error) {
+    // Fall back to catalog defaults if browser storage is unavailable or malformed.
+  }
+  const catalogTasks = catalog.tasks.map((task) => ({
+    ...task,
+    visibility: validVisibilityKeys.has(persistedAccessByTask.get(task.id)?.visibility)
+      ? persistedAccessByTask.get(task.id).visibility
+      : task.visibility,
+    memberAccess: Array.isArray(persistedAccessByTask.get(task.id)?.memberAccess)
+      ? persistedAccessByTask.get(task.id).memberAccess
+        .filter((access) => activeMemberIds.has(access.memberId) && validPermissionKeys.has(access.permission))
+        .map((access) => ({ ...access }))
+      : task.memberAccess.map((access) => ({ ...access })),
+    teamPermission: validPermissionKeys.has(persistedAccessByTask.get(task.id)?.teamPermission)
+      ? persistedAccessByTask.get(task.id).teamPermission
+      : task.teamPermission,
+  }));
+  let persistedCreatedTasks = [];
+  try {
+    const storedCreatedTasks = JSON.parse(window.localStorage.getItem(createdTaskStorageKey) || "[]");
+    if (Array.isArray(storedCreatedTasks)) {
+      persistedCreatedTasks = storedCreatedTasks.slice(0, 20).filter((task) => task?.id && task?.title).map((task) => {
+        const memberAccess = Array.isArray(task.memberAccess)
+          ? task.memberAccess.filter((access) => activeMemberIds.has(access.memberId) && validPermissionKeys.has(access.permission))
+          : [];
+        let visibility = validVisibilityKeys.has(task.visibility) ? task.visibility : "private";
+        if (visibility === "selected_members" && !memberAccess.length) visibility = "private";
+        return {
+          id: String(task.id),
+          title: String(task.title),
+          description: String(task.description || "刚刚创建的创作任务"),
+          type: String(task.type || "图片任务"),
+          scope: "mine",
+          ownerId: catalog.currentUserId,
+          visibility,
+          memberAccess: visibility === "selected_members" ? memberAccess : [],
+          teamPermission: validPermissionKeys.has(task.teamPermission) ? task.teamPermission : "viewer",
+          thumbnail: String(task.thumbnail || "assets/dashboard/work-1-hd.jpg").startsWith("assets/") ? task.thumbnail : "assets/dashboard/work-1-hd.jpg",
+          updatedAt: String(task.updatedAt || "刚刚创建"),
+          outputMeta: String(task.outputMeta || "生成中"),
+          activity: String(task.activity || "任务已按创建时权限保存"),
+          destinationPage: String(task.destinationPage || "quickCreate"),
+          isUserCreated: true,
+        };
+      });
+    }
+  } catch (error) {
+    // Ignore malformed locally created task history.
+  }
+  const tasks = [...persistedCreatedTasks, ...catalogTasks];
+  const memberById = new Map(members.map((member) => [member.id, member]));
+  const visibilityByKey = new Map(catalog.visibilityOptions.map((option) => [option.key, option]));
+  const permissionByKey = new Map(catalog.permissionLevels.map((permission) => [permission.key, permission]));
+  const filterButtons = [...document.querySelectorAll("[data-team-filter]")];
+  const visibilityOptions = document.querySelector("[data-team-visibility-options]");
+  const shareMembers = document.querySelector("[data-team-share-members]");
+  const defaultPermissionField = document.querySelector("[data-team-default-permission]");
+  const defaultPermissionSelect = document.querySelector("[data-team-permission-select]");
+  const accessSection = document.querySelector("[data-team-access-section]");
+  const accessTitle = document.querySelector("[data-team-access-title]");
+  const accessDescription = document.querySelector("[data-team-access-description]");
+  const shareSummary = document.querySelector("[data-team-share-summary] span");
+  const shareTaskName = document.querySelector("[data-team-share-task-name]");
+  const taskSummary = document.querySelector("[data-team-task-summary]");
+  const emptyState = document.querySelector("[data-team-empty]");
+  let activeFilter = "all";
+  let activeTaskId = "";
+  let lastShareTrigger = null;
+
+  function persistTaskAccess() {
+    try {
+      window.localStorage.setItem(teamAccessStorageKey, JSON.stringify(tasks.map((task) => ({
+        id: task.id,
+        visibility: task.visibility,
+        memberAccess: task.memberAccess,
+        teamPermission: task.teamPermission,
+      }))));
+    } catch (error) {
+      // Keep the updated access settings for the current browser session.
+    }
+  }
+
+  function persistCreatedTasks() {
+    try {
+      window.localStorage.setItem(createdTaskStorageKey, JSON.stringify(tasks.filter((task) => task.isUserCreated).slice(0, 20)));
+    } catch (error) {
+      // Keep newly created tasks available for the current browser session.
+    }
+  }
+
+  const avatarMarkup = (member, extraClass = "") => `
+    <span class="team-person-avatar is-${escapeTemplateText(member?.color || "dark")} ${escapeTemplateText(extraClass)}" title="${escapeTemplateText(member?.name || "未知成员")}">
+      ${escapeTemplateText(member?.initials || "?")}
+    </span>`;
+
+  const permissionOptionsMarkup = (selectedPermission) => catalog.permissionLevels.map((permission) => `
+    <option value="${escapeTemplateText(permission.key)}"${permission.key === selectedPermission ? " selected" : ""}>${escapeTemplateText(permission.label)}</option>
+  `).join("");
+
+  function getCurrentPermission(task) {
+    if (task.ownerId === catalog.currentUserId) return { key: "owner", label: "创建者 · 可管理" };
+    if (task.visibility === "team") return permissionByKey.get(task.teamPermission) || permissionByKey.get("viewer");
+    const memberAccess = task.memberAccess.find((access) => access.memberId === catalog.currentUserId);
+    return permissionByKey.get(memberAccess?.permission) || permissionByKey.get("viewer");
+  }
+
+  function renderTeamIdentity() {
+    const owner = memberById.get(catalog.team.ownerId);
+    const activeMemberCount = members.filter((member) => member.status === "active").length;
+    const sharedTaskCount = tasks.filter((task) => task.visibility !== "private").length;
+    const pendingMemberCount = members.filter((member) => member.status === "pending").length;
+    const pendingCommentCount = tasks.filter((task) => task.activity.includes("未处理")).length;
+    const textValues = [
+      ["[data-team-name]", catalog.team.name],
+      ["[data-team-plan]", catalog.team.plan],
+      ["[data-team-created-at]", catalog.team.createdAt],
+      ["[data-team-owner-avatar]", owner?.initials || "我"],
+      ["[data-team-owner-name]", owner?.name || "团队所有者"],
+      ["[data-team-member-count]", String(members.length)],
+      ["[data-team-seat-copy]", `已使用 ${members.length} / ${catalog.team.seatLimit} 席位 · ${activeMemberCount} 人已激活`],
+      ["[data-team-shared-count]", String(sharedTaskCount)],
+      ["[data-team-pending-count]", String(pendingMemberCount + pendingCommentCount)],
+    ];
+    textValues.forEach(([selector, value]) => {
+      const element = document.querySelector(selector);
+      if (element) element.textContent = value;
+    });
+  }
+
+  function renderMembers() {
+    memberList.innerHTML = members.map((member) => {
+      const ownerBadge = member.role === "owner" ? "<em>群主</em>" : "";
+      const statusClass = member.status === "active" ? "is-active" : "is-pending";
+      const accessCopy = member.status === "active" ? member.statusLabel : "待激活 · 暂不可授权";
+      return `
+        <article class="team-member-row ${statusClass}">
+          ${avatarMarkup(member)}
+          <div class="team-member-copy">
+            <span><strong>${escapeTemplateText(member.name)}</strong>${ownerBadge}</span>
+            <small>${escapeTemplateText(member.roleLabel)} · ${escapeTemplateText(accessCopy)}</small>
+          </div>
+          <i aria-label="${member.status === "active" ? "成员正常" : "成员待激活"}"></i>
+        </article>`;
+    }).join("");
+  }
+
+  function renderTaskCard(task) {
+    const owner = memberById.get(task.ownerId);
+    const visibility = visibilityByKey.get(task.visibility);
+    const currentPermission = getCurrentPermission(task);
+    const visibleMembers = task.visibility === "selected_members"
+      ? task.memberAccess.map((access) => memberById.get(access.memberId)).filter(Boolean)
+      : task.visibility === "team"
+        ? members.filter((member) => member.status === "active" && member.id !== task.ownerId)
+        : [];
+    const collaboratorAvatars = visibleMembers.slice(0, 3).map((member, index) => avatarMarkup(member, `avatar-${index + 1}`)).join("");
+    const overflowCount = Math.max(0, visibleMembers.length - 3);
+    const ownerAction = task.ownerId === catalog.currentUserId
+      ? `<button class="team-task-share" type="button" data-team-share="${escapeTemplateText(task.id)}"><span aria-hidden="true">↗</span> 共享设置</button>`
+      : `<span class="team-task-access-level">我的权限 · ${escapeTemplateText(currentPermission.label)}</span>`;
+    const activityClass = task.activity.includes("未处理") ? " has-alert" : "";
+
+    return `
+      <article class="team-task-card visibility-${escapeTemplateText(task.visibility)}" data-team-task-id="${escapeTemplateText(task.id)}">
+        <div class="team-task-visual">
+          <img src="${escapeTemplateText(task.thumbnail)}" alt="${escapeTemplateText(task.title)}任务预览" loading="lazy" />
+          <div class="team-task-visual-top">
+            <span>${escapeTemplateText(task.type)}</span>
+            <em class="is-${escapeTemplateText(task.visibility)}"><i aria-hidden="true"></i>${escapeTemplateText(visibility?.shortLabel || task.visibility)}</em>
+          </div>
+          <button type="button" data-team-open-page="${escapeTemplateText(task.destinationPage)}" aria-label="打开${escapeTemplateText(task.title)}">打开任务 <span aria-hidden="true">↗</span></button>
+        </div>
+        <div class="team-task-content">
+          <header>
+            <div><h3>${escapeTemplateText(task.title)}</h3><p>${escapeTemplateText(task.description)}</p></div>
+            <small>${escapeTemplateText(task.updatedAt)}</small>
+          </header>
+          <div class="team-task-meta"><span>${escapeTemplateText(task.outputMeta)}</span><span>由 ${escapeTemplateText(owner?.name || "未知成员")} 创建</span></div>
+          <div class="team-task-collaborators">
+            <div class="team-avatar-stack">${avatarMarkup(owner, "is-owner")}${collaboratorAvatars}${overflowCount ? `<b>+${overflowCount}</b>` : ""}</div>
+            <span>${task.visibility === "private" ? "未共享" : task.visibility === "team" ? `团队成员 · ${escapeTemplateText(permissionByKey.get(task.teamPermission)?.label || "仅查看")}` : `${visibleMembers.length} 位成员可访问`}</span>
+          </div>
+          <footer>
+            <p class="${activityClass}"><i aria-hidden="true"></i>${escapeTemplateText(task.activity)}</p>
+            ${ownerAction}
+          </footer>
+        </div>
+      </article>`;
+  }
+
+  function renderTasks() {
+    const visibleTasks = activeFilter === "all" ? tasks : tasks.filter((task) => task.scope === activeFilter);
+    taskGrid.innerHTML = visibleTasks.map(renderTaskCard).join("");
+    if (taskSummary) taskSummary.textContent = `${visibleTasks.length} 个任务`;
+    if (emptyState) emptyState.hidden = visibleTasks.length > 0;
+    ["all", "mine", "shared", "team"].forEach((filter) => {
+      const count = filter === "all" ? tasks.length : tasks.filter((task) => task.scope === filter).length;
+      const countElement = document.querySelector(`[data-team-filter-count="${filter}"]`);
+      if (countElement) countElement.textContent = String(count);
+    });
+    renderTeamIdentity();
+  }
+
+  function getSelectedVisibility() {
+    return visibilityOptions?.querySelector('input[name="team-visibility"]:checked')?.value || "private";
+  }
+
+  function updateShareSummary() {
+    if (!shareSummary) return;
+    const visibility = getSelectedVisibility();
+    const checkedMembers = [...shareMembers.querySelectorAll("[data-team-member-access]:checked")];
+    if (visibility === "private") {
+      shareSummary.textContent = "保存后，任务仅创建者本人可见";
+      return;
+    }
+    if (visibility === "team") {
+      const permission = permissionByKey.get(defaultPermissionSelect?.value);
+      shareSummary.textContent = `保存后，${members.filter((member) => member.status === "active").length} 位正常成员均可访问 · ${permission?.label || "仅查看"}`;
+      return;
+    }
+    shareSummary.textContent = checkedMembers.length
+      ? `保存后，将向 ${checkedMembers.length} 位成员开放任务访问权限`
+      : "尚未选择成员；保存后任务仍只有自己可见";
+  }
+
+  function syncShareMode() {
+    const visibility = getSelectedVisibility();
+    const isPrivate = visibility === "private";
+    const isSelected = visibility === "selected_members";
+    if (accessSection) accessSection.classList.toggle("is-muted", isPrivate);
+    if (shareMembers) shareMembers.hidden = !isSelected;
+    if (defaultPermissionField) defaultPermissionField.hidden = visibility !== "team";
+    if (accessTitle) accessTitle.textContent = isPrivate ? "无需设置成员权限" : isSelected ? "设置成员权限" : "设置团队默认权限";
+    if (accessDescription) {
+      accessDescription.textContent = isPrivate
+        ? "切换为指定成员或全团队可见后，可继续设置权限"
+        : isSelected
+          ? "只有正常状态的团队成员可以获得权限"
+          : "团队所有者和任务创建者始终保留管理权限";
+    }
+    visibilityOptions?.querySelectorAll(".team-visibility-option").forEach((option) => {
+      option.classList.toggle("is-selected", option.querySelector("input")?.checked);
+    });
+    updateShareSummary();
+  }
+
+  function openShareDialog(taskId, trigger) {
+    const task = tasks.find((item) => item.id === taskId);
+    if (!task) return;
+    if (task.ownerId !== catalog.currentUserId) {
+      showWorkspaceToast("只有任务创建者可以修改共享设置");
+      return;
+    }
+    activeTaskId = task.id;
+    lastShareTrigger = trigger || null;
+    if (shareTaskName) shareTaskName.textContent = `「${task.title}」· 素材与生成结果将继承以下权限`;
+    visibilityOptions.innerHTML = catalog.visibilityOptions.map((option, index) => `
+      <label class="team-visibility-option${option.key === task.visibility ? " is-selected" : ""}">
+        <input type="radio" name="team-visibility" value="${escapeTemplateText(option.key)}"${option.key === task.visibility ? " checked" : ""} />
+        <span class="team-visibility-index">0${index + 1}</span>
+        <span><strong>${escapeTemplateText(option.label)}</strong><small>${escapeTemplateText(option.description)}</small></span>
+        <i aria-hidden="true"></i>
+      </label>`).join("");
+    shareMembers.innerHTML = members.filter((member) => member.id !== catalog.currentUserId).map((member) => {
+      const access = task.memberAccess.find((item) => item.memberId === member.id);
+      const isAvailable = member.status === "active";
+      return `
+        <div class="team-share-member-row${isAvailable ? "" : " is-disabled"}">
+          <label>
+            <input type="checkbox" data-team-member-access value="${escapeTemplateText(member.id)}"${access ? " checked" : ""}${isAvailable ? "" : " disabled"} />
+            ${avatarMarkup(member)}
+            <span><strong>${escapeTemplateText(member.name)}</strong><small>${escapeTemplateText(isAvailable ? member.statusLabel : "待激活，暂不可授权")}</small></span>
+          </label>
+          <select data-team-member-permission aria-label="设置${escapeTemplateText(member.name)}的权限"${isAvailable && access ? "" : " disabled"}>${permissionOptionsMarkup(access?.permission || "viewer")}</select>
+        </div>`;
+    }).join("");
+    if (defaultPermissionSelect) {
+      defaultPermissionSelect.innerHTML = permissionOptionsMarkup(task.teamPermission || "viewer");
+    }
+    syncShareMode();
+    if (!shareDialog.open) shareDialog.showModal();
+    requestAnimationFrame(() => visibilityOptions.querySelector("input:checked")?.focus());
+  }
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      activeFilter = button.dataset.teamFilter || "all";
+      filterButtons.forEach((filterButton) => filterButton.classList.toggle("is-active", filterButton === button));
+      renderTasks();
+    });
+  });
+
+  taskGrid.addEventListener("click", (event) => {
+    const shareTrigger = event.target.closest("[data-team-share]");
+    if (shareTrigger) {
+      openShareDialog(shareTrigger.dataset.teamShare, shareTrigger);
+      return;
+    }
+    const openTrigger = event.target.closest("[data-team-open-page]");
+    if (openTrigger?.dataset.teamOpenPage) setPage(openTrigger.dataset.teamOpenPage);
+  });
+
+  visibilityOptions?.addEventListener("change", syncShareMode);
+  shareMembers?.addEventListener("change", (event) => {
+    const checkbox = event.target.closest("[data-team-member-access]");
+    if (checkbox) {
+      const permissionSelect = checkbox.closest(".team-share-member-row")?.querySelector("[data-team-member-permission]");
+      if (permissionSelect) permissionSelect.disabled = !checkbox.checked;
+    }
+    updateShareSummary();
+  });
+  defaultPermissionSelect?.addEventListener("change", updateShareSummary);
+
+  document.querySelectorAll("[data-team-share-close]").forEach((button) => {
+    button.addEventListener("click", () => shareDialog.close("cancel"));
+  });
+  shareDialog.addEventListener("click", (event) => {
+    if (event.target === shareDialog) shareDialog.close("cancel");
+  });
+  shareDialog.addEventListener("close", () => {
+    lastShareTrigger?.focus();
+    lastShareTrigger = null;
+  });
+
+  shareForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const task = tasks.find((item) => item.id === activeTaskId);
+    if (!task) return;
+    let visibility = getSelectedVisibility();
+    const memberAccess = [...shareMembers.querySelectorAll("[data-team-member-access]:checked")].map((checkbox) => {
+      const permission = checkbox.closest(".team-share-member-row")?.querySelector("[data-team-member-permission]")?.value || "viewer";
+      return { memberId: checkbox.value, permission };
+    });
+    if (visibility === "selected_members" && memberAccess.length === 0) visibility = "private";
+    task.visibility = visibility;
+    task.memberAccess = visibility === "selected_members" ? memberAccess : [];
+    task.teamPermission = defaultPermissionSelect?.value || task.teamPermission || "viewer";
+    persistTaskAccess();
+    persistCreatedTasks();
+    renderTasks();
+    shareDialog.close("saved");
+    showWorkspaceToast(visibility === "private" ? "任务已设为仅自己可见" : "共享权限已更新");
+  });
+
+  window.addEventListener("manniu:task-created", (event) => {
+    const createdTask = event.detail;
+    if (!createdTask?.id) return;
+    const rawAccess = createdTask.access || {};
+    const memberAccess = Array.isArray(rawAccess.memberAccess)
+      ? rawAccess.memberAccess.filter((access) => activeMemberIds.has(access.memberId) && validPermissionKeys.has(access.permission))
+      : [];
+    let visibility = validVisibilityKeys.has(rawAccess.visibility) ? rawAccess.visibility : "private";
+    if (visibility === "selected_members" && !memberAccess.length) visibility = "private";
+    const normalizedTask = {
+      id: String(createdTask.id),
+      title: String(createdTask.title),
+      description: String(createdTask.description || "刚刚创建的创作任务"),
+      type: String(createdTask.type || "图片任务"),
+      scope: "mine",
+      ownerId: catalog.currentUserId,
+      visibility,
+      memberAccess: visibility === "selected_members" ? memberAccess : [],
+      teamPermission: validPermissionKeys.has(rawAccess.teamPermission) ? rawAccess.teamPermission : "viewer",
+      thumbnail: String(createdTask.thumbnail || "assets/dashboard/work-1-hd.jpg").startsWith("assets/") ? createdTask.thumbnail : "assets/dashboard/work-1-hd.jpg",
+      updatedAt: "刚刚创建",
+      outputMeta: String(createdTask.outputMeta || "生成中"),
+      activity: `任务已按「${String(rawAccess.label || "仅自己可见")}」创建`,
+      destinationPage: String(createdTask.destinationPage || "quickCreate"),
+      isUserCreated: true,
+    };
+    const existingIndex = tasks.findIndex((task) => task.id === normalizedTask.id);
+    if (existingIndex >= 0) tasks.splice(existingIndex, 1, normalizedTask);
+    else tasks.unshift(normalizedTask);
+    persistTaskAccess();
+    persistCreatedTasks();
+    renderTasks();
+  });
+
+  renderMembers();
+  renderTasks();
+}
+
+setupTeamCollaboration();
 
 function renderTemplateCatalog() {
   const grid = document.querySelector("[data-template-grid]");

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>蛮牛系统 - 工作台</title>
     <link rel="stylesheet" href="styles.css?v=20260716-typography" />
-    <link rel="stylesheet" href="designkit-theme.css?v=20260721-notification-two" />
+    <link rel="stylesheet" href="designkit-theme.css?v=20260721-team-hero-light" />
   </head>
   <body class="dashboard-page">
     <div class="app-shell">
@@ -44,6 +44,16 @@
               </svg>
             </span>
             我的资产
+          </button>
+          <button class="side-item" type="button" data-page="team" data-title="团队协作">
+            <span class="sidebar-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="8" r="3" />
+                <circle cx="17" cy="10" r="2.4" />
+                <path d="M3.8 19c.5-4 2.3-6 5.2-6 3 0 4.8 2 5.2 6M14.2 14.2c3.4-.7 5.4.9 6 4.3" />
+              </svg>
+            </span>
+            团队协作
           </button>
           <button class="side-item" type="button" data-page="toolbox" data-title="AI 工具箱">
             <span class="sidebar-icon" aria-hidden="true">
@@ -210,11 +220,16 @@
 
                   <div class="quick-home-fields">
                     <div class="quick-home-heading">
-                      <div>
+                      <div class="quick-home-title">
                         <span>QUICK START</span>
                         <h2 data-quick-home-title>商品主图生成设置</h2>
                       </div>
-                      <span class="quick-recommended-badge">智能推荐参数</span>
+                      <div class="quick-home-heading-actions">
+                        <span class="quick-recommended-badge">智能推荐参数</span>
+                        <button class="task-access-trigger is-heading" type="button" data-task-access-trigger aria-label="设置新任务可见范围，当前仅自己可见">
+                          <i aria-hidden="true"></i><span><small>任务权限</small><strong data-task-access-label>仅自己可见</strong></span><em data-task-access-detail>默认</em>
+                        </button>
+                      </div>
                     </div>
 
                     <div class="quick-home-control-grid">
@@ -578,6 +593,9 @@
                     <span class="select-arrow" aria-hidden="true"></span>
                   </div>
                   <button class="advanced-toggle" type="button" aria-expanded="false" data-advanced-toggle>高级选项</button>
+                  <button class="task-access-trigger is-toolbar" type="button" data-task-access-trigger aria-label="设置新任务可见范围，当前仅自己可见">
+                    <i aria-hidden="true"></i><span><small>可见范围</small><strong data-task-access-label>仅自己可见</strong></span><em data-task-access-detail>默认</em>
+                  </button>
                   <span class="credit-cost"><span aria-hidden="true">✧</span>80/次</span>
                   <button class="generate-button" type="button" data-start-detail>开始</button>
                     </div>
@@ -954,6 +972,9 @@
 
                 <div class="quick-generate-bar">
                   <div><span>本次预计</span><strong><span aria-hidden="true">✧</span>80 积分</strong></div>
+                  <button class="task-access-trigger is-generate-bar" type="button" data-task-access-trigger aria-label="设置新任务可见范围，当前仅自己可见">
+                    <i aria-hidden="true"></i><span><small>任务可见范围</small><strong data-task-access-label>仅自己可见</strong></span><em data-task-access-detail>默认</em>
+                  </button>
                   <button type="button" data-quick-generate>
                     <span data-quick-generate-label>生成 4 张主图</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5" /></svg>
@@ -1077,6 +1098,9 @@
                     <div><dt>包含文字</dt><dd data-agent-include>包含</dd></div>
                     <div><dt>生成数量</dt><dd data-agent-count>5</dd></div>
                   </dl>
+                  <button class="task-access-trigger is-summary" type="button" data-task-access-trigger aria-label="设置新任务可见范围，当前仅自己可见">
+                    <i aria-hidden="true"></i><span><small>任务可见范围</small><strong data-task-access-label>仅自己可见</strong></span><em data-task-access-detail>默认设置</em>
+                  </button>
                 </section>
 
                 <section class="agent-card agent-reference-card">
@@ -1327,6 +1351,9 @@
                   </svg>
                   <span>高级选项</span>
                 </button>
+                <button class="task-access-trigger is-toolbar" type="button" data-task-access-trigger aria-label="设置新任务可见范围，当前仅自己可见">
+                  <i aria-hidden="true"></i><span><small>可见范围</small><strong data-task-access-label>仅自己可见</strong></span><em data-task-access-detail>默认</em>
+                </button>
                 <button class="generate-button video-start-button" type="button" data-start-video-quick>
                   <span>分析素材</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1416,7 +1443,7 @@
                     </dl>
                   </details>
                 </div>
-                <div class="video-generate-bar"><div><span>本次预计</span><strong>✧ 160 积分</strong></div><button type="button" data-video-generate>确认分镜并生成</button></div>
+                <div class="video-generate-bar"><div><span>本次预计</span><strong>✧ 160 积分</strong></div><button class="task-access-trigger is-generate-bar" type="button" data-task-access-trigger aria-label="设置新任务可见范围，当前仅自己可见"><i aria-hidden="true"></i><span><small>任务可见范围</small><strong data-task-access-label>仅自己可见</strong></span><em data-task-access-detail>默认</em></button><button type="button" data-video-generate>确认分镜并生成</button></div>
               </aside>
 
               <section class="video-stage-panel">
@@ -1539,6 +1566,9 @@
                     <div><dt>镜头数量</dt><dd data-video-agent-scenes>4</dd></div>
                     <div><dt>风格</dt><dd data-video-agent-style>清爽电商</dd></div>
                   </dl>
+                  <button class="task-access-trigger is-summary" type="button" data-task-access-trigger aria-label="设置新任务可见范围，当前仅自己可见">
+                    <i aria-hidden="true"></i><span><small>任务可见范围</small><strong data-task-access-label>仅自己可见</strong></span><em data-task-access-detail>默认设置</em>
+                  </button>
                 </section>
                 <section class="agent-card">
                   <div class="agent-card-title"><h2>参考素材</h2><span data-video-agent-reference-status>未上传</span></div>
@@ -1745,6 +1775,140 @@
             <p class="library-empty" data-asset-empty hidden>没有找到匹配的资产，换个关键词试试。</p>
           </div>
         </section>
+
+        <section class="page-view workspace-library-page team-collaboration-page" data-page-panel="team" aria-label="团队协作">
+          <div class="library-shell team-page-shell">
+            <header class="library-page-head team-page-head">
+              <div>
+                <span class="library-eyebrow">COLLABORATION HUB</span>
+                <h1>团队协作</h1>
+                <p>把任务分享给团队成员，并清楚控制谁可以查看、评论或继续编辑。</p>
+              </div>
+              <div class="team-page-actions">
+                <button class="library-secondary-button team-button secondary" type="button" data-page="account">管理成员</button>
+                <button class="library-primary-button team-button primary" type="button" data-account-action="member-add"><span aria-hidden="true">＋</span>邀请成员</button>
+              </div>
+            </header>
+
+            <section class="team-command-card" aria-label="当前团队概览">
+              <div class="team-command-identity">
+                <div class="team-command-kicker"><i aria-hidden="true"></i><span>ACTIVE TEAM</span><b>企业协作空间</b></div>
+                <h2 data-team-name>蛮牛创意科技</h2>
+                <p><span data-team-plan>企业专业版</span> · 创建于 <span data-team-created-at>2026 年 3 月</span></p>
+                <div class="team-owner-line">
+                  <span class="team-owner-avatar" data-team-owner-avatar>我</span>
+                  <div><small>团队所有者</small><strong data-team-owner-name>用户昵称</strong></div>
+                  <em>唯一所有者</em>
+                </div>
+              </div>
+              <div class="team-command-metrics">
+                <article><span>当前成员</span><strong data-team-member-count>3</strong><small data-team-seat-copy>已使用 3 / 10 席位</small></article>
+                <article><span>共享任务</span><strong data-team-shared-count>5</strong><small>指定成员或全团队可见</small></article>
+                <article><span>待处理协作</span><strong data-team-pending-count>2</strong><small>留言与权限邀请</small></article>
+              </div>
+              <div class="team-command-policy">
+                <div><span>01</span><p><strong>任务默认私有</strong><small>创建后仅自己可见</small></p></div>
+                <div><span>02</span><p><strong>按成员授权</strong><small>查看、评论、编辑分级控制</small></p></div>
+                <div><span>03</span><p><strong>资产继承权限</strong><small>生成结果跟随任务可见范围</small></p></div>
+              </div>
+            </section>
+
+            <div class="team-workspace-layout">
+              <section class="team-task-board" aria-label="协作任务">
+                <header class="team-section-head">
+                  <div><span>SHARED WORK</span><h2>协作任务</h2></div>
+                  <p data-team-task-summary>6 个任务</p>
+                </header>
+                <div class="team-task-toolbar" role="group" aria-label="协作任务筛选">
+                  <button class="is-active" type="button" data-team-filter="all">全部 <span data-team-filter-count="all">6</span></button>
+                  <button type="button" data-team-filter="mine">我创建的 <span data-team-filter-count="mine">3</span></button>
+                  <button type="button" data-team-filter="shared">分享给我的 <span data-team-filter-count="shared">2</span></button>
+                  <button type="button" data-team-filter="team">团队任务 <span data-team-filter-count="team">1</span></button>
+                </div>
+                <section class="team-task-grid" aria-label="团队任务列表" data-team-task-grid></section>
+                <div class="team-empty-state" data-team-empty hidden><span aria-hidden="true">◎</span><strong>当前分类还没有任务</strong><p>你可以从自己的创作任务中发起共享。</p></div>
+              </section>
+
+              <aside class="team-member-panel" aria-label="团队成员">
+                <header class="team-section-head compact">
+                  <div><span>PEOPLE</span><h2>团队成员</h2></div>
+                  <button type="button" data-page="account">管理</button>
+                </header>
+                <div class="team-member-list" data-team-member-list></div>
+                <footer>
+                  <span><i aria-hidden="true"></i>正常成员可被添加到共享任务</span>
+                  <p>待激活或已停用成员不能获得新的访问权限。</p>
+                </footer>
+              </aside>
+            </div>
+          </div>
+        </section>
+
+        <dialog class="team-share-dialog" data-team-share-dialog aria-labelledby="team-share-dialog-title">
+          <form class="team-share-shell" method="dialog" data-team-share-form>
+            <header class="team-share-head">
+              <div>
+                <span>SHARE &amp; ACCESS</span>
+                <h2 id="team-share-dialog-title">共享任务</h2>
+                <p data-team-share-task-name>选择任务可见范围和成员权限</p>
+              </div>
+              <button type="button" data-team-share-close aria-label="关闭共享设置">×</button>
+            </header>
+
+            <section class="team-share-section">
+              <div class="team-share-section-title"><span>01</span><div><h3>谁可以看到这个任务</h3><p>任务中的素材和生成结果将继承相同范围</p></div></div>
+              <div class="team-visibility-options" data-team-visibility-options></div>
+            </section>
+
+            <section class="team-share-section" data-team-access-section>
+              <div class="team-share-section-title"><span>02</span><div><h3 data-team-access-title>设置成员权限</h3><p data-team-access-description>只有正常状态的团队成员可以获得权限</p></div></div>
+              <div class="team-share-member-access" data-team-share-members></div>
+              <label class="team-default-permission" data-team-default-permission hidden>
+                <span><strong>团队默认权限</strong><small>适用于所有正常状态的成员</small></span>
+                <select data-team-permission-select aria-label="选择团队默认权限"></select>
+              </label>
+            </section>
+
+            <div class="team-share-summary" data-team-share-summary><i aria-hidden="true">✓</i><span>当前任务仅自己可见</span></div>
+            <footer class="team-share-actions">
+              <button class="secondary" type="button" data-team-share-close>取消</button>
+              <button class="primary" type="submit">保存共享设置</button>
+            </footer>
+          </form>
+        </dialog>
+
+        <dialog class="team-share-dialog task-access-dialog" data-task-access-dialog aria-labelledby="task-access-dialog-title">
+          <form class="team-share-shell" method="dialog" data-task-access-form>
+            <header class="team-share-head task-access-dialog-head">
+              <div>
+                <span>NEW TASK ACCESS</span>
+                <h2 id="task-access-dialog-title">新任务可见范围</h2>
+                <p>默认仅自己可见。选择共享后，任务中的素材和生成结果会继承相同权限。</p>
+              </div>
+              <button type="button" data-task-access-close aria-label="关闭任务可见范围设置">×</button>
+            </header>
+
+            <section class="team-share-section">
+              <div class="team-share-section-title"><span>01</span><div><h3>谁可以看到新任务</h3><p>创建者始终拥有管理权限，且可以在任务创建后再次修改</p></div></div>
+              <div class="team-visibility-options" data-task-visibility-options></div>
+            </section>
+
+            <section class="team-share-section" data-task-access-section>
+              <div class="team-share-section-title"><span>02</span><div><h3 data-task-access-title>无需设置成员权限</h3><p data-task-access-description>切换为指定成员或全团队可见后，可继续设置权限</p></div></div>
+              <div class="team-share-member-access" data-task-access-members hidden></div>
+              <label class="team-default-permission" data-task-default-permission hidden>
+                <span><strong>团队默认权限</strong><small>适用于所有正常状态的团队成员</small></span>
+                <select data-task-permission-select aria-label="选择新任务的团队默认权限"></select>
+              </label>
+            </section>
+
+            <div class="team-share-summary" data-task-access-summary aria-live="polite"><i aria-hidden="true">✓</i><span>新任务将仅自己可见</span></div>
+            <footer class="team-share-actions">
+              <button class="secondary" type="button" data-task-access-close>取消</button>
+              <button class="primary" type="submit">应用到新任务</button>
+            </footer>
+          </form>
+        </dialog>
 
         <section class="page-view workspace-library-page" data-page-panel="templates" aria-label="模板中心">
           <div class="library-shell">
@@ -3031,7 +3195,8 @@
     <script src="expand-prompts.js?v=20260718-expand-one"></script>
     <script src="template-catalog.js?v=20260720-real-two"></script>
     <script src="notification-catalog.js?v=20260721-notification-two"></script>
-    <script src="script.js?v=20260721-notification-two"></script>
+    <script src="team-collaboration.js?v=20260721-team-one"></script>
+    <script src="script.js?v=20260721-task-access-two"></script>
     <script src="ai-tools.js?v=20260720-alpha-cleanup"></script>
   </body>
 </html>
