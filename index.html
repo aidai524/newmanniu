@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>蛮牛系统 - 工作台</title>
     <link rel="stylesheet" href="styles.css?v=20260716-typography" />
-    <link rel="stylesheet" href="designkit-theme.css?v=20260721-team-hero-light" />
+    <link rel="stylesheet" href="designkit-theme.css?v=20260723-cash-balance" />
   </head>
   <body class="dashboard-page">
     <div class="app-shell">
@@ -149,7 +149,18 @@
             </button>
             <span class="points">永久积分 <strong>3,710</strong></span>
             <span class="points">临时积分 <strong>260</strong></span>
-            <button class="charge-btn" type="button">充值</button>
+            <button class="cash-balance" type="button" data-page="balance" aria-label="账户余额 128 元，查看余额明细">
+              <span class="cash-balance-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5Z" />
+                  <path d="M4 9h13.5A2.5 2.5 0 0 1 20 11.5V15h-4.5a3 3 0 0 1 0-6H20" />
+                  <circle cx="15.5" cy="12" r=".8" fill="currentColor" stroke="none" />
+                </svg>
+              </span>
+              <span class="cash-balance-label">账户余额</span>
+              <strong>¥<span data-account-balance>128.00</span></strong>
+            </button>
+            <button class="charge-btn" type="button" data-account-action="recharge">充值</button>
             <button class="user-trigger" type="button" aria-expanded="false">
               <img src="assets/dashboard/avatar.png" alt="用户头像" data-topbar-avatar />
               <span data-topbar-nickname>用户昵称</span>
@@ -158,7 +169,8 @@
 
             <div class="user-menu" aria-label="用户菜单">
               <button type="button" data-page="account"><span class="menu-ico gear"></span>账户设置</button>
-              <button type="button" data-page="orders"><span class="menu-ico order"></span>我的订单</button>
+              <button type="button" data-page="balance"><span class="menu-ico wallet"></span>余额明细</button>
+              <button type="button" data-page="orders"><span class="menu-ico order"></span>订单与发票</button>
               <button type="button" data-page="points"><span class="menu-ico coin"></span>积分明细</button>
               <button type="button" data-page="rights"><span class="menu-ico crown"></span>我的权益</button>
               <button type="button" data-page="invite"><span class="menu-ico invite"></span>邀请码</button>
@@ -2864,32 +2876,133 @@
           </div>
         </dialog>
 
-        <section class="page-view settings-layout" data-page-panel="orders" aria-label="我的订单">
+        <dialog class="account-action-dialog recharge-dialog" data-account-dialog="recharge" data-balance-dialog aria-labelledby="recharge-dialog-title" aria-describedby="recharge-dialog-description">
+          <div class="account-dialog-shell">
+            <header class="account-dialog-head">
+              <span class="account-dialog-icon mint recharge-dialog-icon" aria-hidden="true">¥</span>
+              <div><h2 id="recharge-dialog-title">充值账户余额</h2><p id="recharge-dialog-description">充值金额进入现金账户，不会改变永久积分或临时积分</p></div>
+              <button class="account-dialog-close" type="button" data-dialog-close aria-label="关闭充值弹框"></button>
+            </header>
+            <form class="account-dialog-form recharge-form" data-balance-form>
+              <div class="recharge-current">
+                <span>当前账户余额</span>
+                <strong>¥<span data-account-balance>128.00</span></strong>
+              </div>
+              <fieldset class="recharge-fieldset">
+                <legend>选择充值金额</legend>
+                <div class="recharge-amount-grid">
+                  <label><input type="radio" name="recharge-amount" value="5000" /><span><strong>¥50</strong><small>轻量补充</small></span></label>
+                  <label><input type="radio" name="recharge-amount" value="10000" checked /><span><strong>¥100</strong><small>常用金额</small></span></label>
+                  <label><input type="radio" name="recharge-amount" value="20000" /><span><strong>¥200</strong><small>持续创作</small></span></label>
+                  <label><input type="radio" name="recharge-amount" value="50000" /><span><strong>¥500</strong><small>团队储备</small></span></label>
+                </div>
+              </fieldset>
+              <fieldset class="recharge-fieldset">
+                <legend>支付方式</legend>
+                <div class="recharge-payment-grid">
+                  <label><input type="radio" name="recharge-payment" value="微信支付" checked /><span class="payment-mark wechat" aria-hidden="true">微</span><span><strong>微信支付</strong><small>推荐</small></span></label>
+                  <label><input type="radio" name="recharge-payment" value="支付宝支付" /><span class="payment-mark alipay" aria-hidden="true">支</span><span><strong>支付宝</strong><small>即时到账</small></span></label>
+                </div>
+              </fieldset>
+              <div class="recharge-summary">
+                <span>本次充值</span>
+                <strong data-recharge-summary>¥100.00</strong>
+              </div>
+              <p class="account-form-error" role="alert" data-recharge-error hidden>请选择有效的充值金额。</p>
+              <p class="account-field-note">点击确认即表示同意支付规则。充值成功后，可在余额明细中查看完整流水。</p>
+              <div class="account-dialog-actions"><button class="secondary" type="button" data-dialog-close>取消</button><button class="primary" type="submit">确认充值</button></div>
+            </form>
+          </div>
+        </dialog>
+
+        <section class="page-view settings-layout balance-layout" data-page-panel="balance" aria-label="余额明细">
+          <div class="settings-header balance-page-header">
+            <div>
+              <h1>余额明细</h1>
+              <p>现金账户充值与消费记录，与积分账户分别计算</p>
+            </div>
+            <button type="button" data-account-action="recharge">充值余额</button>
+          </div>
+
+          <section class="balance-summary-grid" aria-label="账户余额概览">
+            <article class="balance-summary-card primary">
+              <span class="balance-summary-icon" aria-hidden="true">¥</span>
+              <div><small>当前账户余额</small><strong>¥<span data-account-balance>128.00</span></strong><p>可用于购买会员、积分包和增值服务</p></div>
+            </article>
+            <article class="balance-summary-card">
+              <small>累计充值</small>
+              <strong>¥<span data-total-recharged>188.00</span></strong>
+              <p>仅统计已支付成功的充值订单</p>
+            </article>
+            <article class="balance-summary-card">
+              <small>累计消费</small>
+              <strong>¥<span data-total-spent>60.00</span></strong>
+              <p>退款将按原支付路径或余额规则退回</p>
+            </article>
+          </section>
+
+          <section class="table-card balance-ledger-card">
+            <header class="balance-ledger-head">
+              <div><span>ACCOUNT LEDGER</span><h2>余额流水</h2></div>
+              <div class="balance-filters" role="group" aria-label="筛选余额流水">
+                <button class="is-active" type="button" data-balance-filter="all">全部</button>
+                <button type="button" data-balance-filter="recharge">充值</button>
+                <button type="button" data-balance-filter="expense">消费</button>
+              </div>
+            </header>
+            <div class="account-table-scroll">
+              <table class="balance-table">
+                <colgroup>
+                  <col class="balance-time" />
+                  <col class="balance-type" />
+                  <col class="balance-description" />
+                  <col class="balance-channel" />
+                  <col class="balance-change" />
+                  <col class="balance-after" />
+                </colgroup>
+                <thead>
+                  <tr><th>时间</th><th>类型</th><th>说明</th><th>支付方式</th><th>金额变化</th><th>余额</th></tr>
+                </thead>
+                <tbody data-balance-transaction-body>
+                  <tr data-balance-transaction="recharge"><td>2026-07-23 09:42:18</td><td><span class="balance-type-tag recharge">充值</span></td><td>账户余额充值</td><td>微信支付</td><td class="balance-change plus">+¥100.00</td><td>¥128.00</td></tr>
+                  <tr data-balance-transaction="expense"><td>2026-07-22 16:28:04</td><td><span class="balance-type-tag expense">消费</span></td><td>购买专业积分包</td><td>账户余额</td><td class="balance-change minus">-¥60.00</td><td>¥28.00</td></tr>
+                  <tr data-balance-transaction="recharge"><td>2026-07-20 11:16:32</td><td><span class="balance-type-tag recharge">充值</span></td><td>账户余额充值</td><td>支付宝支付</td><td class="balance-change plus">+¥88.00</td><td>¥88.00</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="balance-empty" data-balance-empty hidden><strong>暂无对应流水</strong><span>更换筛选条件后再看看</span></div>
+          </section>
+        </section>
+
+        <section class="page-view settings-layout" data-page-panel="orders" aria-label="订单与发票">
           <div class="settings-header">
-            <h1>我的订单</h1>
-            <p>充值与支付记录</p>
+            <h1>订单与发票</h1>
+            <p>充值、支付与发票记录</p>
           </div>
           <div class="table-card order-card">
-            <h2>我的订单</h2>
-            <table class="orders-table">
-              <colgroup>
-                <col class="order-id" />
-                <col class="order-time" />
-                <col class="order-money" />
-                <col class="order-pay" />
-                <col class="order-status" />
-              </colgroup>
-              <thead>
-                <tr><th>订单号</th><th>充值时间</th><th>充值金额</th><th>支付方式</th><th>状态</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>RC2059105662867566603</td><td>2026-05-26 10:53:41</td><td>￥198</td><td>微信支付</td><td class="ok">已完成</td></tr>
-                <tr><td>RC2059096867021291522</td><td>2026-05-26 10:26:41</td><td>￥198</td><td>微信支付</td><td class="fail">失败</td></tr>
-                <tr><td>RC2058919029455101953</td><td>2026-05-25 22:32:05</td><td>￥60</td><td>支付宝支付</td><td class="fail">失败</td></tr>
-                <tr><td>RC2058907745120601346</td><td>2026-05-24 18:20:33</td><td>￥298</td><td>支付宝支付</td><td class="ok">已完成</td></tr>
-                <tr><td>RC2058891134422500194</td><td>2026-05-24 16:05:12</td><td>￥98</td><td>微信支付</td><td class="ok">已完成</td></tr>
-              </tbody>
-            </table>
+            <h2>充值与支付订单</h2>
+            <div class="account-table-scroll">
+              <table class="orders-table">
+                <colgroup>
+                  <col class="order-id" />
+                  <col class="order-time" />
+                  <col class="order-money" />
+                  <col class="order-pay" />
+                  <col class="order-status" />
+                  <col class="order-invoice" />
+                </colgroup>
+                <thead>
+                  <tr><th>订单号</th><th>支付时间</th><th>支付金额</th><th>支付方式</th><th>状态</th><th>发票</th></tr>
+                </thead>
+                <tbody data-order-table-body>
+                  <tr><td>RC2059105662867566603</td><td>2026-05-26 10:53:41</td><td>￥198</td><td>微信支付</td><td class="ok">已完成</td><td><button class="invoice-action" type="button" data-invoice-action="download">下载发票</button></td></tr>
+                  <tr><td>RC2059096867021291522</td><td>2026-05-26 10:26:41</td><td>￥198</td><td>微信支付</td><td class="fail">失败</td><td class="muted">—</td></tr>
+                  <tr><td>RC2058919029455101953</td><td>2026-05-25 22:32:05</td><td>￥60</td><td>支付宝支付</td><td class="fail">失败</td><td class="muted">—</td></tr>
+                  <tr><td>RC2058907745120601346</td><td>2026-05-24 18:20:33</td><td>￥298</td><td>支付宝支付</td><td class="ok">已完成</td><td><button class="invoice-action" type="button" data-invoice-action="apply">申请发票</button></td></tr>
+                  <tr><td>RC2058891134422500194</td><td>2026-05-24 16:05:12</td><td>￥98</td><td>微信支付</td><td class="ok">已完成</td><td><span class="invoice-status">开票中</span></td></tr>
+                </tbody>
+              </table>
+            </div>
             <div class="pager"><span>‹</span><strong>1</strong><span>2</span><span>3</span><span>...</span><span>10</span><span>›</span><em>前往</em><input value="1" /><em>页</em></div>
           </div>
         </section>
@@ -2897,7 +3010,7 @@
         <section class="page-view settings-layout" data-page-panel="points" aria-label="积分明细">
           <div class="settings-header">
             <h1>积分明细</h1>
-            <p>任务消耗与充值变化</p>
+            <p>任务消耗与积分到账变化，不包含现金余额</p>
           </div>
           <div class="table-card points-card">
             <h2>积分明细</h2>
@@ -2916,7 +3029,7 @@
               </thead>
               <tbody>
                 <tr><td>2026-05-26 10:57:33</td><td>AI生成</td><td>86434</td><td>专业生成-主图</td><td>-30</td><td>5,680</td><td><img class="mini-thumb" src="assets/dashboard/work-1.png" alt="" /></td></tr>
-                <tr><td>2026-05-26 10:54:36</td><td>充值</td><td>0</td><td>个人充值</td><td class="plus">+3960</td><td>5,710</td><td>-</td></tr>
+                <tr><td>2026-05-26 10:54:36</td><td>积分到账</td><td>0</td><td>积分包购买</td><td class="plus">+3960</td><td>5,710</td><td>-</td></tr>
                 <tr><td>2026-05-25 22:32:05</td><td>AI生成</td><td>86321</td><td>详情页生成</td><td>-60</td><td>1,760</td><td><img class="mini-thumb" src="assets/dashboard/work-2.png" alt="" /></td></tr>
                 <tr><td>2026-05-20 15:43</td><td>活动奖励</td><td>0</td><td>新用户注册赠送积分</td><td class="plus">+100</td><td>1,800</td><td>-</td></tr>
                 <tr><td>2026-05-18 04:12</td><td>AI生成</td><td>86211</td><td>SKU图生成</td><td>-20</td><td>1,700</td><td><img class="mini-thumb" src="assets/dashboard/work-3.png" alt="" /></td></tr>
@@ -2938,9 +3051,38 @@
                 <span>当前套餐：</span>
                 <strong>专业版</strong>
                 <span>到期时间：2026-06-26 10:54:36</span>
-                <a href="#">余额明细</a>
+                <span class="plan-status">权益生效中</span>
               </div>
             </header>
+
+            <section class="wallet-overview" aria-label="账户资金与积分">
+              <article class="wallet-balance-card">
+                <header>
+                  <div><span>现金账户</span><small>CASH BALANCE</small></div>
+                  <span class="wallet-security-badge">独立结算</span>
+                </header>
+                <div class="wallet-amount"><span>¥</span><strong data-account-balance>128.00</strong></div>
+                <p>充值金额存入现金余额，可用于购买会员、积分包与增值服务；不会与积分混算。</p>
+                <div class="wallet-actions">
+                  <button class="primary" type="button" data-account-action="recharge">立即充值</button>
+                  <button type="button" data-page="balance">余额明细</button>
+                  <button type="button" data-page="balance" data-balance-filter-target="expense">消费记录</button>
+                  <button type="button" data-page="orders" data-order-view="invoices">发票管理</button>
+                </div>
+              </article>
+              <article class="wallet-points-card">
+                <header>
+                  <div><span>积分账户</span><small>POINTS ACCOUNT</small></div>
+                  <span class="wallet-points-badge">非现金余额</span>
+                </header>
+                <div class="wallet-points-values">
+                  <div><small>永久积分</small><strong>3,710</strong><span>长期有效</span></div>
+                  <div><small>临时积分</small><strong>260</strong><span>随套餐有效期</span></div>
+                </div>
+                <p>创作任务优先扣除临时积分，积分不可提现，也不会计入现金账户。</p>
+                <button class="wallet-points-link" type="button" data-page="points">查看积分明细 <span aria-hidden="true">→</span></button>
+              </article>
+            </section>
 
             <div class="membership-tabs" role="tablist" aria-label="套餐类型">
               <button class="is-active" type="button">个人版</button>
@@ -3027,12 +3169,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td><span class="benefit-icon headset"></span>专属客服</td><td class="no">×</td><td class="no">×</td><td class="yes">✓</td><td class="yes active-col">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-                  <tr><td><span class="benefit-icon shield"></span>可以商用</td><td class="no">×</td><td class="no">×</td><td class="yes">✓</td><td class="yes active-col">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-                  <tr><td><span class="benefit-icon drop"></span>去除水印</td><td class="no">×</td><td class="no">×</td><td class="yes">✓</td><td class="yes active-col">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-                  <tr><td><span class="benefit-icon tag"></span>积分包折扣</td><td class="no">×</td><td class="no">×</td><td>9 折</td><td class="active-col">9 折</td><td>9 折</td><td>8 折</td><td>7 折</td></tr>
-                  <tr><td><span class="benefit-icon team"></span>团队协作</td><td class="no">×</td><td class="no">×</td><td class="no">×</td><td class="active-col">2 人</td><td>2 人</td><td>4 人</td><td>4 人</td></tr>
-                  <tr><td><span class="benefit-icon disk"></span>资产空间</td><td>5GB</td><td>30GB</td><td>40GB</td><td class="active-col">50GB</td><td>200GB</td><td>400GB</td><td>800GB</td></tr>
+                  <tr><td>专属客服</td><td class="no">×</td><td class="no">×</td><td class="yes">✓</td><td class="yes active-col">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+                  <tr><td>可以商用</td><td class="no">×</td><td class="no">×</td><td class="yes">✓</td><td class="yes active-col">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+                  <tr><td>去除水印</td><td class="no">×</td><td class="no">×</td><td class="yes">✓</td><td class="yes active-col">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+                  <tr><td>积分包折扣</td><td class="no">×</td><td class="no">×</td><td>9 折</td><td class="active-col">9 折</td><td>9 折</td><td>8 折</td><td>7 折</td></tr>
+                  <tr><td>团队协作</td><td class="no">×</td><td class="no">×</td><td class="no">×</td><td class="active-col">2 人</td><td>2 人</td><td>4 人</td><td>4 人</td></tr>
+                  <tr><td>资产空间</td><td>5GB</td><td>30GB</td><td>40GB</td><td class="active-col">50GB</td><td>200GB</td><td>400GB</td><td>800GB</td></tr>
                 </tbody>
               </table>
               <p class="benefits-note">注：以上权益可能会根据产品迭代进行调整，请以实际开通页面为准。</p>
@@ -3196,7 +3338,7 @@
     <script src="template-catalog.js?v=20260720-real-two"></script>
     <script src="notification-catalog.js?v=20260721-notification-two"></script>
     <script src="team-collaboration.js?v=20260721-team-one"></script>
-    <script src="script.js?v=20260721-task-access-two"></script>
+    <script src="script.js?v=20260723-cash-balance"></script>
     <script src="ai-tools.js?v=20260720-alpha-cleanup"></script>
   </body>
 </html>

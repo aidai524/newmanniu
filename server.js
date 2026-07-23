@@ -31,7 +31,7 @@ function sendJson(response, statusCode, payload) {
 }
 
 function serveStatic(request, response, pathname) {
-  const requestedPath = pathname === "/" ? "/login.html" : pathname;
+  const requestedPath = pathname === "/" ? "/landing.html" : pathname;
   let decodedPath;
   try {
     decodedPath = decodeURIComponent(requestedPath);

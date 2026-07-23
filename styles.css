@@ -4776,24 +4776,7 @@ tbody tr {
 }
 
 .price-card li {
-  position: relative;
-  padding-left: 22px;
-}
-
-.price-card li::before {
-  position: absolute;
-  left: 0;
-  top: 1px;
-  width: 14px;
-  height: 14px;
-  display: grid;
-  place-items: center;
-  border: 1.5px solid #2f7dff;
-  border-radius: 50%;
-  color: #2f7dff;
-  font-size: 10px;
-  line-height: 1;
-  content: "✓";
+  padding-left: 0;
 }
 
 .price-card b {
@@ -4984,16 +4967,6 @@ tbody tr {
 .benefits-table .no {
   color: #ff4343;
   font-weight: 700;
-}
-
-.benefit-icon {
-  width: 15px;
-  height: 15px;
-  display: inline-block;
-  margin-right: 8px;
-  vertical-align: -3px;
-  border: 1.5px solid #667085;
-  border-radius: 4px;
 }
 
 .benefits-note {

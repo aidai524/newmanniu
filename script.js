@@ -380,6 +380,17 @@ const topbarNickname = document.querySelector("[data-topbar-nickname]");
 const accountPhone = document.querySelector("[data-account-phone]");
 const wechatStatus = document.querySelector("[data-wechat-status]");
 const accountToast = document.querySelector("[data-account-toast]");
+const accountBalanceOutputs = [...document.querySelectorAll("[data-account-balance]")];
+const totalRechargedOutputs = [...document.querySelectorAll("[data-total-recharged]")];
+const totalSpentOutputs = [...document.querySelectorAll("[data-total-spent]")];
+const balanceTransactionBody = document.querySelector("[data-balance-transaction-body]");
+const balanceFilterButtons = [...document.querySelectorAll("[data-balance-filter]")];
+const balanceEmpty = document.querySelector("[data-balance-empty]");
+const balanceDialog = document.querySelector("[data-balance-dialog]");
+const balanceForm = document.querySelector("[data-balance-form]");
+const rechargeSummary = document.querySelector("[data-recharge-summary]");
+const rechargeError = document.querySelector("[data-recharge-error]");
+const orderTableBody = document.querySelector("[data-order-table-body]");
 const enterpriseAdminName = document.querySelector("[data-enterprise-admin-name]");
 const enterpriseAdminRowName = document.querySelector("[data-enterprise-admin-row-name]");
 const enterpriseAdminPhone = document.querySelector("[data-enterprise-admin-phone]");
@@ -406,8 +417,8 @@ const memberActionConfirm = document.querySelector("[data-member-action-confirm]
 const avatarInput = document.querySelector("[data-avatar-input]");
 const avatarDialogPreview = document.querySelector("[data-avatar-dialog-preview]");
 const accountTabs = [...document.querySelectorAll(".account-tab")];
-const accountPages = new Set(["account", "orders", "points", "rights", "invite"]);
-const accountSettingsPages = new Set(["account", "orders", "points", "invite"]);
+const accountPages = new Set(["account", "balance", "orders", "points", "rights", "invite"]);
+const accountSettingsPages = new Set(["account", "balance", "orders", "points", "invite"]);
 const pageLabels = {
   home: "工作台",
   video: "视频生成",
@@ -429,7 +440,8 @@ const pageLabels = {
   help: "反馈帮助",
   messages: "消息中心",
   account: "账户设置",
-  orders: "我的订单",
+  balance: "余额明细",
+  orders: "订单与发票",
   points: "积分明细",
   rights: "我的权益",
   invite: "邀请码",
@@ -3080,11 +3092,301 @@ sidebarToggle?.addEventListener("click", () => {
   sidebarToggle.setAttribute("aria-label", isCollapsed ? "展开侧边栏" : "折叠侧边栏");
 });
 
+const cashAccountStorageKey = "manniu.cash-account.v1";
+const cashCurrencyFormatter = new Intl.NumberFormat("zh-CN", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+const defaultCashAccountState = {
+  balanceCents: 12800,
+  totalRechargedCents: 18800,
+  totalSpentCents: 6000,
+  transactions: [
+    {
+      id: "RC20260723094218",
+      type: "recharge",
+      description: "账户余额充值",
+      channel: "微信支付",
+      amountCents: 10000,
+      balanceAfterCents: 12800,
+      occurredAt: "2026-07-23 09:42:18",
+    },
+    {
+      id: "SP20260722162804",
+      type: "expense",
+      description: "购买专业积分包",
+      channel: "账户余额",
+      amountCents: -6000,
+      balanceAfterCents: 2800,
+      occurredAt: "2026-07-22 16:28:04",
+    },
+    {
+      id: "RC20260720111632",
+      type: "recharge",
+      description: "账户余额充值",
+      channel: "支付宝支付",
+      amountCents: 8800,
+      balanceAfterCents: 8800,
+      occurredAt: "2026-07-20 11:16:32",
+    },
+  ],
+};
+let cashAccountFallbackState = JSON.parse(JSON.stringify(defaultCashAccountState));
+let activeBalanceFilter = "all";
+
+function isValidCashTransaction(transaction) {
+  return transaction
+    && ["recharge", "expense"].includes(transaction.type)
+    && typeof transaction.id === "string"
+    && typeof transaction.description === "string"
+    && typeof transaction.channel === "string"
+    && typeof transaction.occurredAt === "string"
+    && Number.isInteger(transaction.amountCents)
+    && Number.isInteger(transaction.balanceAfterCents);
+}
+
+function normalizeCashAccountState(state) {
+  if (!state
+    || !Number.isInteger(state.balanceCents)
+    || !Number.isInteger(state.totalRechargedCents)
+    || !Number.isInteger(state.totalSpentCents)
+    || !Array.isArray(state.transactions)) {
+    return null;
+  }
+  const transactions = state.transactions.filter(isValidCashTransaction).slice(0, 50);
+  if (transactions.length !== state.transactions.length) return null;
+  return {
+    balanceCents: Math.max(0, state.balanceCents),
+    totalRechargedCents: Math.max(0, state.totalRechargedCents),
+    totalSpentCents: Math.max(0, state.totalSpentCents),
+    transactions,
+  };
+}
+
+function readCashAccountState() {
+  try {
+    const storedState = JSON.parse(window.localStorage.getItem(cashAccountStorageKey) || "null");
+    const normalizedState = normalizeCashAccountState(storedState);
+    if (normalizedState) {
+      cashAccountFallbackState = normalizedState;
+      return normalizedState;
+    }
+  } catch (error) {
+    // Fall back to the in-memory account when localStorage is unavailable or malformed.
+  }
+  return cashAccountFallbackState;
+}
+
+function writeCashAccountState(state) {
+  const normalizedState = normalizeCashAccountState(state);
+  if (!normalizedState) return false;
+  cashAccountFallbackState = normalizedState;
+  try {
+    window.localStorage.setItem(cashAccountStorageKey, JSON.stringify(normalizedState));
+  } catch (error) {
+    // Keep the current session functional when storage is unavailable.
+  }
+  return true;
+}
+
+function formatCashCents(cents) {
+  return cashCurrencyFormatter.format(cents / 100);
+}
+
+function formatCashTimestamp(date = new Date()) {
+  const pad = (value) => String(value).padStart(2, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+}
+
+function createCashTransactionRow(transaction) {
+  const row = document.createElement("tr");
+  row.dataset.balanceTransaction = transaction.type;
+
+  const timeCell = document.createElement("td");
+  timeCell.textContent = transaction.occurredAt;
+
+  const typeCell = document.createElement("td");
+  const typeTag = document.createElement("span");
+  typeTag.className = `balance-type-tag ${transaction.type}`;
+  typeTag.textContent = transaction.type === "recharge" ? "充值" : "消费";
+  typeCell.append(typeTag);
+
+  const descriptionCell = document.createElement("td");
+  descriptionCell.textContent = transaction.description;
+
+  const channelCell = document.createElement("td");
+  channelCell.textContent = transaction.channel;
+
+  const changeCell = document.createElement("td");
+  const isRecharge = transaction.amountCents > 0;
+  changeCell.className = `balance-change ${isRecharge ? "plus" : "minus"}`;
+  changeCell.textContent = `${isRecharge ? "+" : "-"}¥${formatCashCents(Math.abs(transaction.amountCents))}`;
+
+  const balanceCell = document.createElement("td");
+  balanceCell.textContent = `¥${formatCashCents(transaction.balanceAfterCents)}`;
+
+  row.append(timeCell, typeCell, descriptionCell, channelCell, changeCell, balanceCell);
+  return row;
+}
+
+function createRechargeOrderRow(transaction) {
+  const row = document.createElement("tr");
+  row.dataset.cashOrder = transaction.id;
+
+  [
+    transaction.id,
+    transaction.occurredAt,
+    `￥${formatCashCents(transaction.amountCents)}`,
+    transaction.channel,
+  ].forEach((value) => {
+    const cell = document.createElement("td");
+    cell.textContent = value;
+    row.append(cell);
+  });
+
+  const statusCell = document.createElement("td");
+  statusCell.className = "ok";
+  statusCell.textContent = "已完成";
+
+  const invoiceCell = document.createElement("td");
+  const invoiceButton = document.createElement("button");
+  invoiceButton.className = "invoice-action";
+  invoiceButton.type = "button";
+  invoiceButton.dataset.invoiceAction = "apply";
+  invoiceButton.textContent = "申请发票";
+  invoiceCell.append(invoiceButton);
+
+  row.append(statusCell, invoiceCell);
+  return row;
+}
+
+function syncRechargeOrders(state) {
+  if (!orderTableBody) return;
+  orderTableBody.querySelectorAll("[data-cash-order]").forEach((row) => row.remove());
+  state.transactions
+    .filter((transaction) => transaction.type === "recharge")
+    .slice(0, 5)
+    .reverse()
+    .forEach((transaction) => {
+      orderTableBody.prepend(createRechargeOrderRow(transaction));
+    });
+}
+
+function setBalanceFilter(filter = "all") {
+  activeBalanceFilter = ["all", "recharge", "expense"].includes(filter) ? filter : "all";
+  balanceFilterButtons.forEach((button) => {
+    const isActive = button.dataset.balanceFilter === activeBalanceFilter;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+
+  let visibleRows = 0;
+  balanceTransactionBody?.querySelectorAll("[data-balance-transaction]").forEach((row) => {
+    const isVisible = activeBalanceFilter === "all" || row.dataset.balanceTransaction === activeBalanceFilter;
+    row.hidden = !isVisible;
+    if (isVisible) visibleRows += 1;
+  });
+  if (balanceEmpty) balanceEmpty.hidden = visibleRows > 0;
+}
+
+function renderCashAccountState(state = readCashAccountState()) {
+  const formattedBalance = formatCashCents(state.balanceCents);
+  accountBalanceOutputs.forEach((output) => {
+    output.textContent = formattedBalance;
+  });
+  totalRechargedOutputs.forEach((output) => {
+    output.textContent = formatCashCents(state.totalRechargedCents);
+  });
+  totalSpentOutputs.forEach((output) => {
+    output.textContent = formatCashCents(state.totalSpentCents);
+  });
+  document.querySelector(".cash-balance")?.setAttribute("aria-label", `账户余额 ${formattedBalance} 元，查看余额明细`);
+
+  if (balanceTransactionBody) {
+    const fragment = document.createDocumentFragment();
+    state.transactions.forEach((transaction) => {
+      fragment.append(createCashTransactionRow(transaction));
+    });
+    balanceTransactionBody.replaceChildren(fragment);
+  }
+  setBalanceFilter(activeBalanceFilter);
+  syncRechargeOrders(state);
+}
+
+function syncRechargeSummary() {
+  const selectedAmount = balanceForm?.querySelector('input[name="recharge-amount"]:checked');
+  const amountCents = Number.parseInt(selectedAmount?.value || "0", 10);
+  if (rechargeSummary) rechargeSummary.textContent = `¥${formatCashCents(Number.isInteger(amountCents) ? amountCents : 0)}`;
+  if (rechargeError) rechargeError.hidden = true;
+}
+
+balanceFilterButtons.forEach((button) => {
+  button.addEventListener("click", () => setBalanceFilter(button.dataset.balanceFilter));
+});
+
+balanceForm?.addEventListener("change", syncRechargeSummary);
+balanceForm?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const selectedAmount = balanceForm.querySelector('input[name="recharge-amount"]:checked');
+  const selectedPayment = balanceForm.querySelector('input[name="recharge-payment"]:checked');
+  const amountCents = Number.parseInt(selectedAmount?.value || "0", 10);
+  if (!Number.isInteger(amountCents) || amountCents <= 0) {
+    if (rechargeError) rechargeError.hidden = false;
+    return;
+  }
+
+  const currentState = readCashAccountState();
+  const nextBalanceCents = currentState.balanceCents + amountCents;
+  const now = new Date();
+  const transaction = {
+    id: `RC${now.getTime()}`,
+    type: "recharge",
+    description: "账户余额充值",
+    channel: selectedPayment?.value || "微信支付",
+    amountCents,
+    balanceAfterCents: nextBalanceCents,
+    occurredAt: formatCashTimestamp(now),
+  };
+  const nextState = {
+    balanceCents: nextBalanceCents,
+    totalRechargedCents: currentState.totalRechargedCents + amountCents,
+    totalSpentCents: currentState.totalSpentCents,
+    transactions: [transaction, ...currentState.transactions].slice(0, 50),
+  };
+
+  writeCashAccountState(nextState);
+  renderCashAccountState(nextState);
+  balanceDialog?.close("recharged");
+  showWorkspaceToast(`充值成功，账户余额已更新为 ¥${formatCashCents(nextBalanceCents)}`);
+});
+
+orderTableBody?.addEventListener("click", (event) => {
+  const button = event.target instanceof Element ? event.target.closest("[data-invoice-action]") : null;
+  if (!(button instanceof HTMLButtonElement)) return;
+  if (button.dataset.invoiceAction === "download") {
+    showWorkspaceToast("发票下载已开始，请留意浏览器下载列表");
+    return;
+  }
+  if (button.dataset.invoiceAction === "apply") {
+    button.dataset.invoiceAction = "pending";
+    button.textContent = "审核中";
+    button.disabled = true;
+    showWorkspaceToast("发票申请已提交，开具完成后会通过短信通知您");
+  }
+});
+
+renderCashAccountState();
+syncRechargeSummary();
+
 pageButtons.forEach((button) => {
   button.addEventListener("click", (event) => {
     if (button instanceof HTMLAnchorElement) event.preventDefault();
     if (button.dataset.page === "quickCreate") syncHomeQuickToWorkbench();
-    if (button.dataset.page) setPage(button.dataset.page);
+    if (button.dataset.page) {
+      setPage(button.dataset.page);
+      if (button.dataset.page === "balance") setBalanceFilter(button.dataset.balanceFilterTarget || "all");
+      if (button.dataset.orderView === "invoices") showWorkspaceToast("已进入订单与发票，可申请或下载发票");
+    }
   });
 });
 
@@ -3177,6 +3479,17 @@ function prepareAccountDialog(action) {
 
   if (action === "phone" || action === "password") {
     dialog.querySelector("form")?.reset();
+  }
+
+  if (action === "recharge") {
+    balanceForm?.reset();
+    const defaultAmount = balanceForm?.querySelector('input[name="recharge-amount"][value="10000"]');
+    const defaultPayment = balanceForm?.querySelector('input[name="recharge-payment"][value="微信支付"]');
+    if (defaultAmount instanceof HTMLInputElement) defaultAmount.checked = true;
+    if (defaultPayment instanceof HTMLInputElement) defaultPayment.checked = true;
+    if (rechargeError) rechargeError.hidden = true;
+    renderCashAccountState();
+    syncRechargeSummary();
   }
 
   if (action === "member-add") {
