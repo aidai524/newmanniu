@@ -5895,11 +5895,14 @@ const frameFileName = document.querySelector("[data-frame-file-name]");
 const frameVideoName = document.querySelector("[data-frame-video-name]");
 const frameVideoInfo = document.querySelector("[data-frame-video-info]");
 const frameStatus = document.querySelector("[data-frame-status]");
+const frameArchiveNote = document.querySelector("[data-frame-archive-note]");
 const frameResultsContainer = document.querySelector("[data-frame-results]");
 let frameFile = null;
 let frameVideoUrl = "";
 let extractedFrames = [];
 let frameBusy = false;
+let frameArchiveBusy = false;
+let frameArchiveProgress = 0;
 
 function formatTime(seconds) {
   const safeSeconds = Math.max(0, Number(seconds) || 0);
@@ -5908,10 +5911,52 @@ function formatTime(seconds) {
   return `${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
 }
 
+function frameArchiveFileName() {
+  const baseName = (frameFile?.name || "manniu-video")
+    .replace(/\.[^.]+$/, "")
+    .replace(/[<>:"/\\|?*\u0000-\u001f]/g, "-")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "") || "manniu-video";
+  const now = new Date();
+  const stamp = [
+    now.getFullYear(),
+    String(now.getMonth() + 1).padStart(2, "0"),
+    String(now.getDate()).padStart(2, "0"),
+    "-",
+    String(now.getHours()).padStart(2, "0"),
+    String(now.getMinutes()).padStart(2, "0"),
+  ].join("");
+  return `${baseName}-frames-${stamp}.zip`;
+}
+
+function syncFrameArchiveControls() {
+  const count = extractedFrames.length;
+  if (frameDownloadAll) {
+    frameDownloadAll.disabled = frameBusy || frameArchiveBusy || count === 0;
+    frameDownloadAll.classList.toggle("is-busy", frameArchiveBusy);
+    frameDownloadAll.setAttribute("aria-busy", String(frameArchiveBusy));
+    frameDownloadAll.textContent = frameArchiveBusy
+      ? `正在打包 ${frameArchiveProgress}%`
+      : count > 0
+        ? `打包下载 ${count} 张`
+        : "打包下载全部";
+  }
+  if (frameArchiveNote) {
+    const format = mimeExtension(extractedFrames[0]?.blob?.type || frameFormat?.value || "image/jpeg").toUpperCase();
+    frameArchiveNote.textContent = frameArchiveBusy
+      ? `正在将 ${count} 张 ${format} 画面写入 ZIP 文件`
+      : count > 0
+        ? `将 ${count} 张 ${format} 画面合并为一个 ZIP 文件`
+        : "提取完成后，将全部画面打包为一个 ZIP 文件";
+  }
+}
+
 function clearExtractedFrames() {
   extractedFrames.forEach((frame) => URL.revokeObjectURL(frame.url));
   extractedFrames = [];
-  if (frameDownloadAll) frameDownloadAll.disabled = true;
+  frameArchiveProgress = 0;
+  syncFrameArchiveControls();
 }
 
 function renderFrameResults() {
@@ -6002,7 +6047,7 @@ async function setFrameFile(files) {
     showWorkspaceToast("请选择浏览器支持的视频文件");
     return;
   }
-  if (frameBusy) return;
+  if (frameBusy || frameArchiveBusy) return;
   clearExtractedFrames();
   if (frameVideoUrl) URL.revokeObjectURL(frameVideoUrl);
   frameFile = file;
@@ -6031,7 +6076,7 @@ async function setFrameFile(files) {
 bindLocalFileDrop(frameDropzone, frameInput, setFrameFile);
 frameReplace?.addEventListener("click", () => frameInput?.click());
 function invalidateFrameResults() {
-  if (!extractedFrames.length || frameBusy) return;
+  if (!extractedFrames.length || frameBusy || frameArchiveBusy) return;
   clearExtractedFrames();
   renderFrameResults();
   if (frameStatus) frameStatus.textContent = "参数已更改，请重新提取";
@@ -6056,7 +6101,7 @@ frameQuality?.addEventListener("input", () => {
 syncFrameQuality();
 
 frameRunButton?.addEventListener("click", async () => {
-  if (!frameVideo || !frameFile || !frameCount || !frameFormat || !frameMaxWidth || !frameQuality || frameBusy) return;
+  if (!frameVideo || !frameFile || !frameCount || !frameFormat || !frameMaxWidth || !frameQuality || frameBusy || frameArchiveBusy) return;
   frameBusy = true;
   frameRunButton.disabled = true;
   frameRunButton.textContent = "正在提取 0%";
@@ -6094,7 +6139,7 @@ frameRunButton?.addEventListener("click", async () => {
       if (frameStatus) frameStatus.textContent = `已读取 ${index + 1} / ${requestedCount} 个画面`;
     }
     renderFrameResults();
-    if (frameDownloadAll) frameDownloadAll.disabled = false;
+    syncFrameArchiveControls();
     if (frameStatus) frameStatus.textContent = `已提取 ${requestedCount} 张画面，可逐张或批量下载`;
     showWorkspaceToast(`已完成 ${requestedCount} 张视频画面提取`);
   } catch (error) {
@@ -6105,10 +6150,43 @@ frameRunButton?.addEventListener("click", async () => {
     frameBusy = false;
     frameRunButton.disabled = false;
     frameRunButton.textContent = "重新提取画面";
+    syncFrameArchiveControls();
   }
 });
 
-frameDownloadAll?.addEventListener("click", () => {
-  extractedFrames.forEach((frame) => triggerBlobDownload(frame.blob, frame.fileName));
-  if (extractedFrames.length) showWorkspaceToast(`已开始下载 ${extractedFrames.length} 张画面`);
+frameDownloadAll?.addEventListener("click", async () => {
+  if (!extractedFrames.length || frameBusy || frameArchiveBusy) return;
+  if (typeof window.ManniuZip?.createZipBlob !== "function") {
+    showWorkspaceToast("ZIP 打包组件加载失败，请刷新页面重试");
+    return;
+  }
+
+  const framesToArchive = extractedFrames.map((frame) => ({ blob: frame.blob, name: frame.fileName }));
+  frameArchiveBusy = true;
+  frameArchiveProgress = 0;
+  if (frameRunButton) frameRunButton.disabled = true;
+  if (frameStatus) frameStatus.textContent = `正在打包 ${framesToArchive.length} 张画面`;
+  syncFrameArchiveControls();
+
+  try {
+    const archive = await window.ManniuZip.createZipBlob(framesToArchive, ({ completed, total }) => {
+      frameArchiveProgress = Math.round((completed / total) * 100);
+      syncFrameArchiveControls();
+    });
+    const archiveName = frameArchiveFileName();
+    triggerBlobDownload(archive, archiveName);
+    if (frameStatus) frameStatus.textContent = `已打包 ${framesToArchive.length} 张画面 · ${formatFileSize(archive.size)}`;
+    showWorkspaceToast(`ZIP 已生成，正在下载 ${archiveName}`);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "画面打包失败，请重试";
+    if (frameStatus) frameStatus.textContent = message;
+    showWorkspaceToast(message);
+  } finally {
+    frameArchiveBusy = false;
+    frameArchiveProgress = 0;
+    if (frameRunButton) frameRunButton.disabled = false;
+    syncFrameArchiveControls();
+  }
 });
+
+syncFrameArchiveControls();

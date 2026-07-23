@@ -8184,6 +8184,50 @@
   opacity: 0.45;
 }
 
+.utility-archive-action {
+  position: relative;
+}
+
+.utility-archive-action.is-busy {
+  pointer-events: none;
+}
+
+.utility-archive-action.is-busy::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 18px;
+  width: 14px;
+  height: 14px;
+  margin-top: -8px;
+  border: 2px solid rgba(47, 116, 109, 0.24);
+  border-top-color: #2f746d;
+  border-radius: 50%;
+  animation: utility-spin 700ms linear infinite;
+}
+
+.utility-batch-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin: -2px 0 0;
+  color: #8b9098;
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.utility-batch-note::before {
+  content: "ZIP";
+  flex: 0 0 auto;
+  padding: 1px 4px;
+  color: #39776f;
+  background: #e8f3f0;
+  border-radius: 4px;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
 .utility-result-actions {
   display: flex;
   align-items: center;

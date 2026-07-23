@@ -2503,7 +2503,8 @@
                 <label class="utility-field"><span>最大宽度</span><select data-frame-max-width aria-label="选择视频帧最大宽度"><option value="1920">1920 px</option><option value="1280" selected>1280 px</option><option value="960">960 px</option><option value="720">720 px</option></select></label>
                 <label class="utility-field utility-range-field"><span>图片质量 <output data-frame-quality-value>90%</output></span><input type="range" min="50" max="100" value="90" step="1" data-frame-quality /></label>
                 <button class="utility-primary-action" type="button" data-frame-run disabled>开始提取画面</button>
-                <button class="utility-secondary-action" type="button" data-frame-download-all disabled>下载全部画面</button>
+                <button class="utility-secondary-action utility-archive-action" type="button" data-frame-download-all disabled>打包下载全部</button>
+                <p class="utility-batch-note" data-frame-archive-note>提取完成后，将全部画面打包为一个 ZIP 文件</p>
                 <p class="utility-privacy-note"><span aria-hidden="true">✓</span> 建议视频大小不超过 200MB</p>
               </aside>
 
@@ -3338,7 +3339,8 @@
     <script src="template-catalog.js?v=20260720-real-two"></script>
     <script src="notification-catalog.js?v=20260721-notification-two"></script>
     <script src="team-collaboration.js?v=20260721-team-one"></script>
-    <script src="script.js?v=20260723-cash-balance"></script>
+    <script src="zip-utils.js?v=20260723-frame-zip"></script>
+    <script src="script.js?v=20260723-frame-zip"></script>
     <script src="ai-tools.js?v=20260720-alpha-cleanup"></script>
   </body>
 </html>
