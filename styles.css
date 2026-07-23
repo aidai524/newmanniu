@@ -203,39 +203,6 @@ h1 {
   text-align: center;
 }
 
-.tabs {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  height: 36px;
-  margin-bottom: 21px;
-  border-bottom: 1px solid #dce2ec;
-}
-
-.tab {
-  position: relative;
-  border: 0;
-  color: #7c8392;
-  font-size: 14px;
-  font-weight: 500;
-  background: transparent;
-}
-
-.tab.is-active {
-  color: var(--blue);
-  font-weight: 600;
-}
-
-.tab.is-active::after {
-  position: absolute;
-  right: 0;
-  bottom: -1px;
-  left: 0;
-  height: 2px;
-  content: "";
-  background: var(--blue);
-}
-
 .form {
   display: grid;
   gap: 14px;
@@ -420,19 +387,6 @@ h1 {
   right: 0;
   bottom: 0;
   box-shadow: -8px -2px 0 -5px #fff;
-}
-
-.form-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: -2px;
-  color: #8a92a2;
-  font-size: 13px;
-}
-
-.agreement.compact {
-  margin: 0;
 }
 
 .back-button {
@@ -5470,39 +5424,6 @@ tbody tr {
   line-height: 1.6;
 }
 
-.login-page .tabs {
-  height: 48px;
-  gap: 4px;
-  margin-bottom: 25px;
-  padding: 4px;
-  border: 1px solid var(--login-line);
-  border-radius: 15px;
-  background: var(--login-soft);
-}
-
-.login-page .tab {
-  border-radius: 11px;
-  color: #656971;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.login-page .tab:hover {
-  color: #303237;
-  background: rgba(255, 255, 255, 0.62);
-}
-
-.login-page .tab.is-active {
-  color: var(--login-ink);
-  font-weight: 700;
-  background: #fcfcfd;
-  box-shadow: 0 7px 18px rgba(25, 28, 34, 0.08), inset 0 1px 0 #fcfcfd;
-}
-
-.login-page .tab.is-active::after {
-  display: none;
-}
-
 .login-page .form {
   gap: 16px;
 }
@@ -5603,13 +5524,11 @@ tbody tr {
   line-height: 1.5;
 }
 
-.login-page .agreement a,
-.login-page .form-row a {
+.login-page .agreement a {
   color: #317a73;
 }
 
-.login-page .agreement a:hover,
-.login-page .form-row a:hover {
+.login-page .agreement a:hover {
   color: #245f59;
 }
 
@@ -5695,12 +5614,6 @@ tbody tr {
   border-color: #c7cacF;
   background: #f8f8fa;
   box-shadow: 0 9px 20px rgba(24, 28, 36, 0.06);
-}
-
-.login-page .form-row {
-  margin-top: -1px;
-  color: #656971;
-  font-size: 11px;
 }
 
 .login-page .back-button {
@@ -5981,10 +5894,6 @@ tbody tr {
     font-size: 26px;
   }
 
-  .login-page .tabs {
-    margin-bottom: 23px;
-  }
-
   .login-page .field {
     height: 47px;
   }
@@ -6046,7 +5955,6 @@ tbody tr {
   line-height: 1.55;
 }
 
-.login-page .tab,
 .login-page .field-label {
   font-size: var(--type-label);
   font-weight: 600;

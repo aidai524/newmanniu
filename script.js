@@ -5,14 +5,6 @@ function setView(viewName) {
   panels.forEach((panel) => {
     panel.classList.toggle("is-active", panel.dataset.panel === viewName);
   });
-
-  viewButtons.forEach((button) => {
-    const isSelected = button.dataset.view === viewName;
-    if (button.classList.contains("tab")) {
-      button.classList.toggle("is-active", isSelected);
-      button.setAttribute("aria-selected", String(isSelected));
-    }
-  });
 }
 
 viewButtons.forEach((button) => {
