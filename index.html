@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>蛮牛系统 - 工作台</title>
     <link rel="stylesheet" href="styles.css?v=20260716-typography" />
-    <link rel="stylesheet" href="designkit-theme.css?v=20260723-cash-balance" />
+    <link rel="stylesheet" href="designkit-theme.css?v=20260723-partner-flows" />
   </head>
   <body class="dashboard-page">
     <div class="app-shell">
@@ -115,6 +115,16 @@
             消息中心
             <span class="badge-dot" data-message-badge>4</span>
           </button>
+          <button class="side-item" type="button" data-page="invite" data-title="推广中心">
+            <span class="sidebar-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5.931 6.936l1.275 4.249m5.607 5.609l4.251 1.275" />
+                <path d="M11.683 12.317l5.759 -5.759" />
+                <path d="M4 5.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0M17 5.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0M17 18.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0M4 15.5a4.5 4.5 0 1 0 9 0a4.5 4.5 0 1 0 -9 0" />
+              </svg>
+            </span>
+            推广中心
+          </button>
           <button class="side-item" type="button" data-title="更多">
             <span class="sidebar-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
@@ -127,11 +137,11 @@
             更多
           </button>
         </nav>
-        <section class="sidebar-invite" aria-label="邀请好友得积分">
-          <h2>邀请好友得积分</h2>
-          <p>最高可得 <strong>1,000</strong> 积分</p>
+        <section class="sidebar-invite" aria-label="推广伙伴计划">
+          <h2>推广伙伴计划</h2>
+          <p>邀请客户，获得推广奖励</p>
           <span class="gift-figure" aria-hidden="true"></span>
-          <button type="button">立即邀请</button>
+          <button type="button" data-page="invite">进入推广中心</button>
         </section>
       </aside>
 
@@ -173,7 +183,7 @@
               <button type="button" data-page="orders"><span class="menu-ico order"></span>订单与发票</button>
               <button type="button" data-page="points"><span class="menu-ico coin"></span>积分明细</button>
               <button type="button" data-page="rights"><span class="menu-ico crown"></span>我的权益</button>
-              <button type="button" data-page="invite"><span class="menu-ico invite"></span>邀请码</button>
+              <button type="button" data-page="invite"><span class="menu-ico invite"></span>推广中心</button>
               <button class="danger" type="button"><span class="menu-ico logout"></span>退出登录</button>
             </div>
           </div>
@@ -2997,8 +3007,8 @@
                 </thead>
                 <tbody data-order-table-body>
                   <tr><td>RC2059105662867566603</td><td>2026-05-26 10:53:41</td><td>￥198</td><td>微信支付</td><td class="ok">已完成</td><td><button class="invoice-action" type="button" data-invoice-action="download">下载发票</button></td></tr>
-                  <tr><td>RC2059096867021291522</td><td>2026-05-26 10:26:41</td><td>￥198</td><td>微信支付</td><td class="fail">失败</td><td class="muted">—</td></tr>
-                  <tr><td>RC2058919029455101953</td><td>2026-05-25 22:32:05</td><td>￥60</td><td>支付宝支付</td><td class="fail">失败</td><td class="muted">—</td></tr>
+                  <tr><td>RC2059096867021291522</td><td>2026-05-26 10:26:41</td><td>￥198</td><td>微信支付</td><td class="fail">失败</td><td class="muted">无</td></tr>
+                  <tr><td>RC2058919029455101953</td><td>2026-05-25 22:32:05</td><td>￥60</td><td>支付宝支付</td><td class="fail">失败</td><td class="muted">无</td></tr>
                   <tr><td>RC2058907745120601346</td><td>2026-05-24 18:20:33</td><td>￥298</td><td>支付宝支付</td><td class="ok">已完成</td><td><button class="invoice-action" type="button" data-invoice-action="apply">申请发票</button></td></tr>
                   <tr><td>RC2058891134422500194</td><td>2026-05-24 16:05:12</td><td>￥98</td><td>微信支付</td><td class="ok">已完成</td><td><span class="invoice-status">开票中</span></td></tr>
                 </tbody>
@@ -3183,63 +3193,277 @@
           </div>
         </section>
 
-        <section class="page-view settings-layout invite-page" data-page-panel="invite" aria-label="邀请码">
-          <div class="settings-header">
-            <h1>邀请码</h1>
-            <p>邀请、兑换与奖励记录</p>
-          </div>
-          <div class="invite-grid">
-            <article class="invite-action-card ticket-card">
-              <span class="invite-illustration ticket" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2.5 2.5 0 0 0 0 5v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2.5 2.5 0 0 0 0-5Z" />
-                  <path d="M13 6v2M13 11v2M13 16v3" />
-                </svg>
-              </span>
-              <div><h2>兑换码</h2><p>使用兑换码领取积分或参与活动</p><button type="button"><span>使用兑换码</span><span class="invite-action-arrow" aria-hidden="true">↗</span></button></div>
-            </article>
-            <article class="invite-action-card gift-card">
-              <span class="invite-illustration gift" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="8" width="18" height="4" rx="1" />
-                  <path d="M12 8v13M5 12v9h14v-9M7.5 8a2.5 2.5 0 1 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 1 1 0 5" />
-                </svg>
-              </span>
-              <div><h2>创建邀请码</h2><p>邀请好友注册，好友使用后您可获得积分奖励</p><button type="button"><span>创建邀请码</span><span class="invite-action-arrow" aria-hidden="true">↗</span></button></div>
-            </article>
-            <article class="invite-action-card user-card">
-              <span class="invite-illustration user" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="9" cy="7" r="4" />
-                  <path d="M3 21v-2a6 6 0 0 1 6-6 6.1 6.1 0 0 1 2.2.4M19 14v6M16 17h6" />
-                </svg>
-              </span>
-              <div><h2>使用邀请码</h2><p>仅限每个创作者24小时内可填，每个账号仅限一次，立得100积分</p><button type="button"><span>使用邀请码</span><span class="invite-action-arrow" aria-hidden="true">↗</span></button></div>
-            </article>
-          </div>
-          <div class="invite-code-card">
-            <div class="invite-code-primary">
-              <h2>我的邀请码</h2>
-              <div class="invite-code-value">
-                <strong>MN123456</strong>
-                <button class="invite-copy" type="button" data-copy-text="MN123456" aria-label="复制邀请码">
+        <section class="page-view settings-layout invite-page partner-page" data-page-panel="invite" aria-label="推广返佣" data-partner-workspace>
+          <header class="settings-header partner-page-header">
+            <div>
+              <h1>推广返佣</h1>
+              <p>分享专属链接，客户付费后按规则获得返佣</p>
+            </div>
+            <span class="partner-example-badge">当前为示例政策</span>
+          </header>
+
+          <section class="partner-hero" aria-labelledby="partner-plan-title">
+            <div class="partner-hero-copy">
+              <span class="partner-plan-label">所有用户可用</span>
+              <h2 id="partner-plan-title">分享专属链接，订单确认后获得返佣</h2>
+              <p>注册后即可创建推广链接。客户通过链接向平台付款，订单确认后返佣进入可结算余额。</p>
+              <div class="partner-hero-actions">
+                <button class="partner-primary-button" type="button" data-partner-tab-target="referral">创建推广链接</button>
+                <button class="partner-secondary-button" type="button" data-partner-tab-target="commissions">查看返佣明细</button>
+              </div>
+              <div class="partner-current-row">
+                <span class="partner-current-status"><b>当前模式</b> 推广返佣</span>
+                <span class="partner-current-note">无需申请，注册即可使用</span>
+              </div>
+            </div>
+            <div class="partner-tier-preview" aria-label="合作方式">
+              <article class="partner-tier-card partner-tier-card-current">
+                <div class="partner-tier-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M8.6 10.5l6.8 -4"/><path d="M8.6 13.5l6.8 4"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="5" r="3"/><circle cx="18" cy="19" r="3"/></svg>
+                </div>
+                <div><span>所有用户可用</span><h3>推广返佣</h3><p>分享专属链接，客户付费后获得返佣</p></div>
+                <small>无需申请，注册后直接开始</small>
+              </article>
+              <a class="partner-tier-card partner-tier-card-advanced partner-tier-card-link" href="#reseller" data-page="reseller" data-title="经销商伙伴" aria-label="进入经销商伙伴页面">
+                <div class="partner-tier-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M6 9a6 6 0 1 0 12 0a6 6 0 1 0 -12 0"/><path d="M12 15l3.4 5.89l1.598 -3.233l3.598 .232l-3.4 -5.889"/><path d="M6.802 12l-3.4 5.89l3.598 -.233l1.598 3.232l3.4 -5.889"/></svg>
+                </div>
+                <div><span>进阶合作</span><h3>经销商伙伴</h3><p>稳定采购时，可申请示例 9 折采购价</p></div>
+                <small>进入经销商合作页面 <b aria-hidden="true">→</b></small>
+              </a>
+            </div>
+          </section>
+
+          <nav class="partner-tabs" role="tablist" aria-label="推广返佣功能">
+            <button class="is-active" id="partner-tab-referral" type="button" role="tab" aria-selected="true" aria-controls="partner-panel-referral" tabindex="0" data-partner-tab="referral">推广返佣</button>
+            <button id="partner-tab-commissions" type="button" role="tab" aria-selected="false" aria-controls="partner-panel-commissions" tabindex="-1" data-partner-tab="commissions">返佣明细</button>
+            <button id="partner-tab-referral-rules" type="button" role="tab" aria-selected="false" aria-controls="partner-panel-referral-rules" tabindex="-1" data-partner-tab="referral-rules">返佣规则</button>
+          </nav>
+
+          <div class="partner-panels">
+            <section class="partner-panel is-active" id="partner-panel-referral" role="tabpanel" aria-labelledby="partner-tab-referral" tabindex="0" data-partner-panel="referral">
+              <div class="partner-section-heading partner-panel-heading">
+                <div><h2>推广返佣</h2><p>客户通过专属链接注册并直接向平台付款，您无需提前采购或转售服务额度。</p></div>
+                <span>注册后直接使用</span>
+              </div>
+              <div class="partner-referral-metrics" aria-label="推广返佣概览">
+                <article><span>累计邀请</span><strong>12</strong><small>完成注册</small></article>
+                <article><span>付费客户</span><strong>5</strong><small>有效付款</small></article>
+                <article><span>待确认返佣</span><strong>¥118.40</strong><small>退款观察期内</small></article>
+                <article><span>可结算返佣</span><strong>¥168.00</strong><small>订单已确认</small></article>
+              </div>
+              <div class="partner-referral-flow"><span>客户打开专属链接</span><b aria-hidden="true">→</b><span>客户向平台付款</span><b aria-hidden="true">→</b><span>平台归因并确认返佣</span></div>
+              <div class="partner-link-builder">
+                <div class="partner-channel-picker">
+                  <span>选择推广渠道</span>
+                  <div role="radiogroup" aria-label="选择推广渠道">
+                    <label><input type="radio" name="partner-channel" value="xiaohongshu" data-referral-channel checked/><span>小红书</span></label>
+                    <label><input type="radio" name="partner-channel" value="douyin" data-referral-channel/><span>抖音</span></label>
+                    <label><input type="radio" name="partner-channel" value="wechat" data-referral-channel/><span>微信公众号</span></label>
+                    <label><input type="radio" name="partner-channel" value="channels" data-referral-channel/><span>视频号</span></label>
+                    <label><input type="radio" name="partner-channel" value="weibo" data-referral-channel/><span>微博</span></label>
+                    <label><input type="radio" name="partner-channel" value="community" data-referral-channel/><span>微信社群</span></label>
+                  </div>
+                </div>
+                <label class="partner-campaign-field">
+                  <span>活动名称</span>
+                  <input type="text" value="七月新品推广" maxlength="30" data-referral-campaign placeholder="例如：七月新品推广"/>
+                </label>
+                <button class="partner-primary-button" type="button" data-referral-generate>生成推广链接</button>
+              </div>
+              <div class="partner-generated-link">
+                <div><span>新生成的专属链接</span><strong data-referral-link-output>https://manniu.com/r/MN123456?channel=xiaohongshu&amp;campaign=july-launch</strong></div>
+                <button class="invite-copy" type="button" data-copy-text="https://manniu.com/r/MN123456?channel=xiaohongshu&amp;campaign=july-launch" data-referral-link-copy aria-label="复制推广链接">
                   <span class="invite-copy-icon" aria-hidden="true"></span><span data-copy-label aria-live="polite">复制</span>
                 </button>
               </div>
+              <div class="partner-link-list" aria-label="现有推广链接">
+                <div class="partner-list-head"><span>渠道与活动</span><span>注册与付费</span><span>操作</span></div>
+                <article><div><b>小红书</b><span>七月新品推广</span></div><div><strong>5</strong><small>注册</small><strong>2</strong><small>付费</small></div><button class="invite-copy" type="button" data-copy-text="https://manniu.com/r/MN123456?channel=xiaohongshu&amp;campaign=july-launch"><span class="invite-copy-icon" aria-hidden="true"></span><span data-copy-label>复制</span></button></article>
+                <article><div><b>微信社群</b><span>老客户转介绍</span></div><div><strong>4</strong><small>注册</small><strong>2</strong><small>付费</small></div><button class="invite-copy" type="button" data-copy-text="https://manniu.com/r/MN123456?channel=community&amp;campaign=customer-referral"><span class="invite-copy-icon" aria-hidden="true"></span><span data-copy-label>复制</span></button></article>
+              </div>
+            </section>
+
+            <section class="partner-panel" id="partner-panel-commissions" role="tabpanel" aria-labelledby="partner-tab-commissions" tabindex="0" data-partner-panel="commissions" hidden>
+              <div class="partner-section-heading partner-panel-heading">
+                <div><h2>返佣明细</h2><p>只统计已归因客户向平台支付的有效订单，不包含您自己的折扣采购订单。</p></div>
+                <span>示例返佣数据</span>
+              </div>
+              <div class="partner-wallet-grid">
+                <article class="partner-wallet-main">
+                  <span>可结算返佣</span><strong>¥168.00</strong><p>退款观察期结束后进入可结算余额，结算方式和税务要求以后端配置为准。</p>
+                  <button class="partner-primary-button" type="button" data-referral-settlement>申请结算</button>
+                </article>
+                <article><span>待确认</span><strong>¥118.40</strong><small>退款观察期内</small></article>
+                <article><span>累计返佣</span><strong>¥286.40</strong><small>含已结算金额</small></article>
+              </div>
+              <div class="partner-table-wrap partner-earnings-table" role="region" aria-label="推广返佣明细表" tabindex="0">
+                <table class="partner-table">
+                  <caption>推广返佣明细</caption>
+                  <thead><tr><th>订单时间</th><th>邀请客户</th><th>推广渠道</th><th>实付基数</th><th>示例比例</th><th>返佣金额</th><th>状态</th></tr></thead>
+                  <tbody>
+                    <tr><td>2026-07-18 14:32</td><td>陈先生</td><td>小红书</td><td>¥498.00</td><td>8%</td><td>¥39.84</td><td><span class="partner-status pending">待确认</span></td></tr>
+                    <tr><td>2026-07-15 09:46</td><td>林女士</td><td>微信社群</td><td>¥1,298.00</td><td>8%</td><td>¥103.84</td><td><span class="partner-status available">可结算</span></td></tr>
+                    <tr><td>2026-07-09 21:18</td><td>周先生</td><td>抖音</td><td>¥298.00</td><td>8%</td><td>¥23.84</td><td><span class="partner-status settled">已结算</span></td></tr>
+                    <tr><td>2026-07-02 11:07</td><td>王女士</td><td>微信公众号</td><td>¥198.00</td><td>0%</td><td>¥0.00</td><td><span class="partner-status void">已退款</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="partner-panel" id="partner-panel-referral-rules" role="tabpanel" aria-labelledby="partner-tab-referral-rules" tabindex="0" data-partner-panel="referral-rules" hidden>
+              <div class="partner-section-heading partner-panel-heading">
+                <div><h2>推广返佣规则</h2><p>以下比例、观察期和结算条件均为演示数据，正式值由后端策略接口返回。</p></div>
+                <span>正式值由后台配置</span>
+              </div>
+              <div class="partner-rules-split">
+                <article class="partner-rules-primary">
+                  <header><span aria-hidden="true">返佣</span><div><small>推广返佣</small><h3>无需申请，注册后直接开始</h3></div></header>
+                  <ol><li>注册后即可创建自己的专属推广链接。</li><li>客户通过链接直接向平台购买产品或服务。</li><li>退款观察期结束后，返佣转为可结算。</li></ol>
+                  <p>推广人不接收客户货款，也不向客户出售积分。</p>
+                </article>
+                <div class="partner-rule-notes partner-rule-notes-inline">
+                  <h3>统计与结算限制</h3>
+                  <div><p><b>有效金额</b>支付成功金额扣除退款、拒付和异常订单后计入统计。</p><p><b>推广归因</b>每位新客户仅绑定一个推广人，不重复计算。</p><p><b>风险控制</b>禁止本人多账号互邀、关联账号循环邀请和虚假交易。</p><p><b>结算条件</b>达到门槛并完成必要税务信息后，才可提交结算申请。</p></div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="page-view settings-layout invite-page partner-page reseller-page" data-page-panel="reseller" aria-label="经销商伙伴" data-partner-workspace>
+          <header class="settings-header partner-page-header reseller-page-header">
+            <button class="partner-page-back" type="button" data-page="invite" data-title="推广返佣">
+              <span aria-hidden="true">←</span>
+              返回推广返佣
+            </button>
+            <div>
+              <h1>经销商伙伴</h1>
+              <p>面向稳定采购与客户交付团队的进阶合作</p>
             </div>
-            <div class="invite-link-block">
-              <span class="invite-link-label">专属邀请链接</span>
-              <div class="invite-link-value">
-                <span title="https://qingyehui.com/register?code=MN123456">https://qingyehui.com/register?code=MN123456</span>
-                <button class="invite-copy" type="button" data-copy-text="https://qingyehui.com/register?code=MN123456" aria-label="复制邀请链接">
-                  <span class="invite-copy-icon" aria-hidden="true"></span><span data-copy-label aria-live="polite">复制</span>
-                </button>
+            <span class="partner-example-badge">当前为示例政策</span>
+          </header>
+
+          <section class="partner-hero partner-reseller-hero" aria-labelledby="reseller-plan-title">
+            <div class="partner-hero-copy">
+              <span class="partner-plan-label">进阶合作</span>
+              <h2 id="reseller-plan-title">稳定采购，申请经销商价格</h2>
+              <p>提交业务场景与预计规模。审核通过后，新采购订单按经销商价格计算。</p>
+              <div class="partner-hero-actions">
+                <button class="partner-primary-button" type="button" data-account-action="partner-apply" data-partner-apply-mode="standard">申请成为经销商</button>
+                <button class="partner-secondary-button" type="button" data-account-action="partner-apply" data-partner-apply-mode="more">其他合作需求</button>
+              </div>
+              <div class="partner-current-row">
+                <span class="partner-current-status"><b>申请状态</b> 尚未申请</span>
+                <span class="partner-current-note">审核通过后开放伙伴采购价</span>
               </div>
             </div>
-            <div class="invite-stats" aria-label="邀请奖励数据">
-              <em><span>已邀请</span><b>12</b><small>人</small></em>
-              <em><span>获得积分</span><b>1,200</b><small>积分</small></em>
-            </div>
+            <aside class="partner-reseller-hero-card" aria-label="适合经销商合作的业务">
+              <span>适合这些业务</span>
+              <h3>持续采购，比单次优惠更重要</h3>
+              <ul>
+                <li><b>团队长期使用</b><small>持续为内部创作采购服务额度</small></li>
+                <li><b>客户项目交付</b><small>为已授权客户稳定制作内容</small></li>
+                <li><b>规模化合作</b><small>需要对公流程、采购记录与专属政策</small></li>
+              </ul>
+            </aside>
+          </section>
+
+          <nav class="partner-tabs" role="tablist" aria-label="经销商伙伴功能">
+            <button class="is-active" id="reseller-tab-procurement" type="button" role="tab" aria-selected="true" aria-controls="reseller-panel-procurement" tabindex="0" data-partner-tab="procurement">申请与采购</button>
+            <button id="reseller-tab-purchases" type="button" role="tab" aria-selected="false" aria-controls="reseller-panel-purchases" tabindex="-1" data-partner-tab="purchases">采购记录</button>
+            <button id="reseller-tab-rules" type="button" role="tab" aria-selected="false" aria-controls="reseller-panel-rules" tabindex="-1" data-partner-tab="reseller-rules">经销商规则</button>
+          </nav>
+
+          <div class="partner-panels">
+            <section class="partner-panel is-active" id="reseller-panel-procurement" role="tabpanel" aria-labelledby="reseller-tab-procurement" tabindex="0" data-partner-panel="procurement">
+              <div class="partner-section-heading partner-panel-heading">
+                <div><h2>申请与采购</h2><p>未通过审核时展示标准价，审核通过后的实际伙伴价由订单接口返回。</p></div>
+                <span>需申请审核</span>
+              </div>
+              <div class="partner-procurement-grid">
+                <article class="partner-progress-card">
+                  <div class="partner-card-heading">
+                    <div><span>申请参考</span><h2>平台会审核哪些信息</h2></div>
+                    <small>进阶能力</small>
+                  </div>
+                  <ul class="partner-eligibility-list">
+                    <li><b>业务场景</b><span>团队长期使用，或持续为客户交付创作项目</span></li>
+                    <li><b>审核资料</b><span>合作身份、主要方向、预计规模与联系方式</span></li>
+                    <li><b>开放权益</b><span>通过审核后使用经销商采购价格</span></li>
+                  </ul>
+                  <p>申请结果不会改变推广返佣账户。两种业务分别核算，不叠加计算。</p>
+                </article>
+
+                <article class="partner-price-card">
+                  <header><div><span>本次采购</span><h3>按当前合作状态计算采购价</h3></div><b>标准价</b></header>
+                  <label class="partner-package-field">
+                    <span>选择服务包</span>
+                    <select data-partner-purchase-plan>
+                      <option value="standard">标准服务额度 ¥1,000</option>
+                      <option value="business">企业服务额度 ¥5,000</option>
+                      <option value="scale">规模服务额度 ¥10,000</option>
+                    </select>
+                  </label>
+                  <dl class="partner-price-summary">
+                    <div><dt>标准价</dt><dd data-partner-standard-price>¥1,000.00</dd></div>
+                    <div><dt>当前折扣</dt><dd>审核后开放</dd></div>
+                    <div class="is-total"><dt>当前应付</dt><dd data-partner-payable-price>¥1,000.00</dd></div>
+                  </dl>
+                  <button class="partner-primary-button" type="button" data-partner-purchase>采购服务额度</button>
+                  <p>额度仅用于本人、团队成员或已授权客户项目，不开放用户间自由转售。</p>
+                </article>
+              </div>
+              <div class="partner-purchase-metrics" aria-label="经销商合作概览">
+                <article><span>当前合作状态</span><strong>未申请</strong><small>提交资料后进入审核</small></article>
+                <article><span>伙伴采购折扣</span><strong>待开放</strong><small>示例政策为 9 折</small></article>
+                <article><span>采购记录</span><strong>独立核算</strong><small>与推广客户订单分开</small></article>
+                <article><span>折扣订单返佣</span><strong>不参与</strong><small>一笔订单一种激励</small></article>
+              </div>
+              <div class="partner-policy-callout"><strong>采购规则</strong><p>折扣采购订单不产生推广返佣，也不能通过自己的推广链接重复归因。</p></div>
+            </section>
+
+            <section class="partner-panel" id="reseller-panel-purchases" role="tabpanel" aria-labelledby="reseller-tab-purchases" tabindex="0" data-partner-panel="purchases" hidden>
+              <div class="partner-section-heading partner-panel-heading">
+                <div><h2>采购记录</h2><p>记录直接向平台采购服务额度的订单，与客户推广订单分开核算。</p></div>
+                <span>示例采购数据</span>
+              </div>
+              <div class="partner-table-wrap" role="region" aria-label="经销商采购记录表" tabindex="0">
+                <table class="partner-table">
+                  <caption>经销商采购记录</caption>
+                  <thead><tr><th>采购时间</th><th>订单编号</th><th>服务包</th><th>标准价</th><th>伙伴价</th><th>节省金额</th><th>状态</th></tr></thead>
+                  <tbody>
+                    <tr><td>2026-07-20 10:18</td><td>CG20260720018</td><td>企业服务额度</td><td>¥5,000.00</td><td>¥4,500.00</td><td>¥500.00</td><td><span class="partner-status available">已到账</span></td></tr>
+                    <tr><td>2026-07-06 16:42</td><td>CG20260706009</td><td>标准服务额度</td><td>¥1,000.00</td><td>¥900.00</td><td>¥100.00</td><td><span class="partner-status available">已到账</span></td></tr>
+                    <tr><td>2026-06-25 09:30</td><td>CG20260625027</td><td>标准服务额度</td><td>¥1,000.00</td><td>¥900.00</td><td>¥100.00</td><td><span class="partner-status void">部分退款 ¥580</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="partner-policy-callout is-neutral"><strong>价格生效方式</strong><p>审核通过后的新订单使用经销商采购价，历史订单不追溯补差。正式金额由后端订单接口返回。</p></div>
+            </section>
+
+            <section class="partner-panel" id="reseller-panel-rules" role="tabpanel" aria-labelledby="reseller-tab-rules" tabindex="0" data-partner-panel="reseller-rules" hidden>
+              <div class="partner-section-heading partner-panel-heading">
+                <div><h2>经销商合作规则</h2><p>以下门槛、折扣与审核条件均为演示政策，正式值由后台合作策略配置。</p></div>
+                <span>正式值由后台配置</span>
+              </div>
+              <div class="partner-rules-split">
+                <article class="partner-rules-primary is-reseller">
+                  <header><span aria-hidden="true">经销</span><div><small>经销商伙伴</small><h3>审核通过后，开放进阶采购价格</h3></div></header>
+                  <ol><li>提交合作身份、业务方向和预计采购规模。</li><li>平台完成资料审核并确认适用的合作政策。</li><li>审核通过后的新订单使用经销商采购价。</li></ol>
+                  <p>平台不开放用户间自由转售或转移积分。</p>
+                </article>
+                <div class="partner-rule-notes partner-rule-notes-inline">
+                  <h3>采购与使用限制</h3>
+                  <div><p><b>适用范围</b>额度用于本人、团队或已授权客户项目。</p><p><b>价格生效</b>只对审核通过后的新采购订单生效。</p><p><b>风险控制</b>禁止倒卖账户、代充套现和异常循环交易。</p><p><b>政策调整</b>折扣、门槛与结算方式均由后台配置。</p></div>
+                </div>
+              </div>
+              <div class="partner-no-stack-callout">
+                <span>核心限制</span>
+                <strong>一笔订单只适用一种激励</strong>
+                <p>经销商折扣采购订单不产生推广返佣，也不能使用本人或关联账号的推广链接重复归因。</p>
+              </div>
+            </section>
           </div>
         </section>
 
@@ -3325,6 +3549,29 @@
           </div>
         </dialog>
 
+        <dialog class="account-action-dialog partner-apply-dialog" data-account-dialog="partner-apply" aria-labelledby="partner-apply-title">
+          <div class="account-dialog-shell">
+            <header class="account-dialog-head">
+              <span class="account-dialog-icon mint" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5.931 6.936l1.275 4.249m5.607 5.609l4.251 1.275"/><path d="M11.683 12.317l5.759 -5.759"/><path d="M4 5.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0M17 5.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0M17 18.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0M4 15.5a4.5 4.5 0 1 0 9 0a4.5 4.5 0 1 0 -9 0"/></svg>
+              </span>
+              <div><h2 id="partner-apply-title" data-partner-apply-title>申请成为经销商</h2><p data-partner-apply-subtitle>提交采购用途与预计规模，后续将由运营人员审核</p></div>
+              <button class="account-dialog-close" type="button" data-dialog-close aria-label="关闭经销商申请弹框"></button>
+            </header>
+            <form class="account-dialog-form" data-account-form="partner-apply">
+              <input type="hidden" name="partner-apply-mode" value="standard" data-partner-apply-mode-input/>
+              <label class="account-field"><span>合作身份</span><select name="partner-type" required><option value="">请选择合作身份</option><option>电商商家</option><option>企业客户</option><option>内容创作者</option><option>设计服务商</option><option>MCN 或代理机构</option></select></label>
+              <label class="account-field"><span>主要合作方向</span><select name="partner-use-case" required><option value="">请选择合作方向</option><option>团队采购与使用</option><option>为客户交付创作项目</option><option>推广与渠道分销</option><option>API 或系统接入</option><option>联合营销与内容合作</option></select></label>
+              <label class="account-field partner-wide-field"><span>组织或品牌名称</span><input name="partner-organization" type="text" maxlength="80" placeholder="请输入公司、团队或品牌名称" required/></label>
+              <label class="account-field"><span>预计月度规模</span><select name="partner-monthly-volume" required><option value="">请选择预计合作规模</option><option>¥5,000 以下</option><option>¥5,000 至 ¥20,000</option><option>¥20,000 至 ¥50,000</option><option>¥50,000 以上</option><option>暂不确定</option></select></label>
+              <label class="account-field"><span>联系方式</span><input name="partner-contact" type="text" maxlength="40" placeholder="手机号或微信号" required/></label>
+              <label class="account-field partner-more-field partner-wide-field" data-partner-more-field hidden><span>合作需求</span><textarea name="partner-needs" maxlength="240" placeholder="例如：团队采购、客户代运营、API 接入或联合营销"></textarea></label>
+              <label class="partner-consent"><input type="checkbox" required/><span data-partner-consent-copy>我已了解当前采购折扣、等级门槛和返佣比例均为示例数据，正式权益以审核结果和上线规则为准。</span></label>
+              <p class="partner-dialog-note">演示环境不会向服务器发送申请信息。</p>
+              <div class="account-dialog-actions"><button class="secondary" type="button" data-dialog-close>暂不申请</button><button class="primary" type="submit" data-partner-apply-submit>提交申请</button></div>
+            </form>
+          </div>
+        </dialog>
         <button class="support-float" type="button" aria-label="联系客服">
           <span aria-hidden="true"></span>
           联系客服
@@ -3340,7 +3587,7 @@
     <script src="notification-catalog.js?v=20260721-notification-two"></script>
     <script src="team-collaboration.js?v=20260721-team-one"></script>
     <script src="zip-utils.js?v=20260723-frame-zip"></script>
-    <script src="script.js?v=20260723-frame-zip"></script>
+    <script src="script.js?v=20260723-partner-flows"></script>
     <script src="ai-tools.js?v=20260720-alpha-cleanup"></script>
   </body>
 </html>

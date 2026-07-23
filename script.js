@@ -417,7 +417,7 @@ const memberActionConfirm = document.querySelector("[data-member-action-confirm]
 const avatarInput = document.querySelector("[data-avatar-input]");
 const avatarDialogPreview = document.querySelector("[data-avatar-dialog-preview]");
 const accountTabs = [...document.querySelectorAll(".account-tab")];
-const accountPages = new Set(["account", "balance", "orders", "points", "rights", "invite"]);
+const accountPages = new Set(["account", "balance", "orders", "points", "rights", "invite", "reseller"]);
 const accountSettingsPages = new Set(["account", "balance", "orders", "points", "invite"]);
 const pageLabels = {
   home: "工作台",
@@ -444,7 +444,8 @@ const pageLabels = {
   orders: "订单与发票",
   points: "积分明细",
   rights: "我的权益",
-  invite: "邀请码",
+  invite: "推广返佣",
+  reseller: "经销商伙伴",
 };
 
 const studioSelects = [...document.querySelectorAll('[data-page-panel="home"] select, [data-page-panel="video"] select, [data-page-panel="quickCreate"] select')]
@@ -603,7 +604,8 @@ function setPage(pageName) {
       const isCreationFlow = targetPage === "home" && ["detail", "quickCreate"].includes(pageName);
       const isVideoFlow = targetPage === "video" && ["videoCreate", "videoAgent"].includes(pageName);
       const isToolFlow = targetPage === "toolbox" && ["backgroundRemove", "backgroundReplace", "imageCleanup", "imageEnhance", "imageCompress", "imageResize", "videoFrames"].includes(pageName);
-      button.classList.toggle("is-active", targetPage === pageName || isAccountSettingsPage || isCreationFlow || isVideoFlow || isToolFlow);
+      const isPartnerFlow = targetPage === "invite" && ["invite", "reseller"].includes(pageName);
+      button.classList.toggle("is-active", targetPage === pageName || isAccountSettingsPage || isCreationFlow || isVideoFlow || isToolFlow || isPartnerFlow);
     }
   });
 
@@ -3463,7 +3465,7 @@ function syncEnterpriseNameState() {
   return availability;
 }
 
-function prepareAccountDialog(action) {
+function prepareAccountDialog(action, trigger = null) {
   const dialog = accountDialogs.find((item) => item.dataset.accountDialog === action);
   if (!dialog) return null;
 
@@ -3500,6 +3502,36 @@ function prepareAccountDialog(action) {
     }
   }
 
+  if (action === "partner-apply") {
+    const form = dialog.querySelector('[data-account-form="partner-apply"]');
+    const mode = trigger?.dataset.partnerApplyMode === "more" ? "more" : "standard";
+    const isMore = mode === "more";
+    form?.reset();
+    dialog.classList.toggle("is-more-mode", isMore);
+    const modeInput = dialog.querySelector("[data-partner-apply-mode-input]");
+    const title = dialog.querySelector("[data-partner-apply-title]");
+    const subtitle = dialog.querySelector("[data-partner-apply-subtitle]");
+    const submit = dialog.querySelector("[data-partner-apply-submit]");
+    const close = dialog.querySelector("[data-dialog-close]");
+    const consentCopy = dialog.querySelector("[data-partner-consent-copy]");
+    if (modeInput) modeInput.value = mode;
+    if (title) title.textContent = isMore ? "提交合作需求" : "申请成为经销商";
+    if (subtitle) subtitle.textContent = isMore
+      ? "请填写合作方向、预计规模与联系方式，我们会安排人员跟进"
+      : "提交采购用途与预计规模，后续将由运营人员审核";
+    if (submit) submit.textContent = isMore ? "提交合作需求" : "提交申请";
+    if (consentCopy) consentCopy.textContent = isMore
+      ? "我已了解提交需求不代表合作确认，具体方案以后续沟通和审核结果为准。"
+      : "我已了解当前采购折扣、等级门槛和返佣比例均为示例数据，正式权益以审核结果和上线规则为准。";
+    close?.setAttribute("aria-label", isMore ? "关闭合作需求弹框" : "关闭经销商申请弹框");
+    dialog.querySelectorAll("[data-partner-more-field]").forEach((field) => {
+      field.hidden = !isMore;
+      field.querySelectorAll("input, select, textarea").forEach((control) => {
+        control.required = isMore;
+      });
+    });
+  }
+
   if (action === "enterprise-name") {
     const availability = syncEnterpriseNameState();
     if (enterpriseNameInput) {
@@ -3526,7 +3558,7 @@ function prepareAccountDialog(action) {
 
 accountActionTriggers.forEach((trigger) => {
   trigger.addEventListener("click", () => {
-    const dialog = prepareAccountDialog(trigger.dataset.accountAction);
+    const dialog = prepareAccountDialog(trigger.dataset.accountAction, trigger);
     if (dialog && !dialog.open) dialog.showModal();
   });
 });
@@ -3882,6 +3914,122 @@ document.addEventListener("click", async (event) => {
     if (label) label.textContent = "复制";
     button.classList.remove("is-copied");
   }, 1600);
+});
+
+const referralPage = document.querySelector('[data-page-panel="invite"]');
+const resellerPage = document.querySelector('[data-page-panel="reseller"]');
+const partnerWorkspaces = [...document.querySelectorAll("[data-partner-workspace]")];
+
+partnerWorkspaces.forEach((workspace) => {
+  const tabs = [...workspace.querySelectorAll("[data-partner-tab]")];
+  const panels = [...workspace.querySelectorAll("[data-partner-panel]")];
+
+  function setWorkspacePanel(panelName, focusTab = false) {
+    const nextTab = tabs.find((tab) => tab.dataset.partnerTab === panelName);
+    const nextPanel = panels.find((panel) => panel.dataset.partnerPanel === panelName);
+    if (!nextTab || !nextPanel) return;
+
+    tabs.forEach((tab) => {
+      const isActive = tab === nextTab;
+      tab.classList.toggle("is-active", isActive);
+      tab.setAttribute("aria-selected", String(isActive));
+      tab.tabIndex = isActive ? 0 : -1;
+    });
+
+    panels.forEach((panel) => {
+      const isActive = panel === nextPanel;
+      panel.classList.toggle("is-active", isActive);
+      panel.hidden = !isActive;
+    });
+
+    if (focusTab) nextTab.focus();
+  }
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => setWorkspacePanel(tab.dataset.partnerTab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      let nextIndex = index;
+      if (event.key === "ArrowLeft") nextIndex = (index - 1 + tabs.length) % tabs.length;
+      if (event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+      if (event.key === "Home") nextIndex = 0;
+      if (event.key === "End") nextIndex = tabs.length - 1;
+      setWorkspacePanel(tabs[nextIndex]?.dataset.partnerTab, true);
+    });
+  });
+
+  workspace.querySelectorAll("[data-partner-tab-target]").forEach((button) => {
+    button.addEventListener("click", () => {
+      setWorkspacePanel(button.dataset.partnerTabTarget, true);
+      workspace.querySelector(".partner-tabs")?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        block: "start",
+      });
+    });
+  });
+});
+
+const referralCampaignInput = referralPage?.querySelector("[data-referral-campaign]");
+const referralLinkOutput = referralPage?.querySelector("[data-referral-link-output]");
+const referralLinkCopy = referralPage?.querySelector("[data-referral-link-copy]");
+
+referralPage?.querySelector("[data-referral-generate]")?.addEventListener("click", () => {
+  const selectedChannel = referralPage.querySelector("[data-referral-channel]:checked")?.value || "general";
+  const campaignName = referralCampaignInput?.value.trim() || "默认推广活动";
+  const nextLink = `https://manniu.com/r/MN123456?channel=${encodeURIComponent(selectedChannel)}&campaign=${encodeURIComponent(campaignName)}`;
+
+  if (referralLinkOutput) {
+    referralLinkOutput.textContent = nextLink;
+    referralLinkOutput.title = nextLink;
+  }
+  if (referralLinkCopy) referralLinkCopy.dataset.copyText = nextLink;
+  showWorkspaceToast("专属推广链接已生成");
+});
+
+const partnerPurchasePlans = {
+  standard: { name: "标准服务额度", price: 1000 },
+  business: { name: "企业服务额度", price: 5000 },
+  scale: { name: "规模服务额度", price: 10000 },
+};
+const partnerPurchasePlan = resellerPage?.querySelector("[data-partner-purchase-plan]");
+const partnerStandardPrice = resellerPage?.querySelector("[data-partner-standard-price]");
+const partnerPayablePrice = resellerPage?.querySelector("[data-partner-payable-price]");
+const partnerCurrency = new Intl.NumberFormat("zh-CN", {
+  style: "currency",
+  currency: "CNY",
+  minimumFractionDigits: 2,
+});
+
+function syncPartnerPurchasePreview() {
+  const plan = partnerPurchasePlans[partnerPurchasePlan?.value] || partnerPurchasePlans.standard;
+  const formattedPrice = partnerCurrency.format(plan.price);
+  if (partnerStandardPrice) partnerStandardPrice.textContent = formattedPrice;
+  if (partnerPayablePrice) partnerPayablePrice.textContent = formattedPrice;
+  return plan;
+}
+
+partnerPurchasePlan?.addEventListener("change", syncPartnerPurchasePreview);
+syncPartnerPurchasePreview();
+resellerPage?.querySelector("[data-partner-purchase]")?.addEventListener("click", () => {
+  const plan = syncPartnerPurchasePreview();
+  showWorkspaceToast(`${plan.name}采购将在接入订单接口后开放`);
+});
+
+document.querySelector('[data-account-form="partner-apply"]')?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const mode = form.querySelector("[data-partner-apply-mode-input]")?.value === "more" ? "more" : "standard";
+  form.closest("dialog")?.close("submitted");
+  document.querySelectorAll(`[data-account-action="partner-apply"][data-partner-apply-mode="${mode}"]`).forEach((button) => {
+    button.textContent = mode === "more" ? "需求已提交" : "申请审核中";
+    button.disabled = true;
+  });
+  showWorkspaceToast(mode === "more" ? "合作需求已保存为演示状态" : "申请已保存为演示状态");
+});
+
+referralPage?.querySelector("[data-referral-settlement]")?.addEventListener("click", () => {
+  showWorkspaceToast("返佣结算将在接入结算接口后开放");
 });
 
 document.addEventListener("click", (event) => {
